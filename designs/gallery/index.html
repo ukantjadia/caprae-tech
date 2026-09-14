@@ -100,7 +100,8 @@
   </div>
 
   <div class="group">
-    <button id="reload">Reload both</button>
+    <button id="archive" aria-pressed="false">Show archived</button>
+    <button id="reload">Reload</button>
   </div>
 </div>
 
@@ -128,10 +129,16 @@
 </div>
 
 <script>
-const OPTIONS = [
-  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'Zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../option-1-institutional/code/index.html' },
-  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: '3D island · Instrument Serif / Geist · amber #B4541F', src: '../option-4-editorial-hybrid/code/index.html' },
+const OPTIONS = [];   // live directions land here as they are built
+
+// Archived. Hidden by default; the toolbar toggle reveals them for reference.
+// Kept runnable so a later direction can be weighed against what came before.
+const ARCHIVED = [
+  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'ARCHIVED · zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../_archive/option-1-institutional/code/index.html' },
+  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: 'ARCHIVED · 3D island · Instrument Serif / Geist · amber #B4541F', src: '../_archive/option-4-editorial-hybrid/code/index.html' },
 ];
+let showArchived = false;
+function active() { return showArchived ? OPTIONS.concat(ARCHIVED) : OPTIONS; }
 
 let vw = 1440, vh = 900, motionOff = false;
 const grid = document.getElementById('grid');
@@ -140,7 +147,11 @@ function url(o) { return o.src + (motionOff ? '?motion=off' : ''); }
 
 function build() {
   grid.innerHTML = '';
-  for (const o of OPTIONS) {
+  if (!active().length) {
+    grid.innerHTML = '<p style="color:#9B9A95;font-size:13px;padding:8px 0">No live directions built yet. Three are specified in <code>designs/direction-*/</code>. Toggle <b>Show archived</b> to see the two earlier options.</p>';
+    return;
+  }
+  for (const o of active()) {
     const card = document.createElement('div');
     card.className = 'opt';
     card.innerHTML = `
@@ -160,8 +171,9 @@ function build() {
 }
 
 function layout() {
-  for (const o of OPTIONS) {
+  for (const o of active()) {
     const frame = document.getElementById('frame-' + o.id);
+    if (!frame) continue;
     const ifr = frame.querySelector('iframe');
     const scale = frame.clientWidth / vw;
     ifr.style.width = vw + 'px';
@@ -178,7 +190,7 @@ grid.addEventListener('click', (e) => {
   const shade = e.target.closest('.shade');
   if (!shade) return;
   const frame = shade.closest('.frame');
-  const o = OPTIONS.find(x => 'frame-' + x.id === frame.id);
+  const o = active().find(x => 'frame-' + x.id === frame.id);
   frame.querySelector('iframe').src = url(o);
   shade.hidden = true;
 });
@@ -190,10 +202,10 @@ const fullTitle = document.getElementById('fullTitle');
 const fullSwitch = document.getElementById('fullSwitch');
 
 function openFull(id) {
-  const o = OPTIONS.find(x => x.id === id);
+  const o = active().find(x => x.id === id);
   fullTitle.textContent = o.name.toUpperCase();
   fullFrame.src = url(o);
-  fullSwitch.innerHTML = OPTIONS.map(x =>
+  fullSwitch.innerHTML = active().map(x =>
     `<button data-sw="${x.id}" aria-pressed="${x.id === id}">${x.name.split(' — ')[0]}</button>`).join('');
   full.classList.add('on');
   document.body.style.overflow = 'hidden';
@@ -224,17 +236,24 @@ document.getElementById('motion').addEventListener('click', (e) => {
   reloadLoaded();
 });
 
+document.getElementById('archive').addEventListener('click', (e) => {
+  showArchived = !showArchived;
+  e.target.setAttribute('aria-pressed', String(showArchived));
+  e.target.textContent = showArchived ? 'Hide archived' : 'Show archived';
+  build();
+});
 document.getElementById('reload').addEventListener('click', reloadLoaded);
 
 function reloadLoaded() {
-  for (const o of OPTIONS) {
+  for (const o of active()) {
     const frame = document.getElementById('frame-' + o.id);
+    if (!frame) continue;
     const ifr = frame.querySelector('iframe');
     if (ifr.src && ifr.src !== 'about:blank') ifr.src = url(o);
   }
   if (full.classList.contains('on')) {
     const cur = fullSwitch.querySelector('[aria-pressed="true"]');
-    if (cur) fullFrame.src = url(OPTIONS.find(x => x.id === cur.dataset.sw));
+    if (cur) fullFrame.src = url(active().find(x => x.id === cur.dataset.sw));
   }
 }
 

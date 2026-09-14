@@ -253,3 +253,43 @@ perspective divisor was an order out, and the poster-hide was a detached
 double-rAF that never fires if the tab is hidden when init runs. It now hides
 after the first actual render inside the loop.
 Reversible: yes, but the original values do not render
+
+---
+
+## D-018. Options 1 and 4 archived, not deleted
+
+Date: 2026-09-14
+Decision: Both earlier builds moved to `designs/_archive/`. The gallery hides
+them behind a "Show archived" toggle and still runs them.
+Why: They are the only calibration available for whatever comes next. Deleting
+them would make the new directions unjudgeable.
+Reversible: yes
+
+---
+
+## D-019. Three new directions chosen under the impeccable protocol
+
+Date: 2026-09-14
+Decision: Direction A "Specimen Sheet" (assigned, index 7), Direction B
+"Tearsheet" (Impeccable's pick, offered not led), Direction C "Event Display"
+(fused challenger, competitive). Recorded in `designs/DIRECTIONS.md`.
+Alternatives: Six catalog challengers, weighed and verdicted. My own seven
+grounded directions.
+Why: The seed script assigned index 7 of my own ranked list, which is the
+anti-rut mechanism: my top-ranked direction is what every run would ship. No
+challenger beat the assignment on both axes, so three declined challengers
+donated discipline instead of clothes: idea-before-caption from Fletcher,
+inline provenance from Jacquard, hairline-only colour from the cloud edge.
+Reversible: yes, re-roll eliminates all three
+
+---
+
+## D-020. Stack confirmed as Astro with React islands
+
+Date: 2026-09-14
+Decision: Astro, React only inside islands that need it, bun, Tailwind-free
+token CSS. Confirmed by the owner via the init interview.
+Why: Owner's choice, asked because the skill requires the stack to be a user
+decision on a greenfield build. Zero JS by default suits three mostly-static
+marketing pages with at most one heavy interactive island each.
+Reversible: expensive once three builds exist
