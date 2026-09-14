@@ -166,3 +166,54 @@ the hero and the work section argue the same thing. Abstract blobs and mesh
 gradients are the default AI-site look and would undercut the entire pitch.
 Rejected the globe because it says "global," which is not the claim.
 Reversible: yes, it is one island component
+
+---
+
+## D-013. No smooth-scroll library
+
+Date: 2026-09-14
+Decision: No Lenis, no Locomotive Scroll. Native scrolling in both options.
+Alternatives: Lenis for the "premium" feel. Locomotive, which is available in
+the installed skill set.
+Why: Smooth scroll overrides the OS scroll the user already knows. On trackpads
+and for older users it reads as lag, not polish. The ICP is 25 to 70 on work
+laptops. The cost is a feel some designers like; the risk is the page feeling
+broken to the person writing the cheque.
+Reversible: yes, one dependency
+
+---
+
+## D-014. Typography and palette per option
+
+Date: 2026-09-14
+Decision:
+Option 1: Newsreader display, Public Sans body, JetBrains Mono labels. Warm
+paper `#FBFAF7`, ink `#141414`, deep moss accent `#2D4A3E`.
+Option 4: Instrument Serif display, Geist Sans body, Geist Mono labels. Cooler
+paper `#F6F5F2`, ink `#101010`, near-black panel `#0B0C0E`, burnt amber accent
+`#B4541F`.
+Alternatives: Inter, Poppins, Montserrat. Navy or violet accent. Dark mode.
+Why: Light mode with deep typographic contrast is the 2026 consensus for
+institutional finance buyers, which is Pole B. Navy is the category default and
+violet is the AI-site default; both would make the page look generated. Moss and
+amber carry the same seriousness without the cliché. Inter now reads as a
+framework default rather than a choice. Every face is OFL and self-hosted, so
+there is no third-party font request on a site selling engineering competence.
+The two palettes are deliberately distinguishable at thumbnail size so the
+gallery comparison is meaningful.
+Reversible: yes
+
+---
+
+## D-015. No gradients, no shadows, no bloom
+
+Date: 2026-09-14
+Decision: Neither option uses a gradient, a box-shadow on a light surface, or
+post-processing in the 3D. Depth comes from hairline rules, a sunk paper tone,
+and one dark panel.
+Alternatives: The usual card shadows and hero gradient.
+Why: Gradient hero plus shadowed cards plus glowing particles is the exact
+signature of a generated page. On a site whose entire claim is engineering
+competence, looking generated refutes the claim. Bloom is also where the frame
+budget dies on integrated graphics.
+Reversible: yes, but it should not be

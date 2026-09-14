@@ -1,0 +1,174 @@
+{
+  "_meta": {
+    "updated": "2026-09-14",
+    "rule": "Every string here traces to a [VERIFIED] fact in project-info/. Anything with \"placeholder\": true renders with a visible marker and must not ship.",
+    "openItems": ["Q7 resolved by D-009", "Q9 relationship length", "Q10 meeting cadence", "Q12 headcount", "Q13 testimonial", "Q22 four product names"]
+  },
+
+  "meta": {
+    "title": "Caprae Engineering",
+    "description": "The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build.",
+    "domain": "TBD, blocked on Q2"
+  },
+
+  "hero": {
+    "eyebrow": "Caprae Capital",
+    "h1": "Engineers who already build for operators.",
+    "sub": "Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.",
+    "cta": { "label": "Book a call", "href": "#contact" },
+    "ctaSecondary": { "label": "See what we have built", "href": "#work" },
+    "trustLine": "Part of Caprae Capital · $110M+ closed 2026 YTD · 8 countries"
+  },
+
+  "wedge": {
+    "h2": "The part a dev shop cannot copy.",
+    "body": "Every agency claims it understands your business. Ours reports into a private equity firm that closes deals with operators, and sits in recurring meetings with them. Our engineers have already survived the founder relationship. You are not paying to teach them what a deal looks like.",
+    "points": [
+      "They know what an operator asks for, which is rarely what they say first.",
+      "They have seen a requirement change three times in a month and shipped anyway.",
+      "They understand diligence pressure and why a close date is a close date.",
+      "They do not need a product manager to translate business intent into a ticket."
+    ]
+  },
+
+  "people": {
+    "h2": "Who they report to.",
+    "sub": "Not a stock advisory board. The people our engineers actually sit with.",
+    "members": [
+      { "name": "Kevin Hong", "role": "Founder and Managing Partner, Caprae Capital", "credential": "Chicago Booth", "detail": "$130M+ closed by members. 400K+ M&A cold calls. Scaled two startups to $31M ARR and $7M revenue.", "linkedin": "https://www.linkedin.com/in/kevinhshong/" },
+      { "name": "Eric Nehrlich", "role": "Chief of Staff, Caprae Capital", "credential": "Google", "detail": "Ten years as engineer and product manager, then six years as Chief of Staff running strategy and operations for Google Search Ads. Executive coach since 2018.", "linkedin": null },
+      { "name": "Felix I. Odigie", "role": "Deal Advisor. Founder and Managing Director, Quoin Advisors", "credential": "Wharton", "detail": "Former search fund operator. Ran his own search fund, operated an SMB, then moved into M&A advisory.", "linkedin": null },
+      { "name": "Hereford Johnson", "role": "Principal Adviser. Founder, Third Equity Partners", "credential": "Kellogg", "detail": "Traditional, self-funded and independent sponsor ETA models. Educator in the search fund community.", "linkedin": null },
+      { "name": "Zackary Beckham", "role": "Partner for Strategic Investments. Founder, ITSco", "credential": "Arizona State", "detail": "12+ years in operations and program management. Runs a Caprae portfolio company.", "linkedin": "https://www.linkedin.com/in/zackarybeckham/" }
+    ]
+  },
+
+  "work": {
+    "h2": "Four products. Live, paid, and open in a new tab.",
+    "sub": "Not case studies. Software strangers use.",
+    "builtByUs": [
+      {
+        "name": "SaaSquatch Leads",
+        "href": "https://www.saasquatchleads.com/",
+        "kicker": "B2B lead generation and enrichment",
+        "body": "Built in-house from zero. Three-week beta drew 1,200+ signups. Public at $20/month.",
+        "stack": ["Flask", "Vite", "React", "TypeScript", "ML pipeline", "AWS"],
+        "metrics": [{ "value": "1,200+", "label": "beta signups in 3 weeks" }, { "value": "$20/mo", "label": "public pricing" }],
+        "placeholder": false
+      },
+      {
+        "name": "Cold Call Killers",
+        "href": "https://coldcallkillers.io/",
+        "kicker": "Full-funnel B2B outbound system",
+        "body": "Human callers, robodialing, number screening, call intelligence, email, LinkedIn and physical mail in one engine. Ships with Dial Sniper and Call Intelligence as standalone tools.",
+        "stack": ["Telephony", "Sentiment analysis", "Data pipeline"],
+        "metrics": [{ "value": "300,000+", "label": "calls across 5 countries" }, { "value": "Jun 2026", "label": "launched" }],
+        "placeholder": false
+      },
+      {
+        "name": "CLOVER",
+        "href": null,
+        "kicker": "Closed-Loop Origination via Exclusive Referrals",
+        "body": "Open-source M&A platform, in beta. Lets searchers reassign deals that are too big, too small or off-thesis, and earn a success fee on what they pass. Origination routing, in the open.",
+        "stack": ["Open source", "Beta"],
+        "metrics": [],
+        "placeholder": false,
+        "note": "Repo URL pending, Q21"
+      },
+      {
+        "name": "Bankers Edge",
+        "href": "https://bankersedgeadvisory.com",
+        "kicker": "Advisory platform",
+        "body": "Client build, live in production.",
+        "stack": [],
+        "metrics": [],
+        "placeholder": false,
+        "note": "Attribution permission pending"
+      },
+      {
+        "name": "Vault",
+        "href": null,
+        "kicker": "Virtual data room",
+        "body": "Document exchange and diligence workflow for deal teams.",
+        "stack": [],
+        "metrics": [],
+        "placeholder": true,
+        "note": "PLACEHOLDER NAME. Real name pending, Q22."
+      },
+      {
+        "name": "Searcher Coach",
+        "href": null,
+        "kicker": "Guided workflow for acquisition entrepreneurs",
+        "body": "Structured support through the search and close process.",
+        "stack": [],
+        "metrics": [],
+        "placeholder": true,
+        "note": "PLACEHOLDER NAME. Heard as 'Sarsis Coach'. Real name pending, Q22."
+      },
+      {
+        "name": "Simba Studio",
+        "href": null,
+        "kicker": "TBD",
+        "body": "Purpose pending.",
+        "stack": [],
+        "metrics": [],
+        "placeholder": true,
+        "note": "Name as heard. Purpose and URL pending, Q22."
+      },
+      {
+        "name": "Signal",
+        "href": null,
+        "kicker": "Data extraction and enrichment tooling",
+        "body": "Scrapers and pipelines feeding the deal and lead engines.",
+        "stack": [],
+        "metrics": [],
+        "placeholder": true,
+        "note": "PLACEHOLDER NAME. Covers 'multiple scrapers' and 'Joe Finders'. Pending, Q22."
+      }
+    ],
+    "portfolio": {
+      "label": "Caprae Capital portfolio",
+      "disclaimer": "Holding company portfolio. Not builds by this team.",
+      "names": ["RetailMeNot", "Caviar", "LTSE", "Veggie Grill", "Kintarra", "SubGen", "Creamistry", "StandDesk", "ITSco", "IV Nutrition"]
+    }
+  },
+
+  "engagement": {
+    "h2": "How it works.",
+    "steps": [
+      { "n": "01", "title": "Call", "body": "Thirty minutes. What you are building, what is in the way." },
+      { "n": "02", "title": "Scope", "body": "A written scope with a number in it, inside a week." },
+      { "n": "03", "title": "Build", "body": "You meet the engineers, not an account manager." }
+    ],
+    "pricingNote": "Project-based. Pricing pending, Q4."
+  },
+
+  "refuse": {
+    "h2": "What we do not take.",
+    "note": "PLACEHOLDER LIST pending Q5.",
+    "placeholder": true,
+    "items": [
+      "Staff augmentation under three months",
+      "Fixed bids on undefined scope",
+      "One-off brochure sites",
+      "Work we cannot staff with people who have shipped it before"
+    ]
+  },
+
+  "firm": {
+    "h2": "The firm behind the team.",
+    "stats": [
+      { "value": "$110M+", "label": "closed, 2026 YTD", "scope": "Caprae Capital" },
+      { "value": "20%+", "label": "MoM growth, 14+ months", "scope": "Caprae Capital" },
+      { "value": "8", "label": "countries serviced", "scope": "Caprae Capital" },
+      { "value": "40+", "label": "searchers supported", "scope": "Caprae Capital" }
+    ],
+    "disclaimer": "Figures are Caprae Capital firm-wide, not engineering-team output."
+  },
+
+  "contact": {
+    "h2": "Talk to the people who would build it.",
+    "cta": { "label": "Book a call", "href": "TBD, Q17" },
+    "fallback": "partners@capraecapital.com"
+  }
+}
