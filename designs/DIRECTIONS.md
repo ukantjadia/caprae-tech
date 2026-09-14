@@ -74,7 +74,7 @@ without leaving the sentence. They act by clicking a specimen through to a live
 product, then booking.
 
 **FIRST VIEWPORT.** Left two thirds: the headline set in the text serif at large
-size, ranged left, three lines maximum, with the eyebrow in small-caps above it
+size, ranged left, three lines maximum, leading the page with nothing above it,
 and the primary action directly beneath, no more than 480px from the top edge.
 Right third: the first specimen plate, SaaSquatch Leads, shown at true scale with
 its tick-marked top edge and two measurements visible. The plate is cropped by
@@ -160,6 +160,17 @@ logo strip, three feature cards, a testimonial, and a footer CTA. Executed at
 full fidelity it would work. It is here because it is always the user's option,
 not because it is recommended. Taking it means naming two or three products this
 should sit alongside so their craft level becomes the bar.
+
+## Amendment, 2026-09-14
+
+The craft floor bans a kicker or eyebrow above a heading outright: "no brief
+earns it back". Direction A's FIRST VIEWPORT originally opened with a small-caps
+eyebrow. Removed. The headline leads with nothing above it.
+
+Two further floor rules bind all three builds and were not in the contracts:
+the accent may never appear as a fill, so primary actions are ink-filled and the
+hue stays on rules and marks; and same-size cards of heading plus text are
+refused as page structure, so specimens are full-width plates, not a grid.
 
 ## Re-roll
 

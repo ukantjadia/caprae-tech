@@ -1,0 +1,246 @@
+/* Direction A — The Specimen Sheet
+ * Contract: designs/DIRECTIONS.md, seed fb60c0c1, assigned index 7.
+ *
+ * One hue, on rules and marks only. Never a fill. Primary actions are ink.
+ * Plates, not cards. No eyebrow above any heading.
+ */
+
+@font-face { font-family: "EB Garamond"; font-display: swap; src: local("EB Garamond"); }
+
+:root {
+  --paper:      #F2EEE4;   /* warm archival stock */
+  --plate:      #FAF8F2;   /* specimen ground, lighter than the sheet */
+  --ink:        #17150F;
+  --ink-soft:   #5A5347;   /* tinted from the ground, never gray */
+  --rule:       #CFC6B2;
+  --rule-hard:  #A79C84;
+  --oxide:      #8A3618;   /* rules, ticks, provenance marks. never a fill */
+
+  --serif: "EB Garamond", "Iowan Old Style", Georgia, serif;
+  --grot:  "Archivo", system-ui, sans-serif;
+
+  --sheet: 1240px;
+  --gut: clamp(20px, 5vw, 64px);
+
+  color-scheme: light;
+  accent-color: var(--oxide);
+  caret-color: var(--oxide);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--rule-hard) var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 19px/1.62 var(--serif);
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Browser surfaces are part of the design. */
+::selection { background: var(--oxide); color: var(--plate); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--rule-hard); border: 3px solid var(--paper); }
+
+:focus-visible { outline: 2px solid var(--oxide); outline-offset: 3px; }
+
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: from-font; }
+
+.sheet { max-width: var(--sheet); margin-inline: auto; padding-inline: var(--gut); }
+
+/* ---------- type ---------- */
+
+h1, h2, h3 { margin: 0; font-weight: 400; letter-spacing: -0.02em; }
+h1 { font-size: clamp(40px, 5.4vw, 74px); line-height: 0.98; }
+h2 { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.08; }
+h3 { font-size: 25px; line-height: 1.2; }
+
+p { margin: 0 0 0.9em; max-width: 68ch; }
+
+/* Labels are tracked uppercase in the grotesque, not synthesized small caps.
+   No OFL serif on the CDN ships true small caps, and a synthesized face is a
+   quality failure, so the contract's small-caps intent is carried here. */
+.label {
+  font: 500 11px/1 var(--grot);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.fig {
+  font-family: var(--grot);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.soft { color: var(--ink-soft); }
+
+/* ---------- provenance ---------- */
+
+.prov {
+  font: 500 0.62em/1 var(--grot);
+  vertical-align: super;
+  color: var(--oxide);
+  font-variant-numeric: tabular-nums lining-nums;
+  margin-inline-start: 2px;
+}
+.sources { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--rule); display: grid; gap: 7px; }
+.sources li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; align-items: baseline; }
+.sources .n { font: 500 11px/1.5 var(--grot); color: var(--oxide); font-variant-numeric: tabular-nums lining-nums; }
+.sources .s { font: 400 14px/1.5 var(--grot); color: var(--ink-soft); }
+.sources ol, .sources ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+
+/* ---------- header ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; z-index: 30;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(6px);
+}
+.masthead .sheet { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 58px; }
+.wordmark { font: 400 21px/1 var(--serif); letter-spacing: -0.01em; text-decoration: none; }
+.wordmark em { font-style: italic; }
+
+/* ---------- actions: ink fill, never the hue ---------- */
+
+.act {
+  display: inline-block;
+  background: var(--ink); color: var(--plate);
+  font: 500 15px/1 var(--grot); letter-spacing: 0.01em;
+  padding: 14px 24px; text-decoration: none;
+  border: 1px solid var(--ink);
+  transition: background 140ms ease, color 140ms ease;
+}
+.act:hover { background: transparent; color: var(--ink); }
+.act--sm { padding: 9px 15px; font-size: 13px; }
+.act[aria-disabled="true"] { background: var(--rule); border-color: var(--rule); color: var(--ink-soft); pointer-events: none; }
+
+.act-text {
+  font: 500 15px/1 var(--grot); text-decoration: none;
+  border-bottom: 1px solid var(--rule-hard); padding-bottom: 4px;
+  transition: border-color 140ms ease;
+}
+.act-text:hover { border-color: var(--oxide); }
+
+/* ---------- hero ---------- */
+
+.hero { padding-block: clamp(28px, 3.6vw, 56px) 0; overflow-x: clip; }
+.hero-grid { display: grid; grid-template-columns: 1.72fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.hero h1 { max-width: 13ch; }
+.hero .stand { font-size: 20px; line-height: 1.5; max-width: 44ch; margin: 20px 0 24px; color: var(--ink-soft); }
+.hero-act { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+
+/* the first plate, cropped by the sheet edge on purpose */
+.hero-plate { margin-inline-end: calc(-1 * (var(--gut) + max(0px, (100vw - var(--sheet)) / 2))); }
+
+/* ---------- specimen plate ---------- */
+
+.plate { background: var(--plate); border: 1px solid var(--rule); padding: 0 26px 26px; position: relative; }
+
+/* tick-marked top edge: measured, not framed */
+.plate::before {
+  content: ""; display: block; height: 13px; margin-inline: -26px;
+  border-bottom: 1px solid var(--rule);
+  background-image: repeating-linear-gradient(to right, var(--oxide) 0 1px, transparent 1px 12px);
+  background-size: 100% 6px; background-repeat: no-repeat; background-position: left bottom;
+  transform-origin: left center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .plate::before { transform: scaleX(0); transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .plate.seen::before { transform: scaleX(1); }
+}
+
+.plate-no { display: block; margin-top: 18px; }
+.plate h3 { margin: 6px 0 2px; }
+.plate .kind { font: 400 15px/1.4 var(--grot); color: var(--ink-soft); margin-bottom: 16px; }
+.plate p { font-size: 17px; }
+
+.measure { display: flex; gap: 34px; flex-wrap: wrap; margin: 20px 0 18px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.measure .v { font-size: 31px; line-height: 1; }
+.measure .l { font: 400 12px/1.4 var(--grot); color: var(--ink-soft); margin-top: 7px; letter-spacing: 0.02em; }
+
+.parts { display: flex; flex-wrap: wrap; gap: 6px; }
+.parts span { font: 400 11.5px/1 var(--grot); color: var(--ink-soft); border: 1px solid var(--rule); padding: 6px 8px; letter-spacing: 0.03em; }
+
+.live { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1 var(--grot); letter-spacing: 0.16em; text-transform: uppercase; color: var(--oxide); }
+.live svg { display: block; }
+
+a.plate { text-decoration: none; display: block; transition: border-color 160ms ease; }
+a.plate:hover { border-color: var(--rule-hard); }
+
+/* ---------- sections ---------- */
+
+section { padding-block: clamp(48px, 6vw, 84px); }
+section + section { border-top: 1px solid var(--rule); }
+/* more space above a heading than below it */
+.head { margin-bottom: 30px; }
+.head p { margin-top: 12px; color: var(--ink-soft); }
+
+/* plates stack full width, two across. never a same-size card grid of copy */
+.plates { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+.plates > *:nth-child(odd) { margin-top: 34px; }
+
+/* ---------- register (people, services) ---------- */
+
+.reg { border-top: 1px solid var(--rule-hard); }
+.reg-row { display: grid; grid-template-columns: 1fr auto; gap: 40px; padding-block: 22px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.reg-row h3 { font-size: 27px; }
+.reg-row .role { font: 500 15px/1.45 var(--grot); margin: 5px 0 5px; }
+.reg-row .det { color: var(--ink-soft); font-size: 17px; margin: 0; max-width: 62ch; }
+.reg-row .at { text-align: right; white-space: nowrap; }
+
+/* ---------- measured strip ---------- */
+
+.strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule-hard); }
+.strip > div { padding: 22px 24px 0 0; border-right: 1px solid var(--rule); }
+.strip > div:last-child { border-right: 0; }
+.strip .v { font-size: clamp(34px, 3.6vw, 50px); line-height: 1; }
+.strip .l { font: 400 13px/1.45 var(--grot); color: var(--ink-soft); margin-top: 10px; }
+
+/* ---------- pending specimens ---------- */
+
+.pending { margin-top: 44px; }
+.pending-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 16px; }
+.blank { border: 1px dashed var(--rule-hard); padding: 18px; background: transparent; }
+.blank h4 { margin: 0 0 5px; font: 400 20px/1.2 var(--serif); }
+.blank p { font: 400 14px/1.45 var(--grot); color: var(--ink-soft); margin: 0; max-width: none; }
+.flag { display: inline-block; font: 500 9.5px/1 var(--grot); letter-spacing: 0.14em; color: var(--oxide); border: 1px solid var(--oxide); padding: 4px 6px; margin-bottom: 10px; }
+
+/* ---------- portfolio ---------- */
+
+.folio { margin-top: 42px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.folio-names { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 12px; }
+.folio-names span { font: 400 17px/1 var(--serif); color: var(--ink-soft); }
+
+/* ---------- close ---------- */
+
+.close h2 { max-width: 15ch; margin-bottom: 26px; }
+footer { border-top: 1px solid var(--rule-hard); padding-block: 24px; }
+footer .sheet { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1000px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-plate { margin-inline-end: 0; max-width: 460px; }
+  .plates { grid-template-columns: 1fr; }
+  .plates > *:nth-child(odd) { margin-top: 0; }
+  .strip { grid-template-columns: 1fr 1fr; }
+  .strip > div:nth-child(2) { border-right: 0; }
+  .pending-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 18px; }
+  .reg-row { grid-template-columns: 1fr; gap: 8px; }
+  .reg-row .at { text-align: left; }
+  .strip { grid-template-columns: 1fr; }
+  .strip > div { border-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 18px; }
+  .pending-grid { grid-template-columns: 1fr; }
+  .measure { gap: 24px; }
+}

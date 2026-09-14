@@ -1,0 +1,59 @@
+---
+// A specimen, not a card. Tick-marked top edge, measurements, provenance
+// resolved inside the plate rather than in a page footer.
+interface Measure { v: string; l: string; prov?: number }
+interface Props {
+  no: string;
+  name: string;
+  kind: string;
+  body: string;
+  href?: string | null;
+  state?: string;
+  measures?: Measure[];
+  parts?: string[];
+  sources?: { n: number; s: string }[];
+}
+const { no, name, kind, body, href = null, state = 'Live', measures = [], parts = [], sources = [] } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag class="plate" {...(href ? { href, target: '_blank', rel: 'noopener' } : {})}>
+  <span class="label plate-no">Specimen {no}</span>
+  <h3>{name}</h3>
+  <p class="kind">{kind}</p>
+  <p>{body}</p>
+
+  {measures.length > 0 && (
+    <div class="measure">
+      {measures.map((m) => (
+        <div>
+          <div class="v fig">{m.v}{m.prov && <sup class="prov">{m.prov}</sup>}</div>
+          <div class="l">{m.l}</div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {parts.length > 0 && <div class="parts">{parts.map((p) => <span>{p}</span>)}</div>}
+
+  <p style="margin:18px 0 0">
+    <span class="live">
+      <svg width="7" height="7" viewBox="0 0 7 7" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="currentColor"/></svg>
+      {state}
+      {href && (
+        <svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true" style="margin-left:2px">
+          <path d="M1 8L8 1M8 1H3M8 1v5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        </svg>
+      )}
+    </span>
+  </p>
+
+  {sources.length > 0 && (
+    <div class="sources">
+      <ul>
+        {sources.map((s) => (
+          <li><span class="n">{s.n}</span><span class="s">{s.s}</span></li>
+        ))}
+      </ul>
+    </div>
+  )}
+</Tag>

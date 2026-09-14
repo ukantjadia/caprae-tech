@@ -9,3 +9,7 @@ dist/
 
 # Cygwin/MSYS crash dumps
 *.stackdump
+
+# bun workspace
+designs/node_modules/
+bun.lock

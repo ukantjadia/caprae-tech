@@ -1,0 +1,5 @@
+{
+  "name": "caprae-designs",
+  "private": true,
+  "workspaces": ["direction-*/code"]
+}

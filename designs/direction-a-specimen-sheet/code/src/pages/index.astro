@@ -1,0 +1,240 @@
+---
+import fs from 'node:fs';
+import Plate from '../components/Plate.astro';
+import '../styles/sheet.css';
+
+// Read outside the Astro root directly, so Vite's fs allow-list is not involved.
+const c = JSON.parse(fs.readFileSync(new URL('../../../../_shared/content.json', import.meta.url), 'utf-8'));
+
+const live = c.work.builtByUs.filter((p: any) => !p.placeholder);
+const pending = c.work.builtByUs.filter((p: any) => p.placeholder);
+
+const services = [
+  { name: 'Dedicated engineers', unit: 'monthly', body: 'A team you retain. They join your standups, not a ticket queue.' },
+  { name: 'Fixed-scope projects', unit: 'per project', body: 'MVP through full platform. A written scope with a number in it.' },
+  { name: 'Fractional CTO', unit: 'monthly', body: 'Senior technical leadership without the hire or the equity.' },
+  { name: 'AI-readiness and automation', unit: 'scoped', body: 'Where the work is data pipelines and workflow, not a model demo.' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caprae Engineering — specimen sheet</title>
+  <meta name="description" content={c.meta.description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('motion') === 'off') document.documentElement.dataset.motion = 'off';
+  </script>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="sheet">
+    <a class="wordmark" href="#top">Caprae <em>Engineering</em></a>
+    <a class="act act--sm" href="#engage">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO. Nothing above the headline. -->
+  <section class="hero">
+    <div class="sheet hero-grid">
+      <div>
+        <h1>Four products. Strangers pay for them.</h1>
+        <p class="stand">
+          Caprae&rsquo;s engineering team builds the software our own searchers, bankers
+          and acquirers use daily. Every claim below is measured and sourced.
+        </p>
+        <div class="hero-act">
+          <a class="act" href="#engage">Book a call</a>
+          <a class="act-text" href="#specimens">Examine the work</a>
+        </div>
+      </div>
+
+      <div class="hero-plate">
+        <Plate
+          no="01"
+          name="SaaSquatch Leads"
+          kind="B2B lead generation and enrichment"
+          body="Built in-house from zero. Public, paid, and open in a new tab."
+          href="https://www.saasquatchleads.com/"
+          measures={[
+            { v: '1,200+', l: 'beta signups in 3 weeks', prov: 1 },
+            { v: '$20', l: 'per month, public', prov: 1 },
+          ]}
+          sources={[{ n: 1, s: 'SaaSquatch launch announcement, June 2026' }]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- POSITION -->
+  <section>
+    <div class="sheet">
+      <div class="head"><h2>{c.wedge.h2}</h2></div>
+      <p style="font-size:21px;max-width:60ch">{c.wedge.body}</p>
+      <ul class="reg" style="list-style:none;margin:34px 0 0;padding:0">
+        {c.wedge.points.map((p: string) => (
+          <li class="reg-row"><p class="det" style="font-size:19px;max-width:70ch">{p}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SPECIMENS -->
+  <section id="specimens">
+    <div class="sheet">
+      <div class="head">
+        <h2>{c.work.h2}</h2>
+        <p>{c.work.sub}</p>
+      </div>
+
+      <div class="plates">
+        {live.map((p: any, i: number) => (
+          <Plate
+            no={String(i + 1).padStart(2, '0')}
+            name={p.name}
+            kind={p.kicker}
+            body={p.body}
+            href={p.href}
+            state={p.name === 'CLOVER' ? 'Beta, open source' : 'Live'}
+            measures={(p.metrics || []).map((m: any) => ({ v: m.value, l: m.label, prov: 1 }))}
+            parts={p.stack || []}
+            sources={p.metrics && p.metrics.length ? [{ n: 1, s: p.name === 'Cold Call Killers' ? 'Cold Call Killers launch release, 1 June 2026' : 'Caprae Capital, published figures' }] : []}
+          />
+        ))}
+      </div>
+
+      <div class="pending">
+        <span class="label">Four further specimens, names unconfirmed</span>
+        <div class="pending-grid">
+          {pending.map((p: any) => (
+            <div class="blank">
+              <span class="flag">PLACEHOLDER</span>
+              <h4>{p.name}</h4>
+              <p>{p.kicker}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="folio">
+        <span class="label">{c.work.portfolio.label}</span>
+        <p class="soft" style="font:400 15px/1.5 var(--grot);margin:8px 0 0">{c.work.portfolio.disclaimer}</p>
+        <div class="folio-names">{c.work.portfolio.names.map((n: string) => <span>{n}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTER OF PEOPLE -->
+  <section>
+    <div class="sheet">
+      <div class="head">
+        <h2>{c.people.h2}</h2>
+        <p>{c.people.sub}</p>
+      </div>
+      <div class="reg">
+        {c.people.members.map((m: any) => (
+          <div class="reg-row">
+            <div>
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              <p class="det">{m.detail}</p>
+              {m.linkedin && (
+                <p style="margin:8px 0 0"><a class="act-text" style="font-size:13px" href={m.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>
+              )}
+            </div>
+            <div class="at"><span class="label" style="color:var(--oxide)">{m.credential}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="engage">
+    <div class="sheet">
+      <div class="head"><h2>Four ways to engage.</h2></div>
+      <div class="reg">
+        {services.map((s) => (
+          <div class="reg-row">
+            <div>
+              <h3>{s.name}</h3>
+              <p class="det">{s.body}</p>
+            </div>
+            <div class="at"><span class="label">{s.unit}</span></div>
+          </div>
+        ))}
+      </div>
+      <p class="soft" style="font:400 15px/1.5 var(--grot);margin-top:20px">
+        Pricing is project-dependent and set in writing before work starts.
+      </p>
+    </div>
+  </section>
+
+  <!-- FIRM MEASUREMENTS -->
+  <section>
+    <div class="sheet">
+      <div class="head"><h2>{c.firm.h2}</h2></div>
+      <div class="strip">
+        {c.firm.stats.map((s: any) => (
+          <div>
+            <div class="v fig">{s.value}<sup class="prov">2</sup></div>
+            <div class="l">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div class="sources" style="margin-top:20px">
+        <ul>
+          <li><span class="n">2</span><span class="s">{c.firm.disclaimer} Published by Caprae Capital, 2026.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="sheet">
+      <h2>{c.contact.h2}</h2>
+      <a class="act" href={`mailto:${c.contact.fallback}`}>Book a call</a>
+      <p class="soft" style="font:400 15px/1.6 var(--grot);margin-top:16px">
+        Or write to <a href={`mailto:${c.contact.fallback}`}>{c.contact.fallback}</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="sheet">
+    <span class="label">Caprae Capital</span>
+    <span class="label">Direction A · Specimen sheet · seed fb60c0c1</span>
+  </div>
+</footer>
+
+<script is:inline>
+  // The one authored moment: a plate's tick edge draws as the plate arrives.
+  // Once per plate, never repeating, and not at all under reduced motion.
+  (function () {
+    var off = document.documentElement.dataset.motion === 'off'
+      || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var plates = document.querySelectorAll('.plate');
+    if (off) { plates.forEach(function (p) { p.classList.add('seen'); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('seen');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    plates.forEach(function (p) { io.observe(p); });
+  })();
+</script>
+
+</body>
+</html>
