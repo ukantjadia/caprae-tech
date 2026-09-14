@@ -1,0 +1,179 @@
+/* Direction B — The Tearsheet
+ * Contract: designs/DIRECTIONS.md, Impeccable's pick, user-pinned.
+ *
+ * One typeface, ranked by weight and size alone. A visible rule grid, not an
+ * implied one. Two rule weights only. One accent, on the single most important
+ * figure per band and nowhere else.
+ */
+
+:root {
+  --stock:     #FCFCFA;
+  --stock-alt: #F4F3EF;
+  --ink:       #101010;
+  --ink-soft:  #5B5A55;
+  --rule:      #D8D6D0;   /* hairline: row separation */
+  --rule-hard: #101010;   /* 2px: section boundary. same ink, never grey */
+  --key:       #B3261E;   /* the one figure that matters in a band */
+
+  --f: "Libre Franklin", system-ui, sans-serif;
+  --m: "Roboto Mono", ui-monospace, monospace;
+
+  --w: 1180px;
+  --gut: clamp(18px, 4vw, 48px);
+  --idx: 132px;           /* the reference column, pinned left */
+
+  color-scheme: light;
+  accent-color: var(--key);
+  caret-color: var(--key);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--ink-soft) var(--stock); scroll-behavior: smooth; }
+
+body {
+  margin: 0; background: var(--stock); color: var(--ink);
+  font: 400 17px/1.58 var(--f);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--key); color: var(--stock); }
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--stock); }
+::-webkit-scrollbar-thumb { background: var(--ink-soft); border: 3px solid var(--stock); }
+:focus-visible { outline: 2px solid var(--key); outline-offset: 2px; }
+a { color: inherit; text-underline-offset: 0.18em; }
+
+.doc { max-width: var(--w); margin-inline: auto; padding-inline: var(--gut); }
+
+/* ---------- one typeface, ranked ---------- */
+
+h1, h2, h3, h4 { margin: 0; font-family: var(--f); }
+h1 { font: 700 clamp(30px, 3.9vw, 52px)/1.04 var(--f); letter-spacing: -0.028em; }
+h2 { font: 700 19px/1.2 var(--f); letter-spacing: -0.005em; }
+h3 { font: 600 16px/1.3 var(--f); }
+p { margin: 0 0 0.75em; max-width: 70ch; }
+
+.ref { font: 500 11px/1 var(--m); letter-spacing: 0.1em; color: var(--ink-soft); }
+.n   { font-family: var(--m); font-variant-numeric: tabular-nums; font-weight: 500; }
+.sm  { font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ---------- masthead: CTA top-right, where the banker's contact goes ------- */
+
+.mast { border-bottom: 2px solid var(--rule-hard); }
+.mast .doc { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-block: 16px 12px; flex-wrap: wrap; }
+.mast .who { font: 700 17px/1 var(--f); letter-spacing: -0.02em; text-decoration: none; }
+.mast .meta { display: flex; gap: 22px; align-items: baseline; flex-wrap: wrap; }
+
+/* the running head: updates as you descend, like a printed document */
+.runner {
+  position: sticky; top: 0; z-index: 30;
+  background: var(--stock); border-bottom: 1px solid var(--rule);
+}
+.runner .doc { display: flex; align-items: center; gap: 16px; height: 38px; }
+.runner .cur { font: 600 12px/1 var(--f); letter-spacing: 0.03em; }
+.runner .sp { flex: 1; }
+/* scroll progress, drawn as a rule rather than a bar */
+.runner::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 2px;
+  width: var(--progress, 0%); background: var(--rule-hard);
+  transition: width 90ms linear;
+}
+
+/* ---------- actions ---------- */
+
+.btn {
+  display: inline-block; background: var(--ink); color: var(--stock);
+  font: 600 14px/1 var(--f); padding: 12px 20px; text-decoration: none;
+  border: 1px solid var(--ink); transition: background 130ms, color 130ms;
+}
+.btn:hover { background: transparent; color: var(--ink); }
+.btn--sm { padding: 8px 13px; font-size: 12.5px; }
+
+/* ---------- the grid is visible, not implied ---------- */
+
+.band { border-bottom: 2px solid var(--rule-hard); }
+.band > .doc { display: grid; grid-template-columns: var(--idx) 1fr; gap: 0; }
+
+.band-ref {
+  padding: 18px 20px 24px 0; border-right: 1px solid var(--rule);
+  position: sticky; top: 38px; align-self: start; height: fit-content;
+}
+.band-ref .no { font: 700 30px/1 var(--m); letter-spacing: -0.04em; display: block; }
+.band-ref .nm { font: 500 11px/1.35 var(--m); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-top: 8px; display: block; }
+.band.on .band-ref .no { color: var(--key); }
+
+.band-body { padding: 18px 0 26px 24px; min-width: 0; }
+
+/* the section rule draws in as the band arrives. the one motion here. */
+.band-body > .rule-top {
+  height: 2px; background: var(--rule-hard); transform: scaleX(0); transform-origin: left;
+  transition: transform 620ms cubic-bezier(.16,1,.3,1); margin-bottom: 16px;
+}
+.band.seen .band-body > .rule-top { transform: scaleX(1); }
+
+/* ---------- tables: everything tabular, figures right ---------- */
+
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+td, th { overflow-wrap: anywhere; }
+th, td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+th { font: 500 10.5px/1 var(--m); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 7px; }
+td.r, th.r { text-align: right; padding-right: 0; }
+td.r { font-family: var(--m); font-variant-numeric: tabular-nums; font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+td a:hover { border-color: var(--key); }
+
+/* one accent per band, on the single figure that matters */
+.key { color: var(--key); font-weight: 700; }
+
+.two { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: start; }
+
+/* ---------- summary band ---------- */
+
+.summary h1 { max-width: 15ch; margin-bottom: 14px; }
+.summary .stand { font-size: 17px; line-height: 1.5; max-width: 48ch; color: var(--ink-soft); margin-bottom: 20px; }
+
+/* ---------- pending + folio ---------- */
+
+.pend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 8px; }
+.pend > div { background: var(--stock); padding: 13px; }
+.pend h4 { font: 600 14px/1.25 var(--f); margin: 0 0 4px; }
+.pend p { font-size: 12px; color: var(--ink-soft); margin: 0; max-width: none; }
+.flag { display: inline-block; font: 500 9px/1 var(--m); letter-spacing: 0.12em; color: var(--key); border: 1px solid var(--key); padding: 3px 4px; margin-bottom: 7px; }
+
+.folio { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 10px; }
+.folio span { font-size: 14px; color: var(--ink-soft); }
+
+footer { padding-block: 20px; }
+footer .doc { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  :root { --idx: 82px; }
+  .two { grid-template-columns: 1fr; gap: 24px; }
+  .pend { grid-template-columns: 1fr 1fr; }
+  .band-ref .no { font-size: 22px; }
+}
+@media (max-width: 700px) {
+  /* a tearsheet's tables are its content; let them wrap rather than scroll */
+  td[style*="nowrap"], td.r { white-space: normal !important; }
+  table { font-size: 14px; }
+  th, td { padding: 8px 8px 8px 0; }
+}
+@media (max-width: 560px) {
+  :root { --idx: 0px; }
+  .band > .doc { grid-template-columns: 1fr; }
+  .band-ref { position: static; border-right: 0; padding: 14px 0 0; display: flex; gap: 10px; align-items: baseline; }
+  .band-ref .nm { margin-top: 0; }
+  .band-body { padding: 12px 0 22px; }
+  .pend { grid-template-columns: 1fr; }
+  th, td { padding-right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .band-body > .rule-top { transform: none; transition: none; }
+}
+[data-motion="off"] .band-body > .rule-top { transform: none !important; transition: none !important; }
+[data-motion="off"] html { scroll-behavior: auto; }

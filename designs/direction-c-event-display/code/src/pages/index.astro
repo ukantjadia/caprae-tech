@@ -1,0 +1,189 @@
+---
+import fs from 'node:fs';
+import '../styles/event.css';
+
+const c = JSON.parse(fs.readFileSync(new URL('../../../../_shared/content.json', import.meta.url), 'utf-8'));
+const live = c.work.builtByUs.filter((p: any) => !p.placeholder);
+const pending = c.work.builtByUs.filter((p: any) => p.placeholder);
+
+// Each product sits at the detector layer it reached.
+const layerOf: Record<string, string> = {
+  'SaaSquatch Leads': 'Origination',
+  'Cold Call Killers': 'Screening',
+  'CLOVER': 'Diligence',
+  'Bankers Edge': 'Close',
+};
+const services = [
+  { n: 'Dedicated engineers', u: 'Monthly' },
+  { n: 'Fixed-scope projects', u: 'Per project' },
+  { n: 'Fractional CTO', u: 'Monthly' },
+  { n: 'AI-readiness and automation', u: 'Scoped' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caprae Engineering — event display</title>
+  <meta name="description" content={c.meta.description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('motion') === 'off') document.documentElement.dataset.motion = 'off';
+  </script>
+</head>
+<body>
+
+<header class="top">
+  <div class="f">
+    <a class="mark" href="#top">Caprae Engineering</a>
+    <a class="btn btn--sm" href="#contact">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="f">
+      <h1>One event. Every track reconstructed.</h1>
+      <p class="lede">
+        Four products out of one engineering team, each shown at the layer it
+        reached. Scroll to move outward through the detector. Hover a track to
+        isolate it.
+      </p>
+      <div class="hero-act">
+        <a class="btn" href="#contact">Book a call</a>
+        <a class="btn-line" href="#stage">Open the display</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE. Scroll moves the camera outward through layers. Selection
+       isolates a track. Neither mode depends on the other. -->
+  <section class="stage" id="stage" style="height:340vh">
+    <div class="stage-in">
+      <div id="display">
+        <div class="readout">
+          <div class="v" id="layer-name">Beamline</div>
+          <div class="r">R = <span id="layer-radius">0.00</span> M</div>
+        </div>
+      </div>
+
+      <div class="tracks">
+        <h2>Reconstructed tracks</h2>
+        <p class="sm" style="margin-bottom:18px">Live, paid, and open in a new tab.</p>
+
+        {live.map((p: any) => (
+          <a
+            class="track"
+            data-track={p.name}
+            data-layer={layerOf[p.name] ?? 'Origination'}
+            href={p.href ?? '#contact'}
+            {...(p.href ? { target: '_blank', rel: 'noopener' } : {})}
+          >
+            <span class="layer">{layerOf[p.name] ?? 'Origination'}</span>
+            <div class="name">{p.name}</div>
+            <p class="kind">{p.kicker}</p>
+            {p.metrics && p.metrics.length > 0 && (
+              <div class="figs">
+                {p.metrics.map((m: any) => (<div><b class="n">{m.value}</b><i>{m.label}</i></div>))}
+              </div>
+            )}
+          </a>
+        ))}
+
+        <div class="track" data-track="unlogged" data-layer="Close" style="opacity:.72">
+          <span class="layer">Unreconstructed</span>
+          <div class="name">Four further tracks</div>
+          <p class="kind">Built, but their names are unconfirmed and are not printed until they are.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="f">
+      <div class="head"><h2>{c.wedge.h2}</h2></div>
+      <p style="font-size:19px;max-width:58ch">{c.wedge.body}</p>
+      <div class="list" style="margin-top:26px">
+        {c.wedge.points.map((p: string) => (<div class="li"><p class="det" style="font-size:17px;max-width:74ch">{p}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="f">
+      <div class="head"><h2>{c.people.h2}</h2><p>{c.people.sub}</p></div>
+      <div class="list">
+        {c.people.members.map((m: any) => (
+          <div class="li">
+            <div>
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              <p class="det">{m.detail}</p>
+              {m.linkedin && <p style="margin:7px 0 0"><a class="btn-line" style="font-size:13px" href={m.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>}
+            </div>
+            <div class="at"><span class="lbl">{m.credential}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="f">
+      <div class="head"><h2>Four ways to engage.</h2></div>
+      <div class="list">
+        {services.map((s) => (<div class="li"><div><h3>{s.n}</h3></div><div class="at"><span class="lbl">{s.u}</span></div></div>))}
+      </div>
+
+      <div style="margin-top:36px">
+        <span class="lbl">Unreconstructed tracks</span>
+        <div class="pend">
+          {pending.map((p: any) => (<div><span class="flag">PLACEHOLDER</span><h4>{p.name}</h4><p>{p.kicker}</p></div>))}
+        </div>
+      </div>
+
+      <div class="folio">
+        <span class="lbl">{c.work.portfolio.label}</span>
+        <p class="sm" style="margin:7px 0 0">{c.work.portfolio.disclaimer}</p>
+        <div class="folio-n">{c.work.portfolio.names.map((n: string) => <span>{n}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="f">
+      <div class="head"><h2>{c.firm.h2}</h2></div>
+      <div class="grid4">
+        {c.firm.stats.map((s: any) => (<div><div class="v">{s.value}</div><div class="l">{s.label}</div></div>))}
+      </div>
+      <p class="sm" style="margin-top:18px">{c.firm.disclaimer}</p>
+    </div>
+  </section>
+
+  <section class="blk" id="contact">
+    <div class="f">
+      <h2 style="max-width:13ch">{c.contact.h2}</h2>
+      <p style="margin:22px 0 0"><a class="btn" href={`mailto:${c.contact.fallback}`}>Book a call</a></p>
+      <p class="sm" style="margin-top:12px">Or <a href={`mailto:${c.contact.fallback}`}>{c.contact.fallback}</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f">
+    <span class="lbl">Caprae Capital</span>
+    <span class="lbl">Direction C · Event display</span>
+  </div>
+</footer>
+
+<script>
+  import '../islands/event.js';
+</script>
+
+</body>
+</html>

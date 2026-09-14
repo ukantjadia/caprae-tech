@@ -1,0 +1,268 @@
+---
+import fs from 'node:fs';
+import '../styles/sheet.css';
+
+const c = JSON.parse(fs.readFileSync(new URL('../../../../_shared/content.json', import.meta.url), 'utf-8'));
+const live = c.work.builtByUs.filter((p: any) => !p.placeholder);
+const pending = c.work.builtByUs.filter((p: any) => p.placeholder);
+
+const bands = [
+  { no: '01', nm: 'Summary' },
+  { no: '02', nm: 'Position' },
+  { no: '03', nm: 'Shipped work' },
+  { no: '04', nm: 'Principals' },
+  { no: '05', nm: 'Engagement' },
+  { no: '06', nm: 'Firm' },
+  { no: '07', nm: 'Contact' },
+];
+const today = '14 SEP 2026';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caprae Engineering — tearsheet</title>
+  <meta name="description" content={c.meta.description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('motion') === 'off') document.documentElement.dataset.motion = 'off';
+  </script>
+</head>
+<body>
+
+<div class="mast">
+  <div class="doc">
+    <div>
+      <a class="who" href="#top">Caprae Engineering</a>
+      <div class="ref" style="margin-top:7px">A DIVISION OF CAPRAE CAPITAL &middot; ENG-TS-01 &middot; {today}</div>
+    </div>
+    <div class="meta">
+      <div>
+        <div class="ref">CONTACT</div>
+        <div class="n" style="font-size:14px;margin-top:5px">{c.contact.fallback}</div>
+      </div>
+      <a class="btn btn--sm" href="#band-07">Book a call</a>
+    </div>
+  </div>
+</div>
+
+<!-- running head: names the section you are in, and carries scroll progress -->
+<div class="runner" id="runner">
+  <div class="doc">
+    <span class="ref">ENG-TS-01</span>
+    <span class="cur" id="cur">Summary</span>
+    <span class="sp"></span>
+    <span class="ref" id="pct">00%</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- 01 SUMMARY -->
+  <section class="band" id="band-01" data-band="01">
+    <div class="doc">
+      <div class="band-ref"><span class="no">01</span><span class="nm">Summary</span></div>
+      <div class="band-body summary">
+        <div class="rule-top"></div>
+        <div class="two">
+          <div>
+            <h1>Engineers who already build for operators.</h1>
+            <p class="stand">{c.hero.sub}</p>
+            <a class="btn" href="#band-07">Book a call</a>
+          </div>
+          <div>
+            <table>
+              <tr><th>Key figures</th><th class="r">&nbsp;</th></tr>
+              <tr><td>Products live and paid</td><td class="r key">4</td></tr>
+              <tr><td>Engineers, reported</td><td class="r">20+</td></tr>
+              <tr><td>Service lines</td><td class="r">4</td></tr>
+              <tr><td>SaaSquatch beta signups, 3 weeks</td><td class="r">1,200+</td></tr>
+              <tr><td>Outbound calls behind Cold Call Killers</td><td class="r">300,000+</td></tr>
+              <tr><td>Open-source platforms</td><td class="r">1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 POSITION -->
+  <section class="band" id="band-02" data-band="02">
+    <div class="doc">
+      <div class="band-ref"><span class="no">02</span><span class="nm">Position</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <div class="two">
+          <div><h2 style="margin-bottom:10px">{c.wedge.h2}</h2><p>{c.wedge.body}</p></div>
+          <div>
+            <table>
+              <tr><th>What that buys</th></tr>
+              {c.wedge.points.map((p: string) => (<tr><td>{p}</td></tr>))}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 SHIPPED WORK -->
+  <section class="band" id="band-03" data-band="03">
+    <div class="doc">
+      <div class="band-ref"><span class="no">03</span><span class="nm">Shipped work</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <h2 style="margin-bottom:12px">Live, paid, and open in a new tab.</h2>
+        <table>
+          <tr><th>Product</th><th>Description</th><th class="r">Status</th><th class="r">Evidence</th></tr>
+          {live.map((p: any, i: number) => (
+            <tr>
+              <td style="font-weight:600;white-space:nowrap">
+                {p.href ? <a href={p.href} target="_blank" rel="noopener">{p.name} &#8599;</a> : p.name}
+              </td>
+              <td class="sm" style="max-width:42ch">{p.kicker}</td>
+              <td class="r sm">{p.name === 'CLOVER' ? 'Beta, OSS' : 'Live'}</td>
+              <td class={'r' + (i === 0 ? ' key' : '')}>{p.metrics && p.metrics[0] ? p.metrics[0].value : '—'}</td>
+            </tr>
+          ))}
+        </table>
+
+        <div class="ref" style="margin-top:22px">UNCONFIRMED, NOT FOR PUBLICATION</div>
+        <div class="pend">
+          {pending.map((p: any) => (
+            <div><span class="flag">PLACEHOLDER</span><h4>{p.name}</h4><p>{p.kicker}</p></div>
+          ))}
+        </div>
+
+        <div class="ref" style="margin-top:24px">{c.work.portfolio.label.toUpperCase()}</div>
+        <p class="sm" style="margin:6px 0 0">{c.work.portfolio.disclaimer}</p>
+        <div class="folio">{c.work.portfolio.names.map((n: string) => <span>{n}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PRINCIPALS -->
+  <section class="band" id="band-04" data-band="04">
+    <div class="doc">
+      <div class="band-ref"><span class="no">04</span><span class="nm">Principals</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <h2 style="margin-bottom:12px">{c.people.h2}</h2>
+        <table>
+          <tr><th>Name</th><th>Role</th><th class="r">Institution</th></tr>
+          {c.people.members.map((m: any) => (
+            <tr>
+              <td style="font-weight:600;white-space:nowrap">
+                {m.linkedin ? <a href={m.linkedin} target="_blank" rel="noopener">{m.name}</a> : m.name}
+              </td>
+              <td class="sm" style="max-width:52ch">{m.role}<br /><span style="opacity:.85">{m.detail}</span></td>
+              <td class="r sm" style="white-space:nowrap">{m.credential}</td>
+            </tr>
+          ))}
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 ENGAGEMENT -->
+  <section class="band" id="band-05" data-band="05">
+    <div class="doc">
+      <div class="band-ref"><span class="no">05</span><span class="nm">Engagement</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <table>
+          <tr><th>Line</th><th>Basis</th><th class="r">Term</th></tr>
+          <tr><td style="font-weight:600">Dedicated engineers</td><td class="sm">A team you retain, in your standups</td><td class="r">Monthly</td></tr>
+          <tr><td style="font-weight:600">Fixed-scope projects</td><td class="sm">MVP through full platform</td><td class="r">Per project</td></tr>
+          <tr><td style="font-weight:600">Fractional CTO</td><td class="sm">Technical leadership without the hire</td><td class="r">Monthly</td></tr>
+          <tr><td style="font-weight:600">AI-readiness and automation</td><td class="sm">Pipelines and workflow, not model demos</td><td class="r">Scoped</td></tr>
+        </table>
+        <p class="sm" style="margin-top:14px">Scope and price are set in writing before work starts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 FIRM -->
+  <section class="band" id="band-06" data-band="06">
+    <div class="doc">
+      <div class="band-ref"><span class="no">06</span><span class="nm">Firm</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <table>
+          <tr><th>Metric</th><th class="r">Value</th></tr>
+          {c.firm.stats.map((s: any, i: number) => (
+            <tr><td>{s.label}</td><td class={'r' + (i === 0 ? ' key' : '')}>{s.value}</td></tr>
+          ))}
+        </table>
+        <p class="sm" style="margin-top:12px">{c.firm.disclaimer}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 CONTACT -->
+  <section class="band" id="band-07" data-band="07">
+    <div class="doc">
+      <div class="band-ref"><span class="no">07</span><span class="nm">Contact</span></div>
+      <div class="band-body">
+        <div class="rule-top"></div>
+        <h2 style="margin-bottom:14px">{c.contact.h2}</h2>
+        <a class="btn" href={`mailto:${c.contact.fallback}`}>Book a call</a>
+        <p class="sm" style="margin-top:12px">{c.contact.fallback}</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="doc">
+    <span class="ref">CAPRAE CAPITAL &middot; ENG-TS-01</span>
+    <span class="ref">DIRECTION B &middot; TEARSHEET</span>
+  </div>
+</footer>
+
+<script is:inline>
+(function () {
+  var bands = [].slice.call(document.querySelectorAll('.band'));
+  var cur = document.getElementById('cur');
+  var pct = document.getElementById('pct');
+  var runner = document.getElementById('runner');
+  var off = document.documentElement.dataset.motion === 'off'
+    || matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (off) { bands.forEach(function (b) { b.classList.add('seen'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    bands.forEach(function (b) { io.observe(b); });
+  }
+
+  // Running head and progress rule. Both are pure functions of scroll
+  // position, so reverse is free and nothing re-fires.
+  var queued = false;
+  function read() {
+    queued = false;
+    var max = document.documentElement.scrollHeight - innerHeight;
+    var p = max <= 0 ? 0 : Math.min(1, Math.max(0, scrollY / max));
+    runner.style.setProperty('--progress', (p * 100).toFixed(1) + '%');
+    pct.textContent = String(Math.round(p * 100)).padStart(2, '0') + '%';
+
+    var active = bands[0];
+    for (var i = 0; i < bands.length; i++) {
+      if (bands[i].getBoundingClientRect().top <= 80) active = bands[i];
+    }
+    bands.forEach(function (b) { b.classList.toggle('on', b === active); });
+    var nm = active.querySelector('.nm');
+    if (nm && cur.textContent !== nm.textContent) cur.textContent = nm.textContent;
+  }
+  addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(read); } }, { passive: true });
+  addEventListener('resize', read);
+  read();
+})();
+</script>
+
+</body>
+</html>

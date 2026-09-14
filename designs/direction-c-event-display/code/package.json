@@ -1,0 +1,7 @@
+{
+  "name": "direction-c-event-display",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "astro dev", "build": "astro build" },
+  "dependencies": { "astro": "^5.6.1", "three": "^0.169.0" }
+}

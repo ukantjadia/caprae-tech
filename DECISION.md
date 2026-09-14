@@ -341,3 +341,19 @@ The skill's semantics are what matter and they are preserved: progress is a pure
 function of scroll, damped toward target, reverse-safe. Dropping the dependency
 is also the smaller diff.
 Reversible: yes, if the install is ever fixed
+
+---
+
+## D-024. Directions B and C built; C has one open defect
+
+Date: 2026-09-14
+Decision: Ship B and C into the gallery alongside D. C's layer readout is
+recorded as a known defect rather than hidden.
+Why: B and D are verified. C builds, lays out correctly at 400 and 1440, has no
+horizontal overflow, and its track list carries every fact as plain HTML. Its
+scroll-driven layer readout does not update, and after several attempts the root
+cause is not found. On the standalone page `scrollY` changes while no scroll
+event dispatches to window, and replacing the scroll listener with a
+requestAnimationFrame poll did not fix it either. Calling C finished would be
+false; hiding it would waste the direction.
+Reversible: yes, the defect is in one file

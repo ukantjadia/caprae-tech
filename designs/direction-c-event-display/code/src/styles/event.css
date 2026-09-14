@@ -1,0 +1,183 @@
+/* Direction C — The Event Display
+ * Contract: designs/DIRECTIONS.md, fused challenger, user-pinned.
+ *
+ * Near-black vacuum. Concentric rings are the compositional law. Two signal
+ * colours by track type, one for figures. Labels pin to tracks with leader
+ * lines. Nothing here is a card.
+ */
+
+:root {
+  --vac:     #08090B;
+  --vac-hi:  #101319;
+  --steel:   #2E3844;
+  --steel-hi:#465466;
+  --fg:      #D5DAE0;
+  --fg-soft: #8A94A3;
+  --sourced: #4FC3D9;   /* in flight */
+  --closed:  #E0B23C;   /* reached the close */
+
+  --disp: "Barlow Condensed", system-ui, sans-serif;
+  --sans: "Barlow", system-ui, sans-serif;
+
+  --w: 1320px;
+  --gut: clamp(18px, 4vw, 52px);
+
+  color-scheme: dark;
+  accent-color: var(--sourced);
+  caret-color: var(--sourced);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--steel-hi) var(--vac); }
+
+body {
+  margin: 0; background: var(--vac); color: var(--fg);
+  font: 400 17px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--sourced); color: var(--vac); }
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--vac); }
+::-webkit-scrollbar-thumb { background: var(--steel-hi); border: 3px solid var(--vac); }
+:focus-visible { outline: 2px solid var(--sourced); outline-offset: 3px; }
+a { color: inherit; text-underline-offset: 0.18em; }
+
+.f { max-width: var(--w); margin-inline: auto; padding-inline: var(--gut); }
+
+/* ---------- type ---------- */
+
+h1, h2, h3 { margin: 0; font-family: var(--disp); font-weight: 500; letter-spacing: 0.005em; text-transform: uppercase; }
+h1 { font-size: clamp(42px, 6.2vw, 94px); line-height: 0.9; }
+h2 { font-size: clamp(28px, 3.4vw, 46px); line-height: 0.95; }
+h3 { font-size: 21px; line-height: 1.1; }
+p { margin: 0 0 0.8em; max-width: 66ch; }
+
+.lede { font-size: 19px; line-height: 1.5; max-width: 44ch; color: var(--fg-soft); }
+.lbl { font: 500 11px/1 var(--sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-soft); }
+.n { font-variant-numeric: tabular-nums; font-weight: 500; }
+.sm { font-size: 14px; line-height: 1.5; color: var(--fg-soft); }
+
+/* ---------- top ---------- */
+
+.top { position: sticky; top: 0; z-index: 40; height: 54px; display: flex; align-items: center;
+  background: color-mix(in srgb, var(--vac) 92%, transparent); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--steel); }
+.top .f { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; }
+.mark { font: 500 19px/1 var(--disp); letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+
+.btn { display: inline-block; background: var(--sourced); color: var(--vac);
+  font: 500 15px/1 var(--sans); letter-spacing: 0.02em; padding: 13px 22px; text-decoration: none;
+  border: 1px solid var(--sourced); transition: background 140ms, color 140ms; }
+.btn:hover { background: transparent; color: var(--sourced); }
+.btn--sm { padding: 8px 14px; font-size: 13px; }
+.btn-line { font: 500 15px/1 var(--sans); text-decoration: none; border-bottom: 1px solid var(--steel-hi); padding-bottom: 4px; }
+.btn-line:hover { border-color: var(--sourced); }
+
+/* ---------- hero ---------- */
+
+.hero { padding-block: clamp(34px, 5vw, 66px) clamp(28px, 4vw, 52px); border-bottom: 1px solid var(--steel); }
+.hero h1 { max-width: 12ch; }
+.hero .lede { margin: 20px 0 24px; }
+.hero-act { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+
+/* ---------- the stage: rings + list ---------- */
+
+.stage { position: relative; }
+.stage-in { position: sticky; top: 54px; height: calc(100svh - 54px); }
+
+#display { position: absolute; inset: 0 0 0 42%; background: var(--vac); overflow: hidden; }
+#display canvas { display: block; width: 100%; height: 100%; }
+/* with no WebGL the rings are still the law, drawn in CSS */
+#display::before {
+  content: ""; position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: min(78%, 620px); aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid var(--steel);
+  box-shadow: 0 0 0 1px transparent,
+    inset 0 0 0 clamp(30px, 7vw, 74px) transparent;
+  background:
+    radial-gradient(circle, transparent 0 17%, var(--steel) 17% calc(17% + 1px), transparent calc(17% + 1px) 35%,
+      var(--steel) 35% calc(35% + 1px), transparent calc(35% + 1px) 58%,
+      var(--steel) 58% calc(58% + 1px), transparent calc(58% + 1px) 79%,
+      var(--steel) 79% calc(79% + 1px), transparent calc(79% + 1px));
+}
+
+.readout { position: absolute; right: 22px; top: 20px; z-index: 3; text-align: right; }
+.readout .v { font: 500 26px/1 var(--disp); text-transform: uppercase; letter-spacing: 0.03em; color: var(--closed); }
+.readout .r { font: 500 12px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--fg-soft); margin-top: 8px; letter-spacing: 0.1em; }
+
+/* the track list. Leader lines, not cards. */
+.tracks { position: absolute; inset: 0 58% 0 0; padding: 26px var(--gut) 26px max(var(--gut), calc((100vw - var(--w)) / 2 + var(--gut))); overflow-y: auto; overscroll-behavior: contain; }
+.tracks h2 { margin-bottom: 6px; }
+
+.track {
+  display: block; text-decoration: none; position: relative;
+  padding: 15px 0 15px 0; border-top: 1px solid var(--steel);
+}
+.track:first-of-type { border-top: 1px solid var(--steel-hi); }
+/* the leader line: runs from the row toward the rings */
+.track::after {
+  content: ""; position: absolute; right: -22px; top: 50%; width: 14px; height: 1px;
+  background: var(--steel-hi); transition: width 200ms cubic-bezier(.16,1,.3,1), background 200ms;
+}
+.track:hover::after, .track:focus-visible::after, .track.at::after { width: 30px; background: var(--sourced); }
+.track.at .name { color: var(--sourced); }
+
+.track .name { font: 500 25px/1.05 var(--disp); text-transform: uppercase; letter-spacing: 0.01em; transition: color 180ms; }
+.track .kind { font-size: 13.5px; color: var(--fg-soft); margin: 5px 0 0; }
+.track .figs { display: flex; gap: 26px; margin-top: 10px; flex-wrap: wrap; }
+.track .figs b { font: 500 19px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--closed); }
+.track .figs i { font-style: normal; font-size: 11px; color: var(--fg-soft); display: block; margin-top: 5px; letter-spacing: 0.06em; }
+.track .layer { font: 500 10px/1 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-soft); }
+
+/* ---------- flat sections ---------- */
+
+section.blk { padding-block: clamp(44px, 5.5vw, 76px); border-top: 1px solid var(--steel); }
+.head { margin-bottom: 28px; }
+.head p { margin-top: 10px; color: var(--fg-soft); }
+
+.list { border-top: 1px solid var(--steel-hi); }
+.li { display: grid; grid-template-columns: 1fr auto; gap: 32px; padding-block: 18px; border-bottom: 1px solid var(--steel); align-items: baseline; }
+.li .role { font: 500 15px/1.4 var(--sans); margin: 3px 0 3px; }
+.li .det { color: var(--fg-soft); font-size: 16px; margin: 0; max-width: 60ch; }
+.li .at { text-align: right; white-space: nowrap; }
+
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--steel-hi); }
+.grid4 > div { padding: 18px 20px 0 0; border-right: 1px solid var(--steel); }
+.grid4 > div:last-child { border-right: 0; }
+.grid4 .v { font: 500 clamp(30px, 3.6vw, 48px)/1 var(--disp); color: var(--closed); font-variant-numeric: tabular-nums; }
+.grid4 .l { font-size: 13px; color: var(--fg-soft); margin-top: 8px; }
+
+.pend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+.pend > div { border: 1px dashed var(--steel-hi); padding: 15px; }
+.pend h4 { margin: 0 0 4px; font: 500 17px/1.1 var(--disp); text-transform: uppercase; }
+.pend p { font-size: 13px; color: var(--fg-soft); margin: 0; max-width: none; }
+.flag { display: inline-block; font: 500 9px/1 var(--sans); letter-spacing: 0.14em; color: var(--closed); border: 1px solid var(--closed); padding: 3px 5px; margin-bottom: 8px; }
+
+.folio { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--steel); }
+.folio-n { display: flex; flex-wrap: wrap; gap: 7px 22px; margin-top: 10px; }
+.folio-n span { font-size: 15px; color: var(--fg-soft); }
+
+footer { border-top: 1px solid var(--steel-hi); padding-block: 20px; }
+footer .f { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1040px) {
+  /* the display stops being legible; the list becomes the page and keeps
+     every fact. nothing is lost, the instrument is just not shown. */
+  .stage-in { position: static; height: auto; }
+  #display, .readout { display: none; }
+  .tracks { position: static; inset: auto; padding: 0 0 36px; overflow: visible; }
+  .track::after { display: none; }
+  .grid4 { grid-template-columns: 1fr 1fr; }
+  .pend { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  body { font-size: 17px; }
+  .li { grid-template-columns: 1fr; gap: 6px; }
+  .li .at { text-align: left; }
+  .grid4 { grid-template-columns: 1fr; }
+  .grid4 > div { border-right: 0; border-bottom: 1px solid var(--steel); padding-bottom: 14px; }
+  .pend { grid-template-columns: 1fr; }
+}
