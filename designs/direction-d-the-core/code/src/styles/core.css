@@ -1,0 +1,244 @@
+/* Direction D — The Core
+ * Contract: designs/DIRECTIONS.md, re-roll 1, assigned index 4.
+ *
+ * Bone page, one graphite core, one off-centre calibrated rail.
+ * State is line form, never hue. Sodium exists only against the core.
+ */
+
+:root {
+  --bone:      #E9E7DF;
+  --bone-hi:   #F3F1EB;
+  --ink:       #131309;
+  --ink-soft:  #55544A;
+  --rail:      #B2AFA2;
+  --rail-hard: #86837A;
+  --core:      #1B1C20;
+  --core-ink:  #DAD8D1;
+  --sodium:    #D8A23A;   /* only ever on --core. 1.9:1 on bone, so banned there */
+
+  --disp: "Space Grotesk", system-ui, sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --page: 1280px;
+  --gut: clamp(20px, 4.5vw, 60px);
+  --railx: 62%;           /* off-centre, deliberately not the midline */
+
+  color-scheme: light;
+  accent-color: var(--rail-hard);
+  caret-color: var(--ink);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--rail-hard) var(--bone); }
+
+body {
+  margin: 0;
+  background: var(--bone);
+  color: var(--ink);
+  font: 400 18px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--ink); color: var(--bone); }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bone); }
+::-webkit-scrollbar-thumb { background: var(--rail-hard); border: 3px solid var(--bone); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+a { color: inherit; text-underline-offset: 0.2em; }
+
+.page { max-width: var(--page); margin-inline: auto; padding-inline: var(--gut); }
+
+/* ---------- type ---------- */
+
+h1, h2, h3 { margin: 0; font-family: var(--disp); font-weight: 500; letter-spacing: -0.035em; }
+h1 { font-size: clamp(40px, 5.6vw, 78px); line-height: 0.95; }
+h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; }
+h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; }
+p { margin: 0 0 0.85em; max-width: 66ch; }
+
+.lede { font-size: 20px; line-height: 1.5; max-width: 46ch; color: var(--ink-soft); }
+.small { font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+
+.tag {
+  font: 500 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ---------- masthead ---------- */
+
+.top {
+  position: sticky; top: 0; z-index: 40; height: 56px;
+  display: flex; align-items: center;
+  background: color-mix(in srgb, var(--bone) 93%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rail);
+}
+.top .page { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; }
+.mark { font: 500 18px/1 var(--disp); letter-spacing: -0.03em; text-decoration: none; }
+
+/* ---------- actions ---------- */
+
+.btn {
+  display: inline-block; background: var(--ink); color: var(--bone);
+  font: 500 15px/1 var(--sans); padding: 14px 24px; text-decoration: none;
+  border: 1px solid var(--ink); transition: background 140ms, color 140ms;
+}
+.btn:hover { background: transparent; color: var(--ink); }
+.btn--sm { padding: 9px 15px; font-size: 13px; }
+.btn-line {
+  font: 500 15px/1 var(--sans); text-decoration: none;
+  border-bottom: 1px solid var(--rail-hard); padding-bottom: 4px;
+  transition: border-color 140ms;
+}
+.btn-line:hover { border-color: var(--ink); }
+
+/* ---------- hero ---------- */
+
+.hero { padding-block: clamp(30px, 4vw, 58px) 0; position: relative; overflow-x: clip; }
+.hero h1 { max-width: 11ch; }
+.hero .lede { margin: 20px 0 24px; }
+.hero-act { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.hero-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(24px, 4vw, 60px); align-items: end; }
+
+/* the core enters cropped by the viewport edge */
+.hero-core {
+  margin-inline-end: calc(-1 * (var(--gut) + max(0px, (100vw - var(--page)) / 2)));
+  height: 320px; position: relative;
+  background: linear-gradient(to bottom, var(--core) 0%, var(--core) 100%);
+  border-left: 1px solid var(--rail-hard);
+}
+.hero-core::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(to bottom, rgba(218,216,209,.16) 0 1px, transparent 1px 26px);
+}
+.hero-core .depth0 {
+  position: absolute; left: 16px; top: 14px; z-index: 2;
+  font: 500 11px/1 var(--mono); letter-spacing: 0.14em; color: var(--core-ink); opacity: .7;
+}
+
+/* ---------- the stage: scroll is descent ---------- */
+
+.stage { position: relative; }
+.stage-inner {
+  position: sticky; top: 56px; height: calc(100svh - 56px);
+  display: grid; grid-template-columns: 1fr; align-items: stretch;
+}
+
+/* the calibrated rail, off-centre */
+.rail {
+  position: absolute; top: 0; bottom: 0; left: var(--railx);
+  width: 1px; background: var(--rail);
+}
+
+#core-canvas {
+  position: absolute; inset: 0 0 0 var(--railx);
+  background: var(--core);
+  overflow: hidden;
+}
+#core-canvas canvas { display: block; width: 100%; height: 100%; }
+/* No WebGL: the core is still a core, banded by CSS. The page never
+   depends on the instrument running. */
+#core-canvas::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(to bottom, rgba(218,216,209,.14) 0 1px, transparent 1px 24px);
+  pointer-events: none; z-index: 1;
+}
+
+.readout {
+  position: absolute; left: calc(var(--railx) + 16px); top: 18px; z-index: 3;
+  color: var(--core-ink);
+}
+.readout .v { font: 500 34px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.readout .u { font: 500 11px/1 var(--mono); letter-spacing: 0.16em; opacity: .62; margin-top: 7px; }
+
+/* the record: always present, works with no 3D at all */
+.record {
+  position: absolute; inset: 0 auto 0 0; width: var(--railx);
+  padding: 30px clamp(28px, 4vw, 52px) 30px max(var(--gut), calc((100vw - var(--page)) / 2 + var(--gut)));
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.record-head { margin-bottom: 18px; }
+
+.stratum {
+  display: grid; grid-template-columns: 56px 1fr; gap: 16px;
+  padding-block: 16px; border-top: 1px solid var(--rail);
+  position: relative;
+}
+.stratum:first-of-type { border-top: 1px solid var(--rail-hard); }
+.stratum .d { font: 500 12px/1.5 var(--mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.stratum h3 { margin-bottom: 3px; }
+.stratum p { font-size: 15.5px; margin: 0; color: var(--ink-soft); max-width: 54ch; }
+.stratum .figs { display: flex; gap: 22px; margin-top: 9px; flex-wrap: wrap; }
+.stratum .figs b { font: 500 17px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.stratum .figs span { font: 400 11.5px/1.3 var(--mono); color: var(--ink-soft); display: block; margin-top: 5px; }
+
+/* State is line form, never hue. This is the whole state vocabulary. */
+.stratum::before {
+  content: ""; position: absolute; right: -1px; top: 50%; translate: 0 -50%;
+  width: 14px; height: 1px; background: var(--rail-hard);
+  transition: height 220ms cubic-bezier(.16,1,.3,1), width 220ms cubic-bezier(.16,1,.3,1);
+}
+.stratum.reading::before { height: 60%; width: 22px; background: var(--ink); }
+.stratum[data-state="pending"]::before {
+  height: 1px; background: repeating-linear-gradient(to right, var(--rail-hard) 0 3px, transparent 3px 6px);
+}
+.stratum a { text-decoration: none; border-bottom: 1px solid var(--rail-hard); }
+.stratum a:hover { border-color: var(--ink); }
+
+/* ---------- ordinary sections ---------- */
+
+section.band { padding-block: clamp(48px, 6vw, 82px); border-top: 1px solid var(--rail); }
+.head { margin-bottom: 30px; }
+.head p { margin-top: 12px; color: var(--ink-soft); }
+
+.rows { border-top: 1px solid var(--rail-hard); }
+.row { display: grid; grid-template-columns: 1fr auto; gap: 36px; padding-block: 20px; border-bottom: 1px solid var(--rail); align-items: baseline; }
+.row .role { font: 500 15px/1.45 var(--sans); margin: 4px 0 4px; }
+.row .det { color: var(--ink-soft); font-size: 16.5px; margin: 0; max-width: 60ch; }
+.row .at { text-align: right; white-space: nowrap; }
+
+.figs-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rail-hard); }
+.figs-strip > div { padding: 20px 22px 0 0; border-right: 1px solid var(--rail); }
+.figs-strip > div:last-child { border-right: 0; }
+.figs-strip .v { font: 500 clamp(30px, 3.4vw, 46px)/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.04em; }
+.figs-strip .l { font: 400 13px/1.45 var(--sans); color: var(--ink-soft); margin-top: 9px; }
+
+.pending-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 14px; }
+.blank { border: 1px dashed var(--rail-hard); padding: 16px; }
+.blank h4 { margin: 0 0 4px; font: 500 17px/1.2 var(--disp); letter-spacing: -0.02em; }
+.blank p { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: none; }
+.flag { display: inline-block; font: 500 9.5px/1 var(--mono); letter-spacing: 0.14em; color: var(--ink); border: 1px solid var(--ink); padding: 3px 5px; margin-bottom: 9px; }
+
+.folio { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--rail); }
+.folio-names { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 12px; }
+.folio-names span { font: 400 16px/1 var(--sans); color: var(--ink-soft); }
+
+footer { border-top: 1px solid var(--rail-hard); padding-block: 22px; }
+footer .page { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 980px) {
+  /* Below this the instrument is not legible, so the record becomes the page
+     and the core reduces to a banded edge. Nothing is lost. */
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-core { height: 180px; margin-inline-end: calc(var(--gut) * -1); }
+  .stage-inner { position: static; height: auto; }
+  #core-canvas, .rail, .readout { display: none; }
+  .record { position: static; width: auto; padding: 0 0 40px; overflow: visible; }
+  .stratum::before { display: none; }
+  .figs-strip { grid-template-columns: 1fr 1fr; }
+  .pending-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 17px; }
+  .row { grid-template-columns: 1fr; gap: 6px; }
+  .row .at { text-align: left; }
+  .figs-strip { grid-template-columns: 1fr; }
+  .figs-strip > div { border-right: 0; border-bottom: 1px solid var(--rail); padding-bottom: 16px; }
+  .pending-grid { grid-template-columns: 1fr; }
+  .stratum { grid-template-columns: 1fr; gap: 6px; }
+}

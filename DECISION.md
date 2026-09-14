@@ -293,3 +293,51 @@ Why: Owner's choice, asked because the skill requires the stack to be a user
 decision on a greenfield build. Zero JS by default suits three mostly-static
 marketing pages with at most one heavy interactive island each.
 Reversible: expensive once three builds exist
+
+---
+
+## D-021. Direction A rejected and re-rolled; Direction D built
+
+Date: 2026-09-14
+Decision: Direction A, the specimen sheet, is archived as rejected. Re-rolled
+under the impeccable protocol: seed fb60c0c1, re-roll 1, assigned index 4,
+giving Direction D, "The Core". Directions B and C survive the re-roll because
+the owner pinned them.
+Alternatives: Amend A with motion bolted on.
+Why: The owner's objection was that A was too quiet and had nothing to hold a
+visitor. Adding motion to a direction whose whole thesis is stillness would be
+splitting the difference, which the skill explicitly refuses. The re-roll also
+eliminates every earlier candidate, so the new grounded list had to come from
+unexplored angles; every one of them treats scroll as a mechanism.
+Reversible: yes, A is archived and still runs
+
+---
+
+## D-022. Scroll is the mechanism, not a reveal trigger
+
+Date: 2026-09-14
+Decision: In Direction D, scroll position drives descent through the core.
+Depth is time. The readout, the strata state and the 3D column are all pure
+functions of one scroll-derived progress value.
+Alternatives: Entry reveals, as in Direction A and both archived options.
+Why: The owner's pin is "3D means scrollable effects", not decorative 3D. A
+pure function of scroll gives reverse for free, never re-fires, and keeps the
+scrollbar honest. No wheel hijacking and no pin that traps the page: the canvas
+is sticky inside a tall section.
+Reversible: expensive, it is the direction's thesis
+
+---
+
+## D-023. GSAP dropped; the scrub is written directly
+
+Date: 2026-09-14
+Decision: No GSAP or ScrollTrigger dependency. The scrub is about fifteen lines
+in `core.js`.
+Alternatives: Fight the install.
+Why: bun writes a corrupt `package.json` for gsap on this machine, 2550 bytes
+of unparseable content, reproducible across a forced clean install with an
+emptied lockfile. `three` installs correctly, so it is specific to that package.
+The skill's semantics are what matter and they are preserved: progress is a pure
+function of scroll, damped toward target, reverse-safe. Dropping the dependency
+is also the smaller diff.
+Reversible: yes, if the install is ever fixed

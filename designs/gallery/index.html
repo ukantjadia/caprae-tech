@@ -130,7 +130,7 @@
 
 <script>
 const OPTIONS = [
-  { id: 'dirA', name: 'A — Specimen Sheet', meta: 'assigned · EB Garamond / Archivo · oxide #8A3618 on rules only', src: '../direction-a-specimen-sheet/code/dist/index.html' },
+  { id: 'dirD', name: 'D — The Core', meta: 'scroll is descent · Three.js scrubbed · Space Grotesk / IBM Plex', src: '../direction-d-the-core/code/dist/index.html' },
 ];   // B and C land here as they are built
 
 // Archived. Hidden by default; the toolbar toggle reveals them for reference.
@@ -138,6 +138,7 @@ const OPTIONS = [
 const ARCHIVED = [
   { id: 'opt1', name: 'Option 1 — Institutional', meta: 'ARCHIVED · zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../_archive/option-1-institutional/code/index.html' },
   { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: 'ARCHIVED · 3D island · Instrument Serif / Geist · amber #B4541F', src: '../_archive/option-4-editorial-hybrid/code/index.html' },
+  { id: 'dirA', name: 'A — Specimen Sheet', meta: 'ARCHIVED, rejected · too quiet, no motion', src: '../_archive/direction-a-specimen-sheet/code/dist/index.html' },
 ];
 let showArchived = false;
 function active() { return showArchived ? OPTIONS.concat(ARCHIVED) : OPTIONS; }

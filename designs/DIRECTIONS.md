@@ -177,3 +177,92 @@ refused as page structure, so specimens are full-width plates, not a grid.
 Available. A re-roll eliminates every direction shown above, grounded and
 challenger alike. After two consecutive re-rolls the skill requires asking what
 quality is missing rather than dealing again.
+
+---
+
+# Re-roll round 1
+
+Direction A was rejected by the owner: too quiet, no motion, nothing to hold a
+visitor. Re-rolled under the skill's protocol. Every direction from round zero
+is eliminated and may not return reworded. Directions B and C survive because
+the owner pinned them, and a user-pinned direction beats the roll.
+
+Seed fb60c0c1, re-roll 1, **assigned index 4**.
+
+The brief now carries a hard pin: **scroll-driven 3D, not decorative 3D**. Motion
+must be something the visitor drives, not something that plays at them.
+
+## New grounded list, ordered by resonance
+
+Every candidate below treats scroll as a mechanism rather than a reveal trigger.
+
+| # | Direction | Scroll does what |
+|---|---|---|
+| 1 | **Pipeline** | Drives material through sourced, diligence, built, shipped |
+| 2 | **Exploded assembly** | Assembles and disassembles the product |
+| 3 | **Machine room cutaway** | Descends through operating layers |
+| 4 | **The Core** ← **ASSIGNED** | **Is depth. Descending the core is reading the record.** |
+| 5 | **Oscilloscope scrub** | Scrubs a signal timeline |
+| 6 | **Wind tunnel** | Changes the flow over a form |
+| 7 | **Ownership web** | Traverses nodes and edges |
+
+## Challenger weighing, round 1
+
+| Challenger | Fused as | Audience ID | Product clarity | Verdict |
+|---|---|---|---|---|
+| Wildstyle blackbook | Wordmark as interlocking mass | Very low | Low | **declined** |
+| Fight poster | Build in-house versus hire an agency, on a versus axis | Medium | High. Ranking by type size alone is honest | **competitive** |
+| Emission-line rail | Every product a tick on one calibrated rail, state as line form | High-medium | Very high | **competitive** |
+| Drum machine step row | Engagement process as a sixteen-step row | Low-medium | Medium | **declined** |
+| Moon-shadow bazaar | Products as traded goods | Very low | Low | **declined** |
+| Crank paper menagerie | Scroll is the crank | Low-medium | Medium-high | **competitive** |
+
+No challenger won both axes. Four raises taken:
+
+- **From the emission rail:** state is carried in line form, never in hue. Full
+  height means live, dashed means pending, half height means stale. Everything
+  registers against one calibrated rail. This becomes the spine of the build.
+- **From the crank:** the visitor drives the timeline, and reverse must work.
+  Scrolling back up unwinds the descent cleanly; nothing re-triggers.
+- **From wildstyle:** the fast version sits beside the elaborate one. A plain
+  text record of the core is always on the page, so it reads with no 3D at all.
+- **From the drum machine:** a persistent position indicator. The depth readout
+  always says where you are, the way the chase light does.
+
+---
+
+## Direction D — The Core (assigned, re-roll 1, index 4)
+
+**THESIS.** Diligence is drilling. You extract a core and read what the strata
+say, in order, with depth attached. This page is that core: scroll is descent,
+depth is time, and each stratum is something this team shipped. It refuses the
+scroll-reveal arrangement, where motion is a curtain that opens on arrival.
+Here motion is the instrument, and the visitor turns it.
+
+**OWN-WORLD.** Bone page stock under instrument light, with one graphite core
+column running the full height as the only dark mass. A single calibrated rail
+sits off-centre; every stratum, product and figure registers against it as a
+1px mark. State is line form, never hue: full-height solid is live, dashed is
+pending, half-height is archived, a doubled line outranks its neighbours. One
+hue, sodium, and it exists only against the graphite core where it has contrast.
+On the bone page there is no colour at all. Type is a technical grotesk for
+display, a humanist sans for reading, and a mono reserved for depth readouts
+and measurements, which is measurement, not costume.
+
+**STORY.** The visitor descends and the record accumulates: four products, real
+dates, real figures, each arriving at its own depth. They believe it because the
+depth readout and the rail never stop agreeing with the text. They act from an
+action that is on screen at every depth.
+
+**FIRST VIEWPORT.** Headline ranged left across the upper two thirds of the bone
+page, nothing above it. Primary action directly beneath, within 480px of the top
+edge. The graphite core enters at the right, cropped by the viewport edge, with
+the depth readout at 0.0m pinned beside it on the rail. The first stratum sits
+just below the fold line so the core visibly continues downward.
+
+**FORM.** The Core. Position 4 of 7 on my re-rolled grounded list. Seed key
+fb60c0c1, re-roll 1, assigned index 4.
+
+**FINISH.** unreviewed and undocumented is unfinished; this build ends with the
+finish review, the verdict, DESIGN.md, and every shipping raster carrying its
+provenance

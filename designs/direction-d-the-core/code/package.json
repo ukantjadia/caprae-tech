@@ -1,0 +1,7 @@
+{
+  "name": "direction-d-the-core",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "astro dev", "build": "astro build", "preview": "astro preview" },
+  "dependencies": { "astro": "^5.6.1", "three": "^0.169.0" }
+}

@@ -1,0 +1,202 @@
+---
+import fs from 'node:fs';
+import '../styles/core.css';
+
+const c = JSON.parse(fs.readFileSync(new URL('../../../../_shared/content.json', import.meta.url), 'utf-8'));
+const live = c.work.builtByUs.filter((p: any) => !p.placeholder);
+const pending = c.work.builtByUs.filter((p: any) => p.placeholder);
+
+// Depth is time. Deeper is older. These are the real dates on record.
+const depths: Record<string, { d: number; when: string }> = {
+  'Bankers Edge':     { d: 46, when: 'in production' },
+  'CLOVER':           { d: 34, when: 'beta, open source' },
+  'SaaSquatch Leads': { d: 22, when: 'launched 2026' },
+  'Cold Call Killers':{ d: 10, when: 'launched Jun 2026' },
+};
+const strata = live
+  .map((p: any) => ({ ...p, ...(depths[p.name] ?? { d: 28, when: '' }) }))
+  .sort((a: any, b: any) => a.d - b.d);
+
+const services = [
+  { n: 'Dedicated engineers', u: 'monthly' },
+  { n: 'Fixed-scope projects', u: 'per project' },
+  { n: 'Fractional CTO', u: 'monthly' },
+  { n: 'AI-readiness and automation', u: 'scoped' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caprae Engineering — the core</title>
+  <meta name="description" content={c.meta.description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('motion') === 'off') document.documentElement.dataset.motion = 'off';
+  </script>
+</head>
+<body>
+
+<header class="top">
+  <div class="page">
+    <a class="mark" href="#top">Caprae Engineering</a>
+    <a class="btn btn--sm" href="#engage">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="page hero-grid">
+      <div>
+        <h1>We drilled. Here is the core.</h1>
+        <p class="lede">
+          Four products this team built and shipped, at the depth they were cut.
+          Scroll to descend. Every seam below is something strangers now pay for.
+        </p>
+        <div class="hero-act">
+          <a class="btn" href="#engage">Book a call</a>
+          <a class="btn-line" href="#stage">Read the core</a>
+        </div>
+      </div>
+      <div class="hero-core"><span class="depth0">0.0 M</span></div>
+    </div>
+  </section>
+
+  <!-- THE STAGE. Scroll is descent. The record is always readable; the
+       instrument is an addition to it, never a precondition for it. -->
+  <section class="stage" id="stage" style={`height:${(strata.length + 1) * 78}vh`}>
+    <div class="stage-inner">
+      <div class="rail"></div>
+
+      <div id="core-canvas">
+        <div class="readout">
+          <div class="v"><span id="depth-readout">0.0</span></div>
+          <div class="u">metres</div>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-head">
+          <h2>The record</h2>
+          <p class="small" style="margin-top:10px">Live, paid, and open in a new tab.</p>
+        </div>
+
+        {strata.map((p: any) => (
+          <div class="stratum" data-stratum={p.name} data-depth={p.d}>
+            <div class="d">{p.d.toFixed(1)}<br />m</div>
+            <div>
+              <h3>{p.href ? <a href={p.href} target="_blank" rel="noopener">{p.name} &#8599;</a> : p.name}</h3>
+              <p class="small" style="margin:0 0 6px">{p.kicker} &middot; {p.when}</p>
+              <p>{p.body}</p>
+              {p.metrics && p.metrics.length > 0 && (
+                <div class="figs">
+                  {p.metrics.map((m: any) => (<div><b>{m.value}</b><span>{m.label}</span></div>))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        <div class="stratum" data-stratum="pending" data-depth={52} data-state="pending">
+          <div class="d">52.0<br />m</div>
+          <div>
+            <h3>Four seams unlogged</h3>
+            <p>Built, but their names came through a voice note and are not confirmed. They are not printed here until they are.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="page">
+      <div class="head"><h2>{c.wedge.h2}</h2></div>
+      <p style="font-size:20px;max-width:58ch">{c.wedge.body}</p>
+      <div class="rows" style="margin-top:30px">
+        {c.wedge.points.map((p: string) => (<div class="row"><p class="det" style="font-size:18px;max-width:72ch">{p}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="page">
+      <div class="head"><h2>{c.people.h2}</h2><p>{c.people.sub}</p></div>
+      <div class="rows">
+        {c.people.members.map((m: any) => (
+          <div class="row">
+            <div>
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              <p class="det">{m.detail}</p>
+              {m.linkedin && <p style="margin:7px 0 0"><a class="btn-line" style="font-size:13px" href={m.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>}
+            </div>
+            <div class="at"><span class="tag">{m.credential}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="engage">
+    <div class="page">
+      <div class="head"><h2>Four ways to engage.</h2></div>
+      <div class="rows">
+        {services.map((s) => (
+          <div class="row"><div><h3>{s.n}</h3></div><div class="at"><span class="tag">{s.u}</span></div></div>
+        ))}
+      </div>
+
+      <div style="margin-top:40px">
+        <span class="tag">Unlogged seams</span>
+        <div class="pending-grid">
+          {pending.map((p: any) => (
+            <div class="blank"><span class="flag">PLACEHOLDER</span><h4>{p.name}</h4><p>{p.kicker}</p></div>
+          ))}
+        </div>
+      </div>
+
+      <div class="folio">
+        <span class="tag">{c.work.portfolio.label}</span>
+        <p class="small" style="margin:7px 0 0">{c.work.portfolio.disclaimer}</p>
+        <div class="folio-names">{c.work.portfolio.names.map((n: string) => <span>{n}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="page">
+      <div class="head"><h2>{c.firm.h2}</h2></div>
+      <div class="figs-strip">
+        {c.firm.stats.map((s: any) => (<div><div class="v">{s.value}</div><div class="l">{s.label}</div></div>))}
+      </div>
+      <p class="small" style="margin-top:20px">{c.firm.disclaimer}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="page">
+      <h2 style="max-width:14ch">{c.contact.h2}</h2>
+      <p style="margin:22px 0 0"><a class="btn" href={`mailto:${c.contact.fallback}`}>Book a call</a></p>
+      <p class="small" style="margin-top:14px">Or <a href={`mailto:${c.contact.fallback}`}>{c.contact.fallback}</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="page">
+    <span class="tag">Caprae Capital</span>
+    <span class="tag">Direction D · The Core · seed fb60c0c1 r1</span>
+  </div>
+</footer>
+
+<script>
+  import '../islands/core.js';
+</script>
+
+</body>
+</html>
