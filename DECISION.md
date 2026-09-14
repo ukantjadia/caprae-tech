@@ -217,3 +217,39 @@ signature of a generated page. On a site whose entire claim is engineering
 competence, looking generated refutes the claim. Bloom is also where the frame
 budget dies on integrated graphics.
 Reversible: yes, but it should not be
+
+---
+
+## D-016. Comparison builds are static HTML and CSS, not Astro
+
+Date: 2026-09-14
+Decision: Both option builds under `designs/*/code/` are hand-written HTML, CSS
+and one ES module. No bundler, no node_modules, no install step. Three.js loads
+from jsDelivr as an ES module. The Astro plus Tailwind stack in both
+`architecture.md` files stands for the production build of whichever option wins.
+Alternatives: Two full Astro projects, as originally specified.
+Why: A build step buys nothing for a side-by-side comparison and costs two
+installs and two dev servers. Static files serve instantly from one
+`python -m http.server`, which is what the gallery needs. Option 1 has zero JS
+anyway, so Astro would emit exactly this. Flagging rather than silently
+substituting: the specs were not wrong, they were written for production.
+Reversible: yes, the winner gets rebuilt in Astro
+
+---
+
+## D-017. The 3D field uses --panel-ink, not --ink-muted
+
+Date: 2026-09-14
+Decision: Resting points in the deal-flow field render in `--panel-ink`
+`#E8E6E1` at 10 to 42% alpha. Selected points use `--accent` `#B4541F`. The
+path line stays `--accent-dim` `#7A3814`.
+Alternatives: `--ink-muted` `#56544F`, as `color-scheme.md` originally specified.
+Why: Verified in a browser. `--ink-muted` is a light-page token; on `--panel` it
+sits at roughly 1.4:1 and the field was invisible. Only the path line rendered.
+Depth is still carried entirely by per-point alpha, so the field reads grey
+rather than white, which was the point of the original choice.
+Also fixed in the same pass: point size was resolving to about 2px because the
+perspective divisor was an order out, and the poster-hide was a detached
+double-rAF that never fires if the tab is hidden when init runs. It now hides
+after the first actual render inside the loop.
+Reversible: yes, but the original values do not render

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caprae Engineering — design options</title>
+<style>
+  :root {
+    --bg: #16171A; --surface: #1E1F23; --line: #2F3136;
+    --fg: #E9E8E4; --fg-dim: #9B9A95; --hot: #C97A3D;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 400 14px/1.5 var(--mono);
+  }
+
+  /* ---- toolbar ---- */
+  .bar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    padding: 12px 20px;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+  }
+  .bar h1 { font: 600 14px/1 var(--mono); margin: 0; letter-spacing: 0.04em; }
+  .bar .sp { flex: 1; }
+  .group { display: flex; align-items: center; gap: 8px; }
+  .group label { color: var(--fg-dim); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  button {
+    font: 500 12px/1 var(--mono); color: var(--fg);
+    background: transparent; border: 1px solid var(--line);
+    padding: 7px 11px; cursor: pointer;
+    transition: border-color 120ms, color 120ms;
+  }
+  button:hover { border-color: var(--fg-dim); }
+  button[aria-pressed="true"] { border-color: var(--hot); color: var(--hot); }
+  button:focus-visible { outline: 2px solid var(--hot); outline-offset: 2px; }
+
+  /* ---- grid ---- */
+  .grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px; padding: 20px; align-items: start;
+  }
+  @media (max-width: 1000px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+  .opt { border: 1px solid var(--line); background: var(--surface); }
+  .opt-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 12px 14px; border-bottom: 1px solid var(--line);
+  }
+  .opt-head strong { font-size: 13px; letter-spacing: 0.04em; }
+  .opt-head span { color: var(--fg-dim); font-size: 12px; }
+  .opt-head .sp { flex: 1; }
+
+  .frame {
+    position: relative; overflow: hidden; background: #000; width: 100%;
+    /* height set by script to viewportH * scale */
+  }
+  .frame iframe {
+    border: 0; display: block;
+    transform-origin: 0 0;
+    /* width, height and scale set by script */
+  }
+  .frame .shade {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: #0E0F11; color: var(--fg-dim); font-size: 12px;
+    cursor: pointer; transition: opacity 200ms;
+  }
+  .frame .shade[hidden] { display: none; }
+
+  /* ---- fullscreen ---- */
+  .full { position: fixed; inset: 0; z-index: 60; background: var(--bg); display: none; }
+  .full.on { display: flex; flex-direction: column; }
+  .full .bar { position: static; }
+  .full iframe { border: 0; flex: 1; width: 100%; }
+
+  .note { padding: 0 20px 28px; color: var(--fg-dim); font-size: 12px; line-height: 1.7; max-width: 80ch; }
+  .note b { color: var(--fg); font-weight: 600; }
+  kbd { border: 1px solid var(--line); padding: 1px 5px; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>CAPRAE ENGINEERING / DESIGN OPTIONS</h1>
+  <div class="sp"></div>
+
+  <div class="group">
+    <label>Viewport</label>
+    <button data-w="400"  data-h="780">400</button>
+    <button data-w="768"  data-h="900">768</button>
+    <button data-w="1440" data-h="900" aria-pressed="true">1440</button>
+  </div>
+
+  <div class="group">
+    <label>Motion</label>
+    <button id="motion" aria-pressed="false">Reduced motion: off</button>
+  </div>
+
+  <div class="group">
+    <button id="reload">Reload both</button>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<p class="note">
+  <b>How to use.</b> Both options run live, side by side, at the same viewport width so the comparison is fair.
+  Click a panel to load it, click the header <b>Open</b> to go fullscreen with a switcher bar.
+  <br><br>
+  <b>Viewport</b> resizes both at once. Check that the CTA stays above the fold at 400 and at 1440; that is a build gate, not a preference.
+  <br>
+  <b>Reduced motion</b> reloads both with <code>?motion=off</code>. Option 4 drops to its static poster and never creates a WebGL context. That tier has to be a good page on its own.
+  <br><br>
+  <b>Only one WebGL context runs at a time.</b> Panels stay shaded until you click them, and Option 4 pauses its loop when scrolled out of view. Four live contexts would choke the browser, which is exactly the constraint the production build has to respect too.
+</p>
+
+<div class="full" id="full">
+  <div class="bar">
+    <h1 id="fullTitle">—</h1>
+    <div class="sp"></div>
+    <div class="group" id="fullSwitch"></div>
+    <button id="close">Close</button>
+  </div>
+  <iframe id="fullFrame" title="Full preview"></iframe>
+</div>
+
+<script>
+const OPTIONS = [
+  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'Zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../option-1-institutional/code/index.html' },
+  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: '3D island · Instrument Serif / Geist · amber #B4541F', src: '../option-4-editorial-hybrid/code/index.html' },
+];
+
+let vw = 1440, vh = 900, motionOff = false;
+const grid = document.getElementById('grid');
+
+function url(o) { return o.src + (motionOff ? '?motion=off' : ''); }
+
+function build() {
+  grid.innerHTML = '';
+  for (const o of OPTIONS) {
+    const card = document.createElement('div');
+    card.className = 'opt';
+    card.innerHTML = `
+      <div class="opt-head">
+        <strong>${o.name}</strong>
+        <span>${o.meta}</span>
+        <div class="sp"></div>
+        <button data-open="${o.id}">Open</button>
+      </div>
+      <div class="frame" id="frame-${o.id}">
+        <iframe title="${o.name}" loading="lazy"></iframe>
+        <div class="shade">click to load</div>
+      </div>`;
+    grid.appendChild(card);
+  }
+  requestAnimationFrame(layout);
+}
+
+function layout() {
+  for (const o of OPTIONS) {
+    const frame = document.getElementById('frame-' + o.id);
+    const ifr = frame.querySelector('iframe');
+    const scale = frame.clientWidth / vw;
+    ifr.style.width = vw + 'px';
+    ifr.style.height = vh + 'px';
+    ifr.style.transform = `scale(${scale})`;
+    frame.style.height = Math.round(vh * scale) + 'px';
+  }
+}
+
+// Load a panel only when asked. Keeps WebGL contexts to one at a time.
+grid.addEventListener('click', (e) => {
+  const openBtn = e.target.closest('[data-open]');
+  if (openBtn) { openFull(openBtn.dataset.open); return; }
+  const shade = e.target.closest('.shade');
+  if (!shade) return;
+  const frame = shade.closest('.frame');
+  const o = OPTIONS.find(x => 'frame-' + x.id === frame.id);
+  frame.querySelector('iframe').src = url(o);
+  shade.hidden = true;
+});
+
+// ---- fullscreen ----
+const full = document.getElementById('full');
+const fullFrame = document.getElementById('fullFrame');
+const fullTitle = document.getElementById('fullTitle');
+const fullSwitch = document.getElementById('fullSwitch');
+
+function openFull(id) {
+  const o = OPTIONS.find(x => x.id === id);
+  fullTitle.textContent = o.name.toUpperCase();
+  fullFrame.src = url(o);
+  fullSwitch.innerHTML = OPTIONS.map(x =>
+    `<button data-sw="${x.id}" aria-pressed="${x.id === id}">${x.name.split(' — ')[0]}</button>`).join('');
+  full.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeFull() {
+  full.classList.remove('on');
+  fullFrame.src = 'about:blank';   // release the WebGL context
+  document.body.style.overflow = '';
+}
+fullSwitch.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-sw]'); if (b) openFull(b.dataset.sw);
+});
+document.getElementById('close').addEventListener('click', closeFull);
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && full.classList.contains('on')) closeFull(); });
+
+// ---- toolbar ----
+document.querySelectorAll('[data-w]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-w]').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  b.setAttribute('aria-pressed', 'true');
+  vw = +b.dataset.w; vh = +b.dataset.h;
+  layout();
+}));
+
+document.getElementById('motion').addEventListener('click', (e) => {
+  motionOff = !motionOff;
+  e.target.setAttribute('aria-pressed', String(motionOff));
+  e.target.textContent = 'Reduced motion: ' + (motionOff ? 'on' : 'off');
+  reloadLoaded();
+});
+
+document.getElementById('reload').addEventListener('click', reloadLoaded);
+
+function reloadLoaded() {
+  for (const o of OPTIONS) {
+    const frame = document.getElementById('frame-' + o.id);
+    const ifr = frame.querySelector('iframe');
+    if (ifr.src && ifr.src !== 'about:blank') ifr.src = url(o);
+  }
+  if (full.classList.contains('on')) {
+    const cur = fullSwitch.querySelector('[aria-pressed="true"]');
+    if (cur) fullFrame.src = url(OPTIONS.find(x => x.id === cur.dataset.sw));
+  }
+}
+
+addEventListener('resize', layout);
+// Panels can change width without a window resize (scrollbar appearing,
+// fullscreen closing). Observe the grid rather than trusting one measurement.
+new ResizeObserver(() => layout()).observe(grid);
+build();
+</script>
+
+</body>
+</html>
