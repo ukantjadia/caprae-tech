@@ -99,3 +99,70 @@ Proposal in `project-info/design/01-direction.md`: motion is proof not
 packaging, CTA stays above the fold, one or two spectacle moments at the work
 section, no scroll-jacking.
 Blocked on: Q23. This blocks all design work.
+
+---
+
+## D-009. The five are described by institution and firm, not as "five founders"
+
+Date: 2026-09-14
+Decision: Copy names Kevin Hong as founder of Caprae and describes the other four
+by their actual role and their own firm. Institutions get named: Chicago Booth,
+Kellogg, Wharton, Google.
+Alternatives: Call all five founders, as originally briefed. Use the Caprae site
+titles verbatim. Drop the list.
+Why: Research confirmed only Kevin Hong founded Caprae. Zackary Beckham's own
+LinkedIn headline says "Partner for Strategic Investments," not founder. Three
+carry Founder titles for their own companies. The ICP checks LinkedIn. The
+accurate version is also the stronger one, because four named institutions
+outrank the word founder for a Pole B buyer.
+Reversible: yes, but the inaccurate version should not ship
+
+---
+
+## D-010. Build Option 1 and Option 4 first
+
+Date: 2026-09-14
+Decision: Two builds this round. **Option 1 Institutional** and
+**Option 4 Editorial Hybrid**. Options 2 and 3 deferred.
+Alternatives: All four at once. Options 1 and 3 for maximum contrast.
+Why: Owner confirmed the buyer is Pole B, institutional. Options 1 and 4 are the
+two Pole B positions and they differ on exactly the open question: whether any 3D
+belongs on the page at all. Option 1 answers no, Option 4 answers yes but
+contained. Option 3 is a Pole A build for a Pole B buyer, which the owner has now
+ruled out as a primary direction.
+Reversible: yes, 2 and 3 can still be built
+
+---
+
+## D-011. Unknown product names ship as flagged placeholders
+
+Date: 2026-09-14
+Decision: The four unconfirmed products get placeholder names in
+`_shared/content.json`, each carrying `"placeholder": true`. The build renders
+placeholders with a visible marker so they cannot ship by accident.
+Alternatives: Invent names and use them silently. Omit the four products.
+Why: The owner asked me to pick names. These are real products with real names I
+do not have. A silently invented name on a live page is a factual error about the
+company's own product line, and it is the kind that gets noticed by the person
+who built it. Flagged placeholders let the layout be designed at full content
+weight and make the replacement step impossible to forget.
+Reversible: yes, one edit to content.json each
+
+---
+
+## D-012. The hero 3D concept is a deal-flow field
+
+Date: 2026-09-14
+Decision: The hero 3D element is a slowly rotating point field where particles
+represent companies. Most drift unsorted. A thin connecting path resolves through
+a subset, forming and reforming, representing origination and the deal path from
+search to close. Monochrome with a single accent on the resolved path.
+Alternatives: Abstract blob or mesh gradient. Network graph. Rotating globe with
+arcs. Literal 3D product screenshots.
+Why: It has to mean something to a searcher or acquirer on first look, not just
+look expensive. Deal flow is the one visual metaphor every person in this ICP
+lives in daily. It also directly depicts CLOVER, which is origination routing, so
+the hero and the work section argue the same thing. Abstract blobs and mesh
+gradients are the default AI-site look and would undercut the entire pitch.
+Rejected the globe because it says "global," which is not the claim.
+Reversible: yes, it is one island component
