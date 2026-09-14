@@ -17,21 +17,24 @@ import * as THREE from 'three';
    contract ScrollTrigger's `scrub` gives: progress is a pure function of
    scroll position, damped toward its target, so reverse is free and nothing
    re-fires. Dropping the dependency is also the smaller diff. */
-function scrubber(el) {
-  let target = 0, current = 0;
-  function measure() {
-    const r = el.getBoundingClientRect();
+function scrubber(el, onChange) {
+  let target = 0, current = 0, raf = 0, running = false;
+  function read() {
+    if (!running) return;
     const total = el.offsetHeight - innerHeight;
-    target = total <= 0 ? 0 : Math.min(1, Math.max(0, -r.top / total));
+    const p = total <= 0 ? 0 : Math.min(1, Math.max(0, -el.getBoundingClientRect().top / total));
+    if (Math.abs(p - target) > 0.0005) { target = p; if (onChange) onChange(p); }
+    raf = requestAnimationFrame(read);
   }
-  addEventListener('scroll', measure, { passive: true });
-  addEventListener('resize', measure);
-  measure();
+  function start() { if (!running) { running = true; raf = requestAnimationFrame(read); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  start();
   return {
-    get target() { return target; },
     // damped follow. 0.12 reads as mass without feeling laggy on a trackpad.
     step() { current += (target - current) * 0.12; return current; },
     get raw() { return target; },
+    get alive() { return running; },
   };
 }
 
@@ -63,7 +66,7 @@ function skip() {
 
 /* The depth readout and the rail marks are NOT part of the 3D. They run on
    scroll alone, so the instrument still reads correctly with no WebGL at all. */
-const scrub = scrubber(STAGE);
+const scrub = scrubber(STAGE, paintReadout);
 
 function paintReadout(p) {
   const d = p * MAX_DEPTH;
@@ -75,16 +78,14 @@ function paintReadout(p) {
   for (const m of MARKS) m.el.classList.toggle('reading', m === current);
 }
 
-/* The readout runs on scroll alone, with no WebGL involved, so the instrument
-   still reads correctly when the 3D never starts. */
+/* The readout is driven by the scrubber's own poll, with no WebGL involved, so
+   the instrument still reads correctly when the 3D never starts. Position is
+   polled rather than event-driven: scroll events proved unreliable here, and an
+   IntersectionObserver gate silently kills the loop when the stage starts below
+   the fold. */
 function wireReadout() {
-  let queued = false;
-  function tick() {
-    queued = false;
-    paintReadout(scrub.raw);
-  }
-  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(tick); } }, { passive: true });
   paintReadout(0);
+  window.__core = { build: 'poll-v2', get p() { return scrub.raw; }, get alive() { return scrub.alive; } };
 }
 
 function init() {

@@ -51,21 +51,23 @@ function skip() {
 function watch(el, onChange) {
   let last = -1, raf = 0, running = false;
   function read() {
+    if (!running) return;
     const total = el.offsetHeight - innerHeight;
     const p = total <= 0 ? 0 : Math.min(1, Math.max(0, -el.getBoundingClientRect().top / total));
     if (Math.abs(p - last) > 0.0005) { last = p; onChange(p); }
     raf = requestAnimationFrame(read);
   }
-  function start() { if (!running) { running = true; read(); } }
-  function stop() { if (running) { running = false; cancelAnimationFrame(raf); } }
-  new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0 }).observe(el);
+  function start() { if (!running) { running = true; raf = requestAnimationFrame(read); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   start();
-  return { get raw() { return last < 0 ? 0 : last; } };
+  return { get raw() { return last < 0 ? 0 : last; }, _alive() { return running; } };
 }
 
 let damped = 0;
 const scrub = watch(STAGE, paintLayer);
+// verification hook: proves which build is loaded and that the loop is running
+window.__core = { build: 'poll-v2', get p() { return scrub.raw; }, get alive() { return scrub._alive(); } };
 function step() { damped += (scrub.raw - damped) * 0.1; return damped; }
 
 /* The layer readout runs on scroll alone. With no WebGL the page still tells

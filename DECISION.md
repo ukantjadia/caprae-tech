@@ -357,3 +357,29 @@ event dispatches to window, and replacing the scroll listener with a
 requestAnimationFrame poll did not fix it either. Calling C finished would be
 false; hiding it would waste the direction.
 Reversible: yes, the defect is in one file
+
+---
+
+## D-025. Scroll position is polled, never event-driven. D-024 closed.
+
+Date: 2026-09-14
+Decision: Both D and C derive scroll progress from a `requestAnimationFrame`
+loop that reads `getBoundingClientRect()` each frame, gated only on document
+visibility. No scroll listeners, no IntersectionObserver gate on the readout.
+Supersedes the approach in D-022's implementation and closes the defect in
+D-024.
+Alternatives: Scroll events. An IntersectionObserver-gated poll.
+Why: Root cause of the frozen readout in C, found on the third attempt. The
+stage starts below the fold, so the IntersectionObserver fired
+`isIntersecting: false` on load and stopped the loop before it ever read a
+non-zero position, then did not reliably restart. The earlier rAF attempt kept
+that gate, which is why it failed identically and misled the diagnosis.
+Scroll events are also unreliable on this machine: `scrollY` changes while no
+scroll event dispatches to window, verified with a listener added live.
+Polling is immune to both. Cost is one `getBoundingClientRect` per frame while
+the tab is visible; the expensive WebGL render loop keeps its own
+IntersectionObserver gate, which is correct there because it only needs to run
+when its canvas is on screen.
+Verified: C reads 0.00 / 1.56 / 3.12 / 5.20 and back to 1.82 across the layers;
+D reads 0 / 15.0 / 30.0 / 45.0 / 60.0m and back to 18.0m.
+Reversible: yes
