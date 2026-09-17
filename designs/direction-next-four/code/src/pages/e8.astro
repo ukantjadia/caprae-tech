@@ -1,0 +1,19 @@
+---
+import Shell from '../components/Shell.astro';
+import Scene from '../components/Scene.astro';
+import Proof from '../components/Proof.astro';
+---
+<Shell title="The Witness Field — Caprae Tech" variant="witness" description="Move through a field of verifiable engineering evidence.">
+  <section class="hero witness-hero">
+    <div class="witness-copy">
+      <h1>Evidence changes when you get close enough to inspect it.</h1>
+      <p>Move through the field. The noise yields only where the record can withstand attention.</p>
+      <a class="primary" href="mailto:partners@capraecapital.com">Start a conversation</a>
+    </div>
+    <Scene kind="witness" label="An evidence field that resolves around pointer, touch, or keyboard focus." />
+    <div class="witness-readout" aria-live="polite"><span>INSPECTION RADIUS</span><strong>Public evidence</strong><small>Pointer / touch / arrow keys</small></div>
+    <div class="witness-proof"><span>RESOLVED / 01</span><strong>300,000+</strong><p>calls across five countries</p><small>Cold Call Killers · public record</small></div>
+  </section>
+  <section class="witness-manifesto"><p>Most agency claims get louder under attention.</p><h2>Ours become more specific.</h2></section>
+  <Proof />
+</Shell>

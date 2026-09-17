@@ -1,0 +1,14 @@
+---
+const { kind, label } = Astro.props;
+---
+<div class="scene" data-scene={kind} role="img" aria-label={label}>
+  <canvas aria-hidden="true"></canvas>
+  <div class={`scene-static static-${kind}`} aria-hidden="true">
+    {kind === 'assay' && <svg viewBox="0 0 800 420"><g class="assay-svg"><path d="M145 115 540 160 670 305 250 260Z"/><path d="M185 90 580 135 635 270 220 230Z"/><path d="M225 65 620 110 600 235 190 200Z"/><path d="M265 40 660 85 565 200 160 170Z"/></g></svg>}
+    {kind === 'registered' && <svg viewBox="0 0 800 420" preserveAspectRatio="none"><path class="reg-spine" d="M0 0V420"/>{Array.from({length:28},(_,i)=><path d={`M${30+(i*67)%710} ${30+(i*43)%350}l${i%2?38:-26} ${12+(i%5)*4}`} />)}</svg>}
+    {kind === 'ledger' && <svg viewBox="0 0 800 420"><g class="frame-svg"><path d="M70 260 190 170 310 245 430 150 550 230 680 130M70 260 200 300 310 245 445 285 550 230 695 260M190 170 200 300M430 150 445 285M680 130 695 260M70 260 190 170 200 300 310 245 430 150 445 285 550 230 680 130 695 260"/><path class="load" d="M150 45v100m-12-18 12 18 12-18M320 25v100m-12-18 12 18 12-18M490 35v100m-12-18 12 18 12-18M660 5v100m-12-18 12 18 12-18"/><path class="support" d="M55 325h30l-15-55ZM665 290h60v12h-60Z"/><circle cx="680" cy="318" r="9"/><circle cx="710" cy="318" r="9"/></g></svg>}
+    {kind === 'witness' && <svg viewBox="0 0 800 420"><g class="witness-svg">{Array.from({length:48},(_,i)=><circle cx={35+(i*83)%730} cy={30+(i*47)%360} r={i%7===0?5:2}/>)}</g><circle class="lens-svg" cx="410" cy="205" r="135"/></svg>}
+  </div>
+  <p class="scene-note">Illustrative system model · not business performance data</p>
+</div>
+<script src="../scripts/scenes.js"></script>

@@ -1,0 +1,23 @@
+---
+import Shell from '../components/Shell.astro';
+import Scene from '../components/Scene.astro';
+import Proof from '../components/Proof.astro';
+---
+<Shell title="Stress Ledger — Caprae Tech" variant="ledger" description="Engineering decisions under operating pressure.">
+  <section class="hero ledger-hero">
+    <div class="ledger-copy">
+      <h1>Built for the pressure between decision and delivery.</h1>
+      <p>Changing scope, imperfect data, founder judgment and a fixed date—made explicit before they become expensive.</p>
+      <a class="primary" href="mailto:partners@capraecapital.com">Start a conversation</a>
+    </div>
+    <Scene kind="ledger" label="An illustrative space frame distributing four operating loads." />
+    <dl class="load-key" aria-label="Illustrative relative load cases"><div><dt>Scope</dt><dd>High</dd></div><div><dt>Time</dt><dd>Critical</dd></div><div><dt>Data</dt><dd>Moderate</dd></div><div><dt>Coordination</dt><dd>High</dd></div></dl>
+    <p class="ledger-proof"><strong>1,200+</strong> beta signups in three weeks <span>SaaSquatch Leads · public record</span></p>
+  </section>
+  <section class="ledger-equation" aria-label="Method">
+    <div><span>INPUT</span><h2>Operating pressure</h2><p>Make the constraints visible while they can still change the architecture.</p></div>
+    <div><span>TRANSLATION</span><h2>Engineering decision</h2><p>Turn ambiguity into a system the operator and engineer can inspect together.</p></div>
+    <div><span>RECORD</span><h2>Shipped proof</h2><p>Judge the result through software that is public, live and openable.</p></div>
+  </section>
+  <Proof />
+</Shell>

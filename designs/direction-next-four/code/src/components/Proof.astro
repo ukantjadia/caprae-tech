@@ -1,0 +1,58 @@
+---
+const items = [
+  { name: 'SaaSquatch Leads', type: 'Lead generation & enrichment', metric: '1,200+', label: 'beta signups in three weeks', href: 'https://www.saasquatchleads.com/' },
+  { name: 'Cold Call Killers', type: 'Full-funnel outbound system', metric: '300,000+', label: 'calls across five countries', href: 'https://coldcallkillers.io/' },
+  { name: 'CLOVER', type: 'Closed-Loop Origination', metric: 'Beta', label: 'origination platform', href: null },
+];
+---
+<section class="proof" id="work" aria-labelledby="proof-title">
+  <header class="section-head">
+    <h2 id="proof-title">The record is the pitch.</h2>
+    <p>Live products, public evidence, and links you can check. No capability theatre.</p>
+  </header>
+  <div class="proof-list">
+    {items.map((item, i) => (
+      <article class="proof-row">
+        <span class="proof-index">0{i + 1}</span>
+        <div><h3>{item.name}</h3><p>{item.type}</p></div>
+        <div class="proof-metric"><strong>{item.metric}</strong><span>{item.label}</span></div>
+        {item.href ? <a href={item.href} target="_blank" rel="noreferrer">Open product <span aria-hidden="true">↗</span></a> : <span class="proof-status">Repository link pending</span>}
+      </article>
+    ))}
+  </div>
+  <p class="source">Product figures from public product materials reviewed 14 September 2026.</p>
+</section>
+
+<section class="people" aria-labelledby="people-title">
+  <header><h2 id="people-title">The room they already work in.</h2><p>Verified institutions and operating backgrounds of the people the engineers report to.</p></header>
+  <div class="people-list">
+    <p><strong>Kevin Hong</strong><span>Founder & Managing Partner · Chicago Booth</span></p>
+    <p><strong>Eric Nehrlich</strong><span>Chief of Staff · Google Search Ads</span></p>
+    <p><strong>Felix I. Odigie</strong><span>Deal Advisor · Wharton</span></p>
+    <p><strong>Hereford Johnson</strong><span>Principal Adviser · Kellogg</span></p>
+    <p><strong>Zackary Beckham</strong><span>Strategic Investments · Arizona State</span></p>
+  </div>
+</section>
+
+<section class="firm" aria-labelledby="firm-title">
+  <h2 id="firm-title">The firm behind the team.</h2>
+  <div><p><strong>$110M+</strong><span>closed, 2026 YTD</span></p><p><strong>20%+</strong><span>MoM growth, 14+ months</span></p><p><strong>8</strong><span>countries serviced</span></p><p><strong>40+</strong><span>searchers supported</span></p></div>
+  <small>Caprae Capital firm-wide figures, not engineering-team output.</small>
+</section>
+
+<section class="method" id="method" aria-labelledby="method-title">
+  <h2 id="method-title">Already trained on the part most teams miss.</h2>
+  <p>Our engineers work inside a private equity firm, alongside searchers, bankers and operators. They understand diligence pressure, shifting requirements and why a close date is a close date.</p>
+  <ul>
+    <li><span>01</span> Dedicated engineers, monthly</li>
+    <li><span>02</span> Fixed-scope products and platforms</li>
+    <li><span>03</span> Fractional CTO and technical advisory</li>
+    <li><span>04</span> AI-readiness and automation</li>
+  </ul>
+</section>
+
+<section class="close" id="contact">
+  <p>Bring the operating problem.</p>
+  <h2>Talk to the people who would build it.</h2>
+  <a href="mailto:partners@capraecapital.com">Start a conversation</a>
+</section>

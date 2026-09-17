@@ -1,0 +1,21 @@
+---
+import Shell from '../components/Shell.astro';
+import Scene from '../components/Scene.astro';
+import Proof from '../components/Proof.astro';
+---
+<Shell title="Assay Reforged — Caprae Tech" variant="assay" description="Inspect the evidence behind Caprae Tech.">
+  <section class="hero assay-hero">
+    <div class="hero-copy">
+      <h1>Put the work under pressure.</h1>
+      <p>Claims enter as rough samples. Public products and verifiable evidence are what survive.</p>
+      <a class="primary" href="mailto:partners@capraecapital.com">Start a conversation</a>
+    </div>
+    <div class="hero-proof"><strong>1,200+</strong><span>beta signups in three weeks</span><small>SaaSquatch Leads · public record</small></div>
+    <Scene kind="assay" label="Four product evidence slabs separating into inspectable layers as the page moves." />
+    <ol class="assay-index" aria-label="Evidence samples">
+      <li><span>01</span>SaaSquatch</li><li><span>02</span>Cold Call Killers</li><li><span>03</span>CLOVER</li><li><span>04</span>The team</li>
+    </ol>
+  </section>
+  <section class="assay-statement"><p>Four samples.</p><h2>Each claim carries its source into the room.</h2></section>
+  <Proof />
+</Shell>

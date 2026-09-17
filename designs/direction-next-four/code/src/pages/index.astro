@@ -1,0 +1,26 @@
+---
+import Shell from '../components/Shell.astro';
+const options = [
+  { href: './e1r', code: 'E–1R', name: 'Assay Reforged', line: 'Evidence separates into inspectable material layers.', tone: 'mineral' },
+  { href: './e6', code: 'E–6', name: 'Registered Depth', line: 'One registration line governs document and field.', tone: 'black' },
+  { href: './e7', code: 'E–7', name: 'Stress Ledger', line: 'Operating pressure becomes a visible structural decision.', tone: 'paper' },
+  { href: './e8', code: 'E–8', name: 'The Witness Field', line: 'Your cursor resolves evidence from an uncertain field.', tone: 'blue' },
+];
+---
+<Shell title="Caprae Tech — next four directions" variant="gallery" description="Four interactive design directions for Caprae Tech.">
+  <section class="gallery-intro">
+    <h1>Four ways to make the work undeniable.</h1>
+    <p>Each direction uses the same verified record. What changes is the mechanism through which a buyer understands it.</p>
+  </section>
+  <section class="gallery-grid" aria-label="Design directions">
+    {options.map((option) => (
+      <a class={`gallery-card ${option.tone}`} href={option.href}>
+        <span class="gallery-code">{option.code}</span>
+        <div class="gallery-art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <h2>{option.name}</h2>
+        <p>{option.line}</p>
+        <span class="gallery-open">Enter direction ↗</span>
+      </a>
+    ))}
+  </section>
+</Shell>
