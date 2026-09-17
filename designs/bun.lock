@@ -98,20 +98,6 @@
         "vite": "^8.2.2",
       },
     },
-    "direction-h1-caprae-tech-motion/code": {
-      "name": "caprae-tech-web-h1",
-      "version": "0.0.0",
-      "dependencies": {
-        "ogl": "^1.0.11",
-        "react": "^19.2.8",
-        "react-dom": "^19.2.8",
-        "react-router-dom": "^7.1.1",
-      },
-      "devDependencies": {
-        "@vitejs/plugin-react": "^6.1.0",
-        "vite": "^8.2.2",
-      },
-    },
     "direction-h2-operating-signal/code": {
       "name": "caprae-tech-h2-operating-signal",
       "version": "0.0.0",
@@ -630,8 +616,6 @@
 
     "caprae-tech-web": ["caprae-tech-web@workspace:direction-h-caprae-tech/code"],
 
-    "caprae-tech-web-h1": ["caprae-tech-web-h1@workspace:direction-h1-caprae-tech-motion/code"],
-
     "ccount": ["ccount@2.0.1", "", {}, "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="],
 
     "chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
@@ -1079,8 +1063,6 @@
     "object-assign": ["object-assign@4.1.1", "", {}, "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg=="],
 
     "ofetch": ["ofetch@1.5.1", "", { "dependencies": { "destr": "^2.0.5", "node-fetch-native": "^1.6.7", "ufo": "^1.6.1" } }, "sha512-2W4oUZlVaqAPAil6FUg/difl6YhqhUR7x2eZY4bQCko22UXg3hptq9KLQdqFClV+Wu85UX7hNtdGTngi/1BxcA=="],
-
-    "ogl": ["ogl@1.0.11", "", {}, "sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA=="],
 
     "ohash": ["ohash@2.0.12", "", {}, "sha512-65S/5gk9YSsaRjcyf7Nfa6h/d3E8/1gslpXfI4W7Dxn/oap8IKRuNT5VXkLQ1YFKIEg4apRY4Pj6aiwFzrDdmw=="],
 
