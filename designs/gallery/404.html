@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting</title>
+    <script>
+      /* GitHub Pages has no rewrite rule, so a direct hit on a client route
+         inside direction H (…/h/services) lands here instead of on its index.
+         Hand the sub-path over as a query; H's own index puts it back.
+         H is the only routed direction, so it is the only split point.
+         ponytail: add another name here if a later direction routes client-side. */
+      (function () {
+        var l = window.location;
+        var cut = l.pathname.indexOf('/h/');
+        if (cut < 0) { l.replace(l.pathname.split('/h/')[0] || '/'); return; }
+        var root = l.pathname.slice(0, cut + 3);
+        var rest = l.pathname.slice(cut + 3);
+        l.replace(root + '?p=/' + rest + l.search.replace('?', '&') + l.hash);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the <a href="./">gallery</a>.</p>
+  </body>
+</html>

@@ -856,3 +856,40 @@ in this session treated it as merely available and understated that.
 
 Reversible: yes, if the install is ever fixed
 
+
+---
+
+## D-041. One hero plate, five pages, and it is the same footage on every tab
+
+Date: 2026-09-17
+Decision: the hero footage moved out of the home page into a shared
+`HeroMedia` component. Home renders it full height, the four interior pages
+render `<HeroMedia short />`, which crops to `object-position: 60% 38%` and
+darkens the scrim further so headline type stays readable over a busier part of
+the frame.
+Alternatives: a different image per section, which was the first build; a flat
+gradient on interior pages, which is what shipped before this; no footage at all
+below the home page.
+Why: the user asked for it directly. It also costs nothing, the file is already
+decoded and cached by the time an interior page is reached, so the interior
+pages get a video plate for zero extra bytes.
+Reversible: yes
+
+---
+
+## D-042. Direction H deploys as a routed SPA, so the gallery gets a 404 shim
+
+Date: 2026-09-17
+Decision: the multi-page site ships as `designs/direction-h-caprae-tech/code`
+at Pages route `/h/`. `designs/gallery/404.html` splits any missing path on
+`/h/` and hands the remainder to H's index as `?p=`, which H's inline script
+restores with `history.replaceState` before React Router reads the URL.
+Alternatives: `HashRouter`, which puts `#` in every shared link; a static export
+per route, which needs a framework this project does not use; accepting that
+deep links 404.
+Why: every other direction is a single static page, so this is the first one
+where a direct hit on an interior URL can miss. Verified against a local server
+that reproduces Pages behaviour: `/caprae-tech/h/team` resolves to the team page
+with both videos loading from `/caprae-tech/h/`.
+Reversible: yes. The shim names `/h/` explicitly, so a second routed direction
+needs a line added.

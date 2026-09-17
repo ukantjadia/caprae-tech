@@ -17,6 +17,7 @@ const builds = [
   ['direction-e-variants/code', 'e-variants'],
   ['direction-next-four/code', 'next'],
   ['direction-g-glacier/code', 'g'],
+  ['direction-h-caprae-tech/code', 'h'],
 ];
 
 rmSync(output, { recursive: true, force: true });
@@ -36,6 +37,8 @@ for (const [project, route] of builds) {
 }
 
 cpSync(join(root, 'gallery/index.html'), join(output, 'index.html'));
+// Pages has no rewrite rule, so client routes inside a direction land on this.
+cpSync(join(root, 'gallery/404.html'), join(output, '404.html'));
 cpSync(join(root, '_archive/option-1-institutional/code'), join(output, 'archive/option-1'), { recursive: true });
 cpSync(join(root, '_archive/option-4-editorial-hybrid/code'), join(output, 'archive/option-4'), { recursive: true });
 cpSync(join(root, '_archive/direction-e-origination-v1/code'), join(output, 'archive/e-v1'), { recursive: true });

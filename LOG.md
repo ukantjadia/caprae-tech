@@ -439,3 +439,30 @@ because those builds are frozen calibration points under D-018.
 capraecapital.com or a LinkedIn page already uses a different form, that wins
 over this.
 
+
+## 2026-09-17 — Same hero on every tab, then into the repo as direction H
+
+**Asked:** Use the same hero image on all of the tabs, then push it to GitHub as
+the next version.
+
+**Did:** Pulled the home hero out into `src/components/HeroMedia.jsx` with its
+own stylesheet and a `short` variant for interior pages. Added it to Services,
+Work, Team and Contact, rewrote `.pagehead` in `pages.css` to be a stacking
+context with the plate behind it, and dropped the now-duplicated media rules
+from `Home.css`.
+
+Moved the site into the repo as `designs/direction-h-caprae-tech/code`, route
+`h`. Both video sources now read `import.meta.env.BASE_URL`, because a string
+literal is not rewritten by Vite the way an href in index.html is. Added
+`designs/gallery/404.html` and a matching restore script in H's index so client
+routes survive a direct load on Pages. Registered H in `build-pages.mjs` and as
+a gallery card.
+
+Verified: full `bun run build:pages` completes for all ten routes. Served the
+artifact from a script that reproduces Pages' 404 behaviour and loaded
+`/caprae-tech/h/team` cold. The route resolved, the URL came back clean, and
+both videos reported `currentSrc` under `/caprae-tech/h/` with no error.
+
+**Open:** LCP on throttled 4G is still unmeasured, and the two videos are 25MB
+between them, which is the obvious thing that will fail that budget. Direction F
+is still broken from an earlier session.
