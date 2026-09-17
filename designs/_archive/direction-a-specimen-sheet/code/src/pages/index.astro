@@ -4,7 +4,7 @@ import Plate from '../components/Plate.astro';
 import '../styles/sheet.css';
 
 // Read outside the Astro root directly, so Vite's fs allow-list is not involved.
-const c = JSON.parse(fs.readFileSync(new URL('../../../../_shared/content.json', import.meta.url), 'utf-8'));
+const c = JSON.parse(fs.readFileSync(new URL('../../../../../_shared/content.json', import.meta.url), 'utf-8'));
 
 const live = c.work.builtByUs.filter((p: any) => !p.placeholder);
 const pending = c.work.builtByUs.filter((p: any) => p.placeholder);

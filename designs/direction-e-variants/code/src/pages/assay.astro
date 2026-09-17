@@ -1,0 +1,41 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Record from '../content/Record.astro';
+import Wedge from '../content/Wedge.astro';
+import Team from '../content/Team.astro';
+import Firm from '../content/Firm.astro';
+const plates = [
+  { i: '01', nm: 'SaaSquatch Leads', kd: 'B2B lead generation and enrichment', mx: '1,200+', ml: 'beta signups in 3 weeks' },
+  { i: '02', nm: 'Cold Call Killers', kd: 'Full-funnel B2B outbound system', mx: '300,000+', ml: 'calls across 5 countries' },
+  { i: '03', nm: 'CLOVER', kd: 'Closed-Loop Origination via Exclusive Referrals', mx: 'Open', ml: 'source, in beta' },
+  { i: '04', nm: 'Bankers Edge', kd: 'Advisory platform', mx: 'Live', ml: 'in production' },
+];
+---
+<Shell
+  title="Caprae Tech — engineers who already build for operators"
+  variant="assay" kind="flow"
+  colors={{ mark: '#B0B0B0', accent: '#F9D360', additive: true }}
+  fonts="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <section class="hero">
+    <p class="eyebrow"><i></i>Part of Caprae Capital · Four products live, one open source</p>
+    <h1>Engineers who already build for <em>operators</em>.</h1>
+    <p class="sub">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.</p>
+    <a class="cta" href="#contact">Book a call</a>
+
+    <!-- STATIC. Four assay plates, no animation in the hero. -->
+    <div class="plates">
+      {plates.map((p) => (
+        <div class="plate">
+          <span class="idx">{p.i}</span>
+          <span class="nm">{p.nm}</span>
+          <span class="kd">{p.kd}</span>
+          <span class="mx">{p.mx}</span>
+          <span class="ml">{p.ml}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Record /><Wedge /><Team /><Firm />
+</Shell>

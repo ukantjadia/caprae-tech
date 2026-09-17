@@ -1,0 +1,43 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Record from '../content/Record.astro';
+import Wedge from '../content/Wedge.astro';
+import Team from '../content/Team.astro';
+import Firm from '../content/Firm.astro';
+const ticks = [
+  { k: 'Products live', v: '4' },
+  { k: 'Open source', v: '1' },
+  { k: 'Beta signups', v: '1,200+' },
+  { k: 'Countries', v: '5' },
+];
+---
+<Shell
+  title="Caprae Tech — engineers who already build for operators"
+  variant="tape" kind="tape"
+  colors={{ mark: '#888888', accent: '#F9D360', additive: true }}
+  fonts="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <section class="hero">
+    <!-- STATIC. A single verified figure against the claim. -->
+    <div class="figblock">
+      <span class="big">300,000+</span>
+      <span class="rule"></span>
+      <span class="cap">calls placed across five countries</span>
+      <span class="src">coldcallkillers.io · launched June 2026</span>
+    </div>
+    <div>
+      <p class="eyebrow">Part of Caprae Capital</p>
+      <h1>Engineers who already build for operators.</h1>
+      <p class="sub">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.</p>
+      <a class="cta" href="#contact">Book a call</a>
+    </div>
+  </section>
+
+  <section class="hero" style="padding-top:0">
+    <div class="ticks" style="grid-column:1/-1">
+      {ticks.map((t) => (<div><span class="k">{t.k}</span><span class="v">{t.v}</span></div>))}
+    </div>
+  </section>
+
+  <Record /><Wedge /><Team /><Firm />
+</Shell>

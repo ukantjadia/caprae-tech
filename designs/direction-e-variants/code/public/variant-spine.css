@@ -1,0 +1,120 @@
+/* E-4 THE SPINE.
+ *
+ * One vertical rule at 34% from the left runs the whole document and never
+ * moves. Headings hang left of it and align their right edge to it. Body starts
+ * at it and runs right. Product entries cross it. Nothing is centred anywhere.
+ *
+ * Gold appears on under 2% of the page, only on depth ticks, so it lands when
+ * it does. Hierarchy is carried by two brightness levels instead of by colour.
+ */
+:root{
+  --ground:#101216;
+  --field:#1A1D22;
+  --ink:#E9E7E2;
+  --bright:#FFFFFF;
+  --dim:#7E848D;
+  --rule:#272B31;
+  --rule-hi:#3A3F47;
+  --accent:#F9D360;
+  --accent-text:#F9D360;
+
+  --spine:34%;
+  --sans:"Archivo",system-ui,sans-serif;
+  --disp:"Archivo Expanded","Archivo",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+
+  --col:min(1440px,94vw);
+  --measure:34rem;
+  --gut:clamp(18px,3vw,40px);
+
+  --wm-font:600 13px/1 var(--disp);
+  --h2-font:600 clamp(1.4rem,2.6vw,2.1rem)/1.1 var(--disp);
+  --recn-font:600 clamp(17px,1.4vw,20px)/1.2 var(--disp);
+  --fig-font:600 clamp(1.4rem,2.6vw,2rem)/1 var(--disp);
+  --navfade:linear-gradient(to bottom,rgba(16,18,22,.95),rgba(16,18,22,0));
+  --vignette:none;
+  color-scheme:dark;
+}
+
+/* the one thing that never moves */
+main{position:relative}
+main::before{
+  content:"";position:absolute;top:0;bottom:0;left:var(--spine);
+  width:1px;background:var(--rule-hi);z-index:1;
+}
+
+/* every band is a two-track grid split at the spine, never at the centre */
+.band,.hero{
+  display:grid;
+  grid-template-columns:calc(var(--spine) - var(--gut)) 1fr;
+  column-gap:var(--gut);
+  border-top:1px solid var(--rule);
+  padding:64px 0;
+  position:relative;
+}
+.hero{border-top:0;padding:116px 0 40px}
+
+/* headings hang LEFT and right-align to the spine */
+.band>h2,.hero>h1{
+  grid-column:1;text-align:right;margin:0;align-self:start;
+}
+h2{font:var(--h2-font);letter-spacing:-.02em}
+.hero h1{
+  font:600 clamp(1.9rem,4vw,3.5rem)/1.04 var(--disp);
+  letter-spacing:-.035em;
+}
+/* everything else starts at the spine and runs right */
+.band>*:not(h2),.hero>*:not(h1){grid-column:2}
+.lede,.sub{max-width:var(--measure);color:var(--dim);margin:0 0 26px}
+
+/* depth ticks: the only gold on the page */
+.band::after{
+  content:attr(data-depth);position:absolute;left:var(--spine);top:58px;
+  transform:translateX(-50%);
+  font:400 10px/1 var(--mono);letter-spacing:.14em;color:var(--accent);
+  background:var(--ground);padding:5px 7px;z-index:2;
+}
+.hero::after{content:none}
+
+.cta{
+  background:var(--bright);border-color:var(--bright);color:var(--ground);
+  border-radius:0;
+  /* grid stretches a block child across its track; the action is a button, not
+     a band */
+  justify-self:start;width:max-content;
+}
+
+/* ---------- hero plates: they CROSS the spine, each a different width ---- */
+.spineplates{margin:46px 0 0;grid-column:1 / -1 !important;position:relative;z-index:2}
+.spineplate{
+  display:grid;grid-template-columns:calc(var(--spine) - var(--gut)) 1fr;
+  column-gap:var(--gut);align-items:baseline;
+  padding:14px 0;border-top:1px solid var(--rule);
+}
+.spineplate .l{text-align:right;font:400 11px/1.4 var(--mono);letter-spacing:.1em;color:var(--dim)}
+.spineplate .r{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.spineplate .nm{font:600 clamp(16px,1.5vw,20px)/1.2 var(--disp);letter-spacing:-.02em}
+.spineplate .mx{font:400 13px/1 var(--mono);color:var(--bright);font-variant-numeric:tabular-nums}
+.spineplate .kd{font:400 11.5px/1.4 var(--mono);color:var(--dim)}
+/* the bar that reaches: width varies per plate, which is the whole idea */
+.spineplate .bar{display:block;height:2px;background:var(--rule-hi);margin-top:8px}
+.spineplate:nth-child(1) .bar{width:64%}
+.spineplate:nth-child(2) .bar{width:88%;background:var(--accent);opacity:.55}
+.spineplate:nth-child(3) .bar{width:37%}
+.spineplate:nth-child(4) .bar{width:52%}
+
+/* record entries cross the spine too */
+.rec{grid-template-columns:calc(var(--spine) - var(--gut)) 1fr;column-gap:var(--gut)}
+.rec-h{align-items:flex-end;text-align:right}
+.firm{grid-template-columns:repeat(4,1fr);grid-column:2}
+.who,.pts,.steps{grid-column:2}
+
+@media (max-width:900px){
+  :root{--spine:22%}
+  .band,.hero,.rec,.spineplate{grid-template-columns:1fr;row-gap:10px}
+  .band>h2,.hero>h1,.rec-h,.spineplate .l{text-align:left}
+  .band>*:not(h2),.hero>*:not(h1){grid-column:1}
+  main::before{left:0}
+  .band::after{left:0;transform:none}
+  .firm,.who,.pts,.steps{grid-column:1}
+}

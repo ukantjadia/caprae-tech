@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Caprae Engineering — design options</title>
+<title>Caprae Tech — design options</title>
 <style>
   :root {
     --bg: #16171A; --surface: #1E1F23; --line: #2F3136;
@@ -130,17 +130,29 @@
 
 <script>
 const OPTIONS = [
-  { id: 'dirD', name: 'D — The Core', meta: 'scroll is descent · Three.js scrubbed · Space Grotesk / IBM Plex', src: '../direction-d-the-core/code/dist/index.html' },
-  { id: 'dirB', name: 'B — Tearsheet', meta: 'visible rule grid · running head · Libre Franklin · key figure red', src: '../direction-b-tearsheet/code/dist/index.html' },
-  { id: 'dirC', name: 'C — Event Display', meta: 'scroll moves outward · hover isolates · Barlow Condensed · dark', src: '../direction-c-event-display/code/dist/index.html' },
+  { id: 'dirA', name: 'A — Specimen Sheet', meta: 'quiet evidence system · specimen typography · restrained motion', src: './a/' },
+  { id: 'dirB', name: 'B — Tearsheet', meta: 'visible rule grid · running head · Libre Franklin · key figure red', src: './b/' },
+  { id: 'dirC', name: 'C — Event Display', meta: 'scroll moves outward · hover isolates · Barlow Condensed · dark', src: './c/' },
+  { id: 'dirD', name: 'D — The Core', meta: 'scroll is descent · Three.js scrubbed · Space Grotesk / IBM Plex', src: './d/' },
+  { id: 'dirE', name: 'E — Origination v2', meta: 'Three.js · persistent field · velocity streaks · hover to inspect', src: './e/' },
+  { id: 'dirF', name: 'F — Load Bearing', meta: 'scroll is the playhead · React Three Fiber · amber', src: './f/' },
+  { id: 'e1', name: 'E-1 — Assay', meta: 'gold on black · plate hero · flow-field dashes · Newsreader', src: './e-variants/assay/' },
+  { id: 'e2', name: 'E-2 — Impression', meta: 'ink on paper · standing column · register and halftone', src: './e-variants/impression/' },
+  { id: 'e3', name: 'E-3 — Tape', meta: 'graphite duotone · giant figure hero · ticker lanes', src: './e-variants/tape/' },
+  { id: 'e4', name: 'E-4 — Spine', meta: 'asymmetric · fixed rule · 3D plate well · Archivo Expanded', src: './e-variants/spine/' },
+  { id: 'e5', name: 'E-5 — Overprint', meta: 'asymmetric grid · two inks · 3D misregistration · Fraunces', src: './e-variants/overprint/' },
+  { id: 'e1r', name: 'E1R — Pressure Assay', meta: 'rebuilt Three.js assay · notched pressure geometry · evidence index', src: './next/e1r/' },
+  { id: 'e6', name: 'E6 — Registered Depth', meta: 'registration spine · instanced depth plates · architectural field', src: './next/e6/' },
+  { id: 'e7', name: 'E7 — Stress Ledger', meta: 'structural frame · load paths · deterministic displacement', src: './next/e7/' },
+  { id: 'e8', name: 'E8 — Witness Field', meta: 'cursor, touch and keyboard-responsive evidence field', src: './next/e8/' },
 ];
 
 // Archived. Hidden by default; the toolbar toggle reveals them for reference.
 // Kept runnable so a later direction can be weighed against what came before.
 const ARCHIVED = [
-  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'ARCHIVED · zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../_archive/option-1-institutional/code/index.html' },
-  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: 'ARCHIVED · 3D island · Instrument Serif / Geist · amber #B4541F', src: '../_archive/option-4-editorial-hybrid/code/index.html' },
-  { id: 'dirA', name: 'A — Specimen Sheet', meta: 'ARCHIVED, rejected · too quiet, no motion', src: '../_archive/direction-a-specimen-sheet/code/dist/index.html' },
+  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'ARCHIVED · zero JS · Newsreader / Public Sans · moss #2D4A3E', src: './archive/option-1/' },
+  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: 'ARCHIVED · 3D island · Instrument Serif / Geist · amber #B4541F', src: './archive/option-4/' },
+  { id: 'dirE1', name: 'E v1 — Origination (raw WebGL2)', meta: 'ARCHIVED · 12.8KB · no library · kept for comparison', src: './archive/e-v1/' },
 ];
 let showArchived = false;
 function active() { return showArchived ? OPTIONS.concat(ARCHIVED) : OPTIONS; }
@@ -148,7 +160,7 @@ function active() { return showArchived ? OPTIONS.concat(ARCHIVED) : OPTIONS; }
 let vw = 1440, vh = 900, motionOff = false;
 const grid = document.getElementById('grid');
 
-function url(o) { return o.src + (motionOff ? '?motion=off' : ''); }
+function url(o) { return o.src + `?motion=${motionOff ? 'off' : 'on'}`; }
 
 function build() {
   grid.innerHTML = '';

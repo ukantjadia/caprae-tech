@@ -1,0 +1,25 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Record from '../content/Record.astro';
+import Wedge from '../content/Wedge.astro';
+import Team from '../content/Team.astro';
+import Firm from '../content/Firm.astro';
+---
+<Shell
+  title="Caprae Tech — engineers who already build for operators"
+  variant="overprint" kind="overprint" mode="three"
+  colors={{ inkA: '#14161A', inkB: '#F9D360', ground: '#EFEBE3' }}
+  fonts="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <section class="hero">
+    <div class="plate">
+      <span class="reg a"></span>
+      <h1>Engineers who already build for <em>operators</em>.</h1>
+      <span class="reg b"></span>
+    </div>
+    <p class="sub">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.</p>
+    <a class="cta" href="#contact">Book a call</a>
+  </section>
+
+  <Record /><Wedge /><Team /><Firm />
+</Shell>

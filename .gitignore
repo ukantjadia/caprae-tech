@@ -13,3 +13,8 @@ dist/
 # bun workspace
 designs/node_modules/
 bun.lock
+!designs/bun.lock
+
+# Generated GitHub Pages artifact
+designs/.pages/
+**/.impeccable/

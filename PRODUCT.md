@@ -93,7 +93,7 @@ origination, diligence, SDE, close date, LOI.
 ## Brand Commitments
 
 Sub-brand under Caprae Capital, confirmed by the owner 2026-09-14. Named in the
-current builds as "Caprae Engineering". Inherits the firm's credibility and may
+current builds as "Caprae Tech". Inherits the firm's credibility and may
 use firm-wide figures provided they are labeled as firm-wide, not as engineering
 output.
 

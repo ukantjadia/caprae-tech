@@ -1,0 +1,118 @@
+/* E-5 OVERPRINT.
+ *
+ * Two inks printed over each other. Caprae's near-black and Caprae's gold, set
+ * to multiply, which makes a third colour the designer never picked. That
+ * bronze is what the press produces, and it is the part nobody can copy from a
+ * screenshot.
+ *
+ * Gold measures 1.3:1 on paper, so it is never type here. It is a plate: fills,
+ * rules, and the layer black prints on top of.
+ *
+ * Five columns of fixed unequal widths, 8/5/13/3/8 of 37. Each section takes a
+ * different span, so the right edge of the page is ragged the whole way down.
+ */
+:root{
+  --paper:#EFEBE3;
+  --ground:#EFEBE3;
+  --inkA:#14161A;
+  --inkB:#F9D360;
+  --bronze:#4A4028;
+  --ink:#14161A;
+  --dim:#4A4E55;
+  --rule:rgba(20,22,26,.22);
+  --rule-hi:rgba(20,22,26,.42);
+  --accent:#F9D360;
+  --accent-text:#14161A;
+
+  --disp:"Fraunces",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+
+  --col:min(1440px,94vw);
+  --measure:33rem;
+  --gut:clamp(18px,3vw,40px);
+
+  --wm-font:700 13px/1 var(--sans);
+  --h2-font:600 clamp(1.7rem,3.6vw,3rem)/1.02 var(--disp);
+  --recn-font:600 clamp(19px,1.7vw,24px)/1.15 var(--disp);
+  --fig-font:600 clamp(1.6rem,3vw,2.4rem)/1 var(--disp);
+  --navfade:linear-gradient(to bottom,rgba(239,235,227,.96),rgba(239,235,227,0));
+  --vignette:none;
+  color-scheme:light;
+}
+body{font-variation-settings:"SOFT" 0,"WONK" 1}
+
+/* the field is ink on paper, so it multiplies rather than adds */
+#field{mix-blend-mode:multiply;opacity:0}
+
+/* the asymmetric column set. 8 5 13 3 8 of 37. Never equal. */
+main{
+  display:grid;
+  grid-template-columns:8fr 5fr 13fr 3fr 8fr;
+  column-gap:var(--gut);
+}
+.band,.hero{
+  grid-column:1 / -1;
+  display:grid;grid-template-columns:subgrid;
+  border-top:1px solid var(--rule);padding:62px 0;position:relative;
+}
+.hero{border-top:0;padding:112px 0 44px}
+
+/* each section takes a DIFFERENT span, so nothing lines up down the page */
+.hero > .plate      {grid-column:1 / 4}
+.hero > .sub        {grid-column:2 / 5}
+.hero > .cta        {grid-column:1 / 3;justify-self:start}
+#record             {--span:1}
+#record > *         {grid-column:1 / 4}
+.band:nth-of-type(3) > * {grid-column:3 / 6}
+.band:nth-of-type(4) > * {grid-column:2 / 5}
+.band:nth-of-type(5) > * {grid-column:1 / 4}
+footer              {grid-column:3 / 6}
+
+/* the overprinted headline: gold plate under, black type over */
+.plate{position:relative;margin:0 0 26px}
+.plate h1{
+  position:relative;z-index:2;margin:0;
+  font:600 clamp(2.2rem,5.4vw,4.6rem)/0.96 var(--disp);
+  letter-spacing:-.03em;color:var(--inkA);
+  font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 120;
+}
+.plate::before{
+  content:"";position:absolute;z-index:1;
+  /* the plate must sit under BOTH lines, or the bronze word is not actually
+     an overlap and the whole conceit is decorative */
+  left:-14px;right:26%;top:3%;bottom:4%;
+  background:var(--inkB);
+  transform:rotate(-.6deg);
+}
+/* where the two plates meet, the overlap goes bronze */
+.plate h1 em{font-style:normal;color:var(--bronze)}
+
+.eyebrow{font:400 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin:0 0 18px}
+.lede,.sub{max-width:var(--measure);color:var(--dim);margin:0 0 26px}
+h2{letter-spacing:-.025em;margin:0 0 12px}
+.cta{
+  background:var(--inkA);border-color:var(--inkA);color:var(--paper);
+  box-shadow:5px 5px 0 var(--inkB);
+}
+.cta:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--inkB)}
+
+/* registration marks, deliberately 2px out of true */
+.reg{position:absolute;width:13px;height:13px;pointer-events:none;opacity:.7}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--inkA)}
+.reg::before{left:0;right:0;top:6px;height:1px}
+.reg::after{top:0;bottom:0;left:6px;width:1px}
+.reg.a{top:-6px;left:-8px}
+.reg.b{bottom:-4px;right:-10px;transform:translate(2px,-2px)}
+
+.pv::before{background:var(--bronze)}
+.rec-d{color:var(--bronze)}
+.steps .n{color:var(--bronze)}
+.firm dd b{color:var(--bronze)}
+
+@media (max-width:900px){
+  main{grid-template-columns:1fr}
+  .band,.hero{display:block}
+  .hero > *,.band > *,#record > *,footer{grid-column:auto !important}
+  .plate::before{right:4%}
+}

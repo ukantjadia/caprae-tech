@@ -1,0 +1,186 @@
+/* Direction E v2 — ORIGINATION
+ * One hue. The stamp red is a mark made on an executed document. It appears on
+ * the resolved route, the eyebrow dot, the dates and the provenance marks.
+ * Never a fill.
+ */
+:root{
+  --void:#07080A;
+  --paper:#E8E6E1;
+  --soft:#8A8F98;
+  --rule:rgba(232,230,225,.14);
+  --rule-hi:rgba(232,230,225,.26);
+  --stamp:#D4482E;
+
+  --disp:"Switzer",system-ui,sans-serif;
+  --sans:"Public Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+
+  /* The page uses the width. A narrow centred measure is an editorial choice
+     and this is not an editorial page. Running prose keeps a readable
+     measure; structure spans. */
+  --col:min(1320px,92vw);
+  --measure:38rem;
+  --gut:clamp(20px,4vw,44px);
+
+  color-scheme:dark;
+  accent-color:var(--stamp);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scrollbar-color:#2A2E36 var(--void)}
+body{
+  margin:0;background:var(--void);color:var(--paper);
+  font:400 17px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--stamp);color:var(--paper)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px}
+
+/* ---------- the fixed layers ---------- */
+#field,.plate{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%}
+.plate{z-index:0}
+.live .plate{display:none}
+/* The live canvas covers the build-time plate the moment it exists. */
+#field{z-index:1;background:transparent}
+#vig{
+  position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(118% 88% at 50% 46%,transparent 0%,transparent 34%,rgba(7,8,10,.62) 72%,rgba(7,8,10,.94) 100%);
+}
+/* Legibility scrim behind the reading column. Not a card and not a panel:
+   no edge, no border, no fill boundary. It only lifts type off the field. */
+main::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 45%,rgba(7,8,10,.72),rgba(7,8,10,.30) 60%,transparent 85%);
+}
+body[data-route="/"] main::before{opacity:.35}
+main{position:relative;z-index:3;max-width:var(--col);margin:0 auto;padding:0 var(--gut)}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;gap:22px;padding:18px var(--gut);
+  background:linear-gradient(to bottom,rgba(7,8,10,.92),rgba(7,8,10,0));
+}
+.wm{font:700 14px/1 var(--disp);letter-spacing:.10em;text-transform:uppercase;text-decoration:none}
+nav .sp{flex:1}
+.nl{font:400 13.5px/1 var(--mono);letter-spacing:.06em;color:var(--soft);text-decoration:none;transition:color .2s}
+.nl:hover,.nl:focus-visible,.nl.on{color:var(--paper)}
+.nl.on::before{content:"";display:inline-block;width:5px;height:5px;background:var(--stamp);margin-right:8px;vertical-align:middle;transform:translateY(-1px)}
+.pill{
+  font:500 13.5px/1 var(--mono);letter-spacing:.04em;
+  color:var(--void);background:var(--paper);border:1px solid var(--paper);
+  padding:10px 16px;text-decoration:none;transition:background .18s,color .18s
+}
+.pill:hover,.pill:focus-visible{background:transparent;color:var(--paper)}
+
+/* ---------- read-out: describes the RENDER, never the business ---------- */
+.readout{
+  position:fixed;left:0;right:0;bottom:0;z-index:4;
+  max-width:var(--col);margin:0 auto;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--rule);border-top:1px solid var(--rule);
+}
+.readout li{background:rgba(7,8,10,.82);padding:11px 12px;text-align:center;backdrop-filter:blur(3px)}
+.readout dt{font:400 10.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.readout dd{margin:4px 0 0;font:500 13.5px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- sections ---------- */
+section{padding:74px 0}
+section+section{border-top:1px solid var(--rule)}
+.hero{padding:118px 0 56px;text-align:center}
+.head{padding:132px 0 20px}
+.eyebrow{font:400 11.5px/1.5 var(--mono);letter-spacing:.20em;text-transform:uppercase;color:var(--soft);margin:0 0 20px}
+.eyebrow i{display:inline-block;width:5px;height:5px;background:var(--stamp);margin-right:10px;vertical-align:middle;transform:translateY(-1px);font-style:normal}
+h1,.ph{font:500 clamp(2rem,5vw,4.1rem)/1.16 var(--disp);letter-spacing:-.03em;margin:0 0 20px;text-wrap:balance}
+h1 b{font-weight:700}
+.sub{margin:0 auto 26px;max-width:var(--measure);color:var(--soft)}
+.sub strong{color:var(--paper);font-weight:500}
+h2{font:500 clamp(1.5rem,3.2vw,2.5rem)/1.2 var(--disp);letter-spacing:-.025em;margin:0 0 10px;text-wrap:balance}
+.lede{margin:0 0 34px;max-width:var(--measure);color:var(--soft)}
+.cta{
+  display:inline-block;font:500 15px/1 var(--mono);letter-spacing:.03em;
+  color:var(--void);background:var(--paper);border:1px solid var(--paper);
+  padding:15px 26px;text-decoration:none;transition:background .18s,color .18s
+}
+.cta:hover,.cta:focus-visible{background:transparent;color:var(--paper)}
+.hint{margin:16px 0 0;font:400 11.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.next{margin:36px 0 0}
+.next a{font:500 13.5px/1 var(--mono);letter-spacing:.06em;color:var(--paper);text-decoration:none;border-bottom:1px solid var(--stamp);padding-bottom:4px}
+
+/* ---------- the record: full-width plates, never cards ---------- */
+.records{padding-top:20px}
+.rec{
+  margin:0;padding:28px 0;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:minmax(14rem,21rem) 1fr;
+  column-gap:clamp(28px,4vw,64px);align-items:start;
+}
+.rec:first-of-type{border-top:0;padding-top:0}
+.rec-h{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.rec-b{min-width:0}
+.rec-n{font:500 clamp(17px,1.5vw,21px)/1.25 var(--disp);letter-spacing:-.015em}
+.rec-n a{text-decoration:none;border-bottom:1px solid var(--rule-hi)}
+.rec-n a:hover{border-bottom-color:var(--stamp)}
+.rec-k{font:400 12px/1.3 var(--mono);letter-spacing:.06em;color:var(--soft)}
+.rec-d{font:400 12px/1.3 var(--mono);letter-spacing:.08em;color:var(--stamp)}
+.rec p{margin:0 0 10px;max-width:var(--measure);color:var(--soft)}
+.stack{margin:0;font:400 11.5px/1.7 var(--mono);letter-spacing:.05em;color:var(--soft)}
+
+/* provenance: the source travels with the figure, inline, never in a footer */
+.fig{font-weight:500;color:var(--paper);font-variant-numeric:tabular-nums}
+.pv{font:400 11.5px/1 var(--mono);letter-spacing:.05em;color:var(--soft);white-space:nowrap}
+.pv::before{content:"";display:inline-block;width:14px;height:1px;background:var(--stamp);vertical-align:middle;margin:0 7px}
+
+.pts{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(28px,4vw,64px)}
+.pts li{padding:13px 0;border-top:1px solid var(--rule);color:var(--soft)}
+.pts li:nth-child(-n+2){border-top:0}
+
+.who{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(28px,4vw,64px)}
+.who li{display:block;padding:14px 0;border-top:1px solid var(--rule)}
+.who li:nth-child(-n+2){border-top:0}
+.who b{display:block;font-weight:500;font-size:16.5px;margin-bottom:2px}
+.who span{color:var(--soft);font-size:15.5px}
+.who em{font-style:normal;color:var(--paper);font:400 12px/1.4 var(--mono);letter-spacing:.06em}
+
+.steps{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);column-gap:clamp(28px,4vw,64px)}
+.steps li{display:block;padding:16px 0;border-top:1px solid var(--rule)}
+.steps .n{display:block;margin-bottom:6px;font:400 12px/1.7 var(--mono);letter-spacing:.08em;color:var(--stamp)}
+.steps b{display:block;font-weight:500}
+.steps li>span:last-child{display:block;color:var(--soft)}
+
+/* Ruled rows, not a bordered grid. A grid of opaque cells is a panel. */
+.firm{display:grid;grid-template-columns:repeat(4,1fr);column-gap:clamp(24px,3vw,48px);margin:0}
+.firm div{padding:16px 0;border-top:1px solid var(--rule)}
+.firm dt{font:500 clamp(1.25rem,2.4vw,1.6rem)/1.1 var(--disp);font-variant-numeric:tabular-nums}
+.firm dd{margin:7px 0 0;font:400 12px/1.5 var(--mono);letter-spacing:.05em;color:var(--soft)}
+/* The scope label is part of the figure, at the caption's own size. */
+.firm dd b{display:block;font-weight:400;color:var(--stamp)}
+
+footer{padding:34px 0 96px;border-top:1px solid var(--rule);font:400 12.5px/1.9 var(--mono);letter-spacing:.05em;color:var(--soft)}
+footer a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--rule-hi)}
+main{padding-bottom:86px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .rec{grid-template-columns:1fr;row-gap:12px}
+  .firm{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  nav .nl{display:none}
+  .pts,.who{grid-template-columns:1fr}
+  .pts li,.who li{border-top:1px solid var(--rule)}
+  .pts li:first-child,.who li:first-child{border-top:0}
+  .firm{grid-template-columns:1fr}
+  .readout{grid-template-columns:repeat(2,1fr)}
+  .hint{display:none}
+  .hero{padding-top:96px}
+  .head{padding-top:104px}
+  section{padding:56px 0}
+}
+
+/* ---------- reduced motion: a designed tier ---------- */
+/* The island never hydrates at this setting, so three is never fetched and the
+   canvas never exists. The build-time plate IS the field. */
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}

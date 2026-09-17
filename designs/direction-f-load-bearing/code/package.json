@@ -1,0 +1,20 @@
+{
+  "name": "direction-f-load-bearing",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "review": "astro build && node make-review-copy.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.6.1",
+    "@astrojs/react": "^4.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/drei": "^9.114.3"
+  }
+}

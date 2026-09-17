@@ -1,0 +1,58 @@
+---
+/* Direction E v2 — ORIGINATION
+ * Contract: design-isperiation-prompts/adapted-prompts/01-orrery-to-caprae.md
+ * Plan: plans/direction-e-v2-origination.md
+ *
+ * The field island is declared HERE, once, with transition:persist, so it
+ * survives navigation instead of being torn down and re-seeded on every route.
+ */
+import { ClientRouter } from 'astro:transitions';
+import Field from '../components/Field.jsx';
+import StaticPlate from '../components/StaticPlate.astro';
+import '../styles/origination.css';
+const { title, route, live = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rp = live ? '/review' : '';
+const nav = [
+  { href: `${base}${rp}/work`, label: 'The record', key: '/work' },
+  { href: `${base}${rp}/team`, label: 'The team', key: '/team' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@500,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<ClientRouter />
+</head>
+<body data-route={route}>
+
+<!-- Gated at the framework level: a reduced-motion reader never fetches three.
+     `live` is the review-only escape hatch, used by /review/* so the full tier
+     can be seen on a machine that has reduced motion switched on. -->
+{live
+  ? <Field client:load transition:persist="field" />
+  : <Field client:media="(prefers-reduced-motion: no-preference)" transition:persist="field" />}
+<StaticPlate />
+
+<nav transition:persist="nav">
+  <a class="wm" href={base + rp + '/'}>Caprae Tech</a>
+  {nav.map((n) => (
+    <a class:list={['nl', route === n.key && 'on']} href={n.href}>{n.label}</a>
+  ))}
+  <span class="sp"></span>
+  <a class="pill" href={base + rp + '/contact'}>Book a call</a>
+</nav>
+
+<main>
+  <slot />
+</main>
+
+</body>
+</html>

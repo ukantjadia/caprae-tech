@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caprae Engineering — engineers who already build for operators</title>
+<meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build.">
+
+<!-- Direction E — ORIGINATION
+     Contract: design-isperiation-prompts/adapted-prompts/01-orrery-to-caprae.md
+     Adapted from orrery.md. Raw WebGL2, no library. No image, video or mesh.
+     Position is a pure function of (attributes, time): no simulation state,
+     no feedback buffer, reverse is exact. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --void:#07080A;
+  --paper:#E8E6E1;
+  --soft:#8A8F98;
+  --rule:rgba(232,230,225,.14);
+  --rule-hi:rgba(232,230,225,.26);
+  --stamp:#D4482E;
+
+  --disp:"Switzer",system-ui,sans-serif;
+  --sans:"Public Sans",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+
+  /* The page uses the width. A narrow centred measure is an editorial
+     choice and this is not an editorial page. Running prose keeps a
+     readable measure; structure spans. */
+  --col:min(1320px,92vw);
+  --measure:38rem;
+  --gut:clamp(20px,5vw,40px);
+
+  color-scheme:dark;
+  accent-color:var(--stamp);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scrollbar-color:#2A2E36 var(--void)}
+body{
+  margin:0;background:var(--void);color:var(--paper);
+  font:400 17px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--stamp);color:var(--paper)}
+a{color:inherit}
+
+/* ---------- the three fixed layers ---------- */
+#field{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%}
+/* The vignette is a layer, never a CSS filter on the canvas: a filter forces a
+   readback every frame. */
+#vig{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(118% 88% at 50% 46%,transparent 0%,transparent 34%,rgba(7,8,10,.62) 72%,rgba(7,8,10,.94) 100%);
+}
+.shell{position:relative;z-index:2}
+
+/* ---------- preloader: a corner line, not a cover ---------- */
+/* The hero is readable before WebGL initialises, so the preloader must never
+   occlude it. It holds until the first frame is drawn, then lifts. */
+#pre{
+  position:fixed;left:var(--gut);bottom:22px;z-index:12;
+  font:400 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--soft);transition:opacity .5s ease
+}
+#pre::before{content:"";display:inline-block;width:5px;height:5px;margin-right:9px;
+  background:var(--stamp);vertical-align:middle;transform:translateY(-1px)}
+#pre.gone{opacity:0}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:11;
+  display:flex;align-items:center;gap:22px;
+  padding:18px var(--gut);
+  background:linear-gradient(to bottom,rgba(7,8,10,.92),rgba(7,8,10,0));
+}
+.wm{font:700 14px/1 var(--disp);letter-spacing:.10em;text-transform:uppercase;text-decoration:none}
+nav .sp{flex:1}
+.nl{font:400 13.5px/1 var(--mono);letter-spacing:.06em;color:var(--soft);text-decoration:none;transition:color .2s}
+.nl:hover,.nl:focus-visible{color:var(--paper)}
+.pill{
+  font:500 13.5px/1 var(--mono);letter-spacing:.04em;
+  color:var(--void);background:var(--paper);
+  padding:10px 16px;border:1px solid var(--paper);text-decoration:none;
+  transition:background .18s,color .18s
+}
+.pill:hover,.pill:focus-visible{background:transparent;color:var(--paper)}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px}
+
+/* ---------- column ---------- */
+main{max-width:var(--col);margin:0 auto;padding:0 var(--gut)}
+section{padding:78px 0}
+section+section{border-top:1px solid var(--rule)}
+
+/* ---------- hero: CTA inside the first viewport ---------- */
+.hero{padding:112px 0 52px;text-align:center}
+.eyebrow{
+  font:400 11.5px/1.5 var(--mono);letter-spacing:.20em;text-transform:uppercase;
+  color:var(--soft);margin:0 0 20px
+}
+.eyebrow i{display:inline-block;width:5px;height:5px;background:var(--stamp);
+  margin-right:10px;vertical-align:middle;transform:translateY(-1px);font-style:normal}
+h1{
+  font:500 clamp(2rem,5vw,4.1rem)/1.16 var(--disp);
+  letter-spacing:-.025em;margin:0 0 20px;text-wrap:balance
+}
+h1 b{font-weight:700}
+
+.sub{margin:0 auto 26px;max-width:var(--measure);color:var(--soft);font-size:17px}
+.sub strong{color:var(--paper);font-weight:500}
+.cta{
+  display:inline-block;font:500 15px/1 var(--mono);letter-spacing:.03em;
+  color:var(--void);background:var(--paper);border:1px solid var(--paper);
+  padding:15px 26px;text-decoration:none;transition:background .18s,color .18s
+}
+.cta:hover,.cta:focus-visible{background:transparent;color:var(--paper)}
+.hint{margin:16px 0 0;font:400 11.5px/1 var(--mono);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--soft)}
+
+/* ---------- read-out rule ---------- */
+.readout{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--rule);border-block:1px solid var(--rule);
+  backdrop-filter:blur(2px);
+  margin:0;padding:0;list-style:none
+}
+.readout li{background:rgba(7,8,10,.74);padding:13px 12px;text-align:center}
+.readout dt{font:400 10.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.readout dd{margin:5px 0 0;font:500 14px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+
+h2{
+  font:500 clamp(1.5rem,3.2vw,2.5rem)/1.2 var(--disp);
+  letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance
+}
+.lede{margin:0 0 34px;max-width:var(--measure);color:var(--soft)}
+
+/* ---------- the record ---------- */
+.rec{
+  margin:0;padding:28px 0;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:minmax(14rem,21rem) 1fr;
+  column-gap:clamp(28px,4vw,64px);align-items:start;
+}
+.rec:first-of-type{border-top:0;padding-top:0}
+.rec-h{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.rec-b{min-width:0}
+.rec-n{font:500 clamp(17px,1.5vw,21px)/1.25 var(--disp);letter-spacing:-.015em}
+.rec-n a{text-decoration:none;border-bottom:1px solid var(--rule-hi)}
+.rec-n a:hover{border-bottom-color:var(--stamp)}
+.rec-k{font:400 12px/1.3 var(--mono);letter-spacing:.06em;color:var(--soft)}
+.rec-d{font:400 12px/1.3 var(--mono);letter-spacing:.08em;color:var(--stamp);white-space:nowrap}
+.rec p{margin:0 0 10px;max-width:var(--measure);color:var(--soft)}
+.rec p strong{color:var(--paper);font-weight:500}
+.stack{margin:0;font:400 11.5px/1.7 var(--mono);letter-spacing:.05em;color:var(--soft)}
+
+/* provenance: the source travels with the figure, inline, never in a footer */
+.fig{font-weight:500;color:var(--paper);font-variant-numeric:tabular-nums}
+.pv{font:400 11.5px/1 var(--mono);letter-spacing:.05em;color:var(--soft);white-space:nowrap}
+.pv::before{content:"";display:inline-block;width:14px;height:1px;
+  background:var(--stamp);vertical-align:middle;margin:0 7px}
+
+/* ---------- lists ---------- */
+.pts{margin:0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(28px,4vw,64px)}
+.pts li{padding:13px 0;border-top:1px solid var(--rule);color:var(--soft)}
+.pts li:nth-child(-n+2){border-top:0}
+
+.who{margin:0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(28px,4vw,64px)}
+.who li{display:block;padding:14px 0;border-top:1px solid var(--rule)}
+.who li:nth-child(-n+2){border-top:0}
+.who b{display:block;font:500 16.5px/1.4 var(--sans);font-weight:500;margin-bottom:2px}
+.who span{color:var(--soft);font-size:15.5px}
+.who em{font-style:normal;color:var(--paper);font:400 12px/1.4 var(--mono);letter-spacing:.06em}
+
+.steps{margin:0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(3,1fr);column-gap:clamp(28px,4vw,64px)}
+.steps li{display:block;padding:16px 0;border-top:1px solid var(--rule)}
+.steps .n{display:block;margin-bottom:6px}
+.steps .n{font:400 12px/1.7 var(--mono);letter-spacing:.08em;color:var(--stamp)}
+.steps b{font-weight:500}
+.steps span{display:block;color:var(--soft)}
+
+/* ---------- firm figures ---------- */
+.firm{display:grid;grid-template-columns:repeat(4,1fr);
+  column-gap:clamp(24px,3vw,48px);margin:0}
+.firm div{padding:16px 0;border-top:1px solid var(--rule)}
+.firm div{border-top:1px solid var(--rule)}
+.firm dt{font:500 clamp(1.25rem,2.4vw,1.6rem)/1.1 var(--disp);font-variant-numeric:tabular-nums}
+.firm dd{margin:7px 0 0;font:400 12px/1.5 var(--mono);letter-spacing:.05em;color:var(--soft)}
+/* The scope label is part of the figure and is set at the caption's own size.
+   Removing it turns a true statement into a false one. */
+.firm dd b{display:block;font-weight:400;color:var(--stamp)}
+
+footer{padding:34px 0 64px;border-top:1px solid var(--rule);
+  font:400 12.5px/1.9 var(--mono);letter-spacing:.05em;color:var(--soft)}
+footer a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--rule-hi)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .rec{grid-template-columns:1fr;row-gap:12px}
+  .firm{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  nav .nl{display:none}
+  .pts,.who{grid-template-columns:1fr}
+  .pts li,.who li{border-top:1px solid var(--rule)}
+  .pts li:first-child,.who li:first-child{border-top:0}
+  .firm{grid-template-columns:1fr}
+  .readout{grid-template-columns:repeat(2,1fr)}
+  .hint{display:none}
+  .hero{padding-top:88px}
+  section{padding:56px 0}
+  .rec-d{margin-left:0;width:100%}
+}
+
+/* ---------- reduced motion: a designed tier, not a disable switch ---------- */
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<canvas id="field" aria-hidden="true"></canvas>
+<div id="vig" aria-hidden="true"></div>
+<p id="pre" hidden>Initialising field</p>
+
+<nav>
+  <a class="wm" href="#top">Caprae Engineering</a>
+  <a class="nl" href="#record">The record</a>
+  <a class="nl" href="#team">The team</a>
+  <span class="sp"></span>
+  <a class="pill" href="#contact">Book a call</a>
+</nav>
+
+<div class="shell">
+<main id="top">
+
+  <section class="hero">
+    <p class="eyebrow"><i></i>Part of Caprae Capital · Four products live, one open source</p>
+    <h1>Engineers who already<br><b>build for operators.</b></h1>
+    <p class="sub">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. <strong>Four products live, one open source.</strong> That team is now available to yours.</p>
+    <a class="cta" href="#contact">Book a call</a>
+    <p class="hint">Drag the field</p>
+  </section>
+
+  <ul class="readout" id="readout">
+    <li><dt>Bodies tracked</dt><dd id="r-n">—</dd></li>
+    <li><dt>Cycles resolved</dt><dd id="r-c">—</dd></li>
+    <li><dt>Field elapsed</dt><dd id="r-t">—</dd></li>
+    <li><dt>Stage</dt><dd id="r-s">—</dd></li>
+  </ul>
+
+  <section id="record">
+    <h2>Four products. Live, paid, and open in a new tab</h2>
+    <p class="lede">Not case studies. Software strangers use.</p>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://www.saasquatchleads.com/" target="_blank" rel="noopener">SaaSquatch Leads</a></span>
+        <span class="rec-k">B2B lead generation and enrichment</span>
+      </div>
+      <div class="rec-b">
+      <p>Built in-house from zero. Three-week beta drew <span class="fig">1,200+</span> signups. Public at <span class="fig">$20/month</span>.<br><span class="pv">saasquatchleads.com · live and public</span></p>
+      <p class="stack">Flask · Vite · React · TypeScript · ML pipeline · AWS</p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://coldcallkillers.io/" target="_blank" rel="noopener">Cold Call Killers</a></span>
+        <span class="rec-k">Full-funnel B2B outbound system</span>
+        <span class="rec-d">Launched Jun 2026</span>
+      </div>
+      <div class="rec-b">
+      <p>Human callers, robodialing, number screening, call intelligence, email, LinkedIn and physical mail in one engine. Ships with Dial Sniper and Call Intelligence as standalone tools.</p>
+      <p><span class="fig">300,000+</span> calls across <span class="fig">5</span> countries.<br><span class="pv">coldcallkillers.io · live</span></p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n">CLOVER</span>
+        <span class="rec-k">Closed-Loop Origination via Exclusive Referrals</span>
+        <span class="rec-d">Open source · beta</span>
+      </div>
+      <div class="rec-b">
+      <p>Lets searchers reassign deals that are too big, too small or off-thesis, and earn a success fee on what they pass. Origination routing, in the open.</p>
+      <p class="stack">This is the mechanism the field behind this page depicts.</p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://bankersedgeadvisory.com" target="_blank" rel="noopener">Bankers Edge</a></span>
+        <span class="rec-k">Advisory platform</span>
+      </div>
+      <div class="rec-b">
+      <p>Client build, live in production.<br><span class="pv">bankersedgeadvisory.com</span></p>
+    </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>The part a dev shop cannot copy</h2>
+    <p class="lede">Every agency claims it understands your business. Ours reports into a private equity firm that closes deals with operators, and sits in recurring meetings with them. Our engineers have already survived the founder relationship. You are not paying to teach them what a deal looks like.</p>
+    <ul class="pts">
+      <li>They know what an operator asks for, which is rarely what they say first.</li>
+      <li>They have seen a requirement change three times in a month and shipped anyway.</li>
+      <li>They understand diligence pressure and why a close date is a close date.</li>
+      <li>They do not need a product manager to translate business intent into a ticket.</li>
+    </ul>
+  </section>
+
+  <section id="team">
+    <h2>Who they report to</h2>
+    <p class="lede">Not a stock advisory board. The people our engineers actually sit with.</p>
+    <ul class="who">
+      <li><b>Kevin Hong</b><span>Founder and Managing Partner, Caprae Capital · <em>Chicago Booth</em></span></li>
+      <li><b>Eric Nehrlich</b><span>Chief of Staff, Caprae Capital · <em>Google</em></span></li>
+      <li><b>Felix I. Odigie</b><span>Deal Advisor. Founder and Managing Director, Quoin Advisors · <em>Wharton</em></span></li>
+      <li><b>Hereford Johnson</b><span>Principal Adviser. Founder, Third Equity Partners · <em>Kellogg</em></span></li>
+      <li><b>Zackary Beckham</b><span>Partner for Strategic Investments. Founder, ITSco · <em>Arizona State</em></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ul class="steps">
+      <li><span class="n">01</span><span><b>Call</b><span>Thirty minutes. What you are building, what is in the way.</span></span></li>
+      <li><span class="n">02</span><span><b>Scope</b><span>A written scope with a number in it, inside a week.</span></span></li>
+      <li><span class="n">03</span><span><b>Build</b><span>You meet the engineers, not an account manager.</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The firm behind the team</h2>
+    <dl class="firm">
+      <div><dt>$110M+</dt><dd>closed, 2026 YTD<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>20%+</dt><dd>MoM growth, 14+ months<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>8</dt><dd>countries serviced<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>40+</dt><dd>searchers supported<b>Caprae Capital, firm-wide</b></dd></div>
+    </dl>
+  </section>
+
+  <footer id="contact">
+    <a href="mailto:partners@capraecapital.com">partners@capraecapital.com</a><br>
+    Part of Caprae Capital · Four products live, one open source
+  </footer>
+
+</main>
+</div>
+
+<script>
+/* ============================================================================
+   ORIGINATION — the field
+   Position is a PURE FUNCTION of (attributes, time). No simulation state, no
+   feedback buffer. Scrubbing the clock backwards is exact and the field can
+   never drift. That is the argument, not a performance trick.
+   ========================================================================= */
+(function(){
+'use strict';
+
+var pre = document.getElementById('pre');
+pre.hidden = false;
+
+var cv = document.getElementById('field');
+var gl = cv.getContext('webgl2', { alpha:true, antialias:false, depth:false, powerPreference:'low-power' });
+
+var params = new URLSearchParams(location.search);
+var MOTION = params.get('motion');
+/* ?motion=off forces the still tier, ?motion=on forces the full one. The
+   override exists because this project's own machine runs reduced motion,
+   so without it the full tier cannot be reviewed here at all. */
+var STILL = MOTION === 'off' || (MOTION !== 'on' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+var COARSE = matchMedia('(pointer: coarse)').matches;
+
+/* No WebGL2: lift the preloader at once. Every word of the record, every link
+   and the CTA are already in the document. The page still converts. */
+if (!gl) { pre.remove(); return; }
+
+/* ---- tiers ---------------------------------------------------------- */
+var W0 = innerWidth;
+var N = STILL ? 22000 : (W0 >= 1100 && !COARSE) ? 42000 : W0 >= 700 ? 22000 : 11000;
+
+/* ---- the population -------------------------------------------------- */
+/* Five size bands with clear space between them. A field with no gaps is a
+   smear; the gaps are what make it read as a market with structure. */
+/* The r0 ranges must NOT touch. Contiguous bands give a smear; the space
+   between them is what makes the field read as a market with structure. */
+var BANDS = [
+  { w:0.30, size:[0.05,0.18], r0:[1.66,1.92], lo:0.18 },
+  { w:0.26, size:[0.18,0.34], r0:[1.32,1.52], lo:0.22 },
+  { w:0.20, size:[0.34,0.55], r0:[1.00,1.18], lo:0.26 },
+  { w:0.14, size:[0.55,0.78], r0:[0.72,0.86], lo:0.30 },
+  { w:0.10, size:[0.78,1.00], r0:[0.46,0.58], lo:0.34 }
+];
+var CUM = []; (function(){ var a=0; for (var i=0;i<BANDS.length;i++){ a+=BANDS[i].w; CUM.push(a); } })();
+
+function pickBand(r){ for (var i=0;i<CUM.length;i++) if (r<=CUM[i]) return i; return CUM.length-1; }
+function lerp(a,b,t){ return a+(b-a)*t; }
+
+/* cycle = 0.55 + 1.9 * size^0.70.
+   The exponent is a calibration, not a physical law, and is not presented as
+   one. What matters is that it is strictly monotonic: a large deal never
+   closes in the time a small one does. Constant cycle length would make the
+   field a conveyor belt instead of a market. */
+function cycleOf(size){ return 0.55 + 1.9 * Math.pow(size, 0.70); }
+
+var d1 = new Float32Array(N*4);   // size, r0, scatter, phase0
+var d2 = new Float32Array(N*4);   // dropAt, theta0, cycle, seed
+var survivors = [];               // dropAt > 1: the ones that reach the close
+
+for (var i=0;i<N;i++){
+  var o = i*4;
+  if (i === 0){
+    /* Index 0 is THE CLOSE. Pinned to the origin, 26x point size, near-white,
+       never dimmed, never dropped. The one body the field converges on. */
+    d1[o]=1; d1[o+1]=0; d1[o+2]=0; d1[o+3]=0;
+    d2[o]=9; d2[o+1]=0; d2[o+2]=1; d2[o+3]=-1;
+    continue;
+  }
+  var bi = pickBand(Math.random()), B = BANDS[bi];
+  var size = lerp(B.size[0], B.size[1], Math.random());
+  var r0   = lerp(B.r0[0],   B.r0[1],   Math.random());
+  /* Two uniforms, not one: a real field bunches toward the plane with thin
+     wings. One uniform gives a slab. */
+  var scat = (Math.random()+Math.random()-1) * 0.22 * (1.25 - size);
+  var ph   = Math.random();
+  /* Skewed so most companies leave early and roughly 1% survive to the close.
+     Using 1.02 as the ceiling means survivors never sit exactly on the s=1
+     boundary. */
+  var drop = B.lo + (1.02 - B.lo) * Math.pow(Math.random(), 2.2);
+  var cyc  = cycleOf(size);
+
+  d1[o]=size; d1[o+1]=r0; d1[o+2]=scat; d1[o+3]=ph;
+  /* theta0 is independent of phase0. Deriving the angle from the phase makes
+     angular position a function of pipeline stage, so every body at the same
+     stage sits in the same arc and the field reads as one rotating clump
+     instead of a populated market. Measured: it pushed the alpha-weighted
+     centroid 6% off centre. */
+  var th0 = Math.random();
+  d2[o]=drop; d2[o+1]=th0; d2[o+2]=cyc; d2[o+3]=Math.random();
+
+  if (drop > 1.0) survivors.push({ ph:ph, th0:th0, cyc:cyc, r0:r0, base:Math.floor(ph) });
+}
+
+/* ---- shaders --------------------------------------------------------- */
+var STAGE_FN = [
+'const float TAU = 6.283185307;',
+/* u is TIME through the cycle. s is DISTANCE along the pipeline. They are not
+   the same and conflating them is the failure that matters: real M&A spends
+   most of the clock in diligence. Time weights cumulate to
+   [0, .08, .20, .35, .83, 1]; the five stages occupy equal spatial fifths. */
+'float stageOf(float u){',
+'  float s = 0.0;',
+'  s = mix(s, mix(0.0,0.2,(u-0.00)/0.08), step(0.00,u)*step(u,0.08));',
+'  s = mix(s, mix(0.2,0.4,(u-0.08)/0.12), step(0.08,u)*step(u,0.20));',
+'  s = mix(s, mix(0.4,0.6,(u-0.20)/0.15), step(0.20,u)*step(u,0.35));',
+'  s = mix(s, mix(0.6,0.8,(u-0.35)/0.48), step(0.35,u)*step(u,0.83));',
+'  s = mix(s, mix(0.8,1.0,(u-0.83)/0.17), step(0.83,u));',
+'  return s;',
+'}'
+].join('\n');
+
+var VS = ['#version 300 es',
+'precision highp float;',
+'in vec4 aDeal1;',
+'in vec4 aDeal2;',
+'uniform float uT, uPx, uCamZ, uDim;',
+'uniform vec2 uOff;',
+'uniform mat3 uRot;',
+'uniform mat4 uProj;',
+'out float vA;',
+'out vec3 vC;',
+STAGE_FN,
+'void main(){',
+'  float size=aDeal1.x, r0=aDeal1.y, scat=aDeal1.z, ph=aDeal1.w;',
+'  float drop=aDeal2.x, th0=aDeal2.y, cyc=aDeal2.z, seed=aDeal2.w;',
+'  float isClose = step(seed, -0.5);',
+'  float u = fract(ph + uT / cyc);',
+'  float s = stageOf(u);',
+'  float k = smoothstep(0.0, 1.0, s);',
+'  float R = mix(r0, 0.05, k);',
+'  float th = th0 * TAU + uT * (0.30 / cyc);',
+'  float z  = scat * (1.0 - 0.82 * k);',
+'  vec3 p = vec3(R*cos(th), R*sin(th), z);',
+'  float dead = step(drop, s);',
+'  p.xy *= 1.0 + dead * (s - drop) * 5.2;',
+'  p = mix(p, vec3(0.0), isClose);',
+'  vec3 w = uRot * p;',
+'  vec4 v = vec4(w.x + uOff.x, w.y + uOff.y, w.z - uCamZ, 1.0);',
+'  gl_Position = uProj * v;',
+/* roughly 1.5% are large and shade warm */
+'  float large = step(0.985, fract(seed*7.1));',
+/* The near/far cue. Without it a face-on field at uniform alpha is a flat
+   annulus; with it, it is a volume. Sign matched to a camera on +z. */
+'  float depth = 0.62 + 0.38 * smoothstep(-1.6, 1.6, w.z);',
+'  float a = (0.18 + 0.52*fract(seed*13.7)) * (1.0 + large*2.0) * depth;',
+'  a *= 1.0 - dead * smoothstep(0.0, 0.16, s - drop);',
+'  vA = mix(a, 1.0, isClose) * uDim;',
+'  vec3 cool = vec3(0.780,0.822,0.886);',
+'  vec3 warm = vec3(0.949,0.831,0.639);',
+'  vec3 col  = mix(cool, warm, large*0.85 + 0.10*fract(seed*3.3));',
+'  vC = mix(col, vec3(1.0), isClose);',
+/* Constant tuned to this scene's scale; the source prompt's 26.0 is tied to
+   orrery's much larger world. Structure is unchanged. */
+'  float sz = uPx * mix(1.0 + large*3.1, 26.0, isClose) * (10.0 / max(2.5, gl_Position.w));',
+'  gl_PointSize = max(sz, 0.6);',
+'}'].join('\n');
+
+var FS = ['#version 300 es',
+'precision highp float;',
+'in float vA;',
+'in vec3 vC;',
+'out vec4 o;',
+'void main(){',
+'  vec2 d = gl_PointCoord - 0.5;',
+'  float r = length(d) * 2.0;',
+'  if (r > 1.0) discard;',
+'  float core = exp(-r*6.5);',
+'  float halo = exp(-r*1.7) * 0.3;',
+'  o = vec4(vC, (core + halo) * vA);',
+'}'].join('\n');
+
+var PVS = ['#version 300 es',
+'precision highp float;',
+'in vec3 aP;',
+'in float aI;',
+'uniform mat3 uRot;',
+'uniform mat4 uProj;',
+'uniform float uCamZ, uFade, uDim;',
+'uniform vec2 uOff;',
+'out float vA;',
+'void main(){',
+'  vec3 w = uRot * aP;',
+'  gl_Position = uProj * vec4(w.x + uOff.x, w.y + uOff.y, w.z - uCamZ, 1.0);',
+/* fades in from the rim and out at the close so the path has a direction */
+'  vA = uDim * uFade * (0.20 + 0.80 * smoothstep(0.0, 0.28, aI)) * (1.0 - 0.35*smoothstep(0.82, 1.0, aI));',
+'}'].join('\n');
+
+var PFS = ['#version 300 es',
+'precision highp float;',
+'in float vA;',
+'out vec4 o;',
+'void main(){ o = vec4(0.831, 0.282, 0.180, vA); }'].join('\n');
+
+function sh(type, src){
+  var s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+function prog(vs, fs){
+  var p = gl.createProgram();
+  gl.attachShader(p, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  return p;
+}
+
+var P, PP;
+try { P = prog(VS, FS); PP = prog(PVS, PFS); }
+catch (e) { console.error('[origination]', e.message); pre.remove(); return; }
+
+var uT = gl.getUniformLocation(P,'uT'), uPx = gl.getUniformLocation(P,'uPx'),
+    uCamZ = gl.getUniformLocation(P,'uCamZ'), uRot = gl.getUniformLocation(P,'uRot'),
+    uProj = gl.getUniformLocation(P,'uProj'), uOff = gl.getUniformLocation(P,'uOff'), uDim = gl.getUniformLocation(P,'uDim');
+var pRot = gl.getUniformLocation(PP,'uRot'), pProj = gl.getUniformLocation(PP,'uProj'),
+    pCamZ = gl.getUniformLocation(PP,'uCamZ'), pFade = gl.getUniformLocation(PP,'uFade'),
+    pOff = gl.getUniformLocation(PP,'uOff'), pDim = gl.getUniformLocation(PP,'uDim');
+
+/* one static buffer for the whole population */
+var vao = gl.createVertexArray();
+gl.bindVertexArray(vao);
+function attr(p, name, data, n){
+  var b = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, b);
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(p, name);
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, n, gl.FLOAT, false, 0, 0);
+  return b;
+}
+attr(P,'aDeal1', d1, 4);
+attr(P,'aDeal2', d2, 4);
+gl.bindVertexArray(null);
+
+/* ---- the resolved path ------------------------------------------------ */
+/* A deliberate departure from the source prompt's single-draw-call discipline.
+   It is taken because the resolved path is the metaphor, not decoration: most
+   companies drift, one route resolves. The curve is the true locus of a real
+   survivor, not a drawn flourish - theta cancels time exactly, so the
+   trajectory is fixed in space while the body travels along it. */
+var PATHN = 64;
+var pathPos = new Float32Array(PATHN*3);
+var pathIdx = new Float32Array(PATHN);
+for (var q=0;q<PATHN;q++) pathIdx[q] = q/(PATHN-1);
+
+var pvao = gl.createVertexArray();
+gl.bindVertexArray(pvao);
+var pbuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pbuf);
+gl.bufferData(gl.ARRAY_BUFFER, pathPos, gl.DYNAMIC_DRAW);
+var pl = gl.getAttribLocation(PP,'aP');
+gl.enableVertexAttribArray(pl); gl.vertexAttribPointer(pl, 3, gl.FLOAT, false, 0, 0);
+attr(PP,'aI', pathIdx, 1);
+gl.bindVertexArray(null);
+
+function stageOfJS(u){
+  if (u <= 0.08) return 0.0 + 0.2*(u-0.00)/0.08;
+  if (u <= 0.20) return 0.2 + 0.2*(u-0.08)/0.12;
+  if (u <= 0.35) return 0.4 + 0.2*(u-0.20)/0.15;
+  if (u <= 0.83) return 0.6 + 0.2*(u-0.35)/0.48;
+  return 0.8 + 0.2*(u-0.83)/0.17;
+}
+var STAGE_NAMES = ['Sourced','Screened','LOI','Diligence','Close'];
+function stageName(u){ return STAGE_NAMES[Math.min(4, Math.floor(stageOfJS(u)*5))]; }
+
+var pathBody = null;
+function reseedPath(){
+  if (!survivors.length) return;
+  pathBody = survivors[(Math.random()*survivors.length)|0];
+  var ph = pathBody.ph, th0 = pathBody.th0, r0 = pathBody.r0;
+  for (var j=0;j<PATHN;j++){
+    var u = j/(PATHN-1);
+    var s = stageOfJS(u);
+    var k = s*s*(3-2*s);                 // smoothstep(0,1,s)
+    var R = r0 + (0.05 - r0)*k;
+    var th = th0*6.283185307 + (u - ph)*0.30;
+    pathPos[j*3]   = R*Math.cos(th);
+    pathPos[j*3+1] = R*Math.sin(th);
+    pathPos[j*3+2] = 0;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, pbuf);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, pathPos);
+}
+reseedPath();
+
+/* ---- viewport -------------------------------------------------------- */
+var DPR = 1, vw = 0, vh = 0;
+function resize(){
+  var de = document.documentElement;
+  var w = de.clientWidth, h = de.clientHeight;
+  DPR = Math.max(1, Math.min(COARSE ? 1.5 : 2, devicePixelRatio || 1, Math.sqrt(2200000/(w*h))));
+  var nw = Math.round(w*DPR), nh = Math.round(h*DPR);
+  if (nw === vw && nh === vh) return false;   // only when the size CHANGED
+  vw = nw; vh = nh; cv.width = nw; cv.height = nh;
+  gl.viewport(0,0,nw,nh);
+  setOff();
+  return true;
+}
+resize();
+
+/* The convergence is the whole argument and it must not sit behind the
+   headline or the CTA. So it is not a fixed offset: the first viewport shows
+   the unsorted rim, and the close rises into frame as the reader descends the
+   record. Scroll moves you toward the close as well as running the clock. */
+var offY = -1.10, offScale = 1;
+function setOff(){ offScale = Math.min(1, document.documentElement.clientHeight/820); }
+/* Accessibility here is conversion work, not compliance. Below the hero the
+   column carries dense running text over the densest part of the field, so the
+   field steps back. The close stays the brightest thing on the canvas because
+   it is 26x the point size. */
+var dim = 1;
+function updateOff(){
+  var x = Math.min(1, Math.max(0, pCur/0.60));
+  offY = (-1.10 + 1.20 * (x*x*(3-2*x))) * offScale;
+  var d = Math.min(1, Math.max(0, (pCur-0.06)/0.19));
+  dim = 1 - 0.62 * (d*d*(3-2*d));
+}
+setOff();
+var proj = new Float32Array(16);
+function setProj(){
+  var aspect = vw/vh, f = 1/Math.tan((38*Math.PI/180)/2), near = 0.1, far = 100;
+  proj[0]=f/aspect; proj[5]=f;
+  proj[10]=(far+near)/(near-far); proj[11]=-1;
+  proj[14]=(2*far*near)/(near-far); proj[15]=0;
+}
+setProj();
+
+var rot = new Float32Array(9);
+function setRot(yaw, pitch){
+  var cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
+  /* Rz(yaw) then Rx(pitch), column-major. Pitch 0 is face-on, pi/2 edge-on. */
+  rot[0]=cy;     rot[1]=cp*sy;   rot[2]=sp*sy;
+  rot[3]=-sy;    rot[4]=cp*cy;   rot[5]=sp*cy;
+  rot[6]=0;      rot[7]=-sp;     rot[8]=cp;
+}
+
+/* ---- scroll, drag, clock --------------------------------------------- */
+var pTarget = 0, pCur = 0, clock = 0, camZ = 4.6;
+var yaw = 0.0, pitch = 0.58, vYaw = 0, vPitch = 0, dragging = false, lastX = 0, lastY = 0;
+
+/* Pitch 0 is face-on, pi/2 edge-on. The bands only read face-on, so the
+   field opens flat and tilts toward the pipeline axis as the reader
+   descends the record. */
+function restPitch(){ return 0.58 + 0.34*pCur; }
+
+/* Scroll position is POLLED inside the loop. Not a scroll event: it has proved
+   unreliable on a standalone page here. Not behind an IntersectionObserver:
+   the gate silently kills the loop when the stage starts below the fold. */
+function readScroll(){
+  var total = document.documentElement.scrollHeight - innerHeight;
+  pTarget = total <= 0 ? 0 : Math.min(1, Math.max(0, scrollY / total));
+}
+
+if (COARSE){ var h2 = document.querySelector('.hint'); if (h2) h2.remove(); }
+if (!STILL && !COARSE){
+  /* Touch never rotates, so a drag can never capture the page scroll.
+     ponytail: pointer/pen only; add touch rotation if it is ever asked for. */
+  /* Where a drag rotates and where it selects text. Below the fold this page is
+     a reading document and selection has to keep working, so the field only
+     takes the drag in the first viewport or out in the side margins beside the
+     column. Links and buttons never take it. */
+  function draggableFrom(e){
+    if (e.pointerType === 'touch') return false;
+    if (e.target.closest('a,button')) return false;
+    if (scrollY < innerHeight * 0.92) return true;
+    return !e.target.closest('main');
+  }
+  addEventListener('pointerdown', function(e){
+    if (!draggableFrom(e)) return;
+    e.preventDefault();
+    dragging = true; lastX = e.clientX; lastY = e.clientY;
+  });
+  addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    var dx = Math.max(-60, Math.min(60, e.clientX - lastX));
+    var dy = Math.max(-60, Math.min(60, e.clientY - lastY));
+    vYaw   += dx * 0.0045;
+    vPitch += dy * 0.0035;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  addEventListener('pointerup', function(){ dragging = false; });
+  addEventListener('pointercancel', function(){ dragging = false; });
+}
+
+/* ---- read-out --------------------------------------------------------- */
+/* Every value below is a true statement about THE RENDER. None is a claim
+   about the company. Business figures are static, quoted and provenance
+   marked in the type: an animated number about the business is either
+   unsourced or reads as unsourced, and this buyer treats those the same. */
+var rN = document.getElementById('r-n'), rC = document.getElementById('r-c'),
+    rT = document.getElementById('r-t'), rS = document.getElementById('r-s');
+rN.textContent = N.toLocaleString('en-US');
+
+function resolvedCount(){
+  var n = 0;
+  for (var j=0;j<survivors.length;j++){
+    var s = survivors[j];
+    n += Math.floor(s.ph + clock/s.cyc) - s.base;
+  }
+  return n;
+}
+var lastRead = -1;
+function paintReadout(){
+  rC.textContent = resolvedCount().toLocaleString('en-US');
+  var t = Math.floor(clock);
+  rT.textContent = String((t/60)|0).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+  rS.textContent = pathBody ? stageName(((pathBody.ph + clock/pathBody.cyc) % 1 + 1) % 1) : '—';
+}
+
+/* ---- draw ------------------------------------------------------------- */
+gl.disable(gl.DEPTH_TEST);
+gl.enable(gl.BLEND);
+gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+gl.clearColor(0,0,0,0);
+
+var firstFrame = false, nextSeed = 14, fade = 1;
+function draw(){
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  setRot(yaw, pitch);
+
+  gl.useProgram(P);
+  gl.uniform1f(uT, clock);
+  gl.uniform1f(uPx, 0.62*DPR);
+  gl.uniform1f(uCamZ, camZ);
+  gl.uniformMatrix3fv(uRot, false, rot);
+  gl.uniformMatrix4fv(uProj, false, proj);
+  gl.uniform2f(uOff, 0, offY);
+  gl.uniform1f(uDim, dim);
+  gl.bindVertexArray(vao);
+  gl.drawArrays(gl.POINTS, 0, N);
+
+  gl.useProgram(PP);
+  gl.uniformMatrix3fv(pRot, false, rot);
+  gl.uniformMatrix4fv(pProj, false, proj);
+  gl.uniform1f(pCamZ, camZ);
+  gl.uniform1f(pFade, fade);
+  gl.uniform2f(pOff, 0, offY);
+  gl.uniform1f(pDim, dim);
+  gl.bindVertexArray(pvao);
+  gl.drawArrays(gl.LINE_STRIP, 0, PATHN);
+  gl.bindVertexArray(null);
+
+  if (!firstFrame){ firstFrame = true; pre.classList.add('gone'); setTimeout(function(){ pre.remove(); }, 600); }
+}
+
+/* ---- reduced motion: ONE composed frame, chosen and checked ----------- */
+if (STILL){
+  /* Drag is disabled in this tier, so the hint must not claim otherwise. */
+  var hint = document.querySelector('.hint'); if (hint) hint.remove();
+  clock = 18.4;
+  readScroll();
+  pCur = pTarget;
+  updateOff();
+  pitch = restPitch();
+  draw();
+  paintReadout();
+  addEventListener('resize', function(){ if (resize()){ setProj(); draw(); } });
+} else {
+  var prev = performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    var dt = Math.min(0.05, (now - prev)/1000); prev = now;
+
+    if (resize()) setProj();
+    readScroll();
+    pCur += (pTarget - pCur) * 0.12;
+    updateOff();
+
+    /* Scroll runs the clock faster rather than moving a camera down the page.
+       The subject is throughput over time, and a reader further down the
+       record has watched more cycles resolve. */
+    clock += dt * (0.85 + pCur*5.5);
+
+    yaw += vYaw; pitch += vPitch;
+    var decay = Math.pow(0.0016, dt);
+    vYaw *= decay; vPitch *= decay;
+    if (!dragging) pitch += (restPitch() - pitch) * (1 - Math.pow(0.12, dt));
+    pitch = Math.min(Math.PI - 0.16, Math.max(0.16, pitch));
+
+    nextSeed -= dt;
+    if (nextSeed <= 0.6 && nextSeed > 0) fade = Math.max(0, nextSeed/0.6);
+    if (nextSeed <= 0){ reseedPath(); nextSeed = 14; fade = 0; }
+    if (fade < 1 && nextSeed > 0.6) fade = Math.min(1, fade + dt/0.6);
+
+    draw();
+
+    if (now - lastRead > 250){ lastRead = now; paintReadout(); }
+  })(prev);
+}
+
+/* verification hook: proves which build is loaded and that the loop is live */
+window.__origination = {
+  build: 'origination-v1',
+  N: N,
+  still: STILL,
+  get clock(){ return clock; },
+  get p(){ return pCur; },
+  get yaw(){ return yaw; },
+  get pitch(){ return pitch; },
+  get dim(){ return dim; },
+  get offY(){ return offY; },
+  get resolved(){ return resolvedCount(); },
+  survivors: survivors.length,
+  stageOf: stageOfJS,
+  cycleOf: cycleOf,
+  d1: d1, d2: d2
+};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+---
+/* Shared shell for the three E variants.
+ *
+ * The field canvas is FIXED behind the page but its opacity is driven by a
+ * native CSS scroll-driven animation, so it is absent in the hero and fades in
+ * below it WITHOUT any JavaScript touching scroll. That is the whole point:
+ * opacity animates on the compositor, so it cannot stutter and cannot be
+ * stuttered by anything else on the page.
+ */
+import '../styles/base.css';
+const { title, variant, kind, colors, fonts, mode = 'canvas2d' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const V = ['assay', 'impression', 'tape', 'spine', 'overprint'];
+---
+<!doctype html>
+<html lang="en" data-variant={variant}>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href={fonts} rel="stylesheet" />
+<link rel="stylesheet" href={`${base}/variant-${variant}.css`} />
+<script is:inline>
+  /* before first paint: lets ?motion=on review the full tier on a machine
+     whose OS asks for reduced motion */
+  if (location.search.indexOf("motion=on") > -1) document.documentElement.dataset.motion = "on";
+</script>
+</head>
+<body>
+
+<!-- Fixed, behind everything, faded in by scroll-timeline. Never in the hero. -->
+<canvas id="field" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<nav>
+  <a class="wm" href={base + '/' + variant}>Caprae Tech</a>
+  <a class="nl" href="#record">The record</a>
+  <a class="nl" href="#team">The team</a>
+  <span class="sp"></span>
+  <a class="pill" href="#contact">Book a call</a>
+</nav>
+
+<main>
+  <slot />
+</main>
+
+<!-- variant switcher, review affordance only -->
+<div class="switch" aria-hidden="true">
+  {V.map((v) => <a href={`${base}/${v}`} class:list={[v === variant && 'on']}>{v}</a>)}
+</div>
+
+<script define:vars={{ kind, colors, mode }}>
+  window.__fieldConfig = { kind, colors, mode };
+</script>
+<script>
+  const cfg = window.__fieldConfig || {};
+  const c = document.getElementById('field');
+  if (c && cfg.kind) {
+    /* dynamic import so three.js is fetched ONLY on the 3D routes */
+    if (cfg.mode === 'three') {
+      import('../fields/mount3d.js').then((m) => m.mount3D(c, cfg.kind, cfg.colors));
+    } else {
+      import('../fields/mount.js').then((m) => m.mountField(c, cfg.kind, cfg.colors));
+    }
+  }
+  if (!CSS.supports('animation-timeline: scroll()')) {
+    document.documentElement.classList.add('no-scroll-timeline');
+  }
+  /* The hero sentinel runs always: it is the reveal path for browsers without
+     scroll timelines and for reduced-motion readers, who still get a hero clear
+     of the field. One observer, no scroll listener. */
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    new IntersectionObserver(function (es) {
+      document.documentElement.classList.toggle('past-hero', !es[0].isIntersecting);
+    }, { threshold: 0 }).observe(hero);
+  }
+</script>
+
+</body>
+</html>

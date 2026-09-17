@@ -1,0 +1,41 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Record from '../content/Record.astro';
+import Wedge from '../content/Wedge.astro';
+import Team from '../content/Team.astro';
+import Firm from '../content/Firm.astro';
+const plates = [
+  { l: '01 / LIVE', nm: 'SaaSquatch Leads', mx: '1,200+', kd: 'beta signups in three weeks' },
+  { l: '02 / LIVE', nm: 'Cold Call Killers', mx: '300,000+', kd: 'calls across five countries' },
+  { l: '03 / BETA', nm: 'CLOVER', mx: 'Open', kd: 'source, origination routing' },
+  { l: '04 / LIVE', nm: 'Bankers Edge', mx: 'Client', kd: 'build, in production' },
+];
+---
+<Shell
+  title="Caprae Tech — engineers who already build for operators"
+  variant="spine" kind="spine" mode="three"
+  colors={{ ink: '#3A3F47', emissive: '#14181E', accent: '#F9D360', ground: '#101216' }}
+  fonts="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <section class="hero">
+    <h1>Engineers who already build for operators.</h1>
+    <p class="sub">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.</p>
+    <a class="cta" href="#contact">Book a call</a>
+
+    <div class="spineplates">
+      {plates.map((p) => (
+        <div class="spineplate">
+          <span class="l">{p.l}</span>
+          <span class="r">
+            <span class="nm">{p.nm}</span>
+            <span class="mx">{p.mx}</span>
+            <span class="kd">{p.kd}</span>
+            <span class="bar"></span>
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Record /><Wedge /><Team /><Firm />
+</Shell>

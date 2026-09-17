@@ -1,5 +1,11 @@
 {
   "name": "caprae-designs",
   "private": true,
-  "workspaces": ["direction-*/code"]
+  "scripts": {
+    "build:pages": "bun run scripts/build-pages.mjs"
+  },
+  "workspaces": [
+    "direction-*/code",
+    "_archive/direction-a-specimen-sheet/code"
+  ]
 }

@@ -1,0 +1,194 @@
+---
+/* Direction F — LOAD BEARING
+ * Contract: design-isperiation-prompts/adapted-prompts/02-ascent-to-caprae.md
+ *
+ * The stage is the FIRST element on the page. There is no hero block above the
+ * scrub, so the primary action lives in the fixed nav, visible at every scroll
+ * depth and every breakpoint.
+ */
+import Stage from '../components/Stage.jsx';
+import { deflection, L, SPAN, RATED_RATIO, SPAN_METRES, midspanMm, EXAG } from '../lib/beam.js';
+import '../styles/load.css';
+
+/* The static plate is drawn HERE, at build time, from the same closed form the
+ * live scene uses. Same maths, different renderer. A reduced-motion or no-JS
+ * reader gets a real drawing of the structure at rated load, not a screenshot
+ * of the canvas. */
+const VB_W = 1200, VB_H = 300;
+const PAD = 60;
+const DEPTH_PX = 46;
+const AMP = (VB_W - PAD * 2) / RATED_RATIO * EXAG;  // same stated exaggeration as the scene
+
+function nodeY(i) {
+  const x = (i / SPAN) * L;
+  return VB_H / 2 + (deflection(x, 1) / (L / RATED_RATIO)) * AMP;
+}
+function nodeX(i) {
+  return PAD + (i / SPAN) * (VB_W - PAD * 2);
+}
+
+const members = [];
+for (let b = 0; b < SPAN; b++) {
+  const x0 = nodeX(b), x1 = nodeX(b + 1);
+  const y0 = nodeY(b), y1 = nodeY(b + 1);
+  members.push({ x1: x0, y1: y0 - DEPTH_PX / 2, x2: x1, y2: y1 - DEPTH_PX / 2, w: 1.6 });
+  members.push({ x1: x0, y1: y0 + DEPTH_PX / 2, x2: x1, y2: y1 + DEPTH_PX / 2, w: 1.6 });
+  members.push({ x1: x0, y1: y0 - DEPTH_PX / 2, x2: x0, y2: y0 + DEPTH_PX / 2, w: 1.0 });
+  members.push({ x1: x0, y1: y0 + DEPTH_PX / 2, x2: x1, y2: y1 - DEPTH_PX / 2, w: 0.8 });
+}
+const railPts = Array.from({ length: SPAN + 1 }, (_, i) =>
+  `${nodeX(i).toFixed(1)},${(nodeY(i) + DEPTH_PX / 2 + 9).toFixed(1)}`).join(' ');
+
+const ratedMm = midspanMm(1).toFixed(1);
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Caprae Tech — load bearing</title>
+<meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav>
+  <a class="wm" href="#top">Caprae Tech</a>
+  <a class="nl" href="#record">The record</a>
+  <a class="nl" href="#team">The team</a>
+  <span class="sp"></span>
+  <a class="pill" href="#contact">Book a call</a>
+</nav>
+
+<!-- The island is gated at the framework level. A reader who asked for reduced
+     motion never fetches three, R3F or drei at all. Branching inside the
+     component would be too late: the bundle would already be downloaded. -->
+<Stage client:media="(prefers-reduced-motion: no-preference)">
+  <svg class="plate-svg" viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="xMidYMid meet" role="img"
+       aria-label={`Simply supported truss at rated load, ${SPAN} bays, midspan deflection ${ratedMm} millimetres over a ${SPAN_METRES} metre span.`}>
+    {members.map((m) => (
+      <line x1={m.x1.toFixed(1)} y1={m.y1.toFixed(1)} x2={m.x2.toFixed(1)} y2={m.y2.toFixed(1)}
+            stroke="#EDEDEA" stroke-width={m.w} stroke-opacity="0.86" />
+    ))}
+    <polyline points={railPts} fill="none" stroke="#E0A95C" stroke-width="1.6" />
+  </svg>
+  <p class="plate-rd">
+    <span>100</span>
+    <span class="rd">load 100% of rated</span>
+    <span class="rd">midspan {ratedMm} mm · span {SPAN_METRES} m · {SPAN} bays</span>
+    <span class="rd">deflection drawn &times;{EXAG}</span>
+  </p>
+  <div class="plate-beats">
+    <p><span>Three weeks. Twelve hundred users.</span><em>saasquatchleads.com · 1,200+ beta signups in three weeks</em></p>
+    <p><span>Three hundred thousand calls. Five countries.</span><em>coldcallkillers.io · 300,000+ calls, launched June 2026</em></p>
+    <p><span>The team that built them is the team you hire.</span></p>
+  </div>
+</Stage>
+
+<p class="spec" aria-hidden="true">
+  <span>300,000+ calls</span><span>4 products live</span><span>1 open source</span>
+</p>
+
+<main id="top">
+
+  <section id="record">
+    <h2>Four products. Live, paid, and open in a new tab</h2>
+    <p class="lede">Not case studies. Software strangers use.</p>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://www.saasquatchleads.com/" target="_blank" rel="noopener">SaaSquatch Leads</a></span>
+        <span class="rec-k">B2B lead generation and enrichment</span>
+      </div>
+      <div class="rec-b">
+      <p>Built in-house from zero. Three-week beta drew <span class="fig">1,200+</span> signups. Public at <span class="fig">$20/month</span>.<br /><span class="pv">saasquatchleads.com · live and public</span></p>
+      <p class="stack">Flask · Vite · React · TypeScript · ML pipeline · AWS</p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://coldcallkillers.io/" target="_blank" rel="noopener">Cold Call Killers</a></span>
+        <span class="rec-k">Full-funnel B2B outbound system</span>
+        <span class="rec-d">Launched Jun 2026</span>
+      </div>
+      <div class="rec-b">
+      <p>Human callers, robodialing, number screening, call intelligence, email, LinkedIn and physical mail in one engine. Ships with Dial Sniper and Call Intelligence as standalone tools.</p>
+      <p><span class="fig">300,000+</span> calls across <span class="fig">5</span> countries.<br /><span class="pv">coldcallkillers.io · live</span></p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n">CLOVER</span>
+        <span class="rec-k">Closed-Loop Origination via Exclusive Referrals</span>
+        <span class="rec-d">Open source · beta</span>
+      </div>
+      <div class="rec-b">
+      <p>Lets searchers reassign deals that are too big, too small or off-thesis, and earn a success fee on what they pass. Origination routing, in the open.</p>
+    </div>
+    </article>
+
+    <article class="rec">
+      <div class="rec-h">
+        <span class="rec-n"><a href="https://bankersedgeadvisory.com" target="_blank" rel="noopener">Bankers Edge</a></span>
+        <span class="rec-k">Advisory platform</span>
+      </div>
+      <div class="rec-b">
+      <p>Client build, live in production.<br /><span class="pv">bankersedgeadvisory.com</span></p>
+    </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>The part a dev shop cannot copy</h2>
+    <p class="lede">Every agency claims it understands your business. Ours reports into a private equity firm that closes deals with operators, and sits in recurring meetings with them. Our engineers have already survived the founder relationship. You are not paying to teach them what a deal looks like.</p>
+    <ul class="pts">
+      <li>They know what an operator asks for, which is rarely what they say first.</li>
+      <li>They have seen a requirement change three times in a month and shipped anyway.</li>
+      <li>They understand diligence pressure and why a close date is a close date.</li>
+      <li>They do not need a product manager to translate business intent into a ticket.</li>
+    </ul>
+  </section>
+
+  <section id="team">
+    <h2>Who they report to</h2>
+    <p class="lede">Not a stock advisory board. The people our engineers actually sit with.</p>
+    <ul class="who">
+      <li><b>Kevin Hong</b><span>Founder and Managing Partner, Caprae Capital · <em>Chicago Booth</em></span></li>
+      <li><b>Eric Nehrlich</b><span>Chief of Staff, Caprae Capital · <em>Google</em></span></li>
+      <li><b>Felix I. Odigie</b><span>Deal Advisor. Founder and Managing Director, Quoin Advisors · <em>Wharton</em></span></li>
+      <li><b>Hereford Johnson</b><span>Principal Adviser. Founder, Third Equity Partners · <em>Kellogg</em></span></li>
+      <li><b>Zackary Beckham</b><span>Partner for Strategic Investments. Founder, ITSco · <em>Arizona State</em></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ul class="steps">
+      <li><span class="n">01</span><span><b>Call</b><span>Thirty minutes. What you are building, what is in the way.</span></span></li>
+      <li><span class="n">02</span><span><b>Scope</b><span>A written scope with a number in it, inside a week.</span></span></li>
+      <li><span class="n">03</span><span><b>Build</b><span>You meet the engineers, not an account manager.</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The firm behind the team</h2>
+    <dl class="firm">
+      <div><dt>$110M+</dt><dd>closed, 2026 YTD<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>20%+</dt><dd>MoM growth, 14+ months<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>8</dt><dd>countries serviced<b>Caprae Capital, firm-wide</b></dd></div>
+      <div><dt>40+</dt><dd>searchers supported<b>Caprae Capital, firm-wide</b></dd></div>
+    </dl>
+  </section>
+
+  <footer id="contact">
+    <a href="mailto:partners@capraecapital.com">partners@capraecapital.com</a><br />
+    Part of Caprae Capital · Four products live, one open source
+  </footer>
+
+</main>
+</body>
+</html>
