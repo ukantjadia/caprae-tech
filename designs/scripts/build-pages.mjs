@@ -16,6 +16,7 @@ const builds = [
   ['direction-f-load-bearing/code', 'f'],
   ['direction-e-variants/code', 'e-variants'],
   ['direction-next-four/code', 'next'],
+  ['direction-g-glacier/code', 'g'],
 ];
 
 rmSync(output, { recursive: true, force: true });

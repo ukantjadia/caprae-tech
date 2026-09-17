@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  #root { width: 100%; min-height: 100svh; }
+}
+
+/* ---- Caprae Tech additions on top of the Glacier base ---- */
+:root {
+  --ice: #E8EEF2;
+  --ice-dim: rgba(232,238,242,0.62);
+  --ice-faint: rgba(232,238,242,0.34);
+  --gold: #F9D360;
+  --rule: rgba(232,238,242,0.16);
+  --shell: min(1180px, 90vw);
+}
+body { background: #04070A; }
+::selection { background: var(--gold); color: #04070A; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.shell { width: var(--shell); margin: 0 auto; }
+.band { padding: clamp(80px, 11vh, 150px) 0; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--ice-faint);
+  margin: 0 0 22px;
+}
+.eyebrow i { display: inline-block; width: 5px; height: 5px; background: var(--gold);
+  margin-right: 10px; vertical-align: middle; font-style: normal; }
+
+h2.sect {
+  font-family: 'Playfair Display', Georgia, serif; font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3.5rem); line-height: 1.06; letter-spacing: -0.01em;
+  color: var(--ice); margin: 0 0 18px; text-transform: uppercase;
+}
+h2.sect b { font-weight: 700; }
+.lede { max-width: 34rem; color: var(--ice-dim); font-size: 17px; line-height: 1.6; margin: 0 0 44px; }
+
+/* provenance: the source travels with the figure, inline, never in a footer */
+.fig { color: var(--ice); font-weight: 600; font-variant-numeric: tabular-nums; }
+.pv { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.05em;
+  color: var(--ice-faint); white-space: nowrap; }
+.pv::before { content: ""; display: inline-block; width: 14px; height: 1px;
+  background: var(--gold); vertical-align: middle; margin: 0 8px; }
+
+@media (max-width: 860px) { :root { --shell: 90vw; } }
