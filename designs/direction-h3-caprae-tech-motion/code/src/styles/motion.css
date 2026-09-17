@@ -1,0 +1,186 @@
+/* H1 motion spine — native CSS scroll-driven animation, no JavaScript.
+ *
+ * Everything here is transform, opacity or clip-path, so nothing in this file
+ * can move layout and nothing can contribute to CLS.
+ *
+ * Two guards, both deliberate:
+ *
+ * `@supports (animation-timeline: view())` — Firefox stable still has
+ * scroll-driven animations behind layout.css.scroll-driven-animations.enabled
+ * as of 2026, so this is not Baseline. Outside the guard the page is exactly
+ * what H is, which is the no-JS tier for free.
+ *
+ * `prefers-reduced-motion: no-preference` — the global reduce block in
+ * globals.css collapses animation-duration, and that does nothing to a
+ * scroll-driven animation, whose progress comes from scroll rather than time.
+ * These have to be switched off by not being declared at all.
+ *
+ * Stagger is done with animation-range, not animation-delay. A time delay is
+ * meaningless on a scroll timeline; shifting the range start is the equivalent.
+ */
+
+/* The rail is declared here, both states, because it is the one element whose
+   default and whose animated form live in different rules. Navbar.css held the
+   default first, and since both selectors are a single class the later import
+   simply won: the rail never drew. Same file, so the order is settled. */
+.progress { display: none; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+
+    /* ---------- 1. reading hairline ----------
+       Sits directly under the fixed bar and reports how much of the page is
+       left. On a 3000px page that is a real question, and this is the one
+       motion on the site that answers something. */
+    .progress {
+      display: block;
+      position: fixed;
+      inset: var(--nav-h) 0 auto 0;
+      z-index: 19;
+      height: 1px;
+      background: linear-gradient(90deg, var(--flame) 0%, var(--flame-lit) 100%);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+    @keyframes progress-grow { to { transform: scaleX(1); } }
+
+    /* ---------- 2. rules that draw themselves ----------
+       Every one of these already carried a hairline border-top. The border
+       stays as the track; a lit line draws across it as the row arrives. The
+       rule was the design, so the rule is what moves. */
+    .points li,
+    .svc__item,
+    .rec__item,
+    .figures li,
+    .faq li,
+    .band--hair {
+      position: relative;
+    }
+    .points li::after,
+    .svc__item::after,
+    .rec__item::after,
+    .figures li::after,
+    .faq li::after,
+    .band--hair::after {
+      content: '';
+      position: absolute;
+      inset: -1px auto auto 0;
+      width: 100%;
+      height: 1px;
+      background: var(--flame-lit);
+      opacity: 0.55;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 30%;
+    }
+    /* the first row of a list has its border removed, so it gets no track */
+    .svc__item:first-child::after,
+    .rec__item:first-child::after { display: none; }
+
+    .band--hair::after { animation-range: entry 0% entry 90%; }
+
+    @keyframes rule-draw { to { transform: scaleX(1); } }
+
+    /* ---------- 3. staggered entry ----------
+       16px, not 40px. At 40px it reads as a template; at 16px it reads as the
+       page settling into place. */
+    .card,
+    .person,
+    .chips li,
+    .svc__head,
+    .svc__body,
+    .rec__head,
+    .rec__body {
+      opacity: 0.25;
+      transform: translateY(16px);
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 24%;
+    }
+    @keyframes settle {
+      to { opacity: 1; transform: none; }
+    }
+
+    /* the right-hand column of a two-column row arrives just after the left */
+    .svc__body, .rec__body { animation-range: entry 9% cover 28%; }
+
+    /* grid stagger, by position in the row */
+    .cardgrid li:nth-child(2), .people li:nth-child(2) { animation-range: entry 9% cover 28%; }
+    .cardgrid li:nth-child(3), .people li:nth-child(3) { animation-range: entry 13% cover 32%; }
+    .cardgrid li:nth-child(4), .people li:nth-child(4) { animation-range: entry 17% cover 36%; }
+    .cardgrid li:nth-child(5), .people li:nth-child(5) { animation-range: entry 21% cover 40%; }
+    .cardgrid li:nth-child(6), .people li:nth-child(6) { animation-range: entry 25% cover 44%; }
+
+    .chips li:nth-child(even) { animation-range: entry 10% cover 30%; }
+
+    /* ---------- 4. the figures wipe ----------
+       Explicitly not a counter. project-info bans animated counters and is
+       right to: a number that spins is a number this audience stops believing.
+       A wipe reveals the figure, it does not perform it. */
+    .figures b {
+      clip-path: inset(100% 0 0 0);
+      animation: wipe-up linear both;
+      animation-timeline: view();
+      animation-range: entry 18% cover 38%;
+    }
+    .figures li:nth-child(2) b { animation-range: entry 23% cover 43%; }
+    .figures li:nth-child(3) b { animation-range: entry 28% cover 48%; }
+    .figures li:nth-child(4) b { animation-range: entry 33% cover 53%; }
+    @keyframes wipe-up { to { clip-path: inset(0 0 0 0); } }
+
+    /* ---------- 7. footer watermark drift ----------
+       One axis, slow, no rotation. .foot clips its overflow, so this cannot
+       produce a horizontal scrollbar. */
+    .foot__mark {
+      animation: mark-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 70%;
+    }
+    @keyframes mark-drift {
+      from { transform: translateX(-42px); }
+      to { transform: translateX(0); }
+    }
+  }
+}
+
+/* ---------- cross-route view transitions ----------
+ * Not scroll-driven, so it lives outside the @supports guard and carries its
+ * own. react-router-dom 7 wraps the navigation in document.startViewTransition
+ * when a Link has the viewTransition prop; this is only the styling.
+ *
+ * The payoff is hero-plate: the hero footage is the same file on every route,
+ * so naming it makes the video hold still while the page changes around it
+ * instead of blinking. Firefox has not shipped this and falls back to the hard
+ * cut, which is what the site does today.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 320ms var(--ease-out) both;
+  }
+  @keyframes vt-out { to { opacity: 0; } }
+  @keyframes vt-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* the plate is shared, so it must not cross-fade with the rest of the page */
+  .heromedia { view-transition-name: hero-plate; }
+  ::view-transition-group(hero-plate) { animation-duration: 420ms; }
+  ::view-transition-old(hero-plate),
+  ::view-transition-new(hero-plate) {
+    animation: none;
+    mix-blend-mode: normal;
+    height: 100%;
+  }
+
+  /* the fixed bar and the hairline stay put across the navigation */
+  .nav { view-transition-name: nav-bar; }
+  .progress { view-transition-name: progress-rail; }
+}

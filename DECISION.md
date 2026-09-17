@@ -893,3 +893,88 @@ that reproduces Pages behaviour: `/caprae-tech/h/team` resolves to the team page
 with both videos loading from `/caprae-tech/h/`.
 Reversible: yes. The shim names `/h/` explicitly, so a second routed direction
 needs a line added.
+
+---
+
+## D-043. H3 puts the motion in CSS, not in a scroll library
+
+Date: 2026-09-18
+Decision: Direction H3 is a copy of H carrying seven scroll-driven moments
+written in native CSS: a reading hairline on `scroll(root block)`, hairline
+rules that draw themselves on `view()`, staggered card entry, a clip-path wipe
+on the four figures, a deepening hero scrim, 6% hero parallax, and a drifting
+footer watermark. Zero JavaScript, zero dependencies, guarded by
+`@supports (animation-timeline: view())`.
+Alternatives: Lenis, which is 3KB and the most honest momentum library there
+is; GSAP ScrollTrigger, free since April 2025; framer-motion `whileInView`,
+already in the repo via Direction G.
+Why: the project bans scroll-jacking, and Lenis retimes the wheel even though
+it leaves the scrollbar native. ScrollTrigger's best trick is pinning, also
+banned. Both cost bytes to do what `view()` does for nothing. Support is about
+84%: Firefox stable still has it behind
+`layout.css.scroll-driven-animations.enabled`, so the `@supports` guard leaves
+Firefox with exactly the page H already is.
+Reversible: yes. The whole spine is one file, `src/styles/motion.css`.
+
+---
+
+## D-044. Stagger is animation-range, and reduce needs its own switch
+
+Date: 2026-09-18
+Decision: staggering is done by shifting `animation-range` per `nth-child`, not
+by `animation-delay`. The reduced-motion tier is handled by declaring the whole
+spine inside `@media (prefers-reduced-motion: no-preference)`, plus an explicit
+`animation-timeline: auto !important` in the existing reduce block.
+Why: both are consequences of the same fact. A scroll-driven animation takes
+its progress from scroll position, not from elapsed time, so a time delay does
+nothing and the project's existing reduce block, which collapses
+`animation-duration` to 0.001ms, also does nothing. Left as it was, a reduce
+viewer would have been stuck looking at every card frozen at `opacity: 0.25`.
+Reversible: yes
+
+---
+
+## D-045. The footer video is replaced by a shader, which is the only place
+motion removes weight
+
+Date: 2026-09-18
+Decision: H's 14.3MB `footer-loop.mp4` is gone. In its place is one fullscreen
+triangle running a domain-warped fbm in the flame hue, on OGL.
+Measured cost: JS went 88.44KB to 103.04KB gzipped, so OGL is **14.4KB
+gzipped**, not the ~5KB estimated in `plans/h-motion.md`. Total page weight
+still falls by 14.3MB.
+Alternatives: keeping the video; adding a shader on top of it; raw WebGL with
+no dependency.
+Why: H spends its entire motion budget on 25.4MB of video against a 2.0s LCP
+target that was already lost. Adding a shader to that is decoration. Swapping
+one out is the only move here that makes the page both better and lighter, and
+a firm selling engineering should not end its site on footage it licensed.
+The loop runs only while the footer intersects, renders at half resolution, and
+draws a single frame under reduced motion.
+Reversible: yes, but the video is deleted from this direction, so reversing it
+means restoring the file.
+
+---
+
+## D-046. OGL installs clean under bun, unlike gsap
+
+Date: 2026-09-18
+Finding: `bun add ogl@1.0.11` produced 64 JavaScript files with **zero**
+all-NUL files. D-040 recorded that `bun add gsap` zeroed 116 of 118 files.
+So the bun corruption is specific to gsap rather than general, which is what
+D-040 suspected but had only `three` as a second data point.
+Reversible: n/a, this is a measurement
+
+---
+
+## D-047. Named H3, not H1, because H2 arrived first
+
+Date: 2026-09-18
+Decision: this direction is H3 at Pages route `h3`.
+Why: it was built as H1, but a parallel session committed
+`direction-h2-operating-signal` while it was in progress. Shipping an H1
+underneath an existing H2 would imply an order that is not the build order.
+Also folded in: the 404 shim now carries a list, `['h2', 'h3', 'h']`, with the
+bare `h` last so it cannot truncate `/h2/` or `/h3/` to `/h/`. That replaces
+the pairwise check H2 added, which could not extend to a third.
+Reversible: yes, expensive only in that the route name appears in the gallery

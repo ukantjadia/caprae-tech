@@ -466,3 +466,47 @@ both videos reported `currentSrc` under `/caprae-tech/h/` with no error.
 **Open:** LCP on throttled 4G is still unmeasured, and the two videos are 25MB
 between them, which is the obvious thing that will fail that budget. Direction F
 is still broken from an earlier session.
+
+## 2026-09-18 — H3, the motion pass over H
+
+**Asked:** First, what animation the site should have and where, with real
+libraries considered rather than dismissed. Then: implement all of it as a
+separate version, and push it.
+
+**Did:** Wrote `plans/h-motion.md` after measuring what H actually has, which is
+one load-in, two video fades, three hover states and nothing tied to scroll.
+
+Built the whole plan as `designs/direction-h3-caprae-tech-motion`, route `h3`.
+New file `src/styles/motion.css` holds the seven scroll-driven moments. The
+footer video is replaced by `src/components/FooterField.jsx`, an OGL shader.
+Cross-route view transitions added via the `viewTransition` prop on eleven
+links. Registered in `build-pages.mjs`, the gallery, and the 404 shim.
+
+Two defects fixed rather than animated over: the fixed navbar had no backdrop
+and was sitting on live copy past the hero, and roughly 300px of dead space
+between bands was tightened.
+
+Three things were found by driving it rather than by reading it:
+
+- `.progress` never drew. `Navbar.css` and `motion.css` both styled it with a
+  single class, and the later import won. Both rules now live in `motion.css`.
+- The shader rendered pure black. Thresholds of `smoothstep(0.40, 0.80, f)` sit
+  above where fbm actually lives, and the footer scrim was still tuned for a
+  video at opacity 0.5. Both retuned.
+- `WEBGL_lose_context` in the effect cleanup killed the canvas for React's
+  StrictMode remount. Every `readPixels` came back `0,0,0,0`. Removed.
+
+One thing was diagnosed wrong and corrected: the hero plate rendered black in
+the automation tab and was blamed on the reduced-motion pause aborting the
+fetch. There was no network request for the video at all, so it was the
+backgrounded tab being throttled. The `HeroMedia` change stayed because setting
+`ready` on `loadeddata` is still more correct than setting it optimistically,
+but the comment no longer claims it fixed an observed break.
+
+Renamed H1 to H3 on the user's instruction, because a parallel session had
+committed H2 in the meantime.
+
+**Open:** Verified in a browser only at the CSS level, by temporarily inverting
+the reduced-motion guard, because this machine has reduce on (D-035). Frame
+rate of the shader on integrated graphics is unmeasured. LCP on throttled 4G is
+still unmeasured, and the hero video is still 11.1MB.

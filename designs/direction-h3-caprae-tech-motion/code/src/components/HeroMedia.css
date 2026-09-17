@@ -1,0 +1,79 @@
+/* Shared hero plate. The scrim is asymmetric because the footage is bright from
+   the horizon rightwards and near-black upper-left: a heavy wash under the copy,
+   a floor at the bottom, and almost nothing over the subject. */
+.heromedia { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+
+/* the parallax carrier, oversized by the distance it is allowed to travel so
+   the bottom edge never lifts off the band */
+.heromedia__frame { position: absolute; inset: -7% 0 -7% 0; }
+
+.heromedia__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.1s var(--ease-out), transform 2.4s var(--ease-out);
+}
+.heromedia__video.is-ready { opacity: 1; transform: scale(1); }
+
+.heromedia__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(96deg, rgba(10, 3, 0, 0.9) 0%, rgba(14, 4, 0, 0.66) 30%,
+      rgba(20, 6, 0, 0.16) 52%, rgba(20, 6, 0, 0) 68%),
+    linear-gradient(0deg, rgba(9, 2, 0, 0.82) 0%, rgba(9, 2, 0, 0.12) 30%, rgba(0, 0, 0, 0) 48%),
+    linear-gradient(180deg, rgba(8, 2, 0, 0.55) 0%, rgba(0, 0, 0, 0) 22%);
+}
+
+/* Interior pages: the band is shorter, so the subject would be cropped to a
+   sliver. Pull the framing left and darken further, because these bands carry
+   a title over the footage rather than beside it. */
+.heromedia.is-short .heromedia__video { object-position: 60% 38%; }
+.heromedia.is-short .heromedia__scrim {
+  background:
+    linear-gradient(96deg, rgba(10, 3, 0, 0.93) 0%, rgba(14, 4, 0, 0.78) 34%,
+      rgba(20, 6, 0, 0.38) 60%, rgba(20, 6, 0, 0.2) 100%),
+    linear-gradient(0deg, rgba(9, 2, 0, 0.95) 0%, rgba(9, 2, 0, 0.3) 46%, rgba(0, 0, 0, 0) 78%),
+    linear-gradient(180deg, rgba(8, 2, 0, 0.62) 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heromedia__video { opacity: 1; transform: none; }
+}
+
+/* ---------- scroll-driven: the plate reacts to the page moving off it ----------
+   Deepening the scrim does real work as well as looking like depth: it is why
+   the headline stays legible once the brighter part of the frame scrolls up
+   under it. Six percent of drift, not twenty, so it separates the plate from
+   the type without announcing itself as an effect. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .heromedia__scrim::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 2, 0, 0.55) 0%, rgba(9, 2, 0, 0.9) 100%);
+      opacity: 0;
+      animation: scrim-deepen linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+    .heromedia.is-short .heromedia__scrim::after { animation-range: 0 60vh; }
+
+    .heromedia__frame {
+      animation: plate-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+    .heromedia.is-short .heromedia__frame { animation-range: 0 60vh; }
+  }
+}
+
+@keyframes scrim-deepen { to { opacity: 0.72; } }
+@keyframes plate-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6%); }
+}

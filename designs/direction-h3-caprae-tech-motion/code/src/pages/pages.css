@@ -1,0 +1,284 @@
+/* Shared furniture for every routed page. The hero lives in Home.css. */
+
+/* ---------- page headers ---------- */
+/* The bar is fixed, so every page that does not open with the hero needs to
+   clear it rather than sliding underneath. */
+.pagehead {
+  /* the shared footage plate sits behind this, so it needs its own stacking
+     context and no flat fill of its own */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(420px, 56vh, 620px);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(140px, 16vh, 200px) var(--gutter) clamp(44px, 6vw, 76px);
+  background: var(--ground-deep);
+  border-bottom: 1px solid var(--hair-soft);
+}
+.pagehead .shell { width: var(--shell); }
+.pagehead .display { text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55); }
+.pagehead__lede { margin-top: 22px; }
+.pagehead__cta { margin-top: 32px; font-size: 15px; }
+
+/* ---------- wedge points ---------- */
+.points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  column-gap: clamp(24px, 4vw, 64px);
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.points li {
+  padding: 16px 0;
+  border-top: 1px solid var(--hair-soft);
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* ---------- card grid ---------- */
+.cardgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 14px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cardgrid--3 { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.cardgrid__more { margin-top: 30px; }
+
+.card {
+  padding: 22px;
+  border: 1px solid var(--hair);
+  border-radius: 16px;
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+.card:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.28); }
+.card__n {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--flame-lit);
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.card p { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+/* ---------- services list ---------- */
+.svc { margin: 0; padding: 0; list-style: none; }
+.svc__item {
+  display: grid;
+  grid-template-columns: minmax(14rem, 22rem) 1fr;
+  gap: clamp(24px, 4vw, 70px);
+  padding: 34px 0;
+  border-top: 1px solid var(--hair-soft);
+}
+.svc__item:first-child { border-top: 0; padding-top: 0; }
+.svc__n {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--flame-lit);
+}
+.svc__head h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.svc__lead { font-size: 14px; color: var(--ink-faint); }
+.svc__body p { max-width: var(--measure); line-height: 1.65; }
+.svc__body ul {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+.svc__body ul li {
+  padding-left: 18px;
+  position: relative;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+.svc__body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 1px;
+  background: var(--flame-lit);
+}
+
+/* ---------- the record ---------- */
+.rec { margin: 0; padding: 0; list-style: none; }
+.rec__item {
+  display: grid;
+  grid-template-columns: minmax(14rem, 22rem) 1fr;
+  gap: clamp(24px, 4vw, 70px);
+  padding: 34px 0;
+  border-top: 1px solid var(--hair-soft);
+}
+.rec__item:first-child { border-top: 0; padding-top: 0; }
+.rec__n {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--flame-lit);
+}
+.rec__head h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.rec__head h2 a { border-bottom: 1px solid var(--hair); }
+.rec__head h2 a:hover { border-bottom-color: var(--flame-lit); }
+.rec__kicker { font-size: 13.5px; color: var(--ink-faint); }
+.rec__date { margin-top: 6px; font-size: 13px; color: var(--flame-lit); }
+.rec__body p { max-width: var(--measure); line-height: 1.65; color: var(--ink-soft); }
+.rec__body .pv { display: block; margin-top: 10px; }
+.rec__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.rec__stack li {
+  padding: 5px 11px;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  padding: 7px 14px;
+  border: 1px solid var(--hair-soft);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ---------- people ---------- */
+.people {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.person {
+  padding: 24px;
+  border: 1px solid var(--hair);
+  border-radius: 18px;
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+}
+/* no photographs exist for these five, so the plate is a monogram rather than a
+   stock portrait standing in for a real person */
+.person__plate {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: linear-gradient(140deg, var(--flame), var(--flame-lit));
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #180600;
+}
+.person h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.person__role { font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
+.person__school {
+  margin-top: 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--flame-lit);
+}
+.person__bio { margin-top: 14px; font-size: 13.5px; line-height: 1.6; }
+.person__link {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--hair);
+}
+.person__link:hover { border-bottom-color: var(--flame-lit); }
+
+/* ---------- figures ---------- */
+.figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: clamp(20px, 3vw, 44px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.figures li { padding-top: 18px; border-top: 1px solid var(--hair-soft); }
+.figures b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.figures span { display: block; margin-top: 8px; font-size: 12.5px; color: var(--ink-faint); }
+/* the scope label is part of the figure, at the caption's own size */
+.figures i { display: block; font-style: normal; color: var(--flame-lit); }
+
+/* ---------- faq ---------- */
+.faq { margin: 30px 0 0; padding: 0; list-style: none; }
+.faq li { padding: 22px 0; border-top: 1px solid var(--hair-soft); }
+.faq h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.faq p { max-width: var(--measure); font-size: 14.5px; line-height: 1.65; }
+
+@media (max-width: 860px) {
+  .svc__item, .rec__item { grid-template-columns: 1fr; gap: 16px; }
+}

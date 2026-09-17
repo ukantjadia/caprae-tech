@@ -1,0 +1,113 @@
+/* Hero, carried over from the Fluxora treatment. The asymmetric scrim is the
+   important part: the footage is bright from the horizon rightwards and
+   near-black upper-left, so the wash is heavy under the copy and almost
+   nothing over the subject. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(110px, 13vh, 150px) var(--gutter) clamp(40px, 6vh, 70px);
+  background: linear-gradient(165deg, var(--ground) 0%, var(--ground-deep) 70%);
+}
+
+/* media rules now live in HeroMedia.css, shared by every route */
+
+.hero__inner { flex: 1; display: flex; align-items: center; }
+.hero__lead { max-width: 680px; }
+
+.hero__note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 13px;
+  border-top: 1px solid var(--hair-soft);
+  width: fit-content;
+  max-width: 320px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+.hero__note-icon { width: 20px; height: 20px; flex: none; }
+
+.hero__title { margin-top: 24px; }
+
+.hero__sub {
+  margin-top: 22px;
+  max-width: 440px;
+  font-size: 15.5px;
+  line-height: 1.58;
+  color: var(--ink-soft);
+}
+
+.hero__cta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+.hero__go { font-size: 15px; }
+
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  width: 200px;
+  min-height: 132px;
+  padding: 18px;
+  border: 1px solid var(--hair);
+  border-radius: 16px;
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+.stat:nth-child(2) {
+  background: linear-gradient(150deg, rgba(120, 30, 4, 0.5), rgba(48, 14, 2, 0.5));
+}
+.stat__mark { position: absolute; top: 14px; right: 16px; font-size: 15px; color: var(--ink-faint); }
+.stat__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.stat__label { font-size: 11.5px; color: var(--ink-faint); }
+.stat__rule {
+  position: absolute;
+  right: 16px;
+  bottom: 22px;
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* entrance, staggered, transform and opacity only */
+.hero__note, .hero__title, .hero__sub, .hero__cta, .hero__stats {
+  animation: rise 0.95s var(--ease-out) both;
+}
+.hero__title { animation-delay: 0.06s; }
+.hero__sub { animation-delay: 0.14s; }
+.hero__cta { animation-delay: 0.2s; }
+.hero__stats { animation-delay: 0.28s; }
+
+@media (max-width: 560px) {
+  .stat { flex: 1 1 140px; width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__note, .hero__title, .hero__sub, .hero__cta, .hero__stats { animation: none; }
+}

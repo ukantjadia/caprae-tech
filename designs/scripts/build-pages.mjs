@@ -19,6 +19,7 @@ const builds = [
   ['direction-g-glacier/code', 'g'],
   ['direction-h-caprae-tech/code', 'h'],
   ['direction-h2-operating-signal/code', 'h2'],
+  ['direction-h3-caprae-tech-motion/code', 'h3'],
 ];
 
 rmSync(output, { recursive: true, force: true });
