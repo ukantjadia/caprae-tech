@@ -1,0 +1,39 @@
+/* Shared hero plate. The scrim is asymmetric because the footage is bright from
+   the horizon rightwards and near-black upper-left: a heavy wash under the copy,
+   a floor at the bottom, and almost nothing over the subject. */
+.heromedia { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+
+.heromedia__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.heromedia__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(96deg, rgba(10, 3, 0, 0.9) 0%, rgba(14, 4, 0, 0.66) 30%,
+      rgba(20, 6, 0, 0.16) 52%, rgba(20, 6, 0, 0) 68%),
+    linear-gradient(0deg, rgba(9, 2, 0, 0.82) 0%, rgba(9, 2, 0, 0.12) 30%, rgba(0, 0, 0, 0) 48%),
+    linear-gradient(180deg, rgba(8, 2, 0, 0.55) 0%, rgba(0, 0, 0, 0) 22%);
+}
+
+/* Interior pages: the band is shorter, so the subject would be cropped to a
+   sliver. Pull the framing left and darken further, because these bands carry
+   a title over the footage rather than beside it. */
+.heromedia.is-short .heromedia__video { object-position: 60% 38%; }
+.heromedia.is-short .heromedia__scrim {
+  background:
+    linear-gradient(96deg, rgba(10, 3, 0, 0.93) 0%, rgba(14, 4, 0, 0.78) 34%,
+      rgba(20, 6, 0, 0.38) 60%, rgba(20, 6, 0, 0.2) 100%),
+    linear-gradient(0deg, rgba(9, 2, 0, 0.95) 0%, rgba(9, 2, 0, 0.3) 46%, rgba(0, 0, 0, 0) 78%),
+    linear-gradient(180deg, rgba(8, 2, 0, 0.62) 0%, rgba(0, 0, 0, 0) 30%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heromedia__video { opacity: 1; transform: none; }
+}

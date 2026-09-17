@@ -18,6 +18,7 @@ const builds = [
   ['direction-next-four/code', 'next'],
   ['direction-g-glacier/code', 'g'],
   ['direction-h-caprae-tech/code', 'h'],
+  ['direction-h2-operating-signal/code', 'h2'],
 ];
 
 rmSync(output, { recursive: true, force: true });

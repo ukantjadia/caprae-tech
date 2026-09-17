@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#120400" />
+    <title>Caprae Tech — Technology Crafted for Operators</title>
+    <meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build." />
+    <link rel="preload" as="video" href="/hero-loop.mp4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      /* Counterpart to the gallery 404 shim: a deep link arrives as ?p=/route,
+         so put the real path back before React Router reads it. */
+      (function () {
+        var m = /[?&]p=([^&]*)/.exec(window.location.search);
+        if (!m) return;
+        var rest = window.location.search.replace(/[?&]p=[^&]*/, '').replace(/^&/, '?');
+        history.replaceState(null, '', window.location.pathname.replace(/\/$/, '') + decodeURIComponent(m[1]) + rest + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

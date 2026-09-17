@@ -1,0 +1,12 @@
+.signal{position:fixed;right:18px;top:50%;z-index:18;display:flex;height:min(52vh,430px);transform:translateY(-50%);color:var(--ink-faint)}
+.signal__track{position:relative;width:1px;height:100%;background:var(--hair)}
+.signal__progress{position:absolute;inset:0;background:var(--flame-lit);transform-origin:50% 0;box-shadow:3px 0 14px rgba(255,138,31,.35)}
+.signal ol{display:flex;flex-direction:column;justify-content:space-between;list-style:none;margin:0;padding:0}
+.signal li{position:relative}
+.signal button{display:flex;align-items:center;justify-content:flex-end;gap:9px;min-width:130px;padding:5px 0;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:inherit}
+.signal button span{opacity:0;transform:translateX(8px);transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),color .25s}
+.signal button i{width:18px;height:1px;background:currentColor;transform:scaleX(.38);transform-origin:100% 50%;transition:transform .25s var(--ease-out),background-color .25s}
+.signal li:hover button span,.signal li.is-active button span{opacity:1;transform:none;color:var(--ink)}
+.signal li.is-active button i{transform:scaleX(1);background:var(--flame-lit)}
+@media(max-width:900px){.signal{right:0;top:auto;bottom:0;width:100%;height:2px;transform:none}.signal__track{width:100%;height:2px}.signal__progress{transform-origin:0 50%}.signal ol{display:none}}
+@media(prefers-reduced-motion:reduce){.signal button span{transition:none}.signal__progress{box-shadow:none}}

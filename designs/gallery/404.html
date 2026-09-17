@@ -7,14 +7,14 @@
       /* GitHub Pages has no rewrite rule, so a direct hit on a client route
          inside direction H (…/h/services) lands here instead of on its index.
          Hand the sub-path over as a query; H's own index puts it back.
-         H is the only routed direction, so it is the only split point.
-         ponytail: add another name here if a later direction routes client-side. */
+         H and H2 are routed directions, so direct links need the same handoff. */
       (function () {
         var l = window.location;
-        var cut = l.pathname.indexOf('/h/');
-        if (cut < 0) { l.replace(l.pathname.split('/h/')[0] || '/'); return; }
-        var root = l.pathname.slice(0, cut + 3);
-        var rest = l.pathname.slice(cut + 3);
+        var marker = l.pathname.indexOf('/h2/') >= 0 ? '/h2/' : '/h/';
+        var cut = l.pathname.indexOf(marker);
+        if (cut < 0) { l.replace('/'); return; }
+        var root = l.pathname.slice(0, cut + marker.length);
+        var rest = l.pathname.slice(cut + marker.length);
         l.replace(root + '?p=/' + rest + l.search.replace('?', '&') + l.hash);
       })();
     </script>
