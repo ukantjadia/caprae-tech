@@ -1029,3 +1029,81 @@ public page); a separate renderer per view (rejected, integrated GPUs cap live W
 contexts); Spline runtime (646KB and needs an authored scene we don't have).
 Why: The user asked for real 3D in the hero and in every icon tile.
 Reversible: yes
+
+## D-052. Dala sets the bar; the performance budget and the smooth-scroll ban are lifted
+Date: 2026-09-29
+Decision: The target is Dala-level 3D (https://dala.craftedbygc.com/). The performance budget in `.claude/CLAUDE.md` and `02-motion-and-3d.md` (LCP 2.0s, 200KB JS, 60fps, "cut the 3D") becomes measure-and-report, not a veto. The three-tier rule is dropped from CLAUDE.md. Smooth scroll (Lenis) is allowed, which supersedes D-013. Kept: CTA above the fold (the user's global rule, and Dala meets it), no trapping pinned sections, no animated counters, verified claims only, verify in a browser.
+Alternatives: Keep the budget and tune Dala's effect down to fit it (fewer particles, no DOF). Copy Dala's exact stack (Laravel Mix + ASScroll).
+Why: The user asked to remove the limits and match the reference. Measured Dala on Intel UHD: 36 to 38fps, 245KB JS, 1.75MB total, CLS 0, CTA above the fold, so it was close to the old budget anyway. Laravel Mix (last release 2022) and ASScroll (archived 2023) are dead, so "exact stack" means the same techniques on maintained tools, not the same packages. Research: `research/dala/01` to `04`.
+Reversible: yes
+
+## D-053. Build lives in `builds/dala-caprae`; shapes are data, stored as N texture layers
+Date: 2026-09-29
+Decision: The Dala-technique build goes in `builds/dala-caprae/` (user's choice). Target shapes are baked from GLBs by a bun script into a `DataArrayTexture`, one layer per shape, with `u_progress` running 0..N-1. Placeholder primitives until Caprae's shapes are chosen. No Laravel or PHP.
+Alternatives: Dala's fixed layout of 4 shapes as quadrants in one EXR. A Laravel shell.
+Why: Layers let shape count, order and content change without touching shader code, so the shapes don't need deciding now. Dala uses Laravel only as a build tool. Its page is static.
+Reversible: yes
+
+## D-054. Inter Tight replaces PP Neue Montreal; body at 300, not Dala's 200
+Date: 2026-09-29
+Decision: Inter Tight Variable (OFL, free, self-hosted via @fontsource-variable/inter-tight) for all text in `builds/dala-caprae`. Body text at weight 300.
+Alternatives: PP Neue Montreal (paid Pangram Pangram licence, the user declined to pay for now). Geist or plain Inter.
+Why: The user wants no font spend for now. Inter Tight is the closest free neo-grotesk, tight enough for Dala's -0.04em display tracking, and Refero lists Inter as Dala's fallback. Weight 200 body on black is too thin for the 50+ readers in `03-audience.md`, so body goes to 300.
+Reversible: yes, one CSS variable
+
+## D-055. dala-caprae scroll mapping uses native rect math, not GSAP ScrollTrigger
+Date: 2026-09-29
+Decision: Scroll progress is summed from each section's `getBoundingClientRect()` every frame and eased in JS. Lenis provides the smooth scroll. No GSAP for now.
+Alternatives: GSAP ScrollTrigger as Dala does, vendored from the CDN (D-040).
+Why: Five lines do the mapping, and GSAP still installs corrupted under bun (D-040). Add ScrollTrigger when we need timelines or scrubbed DOM animation.
+Reversible: yes
+
+## D-056. GSAP installs with bun again: the fault was one corrupted cache entry. Supersedes D-040 and D-055
+Date: 2026-09-29
+Finding: `bun add gsap` zeroed 162 of 166 files and skipped 13. The registry tarball is fine (`tar` extracts 179 intact files). `--backend=copyfile` and `--no-cache` changed nothing. A fresh `BUN_INSTALL_CACHE_DIR`, on C: or D:, installed all 179 files cleanly. Root cause: the global cache entry `~/.bun/install/cache/gsap@3.15.0@@@1` was corrupted by an earlier failed extraction and could not be replaced, because Windows held its files in a delete-pending state ("Directory not empty" on an empty folder). Bun kept linking from the broken entry. `--no-cache` only skips the manifest cache, not extracted packages. Defender logged no detections.
+Fix: moved the entry aside (`_broken-gsap-3.15.0`, deletable after a reboot releases the handles). `bun add gsap` now gives 179 of 179 files.
+Decision: GSAP 3.15.0 from bun in `builds/dala-caprae`. ScrollTrigger drives the shape stages and the section text reveals, and Lenis runs on GSAP's ticker. Vendoring from the CDN is no longer needed.
+If it recurs: `bun pm cache` to find the folder, move the bad `<pkg>@<ver>@@@1` entry aside, reinstall.
+Reversible: yes
+
+## D-057. dala-caprae copies Dala's choreography model: section progress + ramp table, 10k particles
+Date: 2026-09-29
+Decision: Scroll drives one number, section index + fraction (ScrollTrigger per section, summed), and every particle property is the sum of clamped ramps in `RAMPS` in `src/config.js`, with Dala's windows. The page has Dala's 7-section rhythm (12.1 screens). 10,000 particles (Dala's desktop count), camera fov 50 at z 10, shape radius 3.6. Explode scatters to a screen-wide cloud. The last shape is the logo, currently a placeholder "C" until the brand kit (Q19) arrives.
+Alternatives: The earlier continuous one-shape-per-screen morph with 40k particles, which the user found too dense and too fast.
+Why: The user compared against Dala and asked for its pacing, clarity and visible formation. The numbers come straight from Dala's `_updatePosition` and `_nb`. Frame time fell from 25ms to 18ms on Intel UHD.
+Reversible: yes, all in config
+
+## D-058. Variant folders: dala-caprae-wordmark (v2) and dala-draft-one (v3)
+Date: 2026-09-29
+Decision: v2 = `builds/dala-caprae-wordmark`: CAPRAE wordmark hero, no loader, solid particles. v3 = `builds/dala-draft-one`: Dala's shape order (brain slot, lightbulb, sphere, logo), hollow wire particles, Dala-style loader. v1 `builds/dala-caprae` is unchanged. Ports 5195, 5196, 5197.
+Alternatives: `caprae` / `draft-one` without the prefix.
+Why: The user asked for a `dala` prefix. `dala-caprae` was already v1, so v2 gets `-wordmark`. The loader is v3 only, per the user. Hollow particles are v3 only, per the user.
+Reversible: yes
+
+## D-059. v3 particles are hollow: barycentric edges, not line geometry
+Date: 2026-09-29
+Decision: Same 4-triangle tetrahedron, with a per-corner barycentric attribute. The fragment shader discards everything more than 1px (via `fwidth`) from a face edge, drawn `DoubleSide`. Switch: `PARTICLE_STYLE` in config. Particle size 0.065 (1.5x), wire brightness 1.1.
+Alternatives: `LineSegments` (1px, can't be sized, no depth-of-field alpha), thin-box edge geometry (18x the triangles).
+Why: No extra triangles. Measured 17.0ms per frame against 18.0 for solid. Back edges show through, so a breaking shape reads as a see-through cloud.
+Reversible: yes, one config value
+
+## D-060. v3 lightbulb is procedural; the brain waits for a CC0 model
+Date: 2026-09-29
+Decision: The lightbulb is a `LatheGeometry` profile (globe, neck, screw threads, tip) built in the bake, with no download. The brain slot uses the torus knot until the user approves downloading the Science Museum Group's CC0 brain (25MB GLB, mediawiki3d.org).
+Alternatives: Dala's `pos-33.exr` (their artwork, not ours to ship). Poly Pizza's bulb (CC-BY 3.0, needs attribution).
+Why: The shapes are ours or public domain. Nothing is downloaded without the user's yes.
+Reversible: yes
+
+## D-061. v4 dala-modified-particles follows Dala's particle spec, read from its GLB and shaders
+Date: 2026-09-29
+Decision: New `builds/dala-modified-particles`, copied from v3. Findings from Dala's `py-lod*.glb` and `particles.*.glsl`: the particle is a tetrahedron frame (inner tetra inset, 48 triangles), colour is flat, the back of the shape fades with `smoothstep(-4.5, 4, z)`, orientation comes from a noise field so neighbours align, and scale varies per point. Ours now: barycentric frame at 6% of the face with a 1px floor, flat colour, back fade, trig-noise orientation field, blue-noise (Poisson-disk) sampling in the bake for even gaps, 5,625 particles at size 0.085 (~10px) with a narrow size range on the shape, dust with a wide range (up to ~0.56), about a third of particles speckled white/teal/pink, wider amber regions, background blur max 4px.
+Alternatives: Keep v3's constant 1px wire (read as scratchy haze at 7px particles). Larger 14px particles (overlapped about 9x on the knot).
+Why: The user compared a Dala screenshot with v3 and asked for Dala's particle look, spacing and size spread. Tested in Chrome: blur off proved the haze was overlap, not depth of field. Sphere and knot checked after each change.
+Reversible: yes
+
+## D-062. GitHub Pages: new gallery at the root, old gallery at /old/, Dala builds under /dala/
+Date: 2026-09-29
+Decision: `designs/gallery/index.html` becomes the new gallery (the 4 Dala builds, same viewer UI). The previous gallery moves to `designs/gallery/old/index.html` with every `./x/` rewritten to `../x/`, so every earlier direction keeps its URL. `build-pages.mjs` installs and builds `builds/dala-*` with `BASE_PATH=/caprae-tech/dala/<name>/`. Each Dala build got `vite.config.js` (`base` from `BASE_PATH`) and fetches `shapes.bin` from `import.meta.env.BASE_URL`.
+Alternatives: A separate repo or Pages site for the Dala builds.
+Why: The user asked to reuse the existing repo, with the new gallery first and everything earlier under an old gallery. Verified locally under `/caprae-tech/`: new gallery loads, Dala 4 fetches shapes.bin (200), all 23 old-gallery routes return 200.
+Reversible: yes

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Caprae Tech — new gallery</title>
+<title>Caprae Tech — old gallery</title>
 <style>
   :root {
     --bg: #16171A; --surface: #1E1F23; --line: #2F3136;
@@ -86,8 +86,8 @@
 <body>
 
 <div class="bar">
-  <h1>CAPRAE ENGINEERING / NEW GALLERY</h1>
-  <a class="navlink" href="./old/">Old gallery →</a>
+  <h1>CAPRAE ENGINEERING / OLD GALLERY</h1>
+  <a class="navlink" href="../">← New gallery</a>
   <div class="sp"></div>
 
   <div class="group">
@@ -103,19 +103,22 @@
   </div>
 
   <div class="group">
-        <button id="reload">Reload</button>
+    <button id="archive" aria-pressed="false">Show archived</button>
+    <button id="reload">Reload</button>
   </div>
 </div>
 
 <div class="grid" id="grid"></div>
 
 <p class="note">
-  <b>New gallery.</b> The Dala-technique builds: GPU particle fields that explode, hold and re-form on scroll.
-  Click a panel to load it, click <b>Open</b> for fullscreen with a switcher bar. Sources live in <code>builds/</code>.
-  <br>
-  <b>Only one WebGL context runs at a time.</b> Panels stay shaded until you click them.
+  <b>How to use.</b> Both options run live, side by side, at the same viewport width so the comparison is fair.
+  Click a panel to load it, click the header <b>Open</b> to go fullscreen with a switcher bar.
   <br><br>
-  Every earlier direction (A to R, and the archived options) is in the <a class="navlink" href="./old/">old gallery</a>.
+  <b>Viewport</b> resizes both at once. Check that the CTA stays above the fold at 400 and at 1440; that is a build gate, not a preference.
+  <br>
+  <b>Reduced motion</b> reloads both with <code>?motion=off</code>. Option 4 drops to its static poster and never creates a WebGL context. That tier has to be a good page on its own.
+  <br><br>
+  <b>Only one WebGL context runs at a time.</b> Panels stay shaded until you click them, and Option 4 pauses its loop when scrolled out of view. Four live contexts would choke the browser, which is exactly the constraint the production build has to respect too.
 </p>
 
 <div class="full" id="full">
@@ -130,14 +133,35 @@
 
 <script>
 const OPTIONS = [
-  { id: 'dala-v1', name: 'Dala 1 — dala-caprae', meta: 'Dala choreography · explode, hold, re-form · 10k solid pyramids · depth of field', src: './dala/v1/' },
-  { id: 'dala-v2', name: 'Dala 2 — CAPRAE wordmark', meta: 'particles form CAPRAE in the hero, break apart on scroll · opentype.js bake', src: './dala/wordmark/' },
-  { id: 'dala-v3', name: 'Dala 3 — draft one', meta: 'hollow wire pyramids · procedural lightbulb · Dala-style loader', src: './dala/draft-one/' },
-  { id: 'dala-v4', name: 'Dala 4 — modified particles', meta: 'Dala particle spec: framed pyramids, even spacing, aligned patches, back fade, big varied dust', src: './dala/modified-particles/' },
+  { id: 'dirA', name: 'A — Specimen Sheet', meta: 'quiet evidence system · specimen typography · restrained motion', src: '../a/' },
+  { id: 'dirB', name: 'B — Tearsheet', meta: 'visible rule grid · running head · Libre Franklin · key figure red', src: '../b/' },
+  { id: 'dirC', name: 'C — Event Display', meta: 'scroll moves outward · hover isolates · Barlow Condensed · dark', src: '../c/' },
+  { id: 'dirD', name: 'D — The Core', meta: 'scroll is descent · Three.js scrubbed · Space Grotesk / IBM Plex', src: '../d/' },
+  { id: 'dirE', name: 'E — Origination v2', meta: 'Three.js · persistent field · velocity streaks · hover to inspect', src: '../e/' },
+  { id: 'dirF', name: 'F — Load Bearing', meta: 'scroll is the playhead · React Three Fiber · amber', src: '../f/' },
+  { id: 'e1', name: 'E-1 — Assay', meta: 'gold on black · plate hero · flow-field dashes · Newsreader', src: '../e-variants/assay/' },
+  { id: 'e2', name: 'E-2 — Impression', meta: 'ink on paper · standing column · register and halftone', src: '../e-variants/impression/' },
+  { id: 'e3', name: 'E-3 — Tape', meta: 'graphite duotone · giant figure hero · ticker lanes', src: '../e-variants/tape/' },
+  { id: 'e4', name: 'E-4 — Spine', meta: 'asymmetric · fixed rule · 3D plate well · Archivo Expanded', src: '../e-variants/spine/' },
+  { id: 'e5', name: 'E-5 — Overprint', meta: 'asymmetric grid · two inks · 3D misregistration · Fraunces', src: '../e-variants/overprint/' },
+  { id: 'e1r', name: 'E1R — Pressure Assay', meta: 'rebuilt Three.js assay · notched pressure geometry · evidence index', src: '../next/e1r/' },
+  { id: 'e6', name: 'E6 — Registered Depth', meta: 'registration spine · instanced depth plates · architectural field', src: '../next/e6/' },
+  { id: 'e7', name: 'E7 — Stress Ledger', meta: 'structural frame · load paths · deterministic displacement', src: '../next/e7/' },
+  { id: 'e8', name: 'E8 — Witness Field', meta: 'cursor, touch and keyboard-responsive evidence field', src: '../next/e8/' },
+  { id: 'g', name: 'G — Glacier', meta: 'live video plate behind the whole page · scroll-deepening scrim · Playfair · Vite + framer-motion', src: '../g/' },
+  { id: 'h', name: 'H — Caprae Tech (full site)', meta: 'five routed pages · shared hero footage on every tab · video footer · React Router + Vite', src: '../h/' },
+  { id: 'h2', name: 'H2 — Operating Signal', meta: 'route continuity · scroll signal rail · calibrated figures · authored section choreography', src: '../h2/' },
+  { id: 'h3', name: 'H3 — Caprae Tech, in motion', meta: 'CSS scroll-driven spine · drawn rules · figure wipe · cross-route view transitions · OGL shader footer', src: '../h3/' },
+  { id: 'r', name: 'R — Caprae Tech on a Resend-style structure', meta: 'Refero-extracted Resend tokens · Tailwind v4 · static placeholder cube, own 3D pending', src: '../r/' },
 ];
 
-// The earlier directions live in the old gallery (./old/).
-const ARCHIVED = [];
+// Archived. Hidden by default; the toolbar toggle reveals them for reference.
+// Kept runnable so a later direction can be weighed against what came before.
+const ARCHIVED = [
+  { id: 'opt1', name: 'Option 1 — Institutional', meta: 'ARCHIVED · zero JS · Newsreader / Public Sans · moss #2D4A3E', src: '../archive/option-1/' },
+  { id: 'opt4', name: 'Option 4 — Editorial Hybrid', meta: 'ARCHIVED · 3D island · Instrument Serif / Geist · amber #B4541F', src: '../archive/option-4/' },
+  { id: 'dirE1', name: 'E v1 — Origination (raw WebGL2)', meta: 'ARCHIVED · 12.8KB · no library · kept for comparison', src: '../archive/e-v1/' },
+];
 let showArchived = false;
 function active() { return showArchived ? OPTIONS.concat(ARCHIVED) : OPTIONS; }
 
@@ -237,7 +261,7 @@ document.getElementById('motion').addEventListener('click', (e) => {
   reloadLoaded();
 });
 
-document.getElementById('archive')?.addEventListener('click', (e) => {
+document.getElementById('archive').addEventListener('click', (e) => {
   showArchived = !showArchived;
   e.target.setAttribute('aria-pressed', String(showArchived));
   e.target.textContent = showArchived ? 'Hide archived' : 'Show archived';

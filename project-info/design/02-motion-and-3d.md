@@ -65,6 +65,10 @@ only, never repeating. Native CSS where possible.
 
 ## Performance budget
 
+> Superseded 2026-09-29 by D-052. These numbers are now measured and reported,
+> not hard limits. Dala (`research/dala/`) sets the bar. The table stays as the
+> record of what was first proposed.
+
 Hard limits. A slow site from a technical vendor refutes its own claim.
 
 | Metric | Budget |

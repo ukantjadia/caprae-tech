@@ -99,15 +99,13 @@ figure from the parent firm without saying it is the parent firm's.
 **The CTA stays above the fold.** Every breakpoint, every page. The 3D works
 around this constraint, not the other way round.
 
-**No scroll-jacking.** No wheel hijacking, no pinned sections that trap the
-user, no animated counters.
+**The reference sets the bar, not a budget.** The target is Dala-level 3D
+(https://dala.craftedbygc.com/, teardown in `research/dala/`). Do not cut or
+simplify an effect to hit a number. Measure LCP, fps, and JS size, and report
+them, but they inform tuning, they do not veto the effect (D-052).
 
-**The performance budget is a design constraint.** LCP under 2.0s on throttled
-4G, CLS under 0.05, initial JS under 200KB gzipped. If the 3D cannot meet it,
-the 3D gets cut, not the budget.
-
-**Three tiers must each be a good page.** Full, reduced-motion, and no-JS. If
-the page is worthless without WebGL, the content is too thin.
+**Smooth scroll is allowed.** Lenis or an equivalent is fine. No pinned
+sections that trap the user, no animated counters (D-052 supersedes D-013).
 
 **Verify in a browser.** Do not claim a page is fast, responsive, or accessible
 without having driven it. Screenshots or it did not happen.

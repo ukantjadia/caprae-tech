@@ -23,8 +23,29 @@ const builds = [
   ['direction-r-resend-structure/code', 'r'],
 ];
 
+// New gallery: the Dala-technique builds in ../builds. They sit outside this workspace,
+// so each installs its own lockfile before building.
+const dalaBuilds = [
+  ['../builds/dala-caprae', 'dala/v1'],
+  ['../builds/dala-caprae-wordmark', 'dala/wordmark'],
+  ['../builds/dala-draft-one', 'dala/draft-one'],
+  ['../builds/dala-modified-particles', 'dala/modified-particles'],
+];
+
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
+
+const run = (cmd, cwd, env = process.env) => {
+  const result = Bun.spawnSync({ cmd, cwd, env, stdout: 'inherit', stderr: 'inherit' });
+  if (result.exitCode !== 0) process.exit(result.exitCode);
+};
+
+for (const [project, route] of dalaBuilds) {
+  console.log(`Building ${route} from ${project}`);
+  run([process.execPath, 'install', '--frozen-lockfile'], join(root, project));
+  run([process.execPath, 'run', 'build'], join(root, project), { ...process.env, BASE_PATH: `${prefix}/${route}/` });
+  cpSync(join(root, project, 'dist'), join(output, route), { recursive: true });
+}
 
 for (const [project, route] of builds) {
   console.log(`Building ${route} from ${project}`);
@@ -39,7 +60,10 @@ for (const [project, route] of builds) {
   cpSync(join(root, project, 'dist'), join(output, route), { recursive: true });
 }
 
+// Landing = new gallery (Dala builds); the earlier directions keep their routes, listed at /old/.
 cpSync(join(root, 'gallery/index.html'), join(output, 'index.html'));
+mkdirSync(join(output, 'old'), { recursive: true });
+cpSync(join(root, 'gallery/old/index.html'), join(output, 'old/index.html'));
 // Pages has no rewrite rule, so client routes inside a direction land on this.
 cpSync(join(root, 'gallery/404.html'), join(output, '404.html'));
 cpSync(join(root, '_archive/option-1-institutional/code'), join(output, 'archive/option-1'), { recursive: true });

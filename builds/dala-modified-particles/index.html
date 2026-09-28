@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caprae Tech</title>
+  <meta name="description" content="The engineering team behind SaaSquatch Leads, Cold Call Killers and CLOVER, available to companies that buy and build.">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Copy from designs/_shared/content.json, every string [VERIFIED].
+       Section heights follow Dala's rhythm (screens): 1, 1.5, 3, 1.5, 1.5, 2.3, 1.
+       The particle choreography per section is the RAMPS table in src/config.js. -->
+  <canvas class="field" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a class="nav__logo" href="#top">Caprae Tech</a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#why">Why us</a>
+      <a href="#work">Work</a>
+      <a href="#how">How it works</a>
+      <a href="#people">People</a>
+    </nav>
+    <a class="btn" href="mailto:partners@capraecapital.com">Book a call</a>
+  </header>
+
+  <main>
+    <!-- 0: shape 0, right -->
+    <section class="section" id="top" data-section>
+      <div class="section__body">
+        <p class="eyebrow">Caprae Capital</p>
+        <h1 class="display">Engineers who already build for operators.</h1>
+        <p class="lead">Our team builds the software Caprae's own searchers, bankers and acquirers use every day. Four products live, one open source. That team is now available to yours.</p>
+        <div class="actions">
+          <a class="btn btn--lg" href="mailto:partners@capraecapital.com">Book a call</a>
+          <a class="link" href="#work">See what we have built</a>
+        </div>
+        <p class="trust">Part of Caprae Capital · $110M+ closed 2026 YTD · 8 countries</p>
+      </div>
+    </section>
+
+    <!-- 1: shape crosses left, then explodes -->
+    <section class="section section--right section--tall" id="why" data-section>
+      <div class="section__body">
+        <h2 class="h2">The part a dev shop cannot copy.</h2>
+        <p class="lead">Every agency claims it understands your business. Ours reports into a private equity firm that closes deals with operators, and sits in recurring meetings with them. Our engineers have already survived the founder relationship. You are not paying to teach them what a deal looks like.</p>
+      </div>
+    </section>
+
+    <!-- 2: the cloud holds behind big statements, re-forms as shape 1 at the end -->
+    <section class="manifesto" data-section>
+      <p class="statement">They know what an operator asks for, which is rarely what they say first.</p>
+      <p class="statement">They have seen a requirement change three times in a month and shipped anyway.</p>
+      <p class="statement">They understand diligence pressure and why a close date is a close date.</p>
+      <p class="statement">They do not need a product manager to translate business intent into a ticket.</p>
+    </section>
+
+    <!-- 3: shape 1 on the left, then shape 2 on the right -->
+    <section class="section section--right section--tall" id="work" data-section>
+      <div class="section__body">
+        <h2 class="h2">Four products. Live, paid, and open in a new tab.</h2>
+        <p class="lead">Not case studies. Software strangers use.</p>
+        <ol class="work">
+          <li>
+            <a href="https://www.saasquatchleads.com/" target="_blank" rel="noopener">SaaSquatch Leads</a>
+            <span>B2B lead generation and enrichment. Three-week beta drew 1,200+ signups. Public at $20/month.</span>
+          </li>
+          <li>
+            <a href="https://coldcallkillers.io/" target="_blank" rel="noopener">Cold Call Killers</a>
+            <span>Full-funnel B2B outbound system. 300,000+ calls across 5 countries.</span>
+          </li>
+          <li>
+            <strong>CLOVER</strong>
+            <span>Open-source M&amp;A platform, in beta. Lets searchers reassign deals that are off-thesis and earn a success fee on what they pass.</span>
+          </li>
+          <li>
+            <a href="https://bankersedgeadvisory.com" target="_blank" rel="noopener">Bankers Edge</a>
+            <span>Advisory platform. Client build, live in production.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 4: shape 2 on the right, then explodes -->
+    <section class="section section--tall" id="how" data-section>
+      <div class="section__body">
+        <h2 class="h2">How it works.</h2>
+        <ol class="steps">
+          <li><b>01 Call.</b> Thirty minutes. What you are building, what is in the way.</li>
+          <li><b>02 Scope.</b> A written scope with a number in it, inside a week.</li>
+          <li><b>03 Build.</b> You meet the engineers, not an account manager.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 5: cloud behind the people, forms the logo at the end -->
+    <section class="section section--team" id="people" data-section>
+      <div class="section__body section__body--wide">
+        <h2 class="h2">Who they report to.</h2>
+        <p class="lead">Not a stock advisory board. The people our engineers actually sit with.</p>
+        <ul class="people">
+          <li><b>Kevin Hong</b><span>Founder and Managing Partner, Caprae Capital</span><em>Chicago Booth</em></li>
+          <li><b>Eric Nehrlich</b><span>Chief of Staff, Caprae Capital</span><em>Google</em></li>
+          <li><b>Felix I. Odigie</b><span>Deal Advisor. Founder and Managing Director, Quoin Advisors</span><em>Wharton</em></li>
+          <li><b>Hereford Johnson</b><span>Principal Adviser. Founder, Third Equity Partners</span><em>Kellogg</em></li>
+          <li><b>Zackary Beckham</b><span>Partner for Strategic Investments. Founder, ITSco</span><em>Arizona State</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6: logo above, CTA below -->
+    <section class="section section--end" data-section>
+      <div class="section__body section__body--center">
+        <h2 class="h2">Talk to the people who would build it.</h2>
+        <div class="actions actions--center">
+          <a class="btn btn--lg" href="mailto:partners@capraecapital.com">Book a call</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Caprae Tech, part of Caprae Capital</span>
+    <a class="link" href="mailto:partners@capraecapital.com">partners@capraecapital.com</a>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
