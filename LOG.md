@@ -510,3 +510,33 @@ committed H2 in the meantime.
 the reduced-motion guard, because this machine has reduce on (D-035). Frame
 rate of the shader on integrated graphics is unmeasured. LCP on throttled 4G is
 still unmeasured, and the hero video is still 11.1MB.
+
+## 2026-09-28 — Plan to extract Resend style from Refero
+**Asked:** Read the Refero style page (Resend), save the Extended versions of its four exports (DESIGN.md, Tailwind v4, CSS Variables, Design Tokens) verbatim into a new `styles/` folder with a subfolder for this style. Plan first.
+**Did:** Fetched the page to confirm it is Resend and has a Compact/Extended toggle. Wrote `plans/resend-style-extract.md`. No files extracted yet.
+**Open:** Waiting on user to confirm folder name (`resend`), file names, and go-ahead.
+
+## 2026-09-28 — Extract Resend style exports (Extended) from Refero
+**Asked:** Save the Extended versions of DESIGN.md, Tailwind v4, CSS Variables and Design Tokens from the Refero Resend page, verbatim, no rewriting. Later: use the page the user saved with Ctrl+S in `styles-refreo/sample-design-saved-html/resend/`.
+**Did:** The page builds each export in the browser from one data blob. The gstack `browse` binary was missing Chromium, so I installed `chromium-headless-shell` for Playwright 1.58.2. Bun hung launching it on Windows, so the script ran under node. Clicking the page's Copy button broke the tab state, so the script reads the rendered `<pre>` text instead. That text matched the Copy button output byte for byte (checked on DESIGN.md Compact). The saved HTML does not run offline and only holds DESIGN.md Extended. The other three were read from the live page, and live DESIGN.md Extended matched the saved copy byte for byte. Wrote `styles-refreo/resend/DESIGN.md`, `tailwind-v4.css`, `variables.css`, `design-tokens.json`. JSON parses, CSS braces balance, each Extended file is longer than its Compact version.
+**Open:** The folder is `styles-refreo/resend/`, where the user put the saved page, not `styles/resend/` as the plan said.
+
+## 2026-09-28 — Plan a Resend-style site with the same 3D look
+**Asked:** Use the extracted Resend style and resend.com as reference to build a Resend-like site with the exact same 3D look. Plan first.
+**Did:** Started brainstorming (architectural path). Captured resend.com with headless Chromium. Hero 3D is a Spline scene (`/static/cube.splinecode`) on a WebGL canvas with `cube.mp4` as fallback. The section icons are pre-rendered 3D MP4 loops (`3d-integrate-night`, `3d-broadcast`, `3d-react`, `3d-control`). The page is 12,319px tall with 14 h2 sections. No code written.
+**Open:** Purpose (private study clone vs Caprae site in this style) decides branding and whether Resend's own 3D files can be used at all.
+
+## 2026-09-28 — Build the Resend study copy
+**Asked:** Build the private Resend study copy now, using multiple agents. Later: check whether it is running, then stop and hand over the run command.
+**Did:** Scaffolded `study/resend/` (Vite + React + Tailwind v4, `@splinetool/runtime`) and added `study/` to `.gitignore`. Captured 14 reference sections from resend.com into `study/resend/ref/`. Wrote `plans/resend-study-copy.md` and two new DECISION.md entries. Launched 4 parallel agents. The session ended before they reported. All 14 section files are written, not stubs, but only 6 sections have agent screenshots. `bun run build` passes; the Spline runtime chunk is 646KB (183KB gzip).
+**Open:** No side-by-side check of the whole page against resend.com yet. Stopped at the user's request; the user runs the dev server.
+
+## 2026-09-28 — Asked to publish the Resend study copy on GitHub
+**Asked:** Post the Resend study copy to GitHub so it can be seen live.
+**Did:** Nothing published. Held off: the copy carries Resend's name, wordmark, customer logos, testimonials and live assets, so a public URL would present as Resend's site. Offered a rebrand-then-publish route and a private-repo route instead.
+**Open:** User to pick a route, and Personal or Work GitHub account if pushing.
+
+## 2026-09-28 — Publish a rebranded Direction R on GitHub Pages
+**Asked:** Publish on GitHub (account `ukantjadia`), rebrand route with a placeholder cube.
+**Did:** Created `designs/direction-r-resend-structure/code/` from the study copy. Self-hosted free fonts (Instrument Serif, Inter, Commit Mono); the Spline dependency and the resend.com asset helper are removed. Three parallel agents rewrote all sections with copy from `designs/_shared/content.json` only. The testimonials section is cut (Q13 open), and the static SVG cube stands in for 3D. Fixed a font bug: the Refero theme's `--font-*` values beat the override, which now uses `:root:root`. Added `r` to `scripts/build-pages.mjs` and the gallery. Checked at 1440 and 375: fonts load, no off-site requests, no page errors, no horizontal scroll, "resend" appears 0 times in the page text. Hero CTA bottom sits at 739/900 and 556/812. `bun run build:pages` passes, and R's JS is 79KB gzip. Recorded a new decision entry.
+**Open:** Our own 3D cube. Some structural labels were written by the agents ("Product", "Stack", "Credential", "Background", "LinkedIn", "Sections", "Contact"). Headings for blocks 04 and 06 were dropped, since no verified copy exists for them. Bankers Edge attribution is still pending.

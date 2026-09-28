@@ -1,0 +1,14 @@
+@import "tailwindcss";
+/* The extracted Refero exports, used unedited */
+@import "../../../../../styles-refreo/resend/tailwind-v4.css";
+@import "../../../../../styles-refreo/resend/variables.css";
+@import "./fonts.css";
+
+html { background: var(--color-void-black); color-scheme: dark; }
+body {
+  margin: 0;
+  background: var(--color-void-black);
+  color: var(--color-bone-white);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+}

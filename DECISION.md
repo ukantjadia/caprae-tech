@@ -978,3 +978,36 @@ Also folded in: the 404 shim now carries a list, `['h2', 'h3', 'h']`, with the
 bare `h` last so it cannot truncate `/h2/` or `/h3/` to `/h/`. That replaces
 the pairwise check H2 added, which could not extend to a third.
 Reversible: yes, expensive only in that the route name appears in the gallery
+
+## D-048. Resend study copy lives in `study/resend/`, gitignored, loading Resend's assets at runtime
+Date: 2026-09-28
+Decision: A private local copy of resend.com, outside the `designs/` workspace so the
+Pages build never picks it up. `study/` is in `.gitignore`. Resend's Spline cube,
+videos, images and fonts are loaded from resend.com at runtime (all served with
+`access-control-allow-origin: *`) and never copied into the repo.
+Alternatives: vendor their files (rejected, it's their work and this repo publishes to Pages);
+rebuild the cube in Three.js now (deferred to the Caprae rebrand, since the user wants the exact look first).
+Why: User asked for a private study copy first, then conversion into our site.
+Reversible: yes
+
+## D-049. Study copy stack: Vite + React + Tailwind v4, themed by the Refero exports unedited
+Date: 2026-09-28
+Decision: Same Vite + React base as the direction builds. Tailwind v4 with
+`styles-refreo/resend/tailwind-v4.css` as the `@theme`. `@splinetool/runtime` for the hero.
+Alternatives: import Resend's compiled 480KB CSS and paste their markup (closer, but it
+teaches nothing about the extracted tokens, which is the point of the exercise).
+Why: The user wants to see what the extracted resources can build.
+Reversible: yes
+
+## D-050. Direction R: Caprae copy on the Resend layout, published; the Resend-branded copy stays private
+Date: 2026-09-28
+Decision: `designs/direction-r-resend-structure/` goes to Pages at `/r/`. It keeps
+Resend's layout, spacing, type scale and dark look, themed by the Refero exports. All copy
+comes from `designs/_shared/content.json` ([VERIFIED] only). There are no Resend names,
+logos, quotes, code or files. Fonts are self-hosted free substitutes (Instrument Serif
+for Domaine, Inter for aBC Favorit, Commit Mono). The hero cube is a static SVG placeholder
+until our own 3D exists. The testimonial section is cut (Q13 open).
+Alternatives: publish the Resend-branded study copy (rejected, a public URL would pass as
+Resend's site); build our own Three.js cube first (the user chose the placeholder to go live sooner).
+Why: The user wants to see it live, and chose the placeholder-cube route.
+Reversible: yes

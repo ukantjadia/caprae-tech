@@ -1,0 +1,14 @@
+/* Dark-theme tokens (Radix alpha scales) used by blocks 03-06 */
+:root {
+  --rs-s2: #d8f4f609; --rs-s3: #ddeaf814; --rs-s4: #d3edf81d; --rs-s5: #d9edfe25; --rs-s6: #d6ebfd30;
+  --rs-s7: #d9edff40; --rs-s8: #d9edff5d; --rs-s10: #e5edfd7b; --rs-s11: #f1f7feb5; --rs-s12: #fcfdffef;
+  --rs-g11: #a1a4a5; --rs-g12: #f0f0f0; --rs-hover: #ffffff12;
+  --rs-violet11: #baa7ff;
+}
+.font-abc-favorit { font-feature-settings: "ss01" on, "ss03" on, "ss04" on, "ss05" on; }
+.effect-font-styling { font-feature-settings: "ss01", "ss04", "ss05", "ss11"; }
+.effect-font-gradient {
+  -webkit-text-fill-color: transparent; color: unset;
+  background: linear-gradient(to bottom right, #fff 30%, #ffffff80);
+  -webkit-background-clip: text; background-clip: text;
+}

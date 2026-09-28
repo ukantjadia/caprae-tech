@@ -18,3 +18,7 @@ bun.lock
 # Generated GitHub Pages artifact
 designs/.pages/
 **/.impeccable/
+.gstack/
+
+# Private Resend study copy: never commit or publish (Resend brand, their markup in ref/)
+study/

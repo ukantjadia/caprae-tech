@@ -20,6 +20,7 @@ const builds = [
   ['direction-h-caprae-tech/code', 'h'],
   ['direction-h2-operating-signal/code', 'h2'],
   ['direction-h3-caprae-tech-motion/code', 'h3'],
+  ['direction-r-resend-structure/code', 'r'],
 ];
 
 rmSync(output, { recursive: true, force: true });

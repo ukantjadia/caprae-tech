@@ -1,0 +1,13 @@
+/* Self-hosted free fonts. Resend's Domaine and aBC Favorit are licensed to Resend, so the
+   extracted theme's family names are remapped to the substitutes DESIGN.md suggests. */
+@import "@fontsource-variable/inter";
+@import "@fontsource/instrument-serif";
+@import "@fontsource/commit-mono";
+
+/* :root:root out-ranks the :root that variables.css and the imported @theme both emit */
+:root:root {
+  --font-inter: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-domaine: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-abc-favorit: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-commit-mono: 'Commit Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
