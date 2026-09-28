@@ -1,6 +1,7 @@
 // Reference: ref/block-01.png
 import content from '../../../../_shared/content.json'
 import './Hero.css'
+import View from '../three/View.jsx'
 
 const { hero, contact } = content
 // ponytail: booking link is TBD (Q17), so every "Book a call" goes to the fallback inbox
@@ -68,7 +69,7 @@ export default function Hero() {
             <p className="m-0 mt-[20px] md:mt-[28px] text-center md:text-left text-[13px] leading-5 text-ash-gray/80 text-balance">{hero.trustLine}</p>
           </div>
           <div className="hero-cube-open relative ml-10 hidden h-[550px] w-[648px] shrink-0 items-center justify-center lg:flex">
-            <Cube className="h-full w-full" />
+            <View kind="hero" className="h-full w-full" fallback={<Cube className="h-full w-full" />} />
           </div>
         </div>
       </section>

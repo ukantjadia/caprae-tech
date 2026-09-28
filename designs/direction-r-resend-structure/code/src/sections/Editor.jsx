@@ -10,7 +10,7 @@ const host = new URL(p.href).hostname.replace(/^www\./, '')
 export default function Editor() {
   return (
     <section id="work" data-block="05" className="mx-auto px-6 py-[48px] sm:py-[96px] max-w-5xl md:max-w-7xl">
-      <Tile3D />
+      <Tile3D kind="work" />
       <h2 className="font-abc-favorit effect-font-styling text-[3rem] md:text-[3.5rem] tracking-tighter leading-[120%] effect-font-gradient mb-2 text-center text-balance">{work.h2}</h2>
       <p className="text-base md:text-[1.125rem] md:leading-[1.5] text-(--rs-g11) font-normal text-balance text-center">{work.sub}</p>
       <div className="w-full md:w-[90%] mx-auto">

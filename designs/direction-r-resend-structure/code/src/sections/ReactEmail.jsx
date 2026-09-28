@@ -2,6 +2,7 @@
 // Spacing uses arbitrary px: the @theme redefines --spacing-4/8/12/16/... as px.
 import content from '../../../../_shared/content.json'
 import './tail.css'
+import View from '../three/View.jsx'
 
 const { h2, steps } = content.engagement
 const FF = "font-abc-favorit [font-feature-settings:'ss01','ss04','ss05','ss11']"
@@ -17,7 +18,7 @@ const Bars = ({ w }) => (
 export default function ReactEmail() {
   return (
     <section id="how" data-block="07" className="mx-auto px-[24px] py-[48px] sm:py-[96px] max-w-5xl md:max-w-7xl">
-      <div className="t-tile" aria-hidden="true" />
+      <div className="t-tile t-tile-3d relative overflow-hidden" aria-hidden="true"><View kind="how" className="absolute inset-0" fallback={<div className="flex h-full w-full items-center justify-center"><span className="t-tile-mark" /></div>} /></div>
       <h2 className={`${FF} text-[3rem] md:text-[3.5rem] tracking-tighter leading-[120%] bg-[linear-gradient(to_bottom_right,#fff_30%,#ffffff80)] bg-clip-text text-transparent mb-[48px] text-center md:mb-[80px]`}>{h2}</h2>
       <div className={`rounded-3xl border ${LINE}`}>
         <header className={`flex h-[48px] items-center border-b ${LINE} px-[16px]`} aria-hidden="true">

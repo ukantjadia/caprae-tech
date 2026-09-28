@@ -1,5 +1,6 @@
 // Block 10, the five people. Same tab row + large panel as the ref; the dashboard screenshot becomes the selected person's card.
 import { useState } from 'react'
+import View from '../three/View.jsx'
 import content from '../../../../_shared/content.json'
 import './tail.css'
 
@@ -23,7 +24,7 @@ export default function Control() {
   }
   return (
     <section data-block="10" aria-label="People" className="mx-auto max-w-5xl px-6 py-[48px] sm:py-[96px] md:max-w-7xl">
-      <div className="t-tile mb-[32px] md:mb-[64px]" aria-hidden="true" />
+      <div className="t-tile t-tile-3d relative overflow-hidden mb-[32px] md:mb-[64px]" aria-hidden="true"><View kind="team" className="absolute inset-0" fallback={<div className="flex h-full w-full items-center justify-center"><span className="t-tile-mark" /></div>} /></div>
       <div role="tablist" aria-label="People" className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2 md:mb-[32px] md:gap-6 lg:grid-cols-5">
         {members.map((t, i) => {
           const on = i === active

@@ -1011,3 +1011,21 @@ Alternatives: publish the Resend-branded study copy (rejected, a public URL woul
 Resend's site); build our own Three.js cube first (the user chose the placeholder to go live sooner).
 Why: The user wants to see it live, and chose the placeholder-cube route.
 Reversible: yes
+
+## D-051. Direction R gets its own three.js 3D, one shared WebGL context, lazy-loaded
+Date: 2026-09-29
+Supersedes the placeholder-cube part of D-0050.
+Decision: A 3x3x3 hero cube made of rounded cubelets in three finishes (gloss, grain,
+perforated mesh). It tumbles slowly under a moving key light, turns a random layer every few
+seconds, and tilts toward the pointer. Five tile objects in the same material language: a
+block with one violet cubelet lifting out (03), product layers (05), three rising steps (07),
+a sphere in a ring (09), and five orbiting cubes (10). One WebGLRenderer draws every visible
+view and copies it into each view's own 2D canvas. three.js loads as a separate chunk once a
+view nears the viewport, so the initial JS stays at 80KB gzip (engine chunk 137KB gzip).
+Views pause offscreen and when the tab is hidden. Reduced motion renders one still frame. The
+SVG placeholders stay as the fallback for no JS and no WebGL.
+Alternatives: Resend's own Spline cube and 3D videos (rejected, that's their artwork on a
+public page); a separate renderer per view (rejected, integrated GPUs cap live WebGL
+contexts); Spline runtime (646KB and needs an authored scene we don't have).
+Why: The user asked for real 3D in the hero and in every icon tile.
+Reversible: yes

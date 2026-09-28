@@ -1,22 +1,23 @@
 // Block 03: the wedge. Layout follows ref/block-03 (3D tile, centred h2, wide hairline panel).
 import content from '../../../../_shared/content.json'
 import './Integrate.css'
+import View from '../three/View.jsx'
 
 const { wedge } = content
 
-// ponytail: static stand-in for the 170px 3D icon slot, swapped for our own 3D later.
-export function Tile3D() {
+// The 170px 3D icon slot: a live three.js object, with the SVG as its no-WebGL fallback.
+export function Tile3D({ kind = 'wedge' }) {
   return (
     <div aria-hidden="true" className="mx-auto mb-[16px] flex h-[170px] w-[170px] items-center justify-center">
       <div
-        className="relative flex h-[146px] w-[146px] items-center justify-center overflow-hidden rounded-[36px] border border-(--rs-s5)"
+        className="relative h-[146px] w-[146px] overflow-hidden rounded-[36px] border border-(--rs-s5)"
         style={{ background: 'radial-gradient(60% 40% at 50% 100%, rgba(146,129,247,0.22) 0%, rgba(146,129,247,0) 100%), linear-gradient(160deg, #161618 0%, #070708 70%)' }}
       >
-        <svg width="84" height="84" viewBox="0 0 84 84" fill="none" stroke="rgba(255,255,255,0.32)" strokeWidth="1">
+        <View kind={kind} className="h-full w-full" fallback={<div className="flex h-full w-full items-center justify-center"><svg width="84" height="84" viewBox="0 0 84 84" fill="none" stroke="rgba(255,255,255,0.32)" strokeWidth="1">
           <path d="M42 8 72 25v34L42 76 12 59V25Z" />
           <path d="M12 25 42 42 72 25M42 42v34" />
           <path d="M27 16.5 57 33.5M57 16.5 27 33.5" stroke="rgba(255,255,255,0.12)" />
-        </svg>
+        </svg></div>} />
       </div>
     </div>
   )

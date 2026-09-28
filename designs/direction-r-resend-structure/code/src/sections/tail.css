@@ -38,3 +38,7 @@
   display: flex; align-items: center; justify-content: center;
 }
 .t-tile::after { content: ""; width: 56px; height: 56px; border-radius: 9999px; border: 1px solid #ffffff26; }
+
+/* 3D tiles: the live object replaces the ring, which stays only as the fallback mark */
+.t-tile-3d::after { content: none; }
+.t-tile-mark { width: 56px; height: 56px; border-radius: 9999px; border: 1px solid #ffffff26; }
