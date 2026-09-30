@@ -38,10 +38,13 @@ const TILE = kind => `<div aria-hidden="true" class="r-tile mx-auto mb-[16px] fl
 
 // R's logo strip (Logos.jsx), the parent firm's portfolio set as type
 const { label, names, disclaimer } = content.work.portfolio
+// the logo files in public/logos come from capraecapitalpartners.com/#portfolio (D-076)
+const logoFiles = fs.readdirSync(new URL('../public/logos', import.meta.url))
+const logoOf = n => logoFiles.find(f => f.startsWith(n.toLowerCase().replaceAll(' ', '-') + '-logo.'))
 const LOGOS = `<section data-block="logos" aria-labelledby="portfolio-label" class="r-logos mx-auto px-6 py-[48px] sm:py-[96px] max-w-5xl md:max-w-7xl relative rounded-3xl border-t border-[#d6ebfd30] mt-[40px] flex flex-col items-center">
   <div aria-hidden="true" class="t-glow-line left-1/2 top-0 w-[300px] pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"></div>
   <h2 id="portfolio-label" class="m-0 text-base md:text-[1.125rem] md:leading-[1.5] text-ash-gray font-normal mb-10 max-w-lg text-center text-balance">${label}</h2>
-  <ul class="m-0 p-0 list-none w-5/6 gap-x-[16px] grid grid-cols-2 items-center sm:grid-cols-3 lg:grid-cols-5">${names.map(n => `<li class="flex h-[64px] sm:h-[96px] items-center justify-center text-center font-abc-favorit font-semibold text-[17px] sm:text-[20px] tracking-[-0.02em] text-bone-white/75">${n}</li>`).join('')}</ul>
+  <ul class="m-0 p-0 list-none w-5/6 gap-x-[16px] grid grid-cols-2 items-center sm:grid-cols-3 lg:grid-cols-5">${names.map(n => `<li class="flex flex-col items-center justify-center gap-[8px] py-[16px] text-center"><img src="/logos/${logoOf(n)}" alt="" width="120" height="64" loading="lazy" class="h-[64px] w-[120px] rounded-[12px] object-contain"><span class="text-sm text-ash-gray">${n}</span></li>`).join('')}</ul>
   <p class="m-0 mt-10 text-sm text-ash-gray text-center text-balance">${disclaimer}</p>
 </section>`
 

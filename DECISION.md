@@ -1204,3 +1204,10 @@ Decision: Remove the claim markers from the three R versions (main.js no longer 
 Alternatives: Keep the markers (D-072); fix the border colour instead of removing it.
 Why: User, 2026-10-01: this is a test site on GitHub Pages, not the real site, so no confirmation markers, keep it simple, no borders on the icons. The border showed as solid white because `--rs-s5` is not defined in this build, so it fell back to the text colour.
 Reversible: yes
+
+## D-076. R-A, R-B, R-C: the portfolio strip shows the real company logos
+Date: 2026-10-01
+Decision: The portfolio strip shows the 10 logo files from https://capraecapitalpartners.com/#portfolio (assets/portfolio/*-logo.png|jpg), stored as-is in `designs/direction-r-lab/code/public/logos`, 64px tall and 120px wide with object-fit contain, the company name below each one, no border. The strip keeps the label and the "Not builds by this team" line.
+Alternatives: Names set as type (D-074); logos recoloured to one tone (the source files are flat colour squares and white-background JPGs, so recolouring would distort them).
+Why: User, 2026-10-01: take the logos from the Caprae Capital Partners portfolio section and use them on all three versions. The source site has an 11th logo (SaaSquatch Leads) that is not in our content's portfolio list, so it is left out.
+Reversible: yes

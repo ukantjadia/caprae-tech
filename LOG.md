@@ -645,3 +645,8 @@ still unmeasured, and the hero video is still 11.1MB.
 **Asked:** Remove the border from the 3D icon tiles and redo the icons correctly; remove every "to confirm" marker and its hover title from all three versions, since this is a test site.
 **Did:** `scripts/port.js`: tile border removed, fallback cube SVG redrawn (outline plus the three inner edges, no top X). `src/main.js`: claim markers no longer started. `src/styles/skin.css`: .tc style removed. Re-ported a/b/c. Checked on localhost:5211/b: 0 markers, no "to confirm" text, all 5 tiles at 0px border; screenshot of the hero tile. Rebuilt the Pages bundle and stopped the dev server. D-075.
 **Open:** None.
+
+## 2026-10-01 — R versions: real portfolio logos
+**Asked:** Download the portfolio logos from capraecapitalpartners.com/#portfolio and use them in the logo strip on all three versions.
+**Did:** Downloaded the 10 matching files with curl into `designs/direction-r-lab/code/public/logos`. `scripts/port.js` now renders each logo (img plus name) instead of the name as text. The first attempt used `h-16`, which the Refero exports resolve to 16px, so I switched to explicit px sizes. Checked on localhost:5211/a: all 10 images load at 64px tall, screenshot taken. The Pages build carries the logos under `/caprae-tech/r-lab/logos/`. Stopped the dev server. D-076.
+**Open:** The Caprae Capital logo (`assets/logo/caprae-logo.png`) is on the same site. Not used, because the placeholder wordmark decision is still with the user.
