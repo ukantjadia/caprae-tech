@@ -1,7 +1,6 @@
 // A Direction R page with the Section Lab content. The page (a|b|c/index.html) is generated
 // by scripts/port.js; the Lab's own inline script builds its sections and interactions.
 import './styles/app.css'
-import { startClaimMarkers } from '../../../../builds/dala-lab-engine/claims.js'
 import { applyA11yFixes } from '../../../../builds/dala-lab-engine/a11y.js'
 
 // R's header: the blurred bar fades in once the page scrolls
@@ -27,4 +26,3 @@ if (hasWebGL()) {
 }
 
 applyA11yFixes()
-startClaimMarkers()

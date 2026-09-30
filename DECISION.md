@@ -1197,3 +1197,10 @@ Decision: New `designs/direction-r-lab/code` builds three static pages (`r-lab/a
 Alternatives: Keep R's 13 sections and pour Lab text into them (drops pricing, team and FAQ); hand-port 30 variants into React.
 Why: User answers 2026-10-01: R's look with the Lab's 10 sections, one version per Lab variant, interactions restyled, same markers. Porting the Lab's markup keeps the text exact. Page JS is 3.3 KB gzip, and three.js (137 KB gzip) loads only when a 3D view nears the screen.
 Reversible: yes
+
+## D-075. R-A, R-B, R-C: no "to confirm" markers, no border on the 3D icon tiles
+Date: 2026-10-01
+Decision: Remove the claim markers from the three R versions (main.js no longer runs claims.js; the .tc style is gone). Remove the border from R's 3D icon tiles and redraw the static cube fallback without the X on its top face. This supersedes D-072 and D-074 for the R versions only; the Dala Lab drafts keep their markers.
+Alternatives: Keep the markers (D-072); fix the border colour instead of removing it.
+Why: User, 2026-10-01: this is a test site on GitHub Pages, not the real site, so no confirmation markers, keep it simple, no borders on the icons. The border showed as solid white because `--rs-s5` is not defined in this build, so it fell back to the text colour.
+Reversible: yes

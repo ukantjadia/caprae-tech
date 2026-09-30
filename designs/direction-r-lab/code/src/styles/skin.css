@@ -87,14 +87,6 @@ body.r-skin .hero .r-tile { margin-bottom: 24px; }
 /* ---- the header fades its bar in once the page scrolls (R's Header.jsx) ---- */
 .site-header.scrolled .r-header-bg { opacity: 1; }
 
-/* ---- "to confirm" markers on unverified claims (D-072, same as the Lab drafts) ---- */
-.tc {
-  display: inline-block; margin-left: 6px; padding: 1px 6px; vertical-align: 0.15em;
-  font-family: var(--font-commit-mono); font-size: 10px; font-style: normal; font-weight: 500; line-height: 1.5;
-  letter-spacing: 0.02em; text-transform: none; white-space: nowrap; -webkit-text-fill-color: #1a1300;
-  color: #1a1300; background: #ffca16; border-radius: 5px; cursor: help;
-}
-
 /* ---- reduced motion: stop the Lab's loops too ---- */
 @media (prefers-reduced-motion: reduce) {
   body.r-skin :is(.marquee-track, .rotor span, .variant.on) { animation: none !important; }

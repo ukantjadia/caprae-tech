@@ -29,11 +29,11 @@ const HEADER = `<header class="site-header sticky top-0 z-40" data-r-header>
 </header>`
 
 // a live R 3D view over its static fallback (the fallback is what no-WebGL visitors see)
-const CUBE_SVG = '<svg width="84" height="84" viewBox="0 0 84 84" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1"><path d="M42 8 72 25v34L42 76 12 59V25Z"/><path d="M12 25 42 42 72 25M42 42v34"/><path d="M27 16.5 57 33.5M57 16.5 27 33.5" stroke="rgba(255,255,255,0.12)"/></svg>'
+const CUBE_SVG = '<svg width="84" height="84" viewBox="0 0 84 84" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1" stroke-linejoin="round"><path d="M42 10 70 26v32L42 74 14 58V26Z"/><path d="M14 26 42 42 70 26M42 42v32"/></svg>'
 const view = (kind, cls = 'absolute inset-0') => `<div class="r-view ${cls}" data-view="${kind}"><div class="r-fallback absolute inset-0 flex items-center justify-center">${CUBE_SVG}</div><canvas aria-hidden="true" class="absolute inset-0 h-full w-full"></canvas></div>`
 // R's 170px 3D icon tile (Integrate.jsx Tile3D)
 const TILE = kind => `<div aria-hidden="true" class="r-tile mx-auto mb-[16px] flex h-[170px] w-[170px] items-center justify-center">
-  <div class="relative h-[146px] w-[146px] overflow-hidden rounded-[36px] border border-(--rs-s5)" style="background: radial-gradient(60% 40% at 50% 100%, rgba(146,129,247,0.22) 0%, rgba(146,129,247,0) 100%), linear-gradient(160deg, #161618 0%, #070708 70%)">${view(kind)}</div>
+  <div class="relative h-[146px] w-[146px] overflow-hidden rounded-[36px]" style="background: radial-gradient(60% 40% at 50% 100%, rgba(146,129,247,0.22) 0%, rgba(146,129,247,0) 100%), linear-gradient(160deg, #161618 0%, #070708 70%)">${view(kind)}</div>
 </div>`
 
 // R's logo strip (Logos.jsx), the parent firm's portfolio set as type
