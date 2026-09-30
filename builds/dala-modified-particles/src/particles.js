@@ -45,6 +45,7 @@ const VELOCITY = TARGET + /* glsl */ `
 uniform float uSpring;
 uniform float uSpringRand;
 uniform float uFriction;
+uniform float uStep; // 1 = one 60 fps frame, so physics keeps its speed on a slow GPU (D-067)
 uniform vec3 uMouse;
 uniform float uMouseRadius;
 uniform float uMouseForce;
@@ -55,21 +56,22 @@ void main() {
   vec3 vel = texture2D(textureVelocity, uv).xyz;
   vec4 r = texture2D(tRand, uv);
 
-  vel += (targetAt(uv, r) - pos) * (uSpring + r.w * uSpringRand);
+  vel += (targetAt(uv, r) - pos) * (uSpring + r.w * uSpringRand) * uStep;
 
   vec3 d = pos - uMouse;
   float l = length(d);
   vel += d / max(l, 1e-4) * smoothstep(uMouseRadius, 0.0, l) * uMouseForce;
 
-  vel *= uFriction;
+  vel *= pow(uFriction, uStep);
   gl_FragColor = vec4(vel, 1.0);
 }
 `
 
 const POSITION = /* glsl */ `
+uniform float uStep;
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  gl_FragColor = vec4(texture2D(texturePosition, uv).xyz + texture2D(textureVelocity, uv).xyz, 1.0);
+  gl_FragColor = vec4(texture2D(texturePosition, uv).xyz + texture2D(textureVelocity, uv).xyz * uStep, 1.0);
 }
 `
 
@@ -253,6 +255,8 @@ export async function createField(renderer, onProgress = () => {}) {
     uSpring: { value: SIM.spring }, uSpringRand: { value: SIM.springRand }, uFriction: { value: SIM.friction },
     uMouse: { value: new THREE.Vector3(99, 99, 99) }, uMouseRadius: { value: SIM.mouseRadius }, uMouseForce: { value: SIM.mouseForce },
   })
+  u.uStep = { value: 1 }
+  posVar.material.uniforms.uStep = u.uStep
   const err = gpu.init()
   if (err) throw new Error(err)
 
@@ -285,7 +289,8 @@ export async function createField(renderer, onProgress = () => {}) {
   return {
     mesh,
     uniforms: u,
-    update(time) {
+    update(time, dt = 1 / 60) {
+      u.uStep.value = Math.min(dt * 60, 3)
       gpu.compute()
       material.uniforms.tPos.value = gpu.getCurrentRenderTarget(posVar).texture
       material.uniforms.tVel.value = gpu.getCurrentRenderTarget(velVar).texture

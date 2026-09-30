@@ -1,0 +1,39 @@
+/* The particle canvas sits behind the whole page (D-063). z-index -1 keeps every Lab
+   element above it; the root background (black) paints below it. Opaque cards cover it. */
+.particle-field { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; display: block; }
+
+/* "to confirm" marker on unverified claims (D-064) */
+.tc {
+  display: inline-block; margin-left: 6px; padding: 1px 6px; vertical-align: 0.15em;
+  font-family: var(--mono); font-size: 10px; font-style: normal; font-weight: 500; line-height: 1.5;
+  letter-spacing: 0.02em; text-transform: none; white-space: nowrap;
+  color: #1a1300; background: var(--amber); border-radius: 5px; cursor: help;
+}
+
+/* mobile menu (D-066): the Lab hides the links under 860px */
+.nav-menu { display: none; background: transparent; border: 1px solid var(--hair); color: var(--bone); border-radius: 999px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
+@media (max-width: 860px) {
+  .nav-menu { display: inline-flex; margin-left: auto; }
+  body.nav-open .site-nav .nav-links {
+    display: flex; flex-direction: column; gap: 4px; position: absolute; top: 64px; left: 0; right: 0;
+    padding: 12px 24px 18px; background: rgba(0, 0, 0, 0.94); border-bottom: 1px solid var(--hair-2);
+  }
+  body.nav-open .site-nav .nav-links a { padding: 10px 0; font-size: 16px; }
+}
+
+/* reduced motion (D-066): stop the Lab's looping animations */
+@media (prefers-reduced-motion: reduce) {
+  .cube, .marquee-track, .rotor span, .variant.on { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* the box the hero shape is fitted into (stage.js anchor). Draft A: a band across the top
+   of the hero; B: the right side; C: the left side (set per draft in index.html's class) */
+.hero-mark { pointer-events: none; }
+.hA > .hero-mark { grid-column: 1 / -1; height: clamp(96px, 16vh, 200px); }
+/* the band costs height, so draft A trims the hero's top padding to keep the CTA above the fold */
+.hero:has(> .hA > .hero-mark) { padding-top: 28px; }
+/* sized to the screen, not the hero: some Lab heroes are taller than the viewport */
+.hero > .hero-mark.side-right, .hero > .hero-mark.side-left { position: absolute; top: 40px; height: min(62vh, 560px); width: min(26vw, 380px); }
+.hero > .hero-mark.side-right { right: 2vw; }
+.hero > .hero-mark.side-left { left: 2vw; }

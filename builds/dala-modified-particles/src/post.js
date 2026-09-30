@@ -51,7 +51,7 @@ void main() {
 `
 
 export function createPost(renderer) {
-  const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 })
+  const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }) // no MSAA: its resolve cost ~14.5 ms a frame (D-067)
   const uniforms = {
     tScene: { value: target.texture },
     uRes: { value: new THREE.Vector2(1, 1) },

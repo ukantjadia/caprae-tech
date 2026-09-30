@@ -30,6 +30,11 @@ const dalaBuilds = [
   ['../builds/dala-caprae-wordmark', 'dala/wordmark'],
   ['../builds/dala-draft-one', 'dala/draft-one'],
   ['../builds/dala-modified-particles', 'dala/modified-particles'],
+  // Section Lab drafts: they import ../dala-lab-engine, whose only dependency (three) resolves
+  // to each draft's own copy through its vite.config alias
+  ['../builds/dala-lab-a', 'dala/lab-a'],
+  ['../builds/dala-lab-b', 'dala/lab-b'],
+  ['../builds/dala-lab-c', 'dala/lab-c'],
 ];
 
 rmSync(output, { recursive: true, force: true });

@@ -49,7 +49,7 @@ if (!reduced) {
 
 let renderer
 try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' })
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' })
 } catch {
   canvas.remove() // no WebGL: the page is plain text on black, still complete
 }
@@ -95,7 +95,7 @@ function createLoader() {
 }
 
 async function start() {
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
+  renderer.setPixelRatio(1) // cost grows with DPR squared; DPR 1 like Dala (D-067)
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(CAMERA.fov, 1, 0.1, 60)
   camera.position.z = CAMERA.z
@@ -164,14 +164,15 @@ async function start() {
     } else u.uMouse.value.set(99, 99, 99)
 
     // slight camera parallax so the dust layers slide past each other
-    camera.position.x += (ndc.x * 0.4 - camera.position.x) * k
-    camera.position.y += (ndc.y * 0.25 - camera.position.y) * k
+    const kc = 1 - Math.exp(-dt * 12) // pointer follows faster than scroll easing (D-067)
+    camera.position.x += (ndc.x * 0.4 - camera.position.x) * kc
+    camera.position.y += (ndc.y * 0.25 - camera.position.y) * kc
     camera.lookAt(0, 0, 0)
 
     const focus = camera.position.distanceTo(group.position) // keep the shape sharp
     field.setFocus(focus)
     post.uniforms.uFocus.value = focus
-    field.update(t)
+    field.update(t, dt)
     dust.update(t)
     post.render(scene, camera, t)
   }

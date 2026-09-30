@@ -1,0 +1,11 @@
+{
+  "name": "dala-lab-engine",
+  "private": true,
+  "type": "module",
+  "description": "Shared particle engine, shape bake and Section Lab porter for builds/dala-lab-a, -b, -c",
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "opentype.js": "^2.0.0",
+    "three": "0.186.1"
+  }
+}

@@ -1107,3 +1107,73 @@ Decision: `designs/gallery/index.html` becomes the new gallery (the 4 Dala build
 Alternatives: A separate repo or Pages site for the Dala builds.
 Why: The user asked to reuse the existing repo, with the new gallery first and everything earlier under an old gallery. Verified locally under `/caprae-tech/`: new gallery loads, Dala 4 fetches shapes.bin (200), all 23 old-gallery routes return 200.
 Reversible: yes
+
+## D-063. Three Section Lab drafts (dala-lab-a/b/c) on one rebuilt particle engine
+Date: 2026-09-30
+Decision: `builds/dala-lab-a`, `-b`, `-c` = every Section Lab A, B and C variant. Lab text copied verbatim; lab chrome and the 16 yellow notes stripped. One particle canvas fixed behind the whole page. Shapes: hero (A: CAPRAE across the top, B: a C on the right, C: a C on the left), then the Caprae logo at "Why founder-led", the lightbulb at "What we build", a geometry instrument set (compass, protractor, set-square, ruler) at "Pricing", with the cloud elsewhere. Hero A's CSS cube is replaced by the particles. Placeholder C until the user's logo SVG arrives. Added to the new gallery and pushed via ukantjadia once the user has seen them.
+Alternatives: One particle style per draft; hero-only particles; keeping the cube; copying Lab behaviour gaps as-is.
+Why: User answers, 2026-09-30.
+Reversible: yes
+
+## D-064. Unverified Lab claims ship marked; "founder-led" wording kept (supersedes D-009 for these drafts)
+Date: 2026-09-30
+Decision: All Lab text is kept. The 29 claims not found in the proof files and the 4 the proof files contradict each get a visible "to confirm" marker. The Lab placeholders ("[Add the client's problem]", "[domain rate]", "set on the call") stay visible and marked. "Founder-led" and "Built by founders" are kept as written.
+Alternatives: Fix the 4 contradicted claims; apply D-009's wording; hide the placeholders.
+Why: User choice. The page is public, so the markers keep the drafts honest. D-009 is superseded for these drafts only.
+Reversible: yes
+
+## D-065. Particle engine rebuilt to Dala's measured spec, rendered like Dala
+Date: 2026-09-30
+Decision: One style everywhere (shape and dust): a procedural tetrahedral frame (20 verts, 48 tris, window 0.586, struts 0.12 of the edge). Transparent, depthWrite on, front side, alpha = smoothstep(-4.5, 4, z). Size 1.5x Dala's (median edge ~7 px at 1503x680) with Dala's 3.7x spread and spacing ratio ~1.8 via blue noise. 1 rad/s noise-phased spin. Hover in the vertex shader. Physics scaled by frame time. Post: bloom + vignette + grain; no DOF, no MSAA. Renderer: DPR 1, antialias off, adaptive resolution over 16 ms. Colours: the Lab palette (#9281f7, #9a54dc, #3ad389, #ffca16, #70b8ff). Fonts: Instrument Serif, Inter and JetBrains Mono, self-hosted.
+Alternatives: Keep v4's barycentric wire and DOF; DPR up to 1.5 for sharper retina; Dala's gold-led palette; Google-hosted fonts.
+Why: `research/dala/05-particle-spec.md` shows Dala's look comes from this exact setup, and `research/perf/01-lag-diagnosis.md` shows MSAA, DOF and canvas AA are ~95% of our frame. Target under 10 ms per frame at 1920x1080 on Intel UHD.
+Reversible: yes
+
+## D-066. Lab behaviour gaps fixed with the same look; booking stays a mock
+Date: 2026-09-30
+Decision: Add reduced-motion handling (cube, rotor, marquee), keyboard and ARIA on the drag compare, accordions, checklist and tabs, a Hero B timer that respects an early click, and a mobile menu under 860 px. The booking form, validation, mock calendar and toast are copied exactly; nothing is sent.
+Alternatives: Copy the gaps as-is; a mailto fallback or email draft on submit.
+Why: User choice. The 50+ audience needs keyboard and reduced-motion support.
+Reversible: yes
+
+## D-067. Speed fixes applied to v1 to v4, and the gallery runs one panel at a time
+Date: 2026-09-30
+Decision: In v1 to v4: scene target without MSAA, canvas antialias off, DPR cap, physics scaled by frame time, faster pointer easing, renderer.compile in v1 and v2. Gallery: unload other panels when one loads, and correct its "one context" note.
+Alternatives: Leave the old builds untouched; fix only the gallery.
+Why: User choice, after the lag diagnosis.
+Reversible: yes
+
+## D-068. Lab drafts run on native scroll, without Lenis or GSAP
+Date: 2026-09-30
+Decision: `builds/dala-lab-*` use native scrolling. The particle stage reads `scrollY` against section offsets cached on layout change (a ResizeObserver catches accordions and tabs). No Lenis, no GSAP ScrollTrigger.
+Alternatives: Lenis + ScrollTrigger as in v1 to v4.
+Why: The Lab relies on CSS `scroll-behavior: smooth` and anchor links, which a smooth-scroll library fights. The particles are already eased. Two fewer libraries and no per-frame DOM reads.
+Reversible: yes
+
+## D-069. Shared engine for the Lab drafts, and the Lab is ported by script
+Date: 2026-09-30
+Decision: `builds/dala-lab-engine/` holds the particle field, post, stage, bake, claim markers, a11y fixes and `port-lab.js`. Each draft imports it (a Vite alias points `three` at the draft's own copy). `port-lab.js` generates each draft's index.html from `Caprae_Tech_Section_Lab.html` with Bun's HTMLRewriter plus exact-once text patches. It keeps every variant's markup (hidden), because the Lab script fills all of them by id with no null checks.
+Alternatives: Three copies of the engine; hand-copying the Lab markup per draft.
+Why: One source for the look. Re-running the port picks up any Lab edit, and a patch that stops matching fails loudly.
+Reversible: yes
+
+## D-070. Fixed world spacing per shape; spare particles park invisibly
+Date: 2026-09-30
+Decision: Every shape is sampled with blue noise at one world spacing (0.16 minimum distance, median neighbour gap 0.168, about 1.7x the median particle edge). The particle count per shape follows from its surface area: CAPRAE 2,815, C 2,707, logo placeholder 1,516, bulb 2,913, geometry set 1,190 of 10,000 slots. Unused slots are parked on the shape with visibility 0 and fade in only for the exploded cloud. Shapes have their own world radius in the config.
+Alternatives: A fixed count per shape (v4), which makes small shapes crowded and big ones sparse.
+Why: The user asked for visible, even gaps on every shape.
+Reversible: yes
+
+## D-071. The hero shape is fitted into a .hero-mark box, perspective included; camera turn 0.03 rad
+Date: 2026-09-30
+Decision: The porter adds an empty `.hero-mark` box (A: a band across the top of the hero, height 16vh, hero top padding trimmed to keep the CTA above the fold; B: right side; C: left side). The stage fits the hero shape inside it at every width, accounting for the perspective enlargement of an extruded shape's front face off-centre. The pointer camera turn is cut from Dala's 0.075 / 0.05 rad to 0.03 / 0.02.
+Alternatives: Fixed world coordinates (overlapped the headline at narrow widths); Dala's full camera turn (shifted edge shapes ~200 px).
+Why: Measured in Chrome: the C overflowed its box by 1.5x until both corrections were in. After them it projects 1100 to 1481 px against a 1078 to 1458 box.
+Reversible: yes
+
+## D-072. "To confirm" markers cover every non-VERIFIED claim (refines D-064)
+Date: 2026-09-30
+Decision: Markers go on every claims-table row that isn't VERIFIED: not found, contradicted, stated and open, plus the Lab placeholders. The exceptions are the "founder-led" framing (wording kept by the user) and the "Caprae Tech" name (a naming decision). They're applied to the live DOM and re-applied when tabs or sliders re-render. Each marker carries the reason and the inventory row number as its tooltip.
+Alternatives: D-064's narrower 33 rows (not found and contradicted only).
+Why: The user said "mark unverified". Stated and open claims aren't verified either.
+Reversible: yes

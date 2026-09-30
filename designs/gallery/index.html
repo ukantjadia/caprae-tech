@@ -130,6 +130,9 @@
 
 <script>
 const OPTIONS = [
+  { id: 'lab-a', name: 'Lab A — Section Lab A variants', meta: 'every Section Lab "A" design · CAPRAE particle wordmark · Dala frame particles · unverified claims marked', src: './dala/lab-a/' },
+  { id: 'lab-b', name: 'Lab B — Section Lab B variants', meta: 'every Section Lab "B" design · 3D particle C on the right · Dala frame particles · unverified claims marked', src: './dala/lab-b/' },
+  { id: 'lab-c', name: 'Lab C — Section Lab C variants', meta: 'every Section Lab "C" design · 3D particle C on the left · Dala frame particles · unverified claims marked', src: './dala/lab-c/' },
   { id: 'dala-v1', name: 'Dala 1 — dala-caprae', meta: 'Dala choreography · explode, hold, re-form · 10k solid pyramids · depth of field', src: './dala/v1/' },
   { id: 'dala-v2', name: 'Dala 2 — CAPRAE wordmark', meta: 'particles form CAPRAE in the hero, break apart on scroll · opentype.js bake', src: './dala/wordmark/' },
   { id: 'dala-v3', name: 'Dala 3 — draft one', meta: 'hollow wire pyramids · procedural lightbulb · Dala-style loader', src: './dala/draft-one/' },
@@ -184,7 +187,16 @@ function layout() {
   }
 }
 
-// Load a panel only when asked. Keeps WebGL contexts to one at a time.
+// Load a panel only when asked, and unload every other one first, so only one WebGL
+// context runs at a time (D-067; before this, each clicked panel kept running).
+function unloadPanels(except) {
+  for (const f of grid.querySelectorAll('.frame')) {
+    if (f === except) continue;
+    const ifr = f.querySelector('iframe');
+    if (ifr.getAttribute('src') && ifr.getAttribute('src') !== 'about:blank') ifr.src = 'about:blank';
+    f.querySelector('.shade').hidden = false;
+  }
+}
 grid.addEventListener('click', (e) => {
   const openBtn = e.target.closest('[data-open]');
   if (openBtn) { openFull(openBtn.dataset.open); return; }
@@ -192,6 +204,7 @@ grid.addEventListener('click', (e) => {
   if (!shade) return;
   const frame = shade.closest('.frame');
   const o = active().find(x => 'frame-' + x.id === frame.id);
+  unloadPanels(frame);
   frame.querySelector('iframe').src = url(o);
   shade.hidden = true;
 });
@@ -204,6 +217,7 @@ const fullSwitch = document.getElementById('fullSwitch');
 
 function openFull(id) {
   const o = active().find(x => x.id === id);
+  unloadPanels(null); // fullscreen is the only live context while it is open
   fullTitle.textContent = o.name.toUpperCase();
   fullFrame.src = url(o);
   fullSwitch.innerHTML = active().map(x =>
