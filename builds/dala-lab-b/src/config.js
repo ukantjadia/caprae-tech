@@ -62,5 +62,5 @@ export const RAMPS = [
   [1.55, 2.05, { shape: 1, x: -15.2 }],            // logo -> bulb, left of What we build
   [2.6, 3.1, { explode: 1, x: 7.6, scale: 0.2 }],   // bulb -> cloud behind Proof and How
   [4.55, 5.05, { explode: -1, shape: 1, x: 7.6, scale: -0.2 }], // cloud -> geometry set, right of Pricing
-  [5.8, 6.3, { explode: 1, x: -7.6, scale: 0.2 }],  // -> cloud for the rest of the page
+  [5.45, 5.95, { explode: 1, x: -7.6, scale: 0.2 }], // -> cloud as Pricing ends, before Founders
 ]

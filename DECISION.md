@@ -1177,3 +1177,16 @@ Decision: Markers go on every claims-table row that isn't VERIFIED: not found, c
 Alternatives: D-064's narrower 33 rows (not found and contradicted only).
 Why: The user said "mark unverified". Stated and open claims aren't verified either.
 Reversible: yes
+
+## D-073. Text over the particle field stays readable: thinner, quieter cloud, clear text column, text halo
+Date: 2026-09-30
+Decision: In the Lab drafts' engine:
+- The exploded cloud keeps only the current shape's particles (~1-3k), not all 10,000.
+- The cloud drops to 45% alpha.
+- Particles in the middle of the screen, where the text runs, fade by `uQuiet`: 0 for the hero shape, 0.6 for later formed shapes, 1 for the cloud. The edges keep full sparkle.
+- Dust alpha tops out at 0.6 and fades in the middle too.
+- Text gets a soft black halo (`text-shadow`), except the markers and the gradient text, which has a transparent fill.
+- The cloud forms as Pricing ends (5.45 to 5.95), not during Founders.
+Alternatives: Opaque scrims behind text blocks (changes the Lab's look); fewer particles everywhere (weakens the hero).
+Why: The user's screenshot of Lab A Founders: bios unreadable over a full-brightness 10,000-particle cloud. Checked in Chrome after the change: Founders, Why and the hero all read clearly, and the hero wordmark keeps full brightness.
+Reversible: yes

@@ -119,7 +119,9 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
     t.xyz *= mix(1.0 + r.z * 3.0, 1.0, uShow); // intro: gather in from scattered
     vec3 cloud = (vec3(r.y, r.z, r.w) * 2.0 - 1.0) * uCloud;
     float e = clamp(uExplode * (1.0 + uStagger) - uStagger * r.y, 0.0, 1.0);
-    return vec4(mix(t.xyz, cloud, e), mix(t.w, 1.0, e)); // the cloud shows every particle
+    // the cloud keeps only the particles of the shape it came from (~1-3k), not all 10,000:
+    // behind the Lab's text a full cloud was too dense to read through (user feedback 2026-09-30)
+    return vec4(mix(t.xyz, cloud, e), t.w);
   }`
 
   const VELOCITY = TARGET + /* glsl */ `
@@ -187,7 +189,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
     transparent: true, depthWrite: true, depthTest: true, side: THREE.FrontSide,
     uniforms: {
       tPos: { value: null }, tVel: { value: null }, uTime: { value: 0 }, uFocus: { value: 10 },
-      uScale: { value: SIM.particleScale }, uMouse: { value: new THREE.Vector3(99, 99, 0) }, uDelta: { value: 0 },
+      uScale: { value: SIM.particleScale }, uCloudAmount: { value: 0 }, uQuiet: { value: 0 }, uMouse: { value: new THREE.Vector3(99, 99, 0) }, uDelta: { value: 0 },
       uCols: { value: cols }, uCuts: { value: cuts },
     },
     vertexShader: /* glsl */ `
@@ -195,7 +197,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
       attribute vec4 aRand;
       attribute float aSize;
       uniform sampler2D tPos, tVel;
-      uniform float uTime, uFocus, uScale, uDelta;
+      uniform float uTime, uFocus, uScale, uDelta, uCloudAmount, uQuiet;
       uniform vec3 uMouse;
       uniform vec3 uCols[${cols.length}];
       uniform float uCuts[${cols.length}];
@@ -222,6 +224,11 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
         vColor = mix(col, vec3(0.45), hover * 0.6);
         // Dala: alpha = smoothstep(-4.5, 4, z) with z measured from the shape's centre
         vAlpha = smoothstep(-4.5, 4.0, mv.z + uFocus) * vis;
+        // readability: particles in the middle of the screen, where the Lab's text runs, fade by
+        // uQuiet (0 for the hero shape, 0.6 for later formed shapes, 1 for the cloud), and the
+        // cloud as a whole drops to 45%. The edges keep their sparkle.
+        float column = mix(0.25, 1.0, smoothstep(0.4, 0.85, abs(gl_Position.x / gl_Position.w)));
+        vAlpha *= mix(1.0, column, uQuiet) * mix(1.0, 0.45, uCloudAmount);
       }`,
     fragmentShader: /* glsl */ `
       varying vec3 vColor;
@@ -289,7 +296,9 @@ export function createDust(cfg) {
         vec4 mv = modelViewMatrix * vec4(p + R * position * uScale, 1.0);
         gl_Position = projectionMatrix * mv;
         vColor = aColor;
-        vAlpha = aRand.w; // Dala: random alpha 0..1 per cone
+        // Dala gives each cone a random alpha 0..1; ours tops out at 0.6 and fades further in the
+        // middle of the screen, where the text is
+        vAlpha = aRand.w * 0.6 * mix(0.3, 1.0, smoothstep(0.35, 0.8, abs(gl_Position.x / gl_Position.w)));
       }`,
     fragmentShader: /* glsl */ `
       varying vec3 vColor;

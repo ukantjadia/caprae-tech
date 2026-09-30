@@ -37,3 +37,11 @@
 .hero > .hero-mark.side-right, .hero > .hero-mark.side-left { position: absolute; top: 40px; height: min(62vh, 560px); width: min(26vw, 380px); }
 .hero > .hero-mark.side-right { right: 2vw; }
 .hero > .hero-mark.side-left { left: 2vw; }
+
+/* readability over the particle field (user feedback 2026-09-30): a soft dark halo behind
+   every letter, so text stays crisp over bright particles. Invisible on plain black. */
+section[data-section] :is(h1, h2, h3, h4, p, li, span, small, b, td, th, summary, a, label) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.9), 0 0 22px rgba(0, 0, 0, 0.75);
+}
+/* gradient text has a transparent fill, so a shadow would show through it and dull the gradient */
+section[data-section] :is(.tc, .grad-text, .grad-text *) { text-shadow: none; }

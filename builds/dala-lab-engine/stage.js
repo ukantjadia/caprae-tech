@@ -143,6 +143,10 @@ export async function startStage(cfg) {
     speed += (Math.min(move * 0.25, 2) - speed) * km
     mu.uMouse.value.set(pointer ? ndc.x * halfW : 99, pointer ? ndc.y * halfH : 99, 0)
     mu.uDelta.value = speed
+    const cloud = Math.min(1, Math.max(0, cur.explode))
+    const pastHero = Math.min(1, Math.max(0, cur.shape / 0.6, cloud)) // 0 while the hero shape shows
+    mu.uCloudAmount.value = cloud
+    mu.uQuiet.value = Math.min(1, pastHero * (0.6 + 0.4 * cloud)) // how much the text column clears, 0..1
     mu.uFocus.value = camera.position.distanceTo(group.position)
 
     field.update(t, dt)

@@ -630,3 +630,8 @@ still unmeasured, and the hero video is still 11.1MB.
 **Asked:** Put it live on GitHub, give the live link, stop every running server or backend.
 **Did:** Stopped 5 leftover node servers (preview on 5300, Vite on 5198 and 5201 to 5203); only Windows CDPSvc remains on 5040. Committed 7480277 as ukantjadia (drafts, engine, v1-v4 speed fixes, gallery, research, plans, Caprae_Tech_Section_Lab.html as the port source). Left out: styles-refreo/sample-design-saved-html/, neuform.ai/, direction-r shots/. Pushed main 0ef2e78..7480277 and the branch. Pages run 36747012352 succeeded; /, /old/, /dala/lab-a/, /dala/lab-b/, /dala/lab-c/, lab-a shapes.bin and /dala/modified-particles/ all return 200.
 **Open:** The logo SVG. User review of the live drafts.
+
+## 2026-09-30 — Text not readable over the particles
+**Asked:** (screenshot of Lab A Founders) The text isn't clearly visible in any of the samples. Fix it and explain.
+**Did:** Engine changes for all three Lab drafts (D-073): the cloud keeps only the shape's particles, is dimmed to 45%, and clears a reading column down the middle; formed shapes dim 60% in that column, the hero never; dust softened; text halo on every text element except markers and gradient text; the cloud ramp moved to the end of Pricing. Clamped uQuiet to 0..1 after reading 1.09. Checked in Chrome at 1503x732: Founders (the screenshot's section), Why and the hero. Rebuilt a, b, c; stopped the dev server.
+**Open:** None new.
