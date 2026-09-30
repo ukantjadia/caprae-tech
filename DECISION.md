@@ -1190,3 +1190,10 @@ Decision: In the Lab drafts' engine:
 Alternatives: Opaque scrims behind text blocks (changes the Lab's look); fewer particles everywhere (weakens the hero).
 Why: The user's screenshot of Lab A Founders: bios unreadable over a full-brightness 10,000-particle cloud. Checked in Chrome after the change: Founders, Why and the hero all read clearly, and the hero wordmark keeps full brightness.
 Reversible: yes
+
+## D-074. R-A, R-B, R-C: Direction R's look and 3D, with the Section Lab's sections and text
+Date: 2026-10-01
+Decision: New `designs/direction-r-lab/code` builds three static pages (`r-lab/a/`, `b/`, `c/`) plus a picker. `scripts/port.js` takes the Lab (through the shared `builds/dala-lab-engine/lab-source.js`) and, per variant, swaps in R's glass header, puts R's live 3D cube in Hero A's cube slot and an R 3D tile above Hero B and C, adds R's portfolio logo strip after the hero, and opens Why, How, Founders and Team with R's 3D tiles (wedge, how, people, control), using R's own `three/engine.js` unchanged. `skin.css` restyles the Lab's classes in R's look (gradient display type, hairline panels, glass buttons, pill ring, section glow lines), scoped to `body.r-skin`. The Lab's CSS sits in cascade layer `lab`, between Tailwind's base and utilities, declared first in `<head>`. The Lab's script runs unchanged, so every interaction works. Claim markers and a11y fixes are shared with the Lab drafts. No React.
+Alternatives: Keep R's 13 sections and pour Lab text into them (drops pricing, team and FAQ); hand-port 30 variants into React.
+Why: User answers 2026-10-01: R's look with the Lab's 10 sections, one version per Lab variant, interactions restyled, same markers. Porting the Lab's markup keeps the text exact. Page JS is 3.3 KB gzip, and three.js (137 KB gzip) loads only when a 3D view nears the screen.
+Reversible: yes

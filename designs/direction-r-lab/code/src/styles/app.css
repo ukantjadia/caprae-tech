@@ -1,0 +1,17 @@
+/* cascade order: the Section Lab's CSS (layer "lab", see scripts/port.js) sits after Tailwind's
+   reset and before its utilities */
+@layer theme, base, lab, components, utilities;
+@import "tailwindcss";
+/* Direction R's stack, unchanged: the extracted Refero exports, R's fonts and effects */
+@import "../../../../../styles-refreo/resend/tailwind-v4.css";
+@import "../../../../../styles-refreo/resend/variables.css";
+@import "./fonts.css";
+@import "./r-hero.css";
+@import "./r-tail.css";
+@import "./skin.css";
+
+/* Tailwind scans the generated pages for R's utility classes */
+@source "../../a/index.html";
+@source "../../b/index.html";
+@source "../../c/index.html";
+@source "../../index.html";

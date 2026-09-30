@@ -1,0 +1,23 @@
+{
+  "name": "caprae-tech-web-r-lab",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "port": "bun scripts/port.js",
+    "dev": "vite --port 5211",
+    "build": "vite build",
+    "preview": "vite preview --port 5211"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/commit-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.1"
+  }
+}

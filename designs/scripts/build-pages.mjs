@@ -21,6 +21,8 @@ const builds = [
   ['direction-h2-operating-signal/code', 'h2'],
   ['direction-h3-caprae-tech-motion/code', 'h3'],
   ['direction-r-resend-structure/code', 'r'],
+  // R with the Section Lab content: one build, three pages (r-lab/a/, b/, c/), plus a picker
+  ['direction-r-lab/code', 'r-lab'],
 ];
 
 // New gallery: the Dala-technique builds in ../builds. They sit outside this workspace,
