@@ -4,7 +4,7 @@
 // Lab handling (chrome removal, patches, variant switch) is shared with the Dala Lab drafts
 // in builds/dala-lab-engine/lab-source.js. This adds R's header, 3D slots and logo strip.
 import fs from 'node:fs'
-import { labText, labRewriter } from '../../../../builds/dala-lab-engine/lab-source.js'
+import { labText, labRewriter, picksOf, SECTIONS } from '../../../../builds/dala-lab-engine/lab-source.js'
 
 const content = JSON.parse(fs.readFileSync(new URL('../../../_shared/content.json', import.meta.url), 'utf8'))
 
@@ -51,18 +51,23 @@ const LOGOS = `<section data-block="logos" aria-labelledby="portfolio-label" cla
 // which R 3D tile opens which Lab section (R's own mapping: wedge, how, people, the five)
 const SECTION_TILES = { why: 'wedge', how: 'how', founders: 'people', team: 'control' }
 
-for (const letter of ['a', 'b', 'c']) {
-  let rw = labRewriter(letter)
+// [folder, picks (one letter = every section, or one per section: D-077), title]
+const PAGES = [['a', 'a', 'R A'], ['b', 'b', 'R B'], ['c', 'c', 'R C'], ['final-draft-1', 'cbaabacccb', 'Final draft 1']]
+
+for (const [dir, spec, title] of PAGES) {
+  const picks = picksOf(spec)
+  const hero = picks[0]
+  let rw = labRewriter(spec)
     .on('nav.site-nav', { element: e => e.replace(HEADER, { html: true }) })
     .on('body', { element: e => e.setAttribute('class', 'r-skin') })
-    .on('title', { element: e => e.setInnerContent(`Caprae Tech · R ${letter.toUpperCase()}`) })
+    .on('title', { element: e => e.setInnerContent(`Caprae Tech · ${title}`) })
     // hero 3D: R's cube takes the Lab A cube's place; B and C get the cube as a tile on top
-    .on('div.variant[data-v="a"] div.cube-stage', { element: e => { if (letter === 'a') e.setInnerContent(`<div class="hero-cube-open relative h-full w-full">${view('hero')}</div>`, { html: true }) } })
-    .on(`div.variant[data-v="${letter}"] div.hB`, { element: e => e.prepend(TILE('hero'), { html: true }) })
-    .on(`div.variant[data-v="${letter}"] div.hC`, { element: e => e.prepend(TILE('hero'), { html: true }) })
+    .on('div.variant[data-v="a"] div.cube-stage', { element: e => { if (hero === 'a') e.setInnerContent(`<div class="hero-cube-open relative h-full w-full">${view('hero')}</div>`, { html: true }) } })
+    .on(`div.variant[data-v="${hero}"] div.hB`, { element: e => e.prepend(TILE('hero'), { html: true }) })
+    .on(`div.variant[data-v="${hero}"] div.hC`, { element: e => e.prepend(TILE('hero'), { html: true }) })
     .on('section#hero', { element: e => e.after(LOGOS, { html: true }) })
   for (const [sec, kind] of Object.entries(SECTION_TILES))
-    rw = rw.on(`section#${sec} div.variant[data-v="${letter}"] div.sec-pad > div.wrap`, { element: e => e.prepend(TILE(kind), { html: true }) })
+    rw = rw.on(`section#${sec} div.variant[data-v="${picks[SECTIONS.indexOf(sec)]}"] div.sec-pad > div.wrap`, { element: e => e.prepend(TILE(kind), { html: true }) })
   // The Lab's CSS goes into cascade layer "lab", ordered after Tailwind's base and before its
   // utilities (src/styles/app.css): the Lab's layout still beats the reset, and R's utility
   // classes win where they are used. Unlayered, the Lab's *{padding:0} beat every utility.
@@ -71,10 +76,10 @@ for (const letter of ['a', 'b', 'c']) {
     // of the Lab's inline styles (app.css repeats it for the picker page)
     .replace('<head>', '<head>\n<style>@layer theme, base, lab, components, utilities;</style>')
   const out = await rw.transform(new Response(src)).text()
-  fs.mkdirSync(letter, { recursive: true })
-  fs.writeFileSync(`${letter}/index.html`, out)
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(`${dir}/index.html`, out)
   const count = s => out.split(s).length - 1
-  console.log(`${letter}/index.html: ${count('class="variant on"')} sections on, 3D views ${count('data-view=')}, lab bars ${count('lab-bar"')}`)
+  console.log(`${dir}/index.html: ${count('class="variant on"')} sections on, 3D views ${count('data-view=')}, lab bars ${count('lab-bar"')}`)
 }
 
 // the folder root: pick a version
@@ -84,7 +89,7 @@ fs.writeFileSync('index.html', `<!doctype html>
   <main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-6 px-6">
     <h1 class="t-display t-gradient m-0 text-[3rem] tracking-tighter leading-[110%]">Direction R, with the Section Lab content</h1>
     <p class="m-0 text-ash-gray">Same R design and 3D. Each version uses one set of Lab designs and text.</p>
-    <div class="flex flex-wrap gap-3">${['a', 'b', 'c'].map(l => `<a class="glass-btn inline-flex h-12 items-center rounded-2xl px-5 font-semibold text-white" href="./${l}/">Version ${l.toUpperCase()}</a>`).join('')}</div>
+    <div class="flex flex-wrap gap-3">${PAGES.map(([d, , t]) => `<a class="glass-btn inline-flex h-12 items-center rounded-2xl px-5 font-semibold text-white" href="./${d}/">${t}</a>`).join('')}</div>
   </main>
   <script type="module" src="/src/index.js"></script>
 </body></html>

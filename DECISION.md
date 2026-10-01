@@ -1211,3 +1211,10 @@ Decision: The portfolio strip shows the 10 logo files from https://capraecapital
 Alternatives: Names set as type (D-074); logos recoloured to one tone (the source files are flat colour squares and white-background JPGs, so recolouring would distort them).
 Why: User, 2026-10-01: take the logos from the Caprae Capital Partners portfolio section and use them on all three versions. The source site has an 11th logo (SaaSquatch Leads) that is not in our content's portfolio list, so it is left out.
 Reversible: yes
+
+## D-077. Final draft 1: the user's section picks, on the Dala engine and on R
+Date: 2026-10-01
+Decision: One picks string per page, in the Lab's own `?picks=` order (hero, why, services, work, how, pricing, founders, team, faq, book). Final draft 1 = `cbaabacccb`: Hero C, Why B, What we build A, Work A, How B, Pricing A, Founders C, Team C, FAQ C, Book B. `labRewriter` takes one letter or a picks string. Two pages: `builds/dala-final-draft-1` at `/final-draft-1/` (Dala particles, Draft C's shapes and choreography, because the hero is C), and `r-lab/final-draft-1/` (R's look, 3D, logos). Neither has claim markers (D-075).
+Alternatives: Hand-assemble the sections into a new page; put the R version at its own top-level route.
+Why: User, 2026-10-01: build the Dala site with these picks as /final-draft-1, and the same for the R (black cube) site. R's version sits inside the existing r-lab build, so no second toolchain is needed.
+Reversible: yes

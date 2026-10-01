@@ -49,16 +49,29 @@ export function labText(scriptSrc) {
   return html
 }
 
+// Section order in the Lab, the order of a picks string (the Lab's own ?picks= format)
+export const SECTIONS = ['hero', 'why', 'services', 'work', 'how', 'pricing', 'founders', 'team', 'faq', 'book']
+
+// 'a' -> 'aaaaaaaaaa'; a 10-letter picks string ('cbaabacccb') passes through
+export function picksOf(spec) {
+  const picks = spec.length === 1 ? spec.repeat(SECTIONS.length) : spec
+  if (!new RegExp(`^[abc]{${SECTIONS.length}}$`).test(picks)) throw new Error(`picks must be a, b, c or ${SECTIONS.length} of them`)
+  return picks
+}
+
 // HTMLRewriter with the common structural edits: lab chrome and yellow notes out (D-064),
-// sections tagged, this letter's variants switched on. Callers add their own handlers.
-export function labRewriter(letter) {
-  if (!['a', 'b', 'c'].includes(letter)) throw new Error('variant must be a, b or c')
+// sections tagged, each section's picked variant switched on. `spec` is one letter for every
+// section, or a picks string (D-077). Callers add their own handlers.
+export function labRewriter(spec) {
+  const picks = picksOf(spec)
+  let sec = -1 // HTMLRewriter visits elements in document order, so this tracks the open section
   return new HTMLRewriter()
+    .on('section.lab', { element: () => { sec++ } })
+    .on('div.variant[data-v]', { element: e => { if (e.getAttribute('data-v') === picks[sec]) e.setAttribute('class', 'variant on') } })
     .on('header.lab-intro', { element: e => e.remove() })
     .on('div.lab-bar', { element: e => e.remove() })
     .on('div.lab-idea', { element: e => e.remove() })
     .on('div.dock', { element: e => e.remove() })
     .on('span.note', { element: e => e.remove() })
     .on('section.lab', { element: e => e.setAttribute('data-section', '') })
-    .on(`div.variant[data-v="${letter}"]`, { element: e => e.setAttribute('class', 'variant on') })
 }

@@ -9,7 +9,7 @@ const page = p => fileURLToPath(new URL(p, import.meta.url))
 export default defineConfig({
   base: process.env.BASE_PATH || '/', // set by designs/scripts/build-pages.mjs for GitHub Pages
   plugins: [tailwindcss()],
-  build: { rollupOptions: { input: { index: page('./index.html'), a: page('./a/index.html'), b: page('./b/index.html'), c: page('./c/index.html') } } },
+  build: { rollupOptions: { input: { index: page('./index.html'), a: page('./a/index.html'), b: page('./b/index.html'), c: page('./c/index.html'), 'final-draft-1': page('./final-draft-1/index.html') } } },
   // the claim markers and a11y fixes are shared with the Dala Lab drafts (builds/dala-lab-engine)
   server: { fs: { allow: ['../../..'] } },
 })
