@@ -1218,3 +1218,10 @@ Decision: One picks string per page, in the Lab's own `?picks=` order (hero, why
 Alternatives: Hand-assemble the sections into a new page; put the R version at its own top-level route.
 Why: User, 2026-10-01: build the Dala site with these picks as /final-draft-1, and the same for the R (black cube) site. R's version sits inside the existing r-lab build, so no second toolchain is needed.
 Reversible: yes
+
+## D-078. Final draft 1 (R): the Rubik cube behind the hero, not in a tile
+Date: 2026-10-01
+Decision: On `r-lab/final-draft-1/` only, R's hero cube renders behind the hero text: an absolute layer in the hero, a 648x550 box (the engine's largest render size, so nothing stretches) scaled 1.35x, at 60% opacity, with a soft dark radial behind the headline. The small hero tile is gone, which also puts the hero CTA back above the fold. R-A/B/C are unchanged.
+Alternatives: A fixed cube behind the whole page while scrolling (the user's first ask). It would render on every scroll frame, behind every section's text, and the user said the hero was fine. Opacity 1 (tested: competes with the headline). Opacity 0.55 (tested: the dark cube nearly vanishes).
+Why: User, 2026-10-01: wants the cube as a background, whole page or the hero, and wants it fast. In the hero, the cube stops rendering as soon as the hero leaves the screen (the engine's IntersectionObserver).
+Reversible: yes

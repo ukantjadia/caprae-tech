@@ -51,10 +51,11 @@ const LOGOS = `<section data-block="logos" aria-labelledby="portfolio-label" cla
 // which R 3D tile opens which Lab section (R's own mapping: wedge, how, people, the five)
 const SECTION_TILES = { why: 'wedge', how: 'how', founders: 'people', team: 'control' }
 
-// [folder, picks (one letter = every section, or one per section: D-077), title]
-const PAGES = [['a', 'a', 'R A'], ['b', 'b', 'R B'], ['c', 'c', 'R C'], ['final-draft-1', 'cbaabacccb', 'Final draft 1']]
+// [folder, picks (one letter = every section, or one per section: D-077), title, options]
+// heroBg: R's hero cube fills the hero behind the text instead of sitting in a tile (D-078)
+const PAGES = [['a', 'a', 'R A'], ['b', 'b', 'R B'], ['c', 'c', 'R C'], ['final-draft-1', 'cbaabacccb', 'Final draft 1', { heroBg: true }]]
 
-for (const [dir, spec, title] of PAGES) {
+for (const [dir, spec, title, opts = {}] of PAGES) {
   const picks = picksOf(spec)
   const hero = picks[0]
   let rw = labRewriter(spec)
@@ -63,8 +64,9 @@ for (const [dir, spec, title] of PAGES) {
     .on('title', { element: e => e.setInnerContent(`Caprae Tech · ${title}`) })
     // hero 3D: R's cube takes the Lab A cube's place; B and C get the cube as a tile on top
     .on('div.variant[data-v="a"] div.cube-stage', { element: e => { if (hero === 'a') e.setInnerContent(`<div class="hero-cube-open relative h-full w-full">${view('hero')}</div>`, { html: true }) } })
-    .on(`div.variant[data-v="${hero}"] div.hB`, { element: e => e.prepend(TILE('hero'), { html: true }) })
-    .on(`div.variant[data-v="${hero}"] div.hC`, { element: e => e.prepend(TILE('hero'), { html: true }) })
+    .on(`div.variant[data-v="${hero}"] div.hB`, { element: e => { if (!opts.heroBg) e.prepend(TILE('hero'), { html: true }) } })
+    .on(`div.variant[data-v="${hero}"] div.hC`, { element: e => { if (!opts.heroBg) e.prepend(TILE('hero'), { html: true }) } })
+    .on(`div.variant[data-v="${hero}"] div.hero`, { element: e => { if (opts.heroBg && hero !== 'a') e.prepend(`<div aria-hidden="true" class="r-hero-bg"><div class="r-hero-bg-box">${view('hero')}</div></div>`, { html: true }) } })
     .on('section#hero', { element: e => e.after(LOGOS, { html: true }) })
   for (const [sec, kind] of Object.entries(SECTION_TILES))
     rw = rw.on(`section#${sec} div.variant[data-v="${picks[SECTIONS.indexOf(sec)]}"] div.sec-pad > div.wrap`, { element: e => e.prepend(TILE(kind), { html: true }) })

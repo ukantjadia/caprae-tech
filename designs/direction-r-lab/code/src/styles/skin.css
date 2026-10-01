@@ -78,6 +78,15 @@ body.r-skin section.lab + section.lab::before, body.r-skin .r-logos + section.la
 body.r-skin .cube-stage { height: 460px; perspective: none; }
 body.r-skin .hero .r-tile { margin-bottom: 24px; }
 
+/* ---- hero background cube (D-078): R's hero view behind the hero text. The box stays at the
+   engine's largest render size (648x550) so nothing stretches; a transform scales it up. ---- */
+body.r-skin .r-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+body.r-skin .r-hero-bg-box { position: relative; width: 648px; height: 550px; flex: none; transform: scale(1.35); opacity: 0.6; }
+/* a soft dark centre keeps the headline readable over the cube */
+body.r-skin .r-hero-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 45% at 50% 50%, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 100%); }
+body.r-skin .r-hero-bg ~ .wrap { position: relative; z-index: 1; }
+@media (max-width: 720px) { body.r-skin .r-hero-bg-box { transform: scale(0.8); } }
+
 /* ---- 3D views: canvas fades in over the fallback once the first frame is drawn ---- */
 .r-view .r-fallback, .r-view canvas { transition: opacity 0.7s; }
 .r-view canvas { opacity: 0; }
