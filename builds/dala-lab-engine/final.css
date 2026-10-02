@@ -1,0 +1,106 @@
+/* Final drafts 2 and 3 (D-080): styles for the content changes in final.js. Shared by both;
+   each draft's own style.css sets its look on top. */
+
+/* ---- hero: the typing word gets a caret ---- */
+.rotor.typing { min-width: 0; }
+.rotor.typing span { animation: none; }
+.rotor.typing::after {
+  content: ""; display: inline-block; width: 0.06em; height: 0.82em; margin-left: 0.04em; vertical-align: -0.04em;
+  background: var(--iris-glow); animation: caret 1s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* ---- the statement band after the hero ---- */
+.statement { position: relative; padding: clamp(56px, 9vw, 110px) 0; text-align: center; }
+.statement-line { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 6.4vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: var(--bone); text-wrap: balance; }
+.statement::before, .statement::after {
+  content: ""; position: absolute; left: 50%; width: min(560px, 70vw); height: 1px; transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(186, 167, 255, 0.45), transparent);
+}
+.statement::before { top: 0; } .statement::after { bottom: 0; }
+
+/* ---- the primary button: Book a call ---- */
+.btn-white {
+  position: relative; isolation: isolate; color: #0a0a0c; font-weight: 600;
+  background: linear-gradient(180deg, #fff 0%, #e9e6ff 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 8px 28px -6px rgba(146, 129, 247, 0.55), 0 0 0 4px rgba(146, 129, 247, 0.12);
+  transition: transform 0.18s, box-shadow 0.25s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px #fff inset, 0 14px 36px -8px rgba(146, 129, 247, 0.8), 0 0 0 6px rgba(146, 129, 247, 0.18); }
+.btn-white:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 3px; }
+.btn-book { padding: 17px 24px; font-size: 16px; }
+/* dark text on a light button: the page's dark text halo (engine.css) would smudge it */
+section[data-section] .btn-white, section[data-section] .btn-white * { text-shadow: none; }
+.btn-book .arr { display: inline-block; transition: transform 0.2s; }
+.btn-book:hover .arr { transform: translateX(4px); }
+.done-ico {
+  width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: #fff; background: var(--grad); box-shadow: 0 10px 30px -8px rgba(146, 129, 247, 0.7);
+}
+
+/* ---- what we build: the result strip and its moving picture ---- */
+.svc-res { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--hair); display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: center; }
+.bento .tag { align-self: flex-start; }
+.svc-num b { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1; color: #fff; }
+.svc-num span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.4; color: var(--ash); }
+.fx { position: relative; height: 52px; border: 1px solid var(--hair); border-radius: 10px; background: #060607; overflow: hidden; }
+.fx * { animation-play-state: paused !important; }
+.in .fx * { animation-play-state: running !important; }
+/* CRM: three account rows fill in, a cursor clicks once */
+.fx-crm i { position: absolute; left: 8px; height: 6px; border-radius: 3px; background: var(--hair); width: 0; animation: fill 3.2s ease-out infinite; }
+.fx-crm i:nth-child(1) { top: 10px; } .fx-crm i:nth-child(2) { top: 22px; animation-delay: 0.15s; } .fx-crm i:nth-child(3) { top: 34px; animation-delay: 0.3s; }
+.fx-crm i:nth-child(1) { background: var(--iris); }
+.fx-crm .cur { position: absolute; width: 9px; height: 9px; border-radius: 50%; border: 2px solid #fff; left: 46px; top: 30px; animation: click 3.2s ease-in-out infinite; }
+@keyframes fill { 0%, 22% { width: 0; } 55%, 100% { width: 56px; } }
+@keyframes click { 0% { transform: translate(10px, 10px); opacity: 0; } 15% { opacity: 1; } 22% { transform: translate(0, 0) scale(0.7); } 30%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; } }
+/* live: a pulsing status dot */
+.fx-live { display: flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ash); white-space: nowrap; }
+.fx-live .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.8s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(58, 211, 137, 0.6); } 100% { box-shadow: 0 0 0 9px rgba(58, 211, 137, 0); } }
+/* lead QA: rows get scored green or red, one by one */
+.fx-qa i { position: absolute; left: 8px; right: 8px; height: 6px; border-radius: 3px; background: var(--hair); animation: score 4s steps(1) infinite; }
+.fx-qa i:nth-child(1) { top: 8px; } .fx-qa i:nth-child(2) { top: 18px; animation-delay: 0.5s; } .fx-qa i:nth-child(3) { top: 28px; animation-delay: 1s; } .fx-qa i:nth-child(4) { top: 38px; animation-delay: 1.5s; }
+.fx-qa i:nth-child(3) { animation-name: score-red; }
+@keyframes score { 0% { background: var(--hair); } 25%, 90% { background: rgba(58, 211, 137, 0.75); } }
+@keyframes score-red { 0% { background: var(--hair); } 25%, 90% { background: rgba(255, 99, 99, 0.7); } }
+/* recruitment: a candidate moves through four stages */
+.fx-pipe span { position: absolute; top: 22px; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--iron); }
+.fx-pipe span:nth-child(1) { left: 8px; } .fx-pipe span:nth-child(2) { left: 24px; } .fx-pipe span:nth-child(3) { left: 40px; } .fx-pipe span:nth-child(4) { left: 56px; }
+.fx-pipe b { position: absolute; top: 22px; left: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--iris-glow); box-shadow: 0 0 8px var(--iris); animation: hop 3.6s ease-in-out infinite; }
+@keyframes hop { 0%, 12% { transform: translateX(0); } 25%, 37% { transform: translateX(16px); } 50%, 62% { transform: translateX(32px); } 75%, 100% { transform: translateX(48px); } }
+/* the MVP dashboard's bars grow in when the card scrolls into view */
+.mock-bars i { transform-origin: bottom; transform: scaleY(0.12); transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.in .mock-bars i { transform: scaleY(1); }
+.in .mock-bars i:nth-child(2) { transition-delay: 0.06s; } .in .mock-bars i:nth-child(3) { transition-delay: 0.12s; } .in .mock-bars i:nth-child(4) { transition-delay: 0.18s; }
+.in .mock-bars i:nth-child(5) { transition-delay: 0.24s; } .in .mock-bars i:nth-child(6) { transition-delay: 0.3s; } .in .mock-bars i:nth-child(7) { transition-delay: 0.36s; } .in .mock-bars i:nth-child(8) { transition-delay: 0.42s; }
+
+/* ---- proof: the source button on each card ---- */
+.src-btn {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 7px 12px;
+  border: 1px solid var(--hair); border-radius: 999px; font-family: var(--mono); font-size: 12px; color: var(--bone);
+  background: rgba(255, 255, 255, 0.03); transition: border-color 0.2s, background 0.2s;
+}
+.src-btn:hover { border-color: var(--iris); background: rgba(146, 129, 247, 0.12); }
+.src-btn:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 2px; }
+
+/* ---- build team: crew cards with a photo slot and a call sign ---- */
+.crew { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px; }
+@media (max-width: 560px) { .crew { grid-template-columns: 1fr; } }
+.crew-card { display: flex; gap: 14px; align-items: center; padding: 18px; }
+.crew-card .avatar {
+  flex: none; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 24px; color: #fff; background: radial-gradient(circle at 30% 25%, #2a2440, #0b0b10 70%);
+  box-shadow: 0 0 0 1px var(--hair), 0 0 0 4px rgba(146, 129, 247, 0.1);
+}
+.crew-card .sign { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iris-glow); }
+.crew-card h3 { margin-top: 4px; font-size: 18px; }
+.crew-card .dim { font-size: 13px; margin-top: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx *, .rotor.typing::after { animation: none !important; }
+  .mock-bars i { transform: none; transition: none; }
+  /* still pictures show the finished state */
+  .fx-crm i { width: 56px; } .fx-crm .cur { opacity: 0.8; }
+  .fx-qa i { background: rgba(58, 211, 137, 0.75); } .fx-qa i:nth-child(3) { background: rgba(255, 99, 99, 0.7); }
+  .fx-pipe b { transform: translateX(48px); }
+}

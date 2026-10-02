@@ -6,6 +6,7 @@
 import * as THREE from 'three'
 import { createField, createDust } from './field.js'
 import { createPost } from './post.js'
+import { createTextMask } from './mask.js'
 
 export async function startStage(cfg) {
   const canvas = document.createElement('canvas')
@@ -35,6 +36,9 @@ export async function startStage(cfg) {
   group.add(field.mesh)
   scene.add(group, dust.mesh)
   const post = createPost(renderer, scene, camera)
+  // D-079: drafts that set TEXT_MASK dim the particles under the page text
+  const mask = cfg.TEXT_MASK && createTextMask(cfg.TEXT_MASK)
+  if (mask) for (const m of [field.material, dust.material]) for (const k in mask.uniforms) m.uniforms[k].value = mask.uniforms[k]
 
   const resize = () => {
     renderer.setPixelRatio(dpr)
@@ -149,6 +153,7 @@ export async function startStage(cfg) {
     mu.uQuiet.value = Math.min(1, pastHero * (0.6 + 0.4 * cloud)) // how much the text column clears, 0..1
     mu.uFocus.value = camera.position.distanceTo(group.position)
 
+    mask?.update()
     field.update(t, dt)
     dust.update(t)
     post.render(t)

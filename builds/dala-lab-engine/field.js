@@ -76,6 +76,19 @@ float field(vec3 p) {
 `
 
 // ---------- field ----------
+// Text mask (D-079): a low-res screen texture, white where page text sits (stage.js). Particles
+// under it fade to uMaskFloor. Off (uMaskOn 0) unless the draft sets TEXT_MASK, so older drafts
+// draw as before. Read after gl_Position is set.
+const maskUniforms = () => ({ tMask: { value: null }, uMaskOn: { value: 0 }, uMaskFloor: { value: 1 } })
+const MASK_GLSL = /* glsl */ `
+      uniform sampler2D tMask;
+      uniform float uMaskOn, uMaskFloor;
+      float underText() {
+        if (uMaskOn < 0.5) return 1.0;
+        vec2 suv = clamp(gl_Position.xy / gl_Position.w * 0.5 + 0.5, 0.0, 1.0);
+        return mix(1.0, uMaskFloor, texture2D(tMask, suv).r);
+      }`
+
 export async function createField(renderer, cfg, onProgress = () => {}) {
   const { SIDE, SHAPES, SIM, PALETTE } = cfg
   const N = SIDE * SIDE, COUNT = SHAPES.length
@@ -190,7 +203,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
     uniforms: {
       tPos: { value: null }, tVel: { value: null }, uTime: { value: 0 }, uFocus: { value: 10 },
       uScale: { value: SIM.particleScale }, uCloudAmount: { value: 0 }, uQuiet: { value: 0 }, uMouse: { value: new THREE.Vector3(99, 99, 0) }, uDelta: { value: 0 },
-      uCols: { value: cols }, uCuts: { value: cuts },
+      uCols: { value: cols }, uCuts: { value: cuts }, ...maskUniforms(),
     },
     vertexShader: /* glsl */ `
       attribute vec2 aRef;
@@ -198,6 +211,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
       attribute float aSize;
       uniform sampler2D tPos, tVel;
       uniform float uTime, uFocus, uScale, uDelta, uCloudAmount, uQuiet;
+      ${MASK_GLSL}
       uniform vec3 uMouse;
       uniform vec3 uCols[${cols.length}];
       uniform float uCuts[${cols.length}];
@@ -228,7 +242,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
         // uQuiet (0 for the hero shape, 0.6 for later formed shapes, 1 for the cloud), and the
         // cloud as a whole drops to 45%. The edges keep their sparkle.
         float column = mix(0.25, 1.0, smoothstep(0.4, 0.85, abs(gl_Position.x / gl_Position.w)));
-        vAlpha *= mix(1.0, column, uQuiet) * mix(1.0, 0.45, uCloudAmount);
+        vAlpha *= mix(1.0, column, uQuiet) * mix(1.0, 0.45, uCloudAmount) * underText();
       }`,
     fragmentShader: /* glsl */ `
       varying vec3 vColor;
@@ -281,12 +295,13 @@ export function createDust(cfg) {
   geo.setAttribute('aColor', new THREE.InstancedBufferAttribute(col, 3))
   const material = new THREE.ShaderMaterial({
     transparent: true, depthWrite: true, side: THREE.FrontSide,
-    uniforms: { uTime: { value: 0 }, uScale: { value: DUST.scale } },
+    uniforms: { uTime: { value: 0 }, uScale: { value: DUST.scale }, ...maskUniforms() },
     vertexShader: /* glsl */ `
       attribute vec3 aOffset;
       attribute vec4 aRand;
       attribute vec3 aColor;
       uniform float uTime, uScale;
+      ${MASK_GLSL}
       varying vec3 vColor;
       varying float vAlpha;
       ${ROTATION}
@@ -298,7 +313,7 @@ export function createDust(cfg) {
         vColor = aColor;
         // Dala gives each cone a random alpha 0..1; ours tops out at 0.6 and fades further in the
         // middle of the screen, where the text is
-        vAlpha = aRand.w * 0.6 * mix(0.3, 1.0, smoothstep(0.35, 0.8, abs(gl_Position.x / gl_Position.w)));
+        vAlpha = aRand.w * 0.6 * mix(0.3, 1.0, smoothstep(0.35, 0.8, abs(gl_Position.x / gl_Position.w))) * underText();
       }`,
     fragmentShader: /* glsl */ `
       varying vec3 vColor;
@@ -310,5 +325,5 @@ export function createDust(cfg) {
   })
   const mesh = new THREE.Mesh(geo, material)
   mesh.frustumCulled = false
-  return { mesh, update(time) { material.uniforms.uTime.value = time } }
+  return { mesh, material, update(time) { material.uniforms.uTime.value = time } }
 }

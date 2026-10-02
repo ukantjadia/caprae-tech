@@ -1,0 +1,21 @@
+/* Final draft 2: the Lab's look, refined (D-080). Serif display type, iris accents, opaque
+   panels, tighter section rhythm. Readability comes from the text mask (D-079). */
+
+/* section rhythm: less dead space between sections, the heading block a touch tighter */
+.sec-pad { padding-top: clamp(64px, 8vw, 104px); padding-bottom: clamp(64px, 8vw, 104px); }
+.sec-head { gap: 28px; margin-bottom: 36px; }
+h2.title .it.muted { color: #c9c3f5; }
+
+/* panels: a faint iris highlight along the top edge, a brighter edge on hover */
+.card {
+  background: radial-gradient(70% 22% at 50% 0%, rgba(146, 129, 247, 0.09), transparent 100%), linear-gradient(#121214, #050506);
+  border-color: #26282c;
+}
+.card:hover { border-color: rgba(146, 129, 247, 0.4); }
+
+/* the statement band reads as a pull quote between the hero and Why founders */
+.statement { background: radial-gradient(50% 70% at 50% 50%, rgba(146, 129, 247, 0.08), transparent 70%); }
+
+/* the hero's ghost button is a quiet text link, so Book a call is the one clear action */
+.hero .btn-ghost { border-color: transparent; color: var(--ash); }
+.hero .btn-ghost:hover { color: var(--bone); border-color: var(--hair); }

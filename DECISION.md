@@ -1225,3 +1225,25 @@ Decision: On `r-lab/final-draft-1/` only, R's hero cube renders behind the hero 
 Alternatives: A fixed cube behind the whole page while scrolling (the user's first ask). It would render on every scroll frame, behind every section's text, and the user said the hero was fine. Opacity 1 (tested: competes with the headline). Opacity 0.55 (tested: the dark cube nearly vanishes).
 Why: User, 2026-10-01: wants the cube as a background, whole page or the hero, and wants it fast. In the hero, the cube stops rendering as soon as the hero leaves the screen (the engine's IntersectionObserver).
 Reversible: yes
+
+## D-079. Particles dim under page text (text mask)
+Date: 2026-10-02
+Decision: Drafts that set `TEXT_MASK` in config get a 192 px wide mask canvas (builds/dala-lab-engine/mask.js), painted white over every text box on screen (headings, paragraphs, buttons, cards, the statement band), padded 14 px and blurred. Both particle shaders (field and dust) read it and fade particles under text to a floor: 12% in Final draft 2, 22% in Final draft 3. Boxes are measured in page coordinates when the layout or the Lab's DOM changes (throttled to 250 ms, typing hero ignored), so a scroll frame only repaints the small canvas. Drafts without TEXT_MASK draw as before.
+Alternatives: CSS backdrop-filter blur behind every text block (expensive over a full-screen WebGL canvas on integrated graphics); stronger text halos only (already in place, not enough over bright clusters, per the user's screenshots).
+Why: User, 2026-10-02: text over the particles is unreadable; dim or blur the shapes where text comes over them.
+Reversible: yes
+
+## D-080. Final drafts 2 and 3: the user's content changes, two looks on the particle site
+Date: 2026-10-02
+Decision: Both drafts use picks cbaabacccb on the Dala engine (Draft C's shapes) with builds/dala-lab-engine/final.js (`port-lab.js <picks> <title> final`):
+- the hero C industry word types and deletes;
+- a statement band after the hero ("Dev shops build what you ask. Founders build what sells.");
+- each What we build box carries the matching proof result with a CSS picture that runs only on screen (Dashboards: Caprae CRM 1 click; Deal tools: Bankers Edge live; AI assistants: Lead QA 30 → 10 hrs/wk; Internal tools: Recruitment pipeline ~20 hrs/wk; MVPs: the dashboard's bars grow in);
+- proof cards get a source button with the domain (searched: capraecapitalpartners.com for the Caprae builds, bankersedgeadvisory.com, itsco.com, destroydrive.com; Simba has no site found, so no button);
+- Build team C becomes crew cards with photo slots (initials until photos arrive) and call signs: Overwatch, Pointman, Recon, Sapper;
+- the form loses the calendar, its button reads "Book a call →", the hint reads "Four fields. We'll email you to set the time.", and the thank-you names the email;
+- a stronger primary button.
+Draft 2 keeps the Lab look (serif, iris, opaque panels). Draft 3 is glass: Inter headlines with a silver fill, frosted panels, a silver particle palette. Final draft 1 (Dala and R) is unchanged.
+Alternatives: Draft 2 on Dala and Draft 3 on R (offered; the user chose both on Dala). Animated counters for the results (ruled out by D-052).
+Why: User, 2026-10-02, answers: both drafts on the particle site, suggested call signs and photo slots, the statement as a band after the hero, results matched to each box.
+Reversible: yes

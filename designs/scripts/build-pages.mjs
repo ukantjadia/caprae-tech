@@ -39,6 +39,9 @@ const dalaBuilds = [
   ['../builds/dala-lab-c', 'dala/lab-c'],
   // the user's section picks on the Dala engine (D-077); R's version is r-lab/final-draft-1/
   ['../builds/dala-final-draft-1', 'final-draft-1'],
+  // the same picks with the content changes and particles that dim under text (D-079, D-080)
+  ['../builds/dala-final-draft-2', 'final-draft-2'],
+  ['../builds/dala-final-draft-3', 'final-draft-3'],
 ];
 
 rmSync(output, { recursive: true, force: true });

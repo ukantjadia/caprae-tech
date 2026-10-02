@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caprae Tech · Final draft 2</title>
+<style>
+/* ============ TOKENS (lifted from the current Caprae Tech build) ============ */
+:root{
+  --void:#000; --surface:#0b0e14; --panel:#0f1115; --panel-2:#15181d;
+  --hair:#292d30; --hair-2:#1c1f22;
+  --bone:#f0f0f0; --white:#fff; --ash:#a1a4a5; --iron:#6e727a; --charcoal:#464a4d;
+  --iris:#9281f7; --iris-2:#9a54dc; --iris-glow:#baa7ff;
+  --grad:linear-gradient(135deg,#9281f7 0%,#9a54dc 100%);
+  --green:#3ad389; --amber:#ffca16; --blue:#70b8ff;
+  --serif:"Instrument Serif",ui-serif,Georgia,serif;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:14px; --r-lg:22px; --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--void);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+img{max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.it{font-style:italic}
+.muted{color:var(--ash)}
+.dim{color:var(--iron)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--iris)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--hair);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ash);background:rgba(255,255,255,.02)}
+h1.display{font-family:var(--serif);font-weight:400;font-size:clamp(48px,8vw,104px);line-height:.98;letter-spacing:-.02em}
+h2.title{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,60px);line-height:1.02;letter-spacing:-.015em}
+h3{font-weight:500;font-size:20px;line-height:1.25}
+.lead{font-size:clamp(16px,1.6vw,19px);color:var(--ash);max-width:620px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:13px 22px;font-size:15px;font-weight:500;border:1px solid transparent;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-white{background:var(--white);color:#000}
+.btn-ghost{border-color:var(--hair);color:var(--bone);background:transparent}
+.btn-ghost:hover{border-color:var(--iron)}
+.btn-grad{background:var(--grad);color:#fff}
+.card{background:linear-gradient(#131313,#050505);border:1px solid var(--hair);border-radius:var(--r-lg);padding:28px}
+.hair-top{border-top:1px solid var(--hair)}
+.tag{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--hair);color:var(--ash)}
+.tag.live{color:var(--green);border-color:rgba(58,211,137,.35)}
+.tag.build{color:var(--amber);border-color:rgba(255,202,22,.35)}
+.tag.founder{color:var(--iris-glow);border-color:rgba(146,129,247,.4)}
+.num-big{font-family:var(--serif);font-size:clamp(44px,5vw,64px);line-height:1}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.wrap{padding:0 16px}}
+
+/* ============ SITE NAV (part of the design) ============ */
+.site-nav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hair-2)}
+.site-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{font-weight:600;letter-spacing:-.01em}.brand span{color:var(--ash);font-weight:400}
+.nav-links{display:flex;gap:26px;font-size:14px;color:var(--ash)}
+.nav-links a:hover{color:var(--bone)}
+@media (max-width:860px){.nav-links{display:none}}
+
+/* ============ LAB CHROME (not part of the design — the testing layer) ============ */
+.lab{position:relative;border-top:1px dashed #2d2a45}
+.lab-bar{position:sticky;top:64px;z-index:30;background:rgba(10,9,20,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px dashed #2d2a45;font-family:var(--mono);font-size:12px}
+.lab-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.lab-name{display:flex;align-items:center;gap:10px;color:#c9c2ff}
+.lab-name b{color:#fff;font-weight:500}
+.lab-num{background:#1d1936;color:var(--iris-glow);border-radius:6px;padding:2px 7px}
+.lab-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.lab-tabs button{background:transparent;border:1px solid #2d2a45;border-radius:8px;padding:6px 11px;color:#a9a3d6;cursor:pointer;font-family:var(--mono);font-size:12px}
+.lab-tabs button:hover{border-color:#524a8a;color:#fff}
+.lab-tabs button.on{background:#9281f7;border-color:#9281f7;color:#0a0714}
+.lab-idea{display:none;font-family:var(--mono);font-size:12px;color:#b8b1ec;background:#0e0c1c;border-bottom:1px dashed #2d2a45}
+.lab-idea .wrap{padding-top:10px;padding-bottom:10px}
+body.notes .lab-idea{display:block}
+.variant{display:none}
+.variant.on{display:block;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec-pad{padding:110px 0}
+@media (max-width:640px){.sec-pad{padding:72px 0}}
+
+/* inline design notes / hints (hidden unless Notes on) */
+.note{display:none;font-family:var(--mono);font-size:11px;line-height:1.4;color:#1a1300;background:var(--amber);border-radius:6px;padding:3px 7px;vertical-align:middle}
+body.notes .note{display:inline-block}
+.note.block{margin-top:10px}
+
+/* floating control dock */
+.dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:8px;background:rgba(14,12,28,.95);border:1px solid #2d2a45;border-radius:999px;padding:6px 6px 6px 16px;font-family:var(--mono);font-size:12px;color:#c9c2ff;box-shadow:0 14px 40px rgba(0,0,0,.6);max-width:calc(100vw - 24px)}
+.dock .picks{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.dock button{background:#1d1936;border:1px solid #2d2a45;color:#e6e1ff;border-radius:999px;padding:7px 12px;cursor:pointer;font-family:var(--mono);font-size:12px;white-space:nowrap}
+.dock button.on{background:var(--amber);color:#1a1300;border-color:var(--amber)}
+@media (max-width:640px){.dock .picks{display:none}}
+.toast{position:fixed;left:50%;bottom:74px;transform:translateX(-50%);background:#fff;color:#000;border-radius:999px;padding:8px 14px;font-size:13px;opacity:0;transition:opacity .2s;z-index:61;pointer-events:none}
+.toast.show{opacity:1}
+
+/* lab intro */
+@media (max-width:640px){.lab-tabs{flex-wrap:nowrap;overflow-x:auto;width:100%;scrollbar-width:none}.lab-tabs button{white-space:nowrap}.lab-bar{top:64px}}
+.lab-intro{padding:34px 0 30px;border-bottom:1px dashed #2d2a45;background:#07060e;font-family:var(--mono);font-size:13px;color:#b8b1ec}
+.lab-intro h1{font-family:var(--serif);font-size:34px;color:#fff;font-weight:400;margin-bottom:6px}
+.lab-intro ol{margin:12px 0 0 18px;display:grid;gap:4px}
+.lab-intro .row{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;align-items:flex-end}
+.lab-toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.lab-toc a{border:1px solid #2d2a45;border-radius:8px;padding:5px 9px;font-size:12px;color:#a9a3d6}
+.lab-toc a:hover{color:#fff;border-color:#524a8a}
+</style>
+<style>
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 64px);display:flex;align-items:center;padding:90px 0 110px}
+.hero-horizon{position:absolute;left:50%;bottom:-62vw;width:140vw;height:70vw;transform:translateX(-50%);border-radius:50%;border-top:1px solid rgba(255,255,255,.35);box-shadow:0 -30px 90px -20px rgba(146,129,247,.35),inset 0 30px 80px -40px rgba(255,255,255,.25);pointer-events:none}
+.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.hero .fine{margin-top:26px;font-size:13px;color:var(--iron)}
+/* A: statement + cube */
+.hA{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+@media (max-width:900px){.hA{grid-template-columns:1fr}.cube-stage{order:-1;height:260px!important}}
+.cube-stage{height:420px;display:flex;align-items:center;justify-content:center;perspective:1100px}
+.cube{width:210px;height:210px;position:relative;transform-style:preserve-3d;animation:spin 22s linear infinite}
+.cube:hover{animation-play-state:paused}
+.cube div{position:absolute;inset:0;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:linear-gradient(145deg,#1c1c1f,#050505);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-family:var(--serif);font-size:30px;color:#e9e9ee;box-shadow:inset 0 0 40px rgba(146,129,247,.10)}
+.cube div small{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--iron)}
+.cube .f1{transform:translateZ(105px)}.cube .f2{transform:rotateY(90deg) translateZ(105px)}.cube .f3{transform:rotateY(180deg) translateZ(105px)}
+.cube .f4{transform:rotateY(-90deg) translateZ(105px)}.cube .f5{transform:rotateX(90deg) translateZ(105px)}.cube .f6{transform:rotateX(-90deg) translateZ(105px)}
+@keyframes spin{from{transform:rotateX(-18deg) rotateY(0)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+/* B: contrast switch */
+.hB{text-align:center;display:flex;flex-direction:column;align-items:center}
+.hB h1{max-width:980px}
+.switch{display:inline-flex;border:1px solid var(--hair);border-radius:999px;padding:4px;margin:34px 0 22px;background:#07080a}
+.switch button{border:0;background:transparent;border-radius:999px;padding:9px 18px;color:var(--ash);cursor:pointer;font-size:14px}
+.switch button.on{background:var(--white);color:#000}
+.switch-out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;width:100%;text-align:left}
+.switch-out .card{padding:20px;min-height:118px;transition:border-color .3s}
+.switch-out .card b{display:block;font-weight:500;margin-bottom:6px}
+.switch-out.founder .card{border-color:rgba(146,129,247,.45)}
+@media (max-width:760px){.switch-out{grid-template-columns:1fr}}
+/* C: rotating industry */
+.hC{text-align:center}
+.rotor{display:inline-block;position:relative;min-width:6ch}
+.rotor span{display:inline-block;animation:rise .5s ease}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.marquee{margin-top:56px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee-track{display:flex;gap:12px;width:max-content;animation:slide 38s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<!-- ================= LAB INTRO (testing layer) ================= -->
+
+
+<!-- ================= SITE NAV ================= -->
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="#hero">Caprae <span>Tech</span></a>
+    <div class="nav-links">
+      <a href="#why">Why founders</a><a href="#work">Work</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#founders">People</a>
+    </div>
+    <a class="btn btn-white" style="padding:9px 16px;font-size:14px" href="#book">Book a call</a>
+  </div>
+</nav>
+
+<!-- ================= 01 HERO ================= -->
+<section class="lab" id="hero" data-sec="hero" data-label="Hero" data-section="">
+  
+  
+
+  <!-- A -->
+  <div class="variant" data-v="a"><div class="hero"><div class="hero-horizon"></div><div class="wrap hA">
+    <div>
+      <span class="pill">Founder-led product studio · Caprae Capital</span>
+      <h1 class="display" style="margin-top:22px">Built by founders.<br><span class="it muted">Not by a dev shop.</span></h1>
+      <p class="lead" style="margin-top:24px">Hand us the product. A founder who has built, bought and grown companies steps in as your CTO, decides what's worth building and what will sell, and meets you once a week. You run your business.</p>
+      <div class="cta-row"><a class="btn btn-white" href="#book">Book a call →</a><a class="btn btn-ghost" href="#work">See what we've built</a></div>
+      <div class="fine">Part of Caprae Capital · $110M+ closed 2026 YTD · 8 countries </div>
+    </div>
+    <div class="cube-stage"><div class="cube">
+      <div class="f1">Build<small>what sells</small></div><div class="f2">Sell<small>the features</small></div><div class="f3">Buy<small>companies</small></div>
+      <div class="f4">Grow<small>them</small></div><div class="f5">Price<small>the hours</small></div><div class="f6">Cut<small>what doesn't pay</small></div>
+    </div></div>
+  </div></div></div>
+
+  <!-- B -->
+  <div class="variant" data-v="b"><div class="hero"><div class="hero-horizon"></div><div class="wrap hB">
+    <span class="pill">For non-technical CEOs and owners</span>
+    <h1 class="display" style="margin-top:22px">Dev shops build what you ask.<br><span class="grad-text it">Founders build what sells.</span></h1>
+    <div class="switch" role="tablist"><button data-mode="shop">Typical dev shop</button><button data-mode="founder" class="on">Founder-led (us)</button></div>
+    <div class="switch-out founder" id="heroSwitchOut"></div>
+    <div class="cta-row" style="justify-content:center"><a class="btn btn-white" href="#book">Book a call →</a><a class="btn btn-ghost" href="#why">Why founders</a></div>
+  </div></div></div>
+
+  <!-- C -->
+  <div class="variant on" data-v="c"><div class="hero" style="padding-bottom:70px"><div class="hero-mark side-left" aria-hidden="true"></div><div class="hero-horizon"></div><div class="wrap hC">
+    <span class="eyebrow">Founder-led software</span>
+    <h1 class="display" style="margin-top:20px">Software for <span class="rotor it grad-text" id="rotor"><span>staffing firms</span></span><br>run by people who've<br>built companies.</h1>
+    <p class="lead" style="margin:24px auto 0">MVPs, dashboards, deal models and internal tools for owners who don't have a tech team, and don't want to become one.</p>
+    <div class="cta-row" style="justify-content:center"><a class="btn btn-white" href="#book">Book a call →</a><a class="btn btn-ghost" href="#services">What we build</a></div>
+    <div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+  </div></div></div>
+</section><div class="statement"><div class="wrap"><p class="statement-line">Dev shops build what you ask.<br><span class="grad-text it">Founders build what sells.</span></p></div></div>
+
+<style>
+/* ---------- WHY ---------- */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:56px}
+.sec-head .lead{max-width:460px}
+.lessons{border-top:1px solid var(--hair)}
+.lesson{display:grid;grid-template-columns:90px 1fr 1fr;gap:30px;padding:30px 0;border-bottom:1px solid var(--hair);align-items:baseline;transition:background .25s}
+.lesson:hover{background:linear-gradient(90deg,rgba(146,129,247,.07),transparent 70%)}
+.lesson .n{font-family:var(--mono);font-size:13px;color:var(--iris-glow)}
+.lesson h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1.1}
+@media (max-width:760px){.lesson{grid-template-columns:1fr;gap:8px}}
+.cmp{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden}
+.cmp th,.cmp td{padding:20px 22px;text-align:left;vertical-align:top;border-bottom:1px solid var(--hair)}
+.cmp tr:last-child td{border-bottom:0}
+.cmp th{font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);background:#08090b}
+.cmp td:first-child{color:var(--ash);width:24%;font-size:14px}
+.cmp td:nth-child(2){color:var(--iron)}
+.cmp td:nth-child(3){background:linear-gradient(90deg,rgba(146,129,247,.08),rgba(146,129,247,.02));color:var(--bone)}
+.cmp th:nth-child(3){color:var(--iris-glow)}
+@media (max-width:760px){.cmp,.cmp tbody,.cmp tr,.cmp td,.cmp th{display:block;width:100%!important}.cmp thead{display:none}.cmp td:first-child{padding-bottom:4px;color:var(--bone);font-weight:500}.cmp td:nth-child(2)::before{content:"Dev shop · ";color:var(--charcoal)}.cmp td:nth-child(3)::before{content:"Us · ";color:var(--iris-glow)}}
+.ba{position:relative;border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden;height:440px;user-select:none;touch-action:none;cursor:ew-resize}
+.ba-pane{position:absolute;inset:0;padding:44px;display:flex;flex-direction:column;justify-content:space-between}
+.ba-before{background:repeating-linear-gradient(135deg,#0b0b0c 0 14px,#0e0e10 14px 28px)}
+.ba-after{background:radial-gradient(120% 90% at 100% 0%,rgba(146,129,247,.28),transparent 55%),linear-gradient(#141418,#060608);clip-path:inset(0 0 0 50%)}
+.ba-pane ul{list-style:none;display:grid;gap:12px;max-width:420px}
+.ba-pane li{display:flex;gap:10px;font-size:15px}
+.ba-before li{color:var(--iron)} .ba-before li::before{content:"✕";color:#ff6465}
+.ba-after{align-items:flex-end;text-align:right}
+.ba-after ul{justify-items:end} .ba-after li::after{content:"✓";color:var(--green)}
+.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-1px);pointer-events:none}
+.ba-handle::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:18px}
+@media (max-width:760px){.ba{height:560px}.ba-pane{padding:24px}}
+
+/* ---------- SERVICES ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(190px,auto);gap:16px}
+.bento .card{display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.bento .card:hover{border-color:#3a3f44}
+.b-big{grid-column:span 4;grid-row:span 2}.b-mid{grid-column:span 2;grid-row:span 2}.b-sm{grid-column:span 2}.b-wide{grid-column:span 4}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.b-big,.b-wide{grid-column:span 2}.b-mid,.b-sm{grid-column:span 1;grid-row:auto}}
+@media (max-width:560px){.bento{grid-template-columns:1fr}.b-big,.b-wide,.b-mid,.b-sm{grid-column:span 1;grid-row:auto}}
+.svc-ico{width:40px;height:40px;border-radius:12px;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:var(--iris-glow)}
+.mock-dash{margin-top:20px;border:1px solid var(--hair);border-radius:14px;padding:16px;background:#060607;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mock-dash .k{border:1px solid var(--hair-2);border-radius:10px;padding:10px;font-size:11px;color:var(--iron)}
+.mock-dash .k b{display:block;font-family:var(--serif);font-size:24px;color:var(--bone);font-weight:400}
+.mock-bars{grid-column:1/-1;display:flex;align-items:flex-end;gap:6px;height:80px}
+.mock-bars i{flex:1;background:linear-gradient(#9281f7,#3d3470);border-radius:4px 4px 0 0;opacity:.8}
+.ind-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.ind-tabs button{border:1px solid var(--hair);background:transparent;color:var(--ash);border-radius:999px;padding:10px 18px;cursor:pointer;font-size:14px}
+.ind-tabs button.on{background:var(--white);color:#000;border-color:#fff}
+.ind-panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:stretch}
+.ind-panel .card h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05}
+.ind-list{display:grid;gap:12px}
+.ind-list .card{padding:20px;display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+@media (max-width:820px){.ind-panel{grid-template-columns:1fr}}
+.car{position:relative}
+.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,340px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:#333 transparent}
+.car-track>*{scroll-snap-align:start}
+.car-track .card{min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
+.car-nav{display:flex;gap:8px}
+.car-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:transparent;color:var(--bone);cursor:pointer;font-size:18px}
+.car-nav button:hover{border-color:var(--iron)}
+.car .card .for{font-size:12px;color:var(--iron);margin-top:14px}
+</style>
+
+<!-- ================= 02 WHY FOUNDERS ================= -->
+<section class="lab" id="why" data-sec="why" data-label="Why founders" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Why founder-led</span><h2 class="title" style="margin-top:14px">We've made the mistakes.<br><span class="it muted">You don't have to.</span></h2></div>
+    <p class="lead">Our founders have built companies, bought them and grown them. Every one of those came with lessons. That's what you're hiring, not just the code.</p></div>
+    <div class="lessons" id="lessonsA"></div>
+  </div></div></div>
+
+  <div class="variant on" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Why founder-led</span><h2 class="title" style="margin-top:14px">Same code. <span class="it">Different judgment.</span></h2></div>
+    <p class="lead">Anyone can write the code. The expensive part is knowing what to build, what to leave out, and how to sell what ships.</p></div>
+    <table class="cmp"><thead><tr><th>The question</th><th>Typical dev shop</th><th>Caprae Tech</th></tr></thead><tbody id="cmpB"></tbody></table>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Why founder-led</span><h2 class="title" style="margin-top:14px">Drag the line.<br><span class="it muted">See what changes.</span></h2></div>
+    <p class="lead">Left: building with a typical dev shop. Right: building with founders in the CTO seat.</p></div>
+    <div class="ba" id="ba">
+      <div class="ba-pane ba-before"><div><span class="tag">Typical dev shop</span></div><ul id="baBefore"></ul><div class="dim" style="font-size:13px">You manage the build.</div></div>
+      <div class="ba-pane ba-after" id="baAfter"><div><span class="tag founder">Founder-led</span></div><ul id="baAfterList"></ul><div style="font-size:13px;color:var(--iris-glow)">A founder manages the build. You get a weekly check-in.</div></div>
+      <div class="ba-handle" id="baHandle"></div>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ================= 03 WHAT WE BUILD ================= -->
+<section class="lab" id="services" data-sec="services" data-label="What we build" data-section="">
+  
+  
+
+  <div class="variant on" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">What we build</span><h2 class="title" style="margin-top:14px">Your idea, shipped<br><span class="it muted">and ready to sell.</span></h2></div>
+    <p class="lead">For owners in staffing, healthcare, services and acquisitions who need software but don't have a tech team.</p></div>
+    <div class="bento">
+      <div class="card b-big"><div><div class="svc-ico">◆</div><h3 style="margin-top:18px;font-family:var(--serif);font-weight:400;font-size:34px">MVPs</h3><p class="muted" style="max-width:440px;margin-top:8px">Go from an idea to a working product your customers can use, with the features that will sell it at the top.</p></div>
+        <div class="mock-dash"><div class="k">Active users<b>1,284</b></div><div class="k">Conversion<b>6.2%</b></div><div class="k">MRR<b>$18k</b></div><div class="mock-bars"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:80%"></i><i style="height:95%"></i></div></div>
+        </div>
+      <div class="card b-mid"><div><div class="svc-ico">▤</div><h3 style="margin-top:18px">Dashboards</h3><p class="muted" style="margin-top:8px">Your whole business on one screen: sales, ops and finance, pulled from the tools you already use.</p></div><div class="svc-res"><div class="fx fx-crm"><i></i><i></i><i></i><b class="cur"></b></div><div class="svc-num"><b>1 click</b><span>Caprae CRM: a client sees the whole account, instead of a weekly call</span></div></div><span class="tag">Owners · Ops leads</span></div>
+      <div class="card b-sm"><div class="svc-ico">$</div><div><h3 style="margin-top:14px">Deal &amp; financial tools</h3><p class="muted" style="margin-top:6px;font-size:14px">Models and screeners that help you evaluate and acquire businesses.</p></div><div class="svc-res"><div class="fx fx-live"><span class="dot"></span>LIVE</div><div class="svc-num"><b>Live</b><span>Bankers Edge advisory platform, in production</span></div></div></div>
+      <div class="card b-sm"><div class="svc-ico">✦</div><div><h3 style="margin-top:14px">AI assistants</h3><p class="muted" style="margin-top:6px;font-size:14px">Automations that take the repetitive work off your team, added only where they pay back.</p></div><div class="svc-res"><div class="fx fx-qa"><i></i><i></i><i></i><i></i></div><div class="svc-num"><b>30 → 10 hrs/wk</b><span>Lead QA: AI scores every lead, a human spot-checks</span></div></div></div>
+      <div class="card b-sm"><div class="svc-ico">⚙</div><div><h3 style="margin-top:14px">Internal team tools</h3><p class="muted" style="margin-top:6px;font-size:14px">Portals, trackers and workflows your people use every day, instead of ten spreadsheets.</p></div><div class="svc-res"><div class="fx fx-pipe"><span></span><span></span><span></span><span></span><b></b></div><div class="svc-num"><b>~20 hrs/wk</b><span>Recruitment pipeline: returned to the recruitment team</span></div></div></div>
+    </div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">What we build</span><h2 class="title" style="margin-top:14px">Pick your industry.</h2></div>
+    <p class="lead">Here's what we'd build for a business like yours. </p></div>
+    <div class="ind-tabs" id="indTabs"></div>
+    <div class="ind-panel" id="indPanel"></div>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">What we build</span><h2 class="title" style="margin-top:14px">Five things we build,<br><span class="it muted">start to finish.</span></h2></div>
+    <div class="car-nav"><button data-car="-1" aria-label="Previous">←</button><button data-car="1" aria-label="Next">→</button></div></div>
+    <div class="car"><div class="car-track" id="carTrack"></div></div>
+  </div></div></div>
+</section>
+
+<style>
+/* ---------- WORK ---------- */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.chips button{border:1px solid var(--hair);background:transparent;color:var(--ash);border-radius:999px;padding:9px 16px;cursor:pointer;font-size:14px}
+.chips button.on{background:var(--white);color:#000;border-color:#fff}
+.chips button span{opacity:.55;margin-left:6px;font-size:12px}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.work-grid{grid-template-columns:1fr 1fr}}@media (max-width:600px){.work-grid{grid-template-columns:1fr}}
+.wcard{display:flex;flex-direction:column;gap:14px;min-height:280px;transition:border-color .2s,transform .2s}
+.wcard:hover{border-color:#3a3f44;transform:translateY(-2px)}
+.wcard .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wcard .grp{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--iron)}
+.wcard h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.05}
+.wcard .res{margin-top:auto;padding-top:14px;border-top:1px solid var(--hair);font-size:14px}
+.wcard .res b{font-family:var(--serif);font-weight:400;font-size:26px;display:block;color:#fff}
+.wcard.hide{display:none}
+.slider{position:relative;border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(#111114,#040405)}
+.slide{display:none;grid-template-columns:1.1fr .9fr;min-height:430px}
+.slide.on{display:grid;animation:fadeIn .4s ease}
+.slide .l{padding:44px;display:flex;flex-direction:column;gap:18px}
+.slide .r{border-left:1px solid var(--hair);padding:44px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(90% 80% at 80% 20%,rgba(146,129,247,.18),transparent 60%)}
+.slide .pbr{display:grid;gap:14px}
+.slide .pbr div{display:grid;grid-template-columns:78px 1fr;gap:12px;font-size:15px}
+.slide .pbr span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--iron);padding-top:3px}
+@media (max-width:820px){.slide{grid-template-columns:1fr}.slide .r{border-left:0;border-top:1px solid var(--hair)}.slide .l,.slide .r{padding:26px}}
+.slider-foot{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-top:1px solid var(--hair)}
+.dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:var(--charcoal);cursor:pointer}.dots i.on{background:#fff;width:20px;border-radius:4px}
+.statwall{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden;margin-bottom:34px}
+.statwall>div{padding:28px;border-right:1px solid var(--hair)}.statwall>div:last-child{border-right:0}
+.statwall small{display:block;color:var(--ash);font-size:13px;margin-top:8px}
+@media (max-width:820px){.statwall{grid-template-columns:1fr 1fr}.statwall>div:nth-child(2){border-right:0}.statwall>div:nth-child(-n+2){border-bottom:1px solid var(--hair)}}
+.rows{border-top:1px solid var(--hair)}
+.row{border-bottom:1px solid var(--hair)}
+.row summary{list-style:none;display:grid;grid-template-columns:1.3fr 1fr 1fr 30px;gap:18px;padding:22px 4px;cursor:pointer;align-items:center}
+.row summary::-webkit-details-marker{display:none}
+.row summary h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.row summary .plus{font-size:22px;color:var(--iron);transition:transform .25s;text-align:right}
+.row[open] summary .plus{transform:rotate(45deg)}
+.row .body{padding:0 4px 26px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;color:var(--ash);font-size:15px}
+.row .body span{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--iron);margin-bottom:6px}
+@media (max-width:760px){.row summary{grid-template-columns:1fr 30px}.row summary .hm{display:none}.row .body{grid-template-columns:1fr}}
+
+/* ---------- HOW ---------- */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:10px}
+.tl::before{content:"";position:absolute;left:0;right:0;top:23px;height:1px;background:linear-gradient(90deg,var(--iris),var(--hair) 70%)}
+.tl .st{padding-right:26px;position:relative}
+.tl .dot{width:46px;height:46px;border-radius:50%;border:1px solid var(--hair);background:#000;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--iris-glow);position:relative;z-index:1;transition:all .25s}
+.tl .st:hover .dot{background:var(--iris);color:#000;border-color:var(--iris)}
+.tl h3{margin-top:22px;font-family:var(--serif);font-weight:400;font-size:30px}
+.tl p{color:var(--ash);margin-top:8px;font-size:15px}
+.tl .who{margin-top:14px;font-size:12px;color:var(--iron)}
+@media (max-width:820px){.tl{grid-template-columns:1fr;gap:30px}.tl::before{left:23px;right:auto;top:0;bottom:0;width:1px;height:auto;background:linear-gradient(var(--iris),var(--hair))}.tl .st{padding-left:70px;padding-right:0}.tl .dot{position:absolute;left:0;top:0}.tl h3{margin-top:4px}}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.day{border:1px solid var(--hair);border-radius:16px;padding:18px;min-height:250px;display:flex;flex-direction:column;gap:10px;background:#07080a}
+.day .d{font-family:var(--mono);font-size:12px;color:var(--iron)}
+.day .ev{border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.35}
+.ev.us{background:#121216;border:1px solid var(--hair);color:var(--ash)}
+.ev.you{background:var(--grad);color:#fff;font-weight:500}
+.day.hl{border-color:rgba(146,129,247,.55);box-shadow:0 0 0 1px rgba(146,129,247,.2),0 20px 60px -20px rgba(146,129,247,.35)}
+.legend{display:flex;gap:18px;margin-top:18px;font-size:13px;color:var(--ash);flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+@media (max-width:820px){.week{grid-template-columns:1fr}.day{min-height:auto}}
+.acc-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:start}
+.acc-wrap .stick{position:sticky;top:96px}
+.acc{border-top:1px solid var(--hair)}
+.acc-item{border-bottom:1px solid var(--hair)}
+.acc-item button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;padding:24px 0;cursor:pointer;text-align:left}
+.acc-item button h3{font-family:var(--serif);font-weight:400;font-size:30px}
+.acc-item button .n{font-family:var(--mono);font-size:12px;color:var(--iris-glow);margin-right:16px}
+.acc-item .panel{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--ash)}
+.acc-item .panel div{padding:0 0 26px 42px}
+.acc-item.open .panel{max-height:260px}
+.acc-item .ic{font-size:22px;color:var(--iron);transition:transform .25s}.acc-item.open .ic{transform:rotate(45deg)}
+@media (max-width:820px){.acc-wrap{grid-template-columns:1fr;gap:20px}.acc-wrap .stick{position:static}}
+</style>
+
+<!-- ================= 04 PROOF / WORK ================= -->
+<section class="lab" id="work" data-sec="work" data-label="Work / proof" data-section="">
+  
+  
+
+  <div class="variant on" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Proof</span><h2 class="title" style="margin-top:14px">We built it for ourselves first.</h2></div>
+    <p class="lead">Every tool here runs inside a real business, either ours, a client's or a company our founders built.</p></div>
+    <div class="chips" id="workChips"></div>
+    <div class="work-grid" id="workGrid"></div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Proof</span><h2 class="title" style="margin-top:14px">Problem. Build. <span class="it">Result.</span></h2></div>
+    <p class="lead">What was broken, what we built and what it returned.</p></div>
+    <div class="slider"><div id="slides"></div>
+      <div class="slider-foot"><div class="dots" id="dots"></div><div class="car-nav"><button data-sl="-1" aria-label="Previous">←</button><button data-sl="1" aria-label="Next">→</button></div></div>
+    </div>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Proof</span><h2 class="title" style="margin-top:14px">Hours returned,<br><span class="it muted">not features shipped.</span></h2></div>
+    <p class="lead">We measure a build by the time it hands back to the people using it.</p></div>
+    <div class="statwall">
+      <div><div class="num-big">~20<span class="dim" style="font-size:.5em"> hrs/wk</span></div><small>saved for the recruitment team</small></div>
+      <div><div class="num-big">30→10</div><small>hours a week on lead QA</small></div>
+      <div><div class="num-big">6→50+</div><small>leads per hour after automating sourcing (50–60)</small></div>
+      <div><div class="num-big">1 click</div><small>for clients to see the whole account, instead of a weekly update call</small></div>
+    </div>
+    <div class="rows" id="workRows"></div>
+  </div></div></div>
+</section>
+
+<!-- ================= 05 HOW IT WORKS ================= -->
+<section class="lab" id="how" data-sec="how" data-label="How it works" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">How it works</span><h2 class="title" style="margin-top:14px">You hand it over.<br><span class="it muted">We run it end to end.</span></h2></div>
+    <p class="lead">A founder takes the CTO/CEO seat on your product. You get a weekly check-in, not a second job.</p></div>
+    <div class="tl" id="tlA"></div>
+  </div></div></div>
+
+  <div class="variant on" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">How it works</span><h2 class="title" style="margin-top:14px">Your week with us.</h2></div>
+    <p class="lead">Everything in grey is us. The purple box is the only part that needs you.</p></div>
+    <div class="week">
+      <div class="day"><div class="d">MON</div><div class="ev us">Founder sets the week's priorities: what ships and what waits</div><div class="ev us">Engineers build</div></div>
+      <div class="day"><div class="d">TUE</div><div class="ev us">Engineers build</div><div class="ev us">Tested against how a real user works</div></div>
+      <div class="day"><div class="d">WED</div><div class="ev us">Founder review: does this feature sell?</div><div class="ev us">Cut or reorder features</div></div>
+      <div class="day hl"><div class="d">THU</div><div class="ev you">Your weekly check-in: demo, decisions, next week</div><div class="ev us">Your feedback goes into the plan</div></div>
+      <div class="day"><div class="d">FRI</div><div class="ev us">Ship to staging</div><div class="ev us">Hours used vs. planned, sent to you</div></div>
+    </div>
+    <div class="legend"><span><i style="background:#121216;border:1px solid var(--hair)"></i>Us</span><span><i style="background:var(--grad)"></i>You</span></div>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap acc-wrap">
+    <div class="stick"><span class="eyebrow">How it works</span><h2 class="title" style="margin-top:14px">Four steps.<br><span class="it muted">One weekly check-in.</span></h2><p class="lead" style="margin-top:18px">A founder who has built in your space runs the product. You keep running the business.</p><a class="btn btn-white" style="margin-top:26px" href="#book">Start with a call →</a></div>
+    <div class="acc" id="accC"></div>
+  </div></div></div>
+</section>
+
+<style>
+/* ---------- PRICING ---------- */
+.dnd{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:820px){.dnd{grid-template-columns:1fr}}
+.zone{border:1px solid var(--hair);border-radius:var(--r-lg);padding:22px;min-height:360px;background:#07080a;transition:border-color .2s,background .2s}
+.zone h4{font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-bottom:14px;display:flex;justify-content:space-between}
+.zone.target{border-style:dashed;border-color:#3a3560;background:radial-gradient(100% 80% at 100% 0%,rgba(146,129,247,.10),transparent 60%),#07080a}
+.zone.over{border-color:var(--iris);background:rgba(146,129,247,.08)}
+.chiplist{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;min-height:120px}
+.fchip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:12px;padding:10px 12px;background:#101114;cursor:grab;font-size:14px;user-select:none;transition:border-color .15s,transform .15s}
+.fchip:hover{border-color:#4a4f55}
+.fchip:active{cursor:grabbing}
+.fchip.dragging{opacity:.4}
+.fchip .h{font-family:var(--mono);font-size:12px;color:var(--iris-glow)}
+.zone.target .fchip{border-color:rgba(146,129,247,.4)}
+.empty{color:var(--iron);font-size:14px;border:1px dashed var(--hair);border-radius:12px;padding:26px;text-align:center;width:100%}
+.total{margin-top:18px;padding-top:18px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.total .num-big{font-size:52px}
+.chk{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:start}
+@media (max-width:820px){.chk{grid-template-columns:1fr}}
+.chk-list{border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden}
+.chk-item{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--hair);cursor:pointer;transition:background .15s}
+.chk-item:last-child{border-bottom:0}
+.chk-item:hover{background:#0c0d10}
+.chk-item .box{width:22px;height:22px;border-radius:7px;border:1px solid var(--iron);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.chk-item.on .box{background:var(--iris);border-color:var(--iris);color:#000}
+.chk-item .t{flex:1}.chk-item .t small{display:block;color:var(--iron);font-size:13px}
+.chk-item .h{font-family:var(--mono);font-size:13px;color:var(--ash)}
+.chk-sum{position:sticky;top:88px}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+@media (max-width:820px){.steps3{grid-template-columns:1fr}}
+.steps3 .card .n{font-family:var(--mono);color:var(--iris-glow);font-size:13px}
+.steps3 .card h3{font-family:var(--serif);font-weight:400;font-size:28px;margin:12px 0 8px}
+.sheet{border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden;font-size:14px}
+.sheet .sh-head{display:flex;justify-content:space-between;padding:14px 20px;background:#0b0c0f;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:12px;color:var(--ash);flex-wrap:wrap;gap:8px}
+.sheet table{width:100%;border-collapse:collapse}
+.sheet td,.sheet th{padding:13px 20px;border-bottom:1px solid var(--hair-2);text-align:left}
+.sheet th{font-weight:500;color:var(--iron);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.sheet td:last-child,.sheet th:last-child{text-align:right;font-family:var(--mono)}
+.sheet tr.cut td{color:var(--charcoal);text-decoration:line-through}
+.sheet tfoot td{border-bottom:0;font-weight:500;background:#0b0c0f}
+
+/* ---------- FOUNDERS ---------- */
+.avatar{width:120px;height:120px;border-radius:50%;padding:3px;background:var(--grad);flex:none}
+.avatar div{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#2a2a30,#0a0a0c);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:40px;color:#fff}
+.fcards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:980px){.fcards{grid-template-columns:1fr 1fr}}@media (max-width:560px){.fcards{grid-template-columns:1fr}}
+.fcard{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.fcard .role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--iris-glow);font-weight:600;margin-top:4px}
+.fcard h3{font-family:var(--serif);font-weight:400;font-size:28px;margin-top:14px}
+.fcard p{color:var(--ash);font-size:14px;margin-top:8px}
+.spot{display:grid;grid-template-columns:.8fr 1.2fr;gap:0;border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden;min-height:420px}
+.spot-list{border-right:1px solid var(--hair)}
+.spot-list button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 26px;background:transparent;border:0;border-bottom:1px solid var(--hair);cursor:pointer;text-align:left;transition:background .2s}
+.spot-list button:last-child{border-bottom:0}
+.spot-list button h3{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--iron);transition:color .2s}
+.spot-list button small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal)}
+.spot-list button.on{background:#0d0d11}.spot-list button.on h3{color:#fff}.spot-list button.on small{color:var(--iris-glow)}
+.spot-view{padding:44px;display:flex;flex-direction:column;gap:18px;background:radial-gradient(90% 70% at 100% 0%,rgba(146,129,247,.16),transparent 60%)}
+.spot-view .big{font-family:var(--serif);font-size:clamp(28px,3vw,40px);line-height:1.1}
+@media (max-width:820px){.spot{grid-template-columns:1fr}.spot-list{border-right:0;border-bottom:1px solid var(--hair)}.spot-view{padding:26px}}
+.flip{perspective:1200px;height:380px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip:hover .flip-in,.flip.on .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--hair);border-radius:var(--r-lg);padding:26px;display:flex;flex-direction:column}
+.flip-f{background:linear-gradient(#131316,#050506);align-items:center;justify-content:center;text-align:center;gap:10px}
+.flip-b{transform:rotateY(180deg);background:linear-gradient(160deg,#1b1733,#07060d);justify-content:space-between;font-size:14px;color:#d8d4f5}
+.flip-f .hint{position:absolute;bottom:16px;font-size:12px;color:var(--iron)}
+
+/* ---------- TEAM ---------- */
+.org{display:flex;flex-direction:column;align-items:center;gap:0}
+.org-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.org-node{border:1px solid var(--hair);border-radius:16px;padding:16px 20px;background:#08090b;text-align:center;min-width:190px}
+.org-node small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--iron);margin-top:4px}
+.org-node.top{border-color:rgba(146,129,247,.5);background:linear-gradient(160deg,#1b1733,#07060d)}
+.org-line{width:1px;height:38px;background:linear-gradient(var(--iris),var(--hair))}
+.org-label{font-family:var(--mono);font-size:11px;color:var(--iron);margin:6px 0}
+.stack{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stack div{border:1px solid var(--hair);border-radius:12px;padding:16px 12px;text-align:center;font-size:14px;background:#08090b}
+.stack div small{display:block;color:var(--iron);font-size:11px;margin-top:4px}
+@media (max-width:560px){.stack{grid-template-columns:1fr 1fr}}
+</style>
+
+<!-- ================= 06 PRICING MODEL ================= -->
+<section class="lab" id="pricing" data-sec="pricing" data-label="Pricing model" data-section="">
+  
+  
+
+  <div class="variant on" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Pricing</span><h2 class="title" style="margin-top:14px">You pick the features.<br><span class="it muted">You see the hours.</span></h2></div>
+    <p class="lead">No random quote. We scope your product into features, each with an hour estimate, at a fixed hourly rate for your domain. Change direction and the hours change with it.</p></div>
+    <div class="dnd">
+      <div class="zone" id="poolA" data-zone="pool"><h4><span>Feature library</span><span class="dim" style="text-transform:none;letter-spacing:0">drag or tap →</span></h4><div class="chiplist"></div></div>
+      <div class="zone target" id="buildA" data-zone="build"><h4><span>Your build</span><span id="cntA" class="dim" style="letter-spacing:0">0 features</span></h4><div class="chiplist"><div class="empty">Drop features here</div></div>
+        <div class="total"><div><div class="dim" style="font-size:13px">Estimated build</div><div class="num-big"><span id="hrsA">0</span> <span class="dim" style="font-size:.45em">hours</span></div></div><div style="text-align:right"><div class="dim" style="font-size:13px">× your domain's hourly rate</div><div style="font-family:var(--mono);color:var(--iris-glow)">set on the call</div></div></div>
+        
+      </div>
+    </div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Pricing</span><h2 class="title" style="margin-top:14px">Priced in hours.<br><span class="it muted">Nothing hidden.</span></h2></div>
+    <p class="lead">Tick what you'd want. That's roughly how we scope it with you on the call.</p></div>
+    <div class="chk"><div class="chk-list" id="chkB"></div>
+      <div class="card chk-sum"><div class="dim" style="font-size:13px">Estimated build</div><div class="num-big" style="margin:6px 0 4px"><span id="hrsB">0</span> <span class="dim" style="font-size:.45em">hrs</span></div><div class="dim" style="font-size:13px" id="cntB">0 features selected</div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--hair);font-size:14px;color:var(--ash)">Hourly rate is fixed per domain and shared on the call. You can add or drop features any week.</div>
+        <a class="btn btn-white" style="width:100%;margin-top:20px" href="#book">Scope it with us →</a></div>
+    </div>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Pricing</span><h2 class="title" style="margin-top:14px">We talk in hours,<br><span class="it muted">not guesses.</span></h2></div></div>
+    <div class="steps3">
+      <div class="card"><span class="n">01</span><h3>We list the features</h3><p class="muted">After the call, we break your product into features with an hour estimate for each.</p></div>
+      <div class="card"><span class="n">02</span><h3>You see the rate</h3><p class="muted">A fixed hourly rate for your domain, shown upfront. No surprise quote.</p></div>
+      <div class="card"><span class="n">03</span><h3>You choose</h3><p class="muted">Keep, cut or swap features at any point. The hours follow your choices.</p></div>
+    </div>
+    <div class="sheet">
+      <div class="sh-head"><span>SAMPLE SCOPE · Staffing firm, client portal MVP</span><span>Rate: [domain rate] / hr</span></div>
+      <table><thead><tr><th>Feature</th><th>Priority</th><th>Hours</th></tr></thead><tbody>
+        <tr><td>Client login &amp; roles</td><td>Must have</td><td>24</td></tr>
+        <tr><td>Placements dashboard</td><td>Must have</td><td>40</td></tr>
+        <tr><td>Timesheet upload &amp; approval</td><td>Must have</td><td>32</td></tr>
+        <tr class="cut"><td>AI candidate matching</td><td>Later: not worth it yet</td><td>60</td></tr>
+        <tr><td>Weekly email digest</td><td>Nice to have</td><td>12</td></tr>
+      </tbody><tfoot><tr><td>Total in scope</td><td></td><td>108 hrs</td></tr></tfoot></table>
+    </div>
+    
+  </div></div></div>
+</section>
+
+<!-- ================= 07 FOUNDERS ================= -->
+<section class="lab" id="founders" data-sec="founders" data-label="Founders" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">The founders</span><h2 class="title" style="margin-top:14px">The people in<br><span class="it muted">your CTO seat.</span></h2></div>
+    <p class="lead">They've built, bought and grown companies in tech, healthcare, data and acquisitions.</p></div>
+    <div class="fcards" id="fcA"></div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">The founders</span><h2 class="title" style="margin-top:14px">Who's behind the build.</h2></div></div>
+    <div class="spot"><div class="spot-list" id="spotList"></div><div class="spot-view" id="spotView"></div></div>
+  </div></div></div>
+
+  <div class="variant on" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">The founders</span><h2 class="title" style="margin-top:14px">Flip for the<br><span class="it muted">track record.</span></h2></div></div>
+    <div class="fcards" id="fcC"></div>
+  </div></div></div>
+</section>
+
+<!-- ================= 08 BUILD TEAM ================= -->
+<section class="lab" id="team" data-sec="team" data-label="Build team" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">The build team</span><h2 class="title" style="margin-top:14px">Founders decide.<br><span class="it muted">Engineers ship.</span></h2></div><p class="lead">One chain of accountability, from the founder in your CTO seat to the person writing the code.</p></div>
+    <div class="org">
+      <div class="org-row"><div class="org-node top">Founder<small>CTO/CEO seat on your product</small></div></div>
+      <div class="org-label">sets priorities · weekly check-in with you</div><div class="org-line"></div>
+      <div class="org-row"><div class="org-node">Siddhant Pahuja<small>Head of AI &amp; Automation</small></div></div>
+      <div class="org-label">architecture · specs · evals</div><div class="org-line"></div>
+      <div class="org-row"><div class="org-node">Ukant<small>Lead engineer</small></div><div class="org-node">Hiten<small>Engineer</small></div><div class="org-node">Dejan<small>Engineer</small></div></div>
+      
+    </div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">The build team</span><h2 class="title" style="margin-top:14px">The people<br><span class="it muted">writing your code.</span></h2></div></div>
+    <div class="fcards">
+      <div class="card"><span class="tag founder">Lead</span><h3 style="font-family:var(--serif);font-weight:400;font-size:28px;margin-top:16px">Siddhant Pahuja</h3><div class="dim" style="font-size:13px">Head of AI &amp; Automation</div><p class="muted" style="font-size:14px;margin-top:14px">Owns architecture, feature definition and how every AI step is tested against a human before it ships.</p></div>
+      <div class="card"><span class="tag">Engineering</span><h3 style="font-family:var(--serif);font-weight:400;font-size:28px;margin-top:16px">Ukant</h3><div class="dim" style="font-size:13px">Lead engineer</div><p class="muted" style="font-size:14px;margin-top:14px">Runs day-to-day execution and the core builds.</p></div>
+      <div class="card"><span class="tag">Engineering</span><h3 style="font-family:var(--serif);font-weight:400;font-size:28px;margin-top:16px">Hiten</h3><div class="dim" style="font-size:13px">Engineer</div><p class="muted" style="font-size:14px;margin-top:14px">Front-end and product builds.</p></div>
+      <div class="card"><span class="tag">Engineering</span><h3 style="font-family:var(--serif);font-weight:400;font-size:28px;margin-top:16px">Dejan</h3><div class="dim" style="font-size:13px">Engineer</div><p class="muted" style="font-size:14px;margin-top:14px">Platform features and integrations.</p></div>
+    </div>
+    
+  </div></div></div>
+
+  <div class="variant on" data-v="c"><div class="sec-pad"><div class="wrap grid g2" style="gap:50px;align-items:start">
+    <div><span class="eyebrow">The build team</span><h2 class="title" style="margin-top:14px">Small team.<br><span class="it muted">Senior judgment.</span></h2>
+      <div class="crew" style="margin-top:30px"><div class="card crew-card"><div class="avatar" aria-hidden="true">SP</div><div><div class="sign">“Overwatch”</div><h3>Siddhant Pahuja</h3><div class="dim">Head of AI & Automation</div></div></div><div class="card crew-card"><div class="avatar" aria-hidden="true">U</div><div><div class="sign">“Pointman”</div><h3>Ukant</h3><div class="dim">Lead engineer</div></div></div><div class="card crew-card"><div class="avatar" aria-hidden="true">H</div><div><div class="sign">“Recon”</div><h3>Hiten</h3><div class="dim">Engineer</div></div></div><div class="card crew-card"><div class="avatar" aria-hidden="true">D</div><div><div class="sign">“Sapper”</div><h3>Dejan</h3><div class="dim">Engineer</div></div></div></div></div>
+    <div><div class="dim" style="font-size:13px;margin-bottom:14px">What we build on</div>
+      <div class="stack"><div>Claude<small>AI</small></div><div>OpenAI<small>AI · speech</small></div><div>n8n<small>automation</small></div><div>Supabase<small>database · auth</small></div><div>Azure<small>hosting</small></div><div>React<small>front end</small></div><div>FastAPI<small>back end</small></div><div>Twilio<small>calling</small></div></div>
+      <p class="muted" style="font-size:14px;margin-top:18px">We pick the stack for your product, not the other way round. </p></div>
+  </div></div></div>
+</section>
+
+<style>
+/* ---------- FAQ ---------- */
+.faq-acc{max-width:860px;margin:0 auto;border-top:1px solid var(--hair)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-lg);overflow:hidden}
+.faq-grid>div{background:#000;padding:30px}
+.faq-grid h3{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:10px}
+.faq-grid p{color:var(--ash);font-size:15px}
+@media (max-width:760px){.faq-grid{grid-template-columns:1fr}}
+.chat{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bub{max-width:78%;padding:14px 18px;border-radius:20px;font-size:15px;line-height:1.5}
+.bub.q{align-self:flex-end;background:#1a1a1f;border:1px solid var(--hair);border-bottom-right-radius:6px}
+.bub.a{align-self:flex-start;background:linear-gradient(160deg,#1f1a3d,#0e0b1c);border:1px solid rgba(146,129,247,.35);border-bottom-left-radius:6px;color:#e2defc}
+.bub.a small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--iris-glow);margin-bottom:4px}
+.chat-more{align-self:center;margin-top:10px}
+@media (max-width:560px){.bub{max-width:92%}}
+
+/* ---------- BOOK ---------- */
+.form{display:grid;gap:14px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.form .two{grid-template-columns:1fr}}
+.field label{display:block;font-size:13px;color:var(--ash);margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;background:#08090b;border:1px solid var(--hair);border-radius:12px;padding:13px 14px;font-size:15px;outline:none;transition:border-color .15s}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--iris)}
+.field.err input,.field.err textarea,.field.err select{border-color:#ff6465}
+.field .msg{display:none;font-size:12px;color:#ff9592;margin-top:5px}.field.err .msg{display:block}
+.form-done{display:none;text-align:center;padding:10px 0}
+.form-done.show{display:block;animation:fadeIn .4s}
+.cal{border:1px solid var(--hair);border-radius:16px;padding:18px;margin-top:18px;text-align:left;background:#07080a}
+.cal-days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+.cal-days div{border:1px solid var(--hair);border-radius:10px;padding:10px 6px;text-align:center;font-size:12px;color:var(--ash)}
+.cal-days div b{display:block;font-size:18px;color:#fff;font-weight:500}
+.cal-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.cal-slots button{border:1px solid var(--hair);background:transparent;border-radius:10px;padding:10px;font-size:13px;cursor:pointer;color:var(--bone)}
+.cal-slots button:hover,.cal-slots button.on{border-color:var(--iris);background:rgba(146,129,247,.12)}
+.book-a{max-width:620px;margin:0 auto;text-align:center}
+.book-a .card{text-align:left;margin-top:34px;padding:34px}
+.book-b{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+@media (max-width:860px){.book-b{grid-template-columns:1fr;gap:30px}}
+.expect{list-style:none;display:grid;gap:16px;margin-top:30px}
+.expect li{display:grid;grid-template-columns:34px 1fr;gap:12px;color:var(--ash)}
+.expect li b{color:#fff;font-weight:500;display:block}
+.expect li span.n{width:28px;height:28px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--iris-glow)}
+.stepper{max-width:760px;margin:0 auto}
+.stepbar{display:flex;align-items:center;gap:12px;margin:34px 0 22px;font-size:13px;color:var(--iron)}
+.stepbar .s{display:flex;align-items:center;gap:8px}
+.stepbar .s i{width:26px;height:26px;border-radius:50%;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--mono);font-size:12px}
+.stepbar .s.on{color:#fff}.stepbar .s.on i{background:var(--iris);border-color:var(--iris);color:#000}
+.stepbar .bar{flex:1;height:1px;background:var(--hair)}
+.big-cta{position:relative;overflow:hidden;border:1px solid var(--hair);border-radius:28px;padding:70px 40px;text-align:center;background:radial-gradient(70% 90% at 50% 120%,rgba(146,129,247,.35),transparent 60%),linear-gradient(#0e0e11,#030303)}
+@media (max-width:560px){.big-cta{padding:44px 20px}}
+
+footer.site{border-top:1px solid var(--hair);padding:50px 0 50px;color:var(--iron);font-size:14px}
+footer.site .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer.site a:hover{color:var(--bone)}
+</style>
+
+<!-- ================= 09 FAQ ================= -->
+<section class="lab" id="faq" data-sec="faq" data-label="FAQ" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap">
+    <div style="text-align:center;margin-bottom:46px"><span class="eyebrow">Questions</span><h2 class="title" style="margin-top:14px">Before you book.</h2></div>
+    <div class="faq-acc acc" id="faqA"></div>
+  </div></div></div>
+
+  <div class="variant" data-v="b"><div class="sec-pad"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Questions</span><h2 class="title" style="margin-top:14px">Straight answers.</h2></div></div>
+    <div class="faq-grid" id="faqB"></div>
+  </div></div></div>
+
+  <div class="variant on" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div style="text-align:center;margin-bottom:46px"><span class="eyebrow">Questions</span><h2 class="title" style="margin-top:14px">You ask. <span class="it muted">We answer.</span></h2></div>
+    <div class="chat" id="faqC"></div>
+  </div></div></div>
+</section>
+
+<!-- ================= 10 BOOK A CALL ================= -->
+<section class="lab" id="book" data-sec="book" data-label="Book a call" data-section="">
+  
+  
+
+  <div class="variant" data-v="a"><div class="sec-pad"><div class="wrap book-a">
+    <span class="eyebrow">Book a call</span>
+    <h2 class="title" style="margin-top:14px">Tell us what you're building.</h2>
+    <p class="lead" style="margin:14px auto 0">Thirty minutes with a founder. Four fields, then pick a time.</p>
+    <div class="card"><form class="form" data-form novalidate></form><div class="form-done"></div></div>
+  </div></div></div>
+
+  <div class="variant on" data-v="b"><div class="sec-pad"><div class="wrap book-b">
+    <div><span class="eyebrow">Book a call</span><h2 class="title" style="margin-top:14px">Thirty minutes.<br><span class="it muted">A founder on the other end.</span></h2>
+      <ul class="expect">
+        <li><span class="n">1</span><div><b>You tell us the idea or the problem.</b>No tech words needed.</div></li>
+        <li><span class="n">2</span><div><b>We tell you what's worth building and what isn't.</b>Including when AI helps and when it doesn't.</div></li>
+        <li><span class="n">3</span><div><b>You get a feature list with hours.</b>At a fixed hourly rate for your domain. You decide from there.</div></li>
+      </ul></div>
+    <div class="card" style="padding:34px"><form class="form" data-form novalidate></form><div class="form-done"></div></div>
+  </div></div></div>
+
+  <div class="variant" data-v="c"><div class="sec-pad"><div class="wrap">
+    <div class="big-cta"><span class="eyebrow">Book a call</span><h2 class="title" style="margin-top:14px">Hand it over.<br><span class="it grad-text">We'll take it from here.</span></h2>
+      <div class="stepper"><div class="stepbar" id="stepbar"><div class="s on"><i>1</i>Your details</div><div class="bar"></div><div class="s"><i>2</i>Pick a time</div></div>
+        <div style="text-align:left"><form class="form" data-form data-stepper novalidate></form><div class="form-done"></div></div></div>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site"><div class="wrap">
+  <div><div class="brand" style="color:var(--bone)">Caprae <span>Tech</span></div><div style="margin-top:8px;max-width:340px">Founder-led product studio. Part of Caprae Capital Partners.</div></div>
+  <div style="display:flex;gap:26px;flex-wrap:wrap"><a href="#work">Work</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#founders">People</a><a href="#book">Book a call</a></div>
+</div></footer>
+
+<!-- dock (testing layer) -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ======================= CONTENT ======================= */
+const LESSONS=[
+ ["Features don't sell themselves. The order you show them in does.","We decide which feature goes on top, which waits, and how each one is presented to the people you sell to."],
+ ["The first version should be smaller than you think.","We've shipped too much too early. Now we cut to what a customer will pay for, then build out."],
+ ["AI where it pays back. Nowhere else.","We add AI when it takes real hours off someone's week, not because it looks good in the pitch."],
+ ["Do it by hand before you automate it.","We map how the work is done today. That manual version becomes the spec, so we never automate the wrong thing."],
+ ["A founder's time is the most expensive thing in the building.","Yours included. That's why you get one weekly check-in, not daily questions."]
+];
+const CMP=[
+ ["Who decides what gets built","You, feature by feature","A founder who has shipped products, working with you"],
+ ["What ships first","Whatever is on the list","What your customers will pay for"],
+ ["When AI goes in","Everywhere, because it sells the project","Only where it saves real hours"],
+ ["How you're priced","A lump-sum quote you can't check","Features × hours × one hourly rate, upfront"],
+ ["Your time","Daily questions and constant reviews","One weekly check-in"],
+ ["After launch","Handover and goodbye","Help deciding what to show first and how to sell it"]
+];
+const BA_BEFORE=["You write the spec","Every feature gets built","AI added because it sounds good","The quote changes halfway","You chase updates"];
+const BA_AFTER=["A founder writes the spec with you","What sells gets built first","AI only where it pays back","Hours per feature, agreed upfront","One check-in a week"];
+
+const SERVICES=[
+ {i:"◆",t:"MVPs",d:"From an idea to a working product your customers can use, with the features that sell it at the top.",f:"Owners testing a new product line"},
+ {i:"▤",t:"Dashboards",d:"Sales, ops and finance on one screen, pulled from the tools you already use.",f:"Owners and ops leads"},
+ {i:"$",t:"Deal & financial tools",d:"Screeners, models and trackers that help you evaluate and acquire businesses.",f:"Acquirers and search funds"},
+ {i:"✦",t:"AI assistants",d:"Automations that take repetitive work off your team, added only where they pay back.",f:"Teams buried in admin"},
+ {i:"⚙",t:"Internal tools",d:"Portals, trackers and workflows your people use every day, instead of ten spreadsheets.",f:"Any team running on sheets"}
+];
+const INDUSTRIES={
+ "Staffing":{h:"For staffing firms",p:"Placements, candidates and client reporting in one place instead of a pile of sheets.",b:[["Client portal","Clients see placements, timesheets and invoices without emailing you."],["Candidate pipeline","Every candidate tracked from application to placement, with automatic follow-ups."],["Recruiter dashboard","Who is placing, who is stuck, and where the hours go."]]},
+ "Healthcare":{h:"For clinics & healthcare operators",p:"Less admin between the patient and the care.",b:[["Intake & scheduling","Patients book and fill forms online; staff stop re-typing."],["Operations dashboard","Visits, no-shows and revenue by location, updated daily."],["Billing tracker","See which claims are stuck and why."]],note:"compliance scope (e.g. HIPAA) to confirm"},
+ "Acquirers":{h:"For acquirers & search funds",p:"The same kind of tooling Caprae uses to find and buy companies.",b:[["Deal screener","Scores targets against your buy box so you look at fewer, better deals."],["Valuation model","A live model you can reuse across every target."],["Portfolio dashboard","One view across the companies you already own."]]},
+ "Services":{h:"For service businesses",p:"Win the job, run the job, get paid, without the spreadsheet juggling.",b:[["Quote & job tracker","From quote to completed job in one flow."],["Customer portal","Customers check status themselves."],["AI follow-up drafts","Personal follow-ups written for your team to send in one click."]]}
+};
+const WORK=[
+ {n:"Caprae CRM",u:"capraecapitalpartners.com",g:"caprae",s:"live",k:"Client & account platform",p:"The CEO was spending standing weekly calls just updating clients.",b:"A client and account-manager platform. Every new engagement is pushed to the client with a next action, filterable by priority.",rb:"1 click",rs:"for a client to see the whole account, instead of a weekly call",note:"hours saved to quantify"},
+ {n:"Recruitment pipeline",u:"capraecapitalpartners.com",g:"caprae",s:"live",k:"Hiring automation",p:"Applicant tracking tools stop at the application. Everything after it was manual.",b:"Auto-acknowledgement, handbook sent, tracked submission, AI review in an admin portal, one-click interview booking.",rb:"~20 hrs/wk",rs:"returned to the recruitment team"},
+ {n:"Lead QA",u:"capraecapitalpartners.com",g:"caprae",s:"live",k:"AI quality scoring",p:"Checking lead quality by hand took about 1.5 hours per client.",b:"AI scores every lead; a human spot-checks the greens and the reds before anything goes out.",rb:"30 → 10 hrs/wk",rs:"spent on lead QA"},
+ {n:"Call intelligence",u:"capraecapitalpartners.com",g:"caprae",s:"build",k:"AI call scoring",p:"Judging callers by ear doesn't scale past a handful of people.",b:"Recordings become transcripts, scored on tone, objection handling and script, then rolled into one score per caller, plus the best time to call.",rb:"In build",rs:"result to quantify",note:"no number yet"},
+ {n:"Bankers Edge",u:"bankersedgeadvisory.com",g:"client",s:"live",k:"Advisory platform",p:"An advisory firm needed its platform designed and built.",b:"Advisory platform with transaction and service pages.",rb:"Live",rs:"in production · bankersedgeadvisory.com",note:"client sign-off to name"},
+ {n:"Simba",g:"client",s:"build",k:"Client build",p:"[Add the client's problem]",b:"Landing page, domain and SEO build.",rb:"In build",rs:"details to add",note:"details + sign-off needed"},
+ {n:"ITSco",u:"itsco.com",g:"founder",s:"founder",k:"Healthcare tech & engineering",p:"Healthcare organizations need engineering and analytics they can't staff in-house.",b:"Integrated Technical Services: tech development, data analysis and analytics projects.",rb:"Founder company",rs:"led by Zackary Beckham and Mike Savano",note:"confirm wording with ITSco"},
+ {n:"Destroy Drive",u:"destroydrive.com",g:"founder",s:"founder",k:"Data services",p:"Companies need their data centers and data handled properly.",b:"Data services: data centers and data cleaning.",rb:"Founder company",rs:"co-founded by Kevin Hong and Zackary Beckham",note:"confirm wording"}
+];
+const GRP={caprae:"Built for Caprae",client:"Client builds",founder:"Founder companies"};
+const STATUS={live:["Live","live"],build:["In build","build"],founder:["Founder co.","founder"]};
+
+const HOW=[
+ ["Call","Thirty minutes with a founder. What you want to build, and what's in the way.","You + a founder"],
+ ["Scope","We turn it into features with an hour estimate for each, at your domain's hourly rate. You pick what's in.","Founder"],
+ ["Build","A founder runs your product like its CTO. Engineers ship every week. You get one check-in a week.","Founder + engineers · you weekly"],
+ ["Launch & sell","We decide what goes on top, how each feature is presented, and what's worth building next.","Founder + you"]
+];
+const FEATURES=[
+ ["User login & roles",24,"Who can see what"],["Dashboard",40,"Your key numbers on one screen"],["Client portal",48,"Your customers log in and self-serve"],
+ ["Import from your tools",20,"Sheets, CRM, accounting"],["Reports & exports",16,"PDF / CSV, scheduled"],["Email & SMS alerts",12,"Notify the right person"],
+ ["Payments",28,"Invoices and card payments"],["AI assistant",36,"Drafts, summaries, triage"],["Deal / financial model",44,"Screen and value targets"],["Admin panel",24,"Manage users and data"]
+];
+const FOUNDERS=[
+ {n:"Kevin Hong",r:"Founder",i:"KH",b:"Serial tech entrepreneur with 10+ years of experience. Scaled two startups to $31M and $7M ARR and raised $8M+ in venture capital. Author of the #1 Amazon bestseller The Outlier Approach, published in Forbes and Inc. Clinical Adjunct Faculty of Entrepreneurship at Chapman University. MBA, Chicago Booth. Co-founder of Destroy Drive.",q:"Has taken software from zero to $31M ARR.",t:["$31M & $7M ARR","$8M+ raised","Author"]},
+ {n:"Hereford Johnson",r:"Principal Adviser",i:"HJ",b:"Founder of Third Equity Partners. Entrepreneur across traditional, self-funded and independent-sponsor acquisition models. Educator and trusted voice in the search-fund community. MBA, Northwestern Kellogg.",q:"Knows exactly what an acquirer needs from a tool.",t:["Third Equity Partners","Search funds","Kellogg MBA"]},
+ {n:"Zackary Beckham",r:"Founder",i:"ZB",b:"Chief of Business Development at ITSco (Integrated Technical Services). 12+ years in operations and program management. Co-founder of Destroy Drive. BS Information Technology and BS Biology, Arizona State.",q:"Has run delivery for technical services at scale.",t:["ITSco","Destroy Drive","12+ yrs ops"]},
+ {n:"Mike Savano",r:"CEO · ITSco",i:"MS",b:"Leads ITSco, a healthcare tech and engineering company delivering data analysis and analytics projects.",q:"Builds healthcare tech for a living.",t:["ITSco","Healthcare tech","Data & analytics"],note:"spelling + title to confirm (CEO / CTO / CDO?)"}
+];
+const FAQ=[
+ ["Do I need to be technical?","No. Most of the owners we work with aren't. Tell us the problem in plain words and a founder turns it into the product."],
+ ["How much of my time will this take?","One weekly check-in. The founder in your CTO seat makes the day-to-day calls."],
+ ["How do you price?","In hours. We list the features, estimate the hours for each, and show your domain's hourly rate upfront. You choose what's in."],
+ ["Can I change direction halfway?","Yes. Add, drop or swap features at any point, and the hours move with you."],
+ ["When do you add AI?","Only when it saves real hours or makes the product easier to sell. If it won't pay back, we'll tell you."],
+ ["What if something isn't worth building?","We'll say so. Some of our most useful advice is what to leave out."],
+ ["Who owns the code?","You own what you pay for. The details are in the agreement.","confirm with Kevin"],
+ ["Is my data safe?","We build on established platforms with login and access controls, and scope any compliance needs on the first call.","confirm wording"]
+];
+
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)};
+
+/* ======================= 01 HERO ======================= */
+const HERO_SW={shop:[["You write the spec","and hope it's right."],["They build the list","every feature, same priority."],["You manage it","weekly, daily, forever."]],
+ founder:[["A founder writes it with you","from what sells, not what's asked."],["They build what pays","and cut what doesn't."],["You get one check-in","a week. That's it."]]};
+function heroSw(m){const o=$('#heroSwitchOut');o.className='switch-out '+m;o.innerHTML=HERO_SW[m].map(([a,b])=>`<div class="card"><b>${a}</b><span class="${m==='shop'?'dim':'muted'}">${b}</span></div>`).join('');$$('.switch button').forEach(x=>x.classList.toggle('on',x.dataset.mode===m))}
+$$('.switch button').forEach(b=>b.addEventListener('click',()=>heroSw(b.dataset.mode)));
+heroSw('shop'); let heroTouched=false; $$('.switch button').forEach(b=>b.addEventListener('click',()=>heroTouched=true)); setTimeout(()=>{if(!heroTouched)heroSw('founder')},3000); // an early click wins over the auto switch
+const ROT=["staffing firms","clinics","acquirers","service businesses","operators"];let ri=0;
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const rot=$('#rotor'),out=rot.firstElementChild;rot.classList.add('typing');let n=ROT[0].length,dir=-1;const tick=()=>{n+=dir;if(n<0){ri=(ri+1)%ROT.length;n=0;dir=1}out.textContent=ROT[ri].slice(0,n);if(dir>0&&n===ROT[ri].length){dir=-1;return setTimeout(tick,1900)}setTimeout(tick,dir>0?85:40)};setTimeout(tick,2200)}
+const MQ=["Client portals","Deal screeners","Ops dashboards","AI follow-up drafts","Valuation models","Intake forms","Recruiting pipelines","Internal tools","MVPs"];
+$('#marquee').innerHTML=[...MQ,...MQ].map(x=>`<span class="pill" style="font-size:14px;padding:10px 18px">${x}</span>`).join('');
+
+/* ======================= 02 WHY ======================= */
+$('#lessonsA').innerHTML=LESSONS.map(([h,p],i)=>`<div class="lesson"><span class="n">${String(i+1).padStart(2,'0')}</span><h3>${h}</h3><p class="muted">${p}</p></div>`).join('');
+$('#cmpB').innerHTML=CMP.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+$('#baBefore').innerHTML=BA_BEFORE.map(x=>`<li>${x}</li>`).join('');
+$('#baAfterList').innerHTML=BA_AFTER.map(x=>`<li>${x}</li>`).join('');
+(function(){const ba=$('#ba'),after=$('#baAfter'),h=$('#baHandle');let drag=false,kp=50;
+ function set(x){const r=ba.getBoundingClientRect();let p=Math.min(96,Math.max(4,(x-r.left)/r.width*100));after.style.clipPath=`inset(0 0 0 ${p}%)`;h.style.left=p+'%';kp=p;ba.setAttribute('aria-valuenow',Math.round(p))}
+ ba.addEventListener('pointerdown',e=>{drag=true;ba.setPointerCapture(e.pointerId);set(e.clientX)});
+ ba.addEventListener('pointermove',e=>{if(drag)set(e.clientX)});
+ ['pointerup','pointercancel'].forEach(t=>ba.addEventListener(t,()=>drag=false));ba.tabIndex=0;ba.setAttribute('role','slider');ba.setAttribute('aria-label','Compare dev shop and founder-led. Use the arrow keys.');ba.setAttribute('aria-valuemin','4');ba.setAttribute('aria-valuemax','96');ba.setAttribute('aria-valuenow','50');ba.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const r=ba.getBoundingClientRect();set(r.left+r.width*Math.min(96,Math.max(4,kp+(e.key==='ArrowRight'?5:-5)))/100)});})();
+
+/* ======================= 03 SERVICES ======================= */
+const indKeys=Object.keys(INDUSTRIES);
+$('#indTabs').innerHTML=indKeys.map((k,i)=>`<button data-k="${k}" class="${i?'':'on'}">${k}</button>`).join('');
+function ind(k){const d=INDUSTRIES[k];$$('#indTabs button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+ $('#indPanel').innerHTML=`<div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:30px;background:radial-gradient(90% 80% at 0% 0%,rgba(146,129,247,.18),transparent 60%),linear-gradient(#131313,#050505)"><div><span class="eyebrow">${k}</span><h3 style="margin-top:14px">${d.h}</h3><p class="muted" style="margin-top:12px">${d.p}</p>${d.note?`<span class="note block">${d.note}</span>`:''}</div><a class="btn btn-white" href="#book" style="align-self:flex-start">Talk about your ${k.toLowerCase()} build →</a></div>
+ <div class="ind-list">${d.b.map((x,i)=>`<div class="card" style="animation:fadeIn .35s ${i*.07}s both"><div class="svc-ico" style="width:36px;height:36px">${i+1}</div><div><h3 style="font-size:18px">${x[0]}</h3><p class="muted" style="font-size:14px;margin-top:4px">${x[1]}</p></div></div>`).join('')}</div>`}
+$$('#indTabs button').forEach(b=>b.addEventListener('click',()=>ind(b.dataset.k)));ind(indKeys[0]);
+$('#carTrack').innerHTML=SERVICES.map((s,i)=>`<div class="card"><div><div style="display:flex;justify-content:space-between;align-items:center"><div class="svc-ico">${s.i}</div><span class="dim" style="font-family:var(--mono);font-size:12px">0${i+1} / 0${SERVICES.length}</span></div><h3 style="font-family:var(--serif);font-weight:400;font-size:34px;margin-top:40px">${s.t}</h3><p class="muted" style="margin-top:10px">${s.d}</p></div><div class="for">Best for: ${s.f}</div></div>`).join('')+`<div class="card" style="background:var(--grad);border-color:transparent"><div><h3 style="font-family:var(--serif);font-weight:400;font-size:34px;color:#fff">Something else?</h3><p style="margin-top:10px;color:#eee">If it saves your team hours, we'll scope it.</p></div><a class="btn btn-white" href="#book">Book a call →</a></div>`;
+$$('[data-car]').forEach(b=>b.addEventListener('click',()=>$('#carTrack').scrollBy({left:+b.dataset.car*356,behavior:'smooth'})));
+
+/* ======================= 04 WORK ======================= */
+const statusTag=w=>`<span class="tag ${STATUS[w.s][1]}">${STATUS[w.s][0]}</span>`;
+const noteTag=w=>w.note?` <span class="note">${esc(w.note)}</span>`:'';
+const counts={all:WORK.length};WORK.forEach(w=>counts[w.g]=(counts[w.g]||0)+1);
+$('#workChips').innerHTML=[['all','All'],...Object.entries(GRP)].map(([k,v],i)=>`<button data-f="${k}" class="${i?'':'on'}">${v}<span>${counts[k]}</span></button>`).join('');
+const srcBtn=w=>w.u?`<a class="src-btn" href="https://${w.u}" target="_blank" rel="noopener"><span class="src-dom">${w.u}</span><span aria-hidden="true">↗</span></a>`:'';
+$('#workGrid').innerHTML=WORK.map(w=>`<div class="card wcard" data-g="${w.g}"><div class="top"><span class="grp">${GRP[w.g]}</span>${statusTag(w)}</div><div><h3>${w.n}</h3><div class="dim" style="font-size:13px;margin-top:4px">${w.k}</div></div><p class="muted" style="font-size:14px">${w.b}</p><div class="res"><b>${w.rb}</b><span class="muted">${w.rs}</span>${noteTag(w)}</div>${srcBtn(w)}</div>`).join('');
+$$('#workChips button').forEach(b=>b.addEventListener('click',()=>{$$('#workChips button').forEach(x=>x.classList.toggle('on',x===b));$$('#workGrid .wcard').forEach(c=>c.classList.toggle('hide',b.dataset.f!=='all'&&c.dataset.g!==b.dataset.f))}));
+$('#slides').innerHTML=WORK.map((w,i)=>`<div class="slide${i?'':' on'}"><div class="l"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="tag">${GRP[w.g]}</span>${statusTag(w)}</div><h3 style="font-family:var(--serif);font-weight:400;font-size:clamp(36px,4vw,54px);line-height:1">${w.n}</h3><div class="pbr"><div><span>Problem</span><p class="muted">${w.p}</p></div><div><span>Build</span><p>${w.b}</p></div></div></div><div class="r"><span class="dim" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase">Result</span><div class="num-big" style="margin-top:12px;font-size:clamp(46px,6vw,76px)">${w.rb}</div><p class="muted" style="margin-top:10px">${w.rs}</p>${noteTag(w)}</div></div>`).join('');
+$('#dots').innerHTML=WORK.map((_,i)=>`<i class="${i?'':'on'}" data-i="${i}"></i>`).join('');
+let si=0;function slide(n){si=(n+WORK.length)%WORK.length;$$('#slides .slide').forEach((s,i)=>s.classList.toggle('on',i===si));$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i===si))}
+$$('[data-sl]').forEach(b=>b.addEventListener('click',()=>slide(si+ +b.dataset.sl)));$$('#dots i').forEach(d=>d.addEventListener('click',()=>slide(+d.dataset.i)));
+$('#workRows').innerHTML=WORK.map((w,i)=>`<details class="row"${i?'':' open'}><summary><h3>${w.n}</h3><span class="muted hm">${w.k}</span><span class="hm">${statusTag(w)}</span><span class="plus">+</span></summary><div class="body"><div><span>Problem</span>${w.p}</div><div><span>Build</span>${w.b}</div><div><span>Result</span><b style="color:#fff;font-weight:500">${w.rb}</b>, ${w.rs}${noteTag(w)}</div></div></details>`).join('');
+
+/* ======================= 05 HOW ======================= */
+$('#tlA').innerHTML=HOW.map((s,i)=>`<div class="st"><div class="dot">0${i+1}</div><h3>${s[0]}</h3><p>${s[1]}</p><div class="who">${s[2]}</div></div>`).join('');
+$('#accC').innerHTML=HOW.map((s,i)=>`<div class="acc-item${i?'':' open'}"><button><span style="display:flex;align-items:baseline"><span class="n">0${i+1}</span><h3>${s[0]}</h3></span><span class="ic">+</span></button><div class="panel"><div>${s[1]}<div class="dim" style="font-size:13px;margin-top:10px">Who: ${s[2]}</div></div></div></div>`).join('');
+function accBind(root){$$('.acc-item > button',root).forEach(b=>b.addEventListener('click',()=>{const it=b.parentElement,was=it.classList.contains('open');$$('.acc-item',root).forEach(x=>x.classList.remove('open'));if(!was)it.classList.add('open')}))}
+accBind($('#accC'));
+
+/* ======================= 06 PRICING ======================= */
+(function(){
+ const pool=$('#poolA .chiplist'),build=$('#buildA .chiplist');
+ pool.innerHTML=FEATURES.map((f,i)=>`<div class="fchip" draggable="true" data-i="${i}" tabindex="0"><span>${f[0]}</span><span class="h">${f[1]}h</span></div>`).join('');
+ function recalc(){const ch=$$('.fchip',build);$('#hrsA').textContent=ch.reduce((s,c)=>s+FEATURES[c.dataset.i][1],0);$('#cntA').textContent=ch.length+' feature'+(ch.length===1?'':'s');
+   const em=$('.empty',build);if(ch.length&&em)em.remove();if(!ch.length&&!em)build.innerHTML='<div class="empty">Drop features here</div>'}
+ function move(chip){const to=chip.parentElement===pool?build:pool;const em=$('.empty',to);if(em)em.remove();to.appendChild(chip);recalc()}
+ let dragEl=null;
+ document.addEventListener('dragstart',e=>{if(e.target.classList&&e.target.classList.contains('fchip')){dragEl=e.target;e.target.classList.add('dragging');e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',e.target.dataset.i)}catch(_){}}});
+ document.addEventListener('dragend',e=>{if(dragEl)dragEl.classList.remove('dragging');dragEl=null;$$('.zone').forEach(z=>z.classList.remove('over'))});
+ $$('#poolA,#buildA').forEach(z=>{
+   z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('over')});
+   z.addEventListener('dragleave',e=>{if(!z.contains(e.relatedTarget))z.classList.remove('over')});
+   z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('over');if(!dragEl)return;const list=$('.chiplist',z);if(dragEl.parentElement!==list){const em=$('.empty',list);if(em)em.remove();list.appendChild(dragEl);recalc()}});
+ });
+ [pool,build].forEach(l=>l.addEventListener('click',e=>{const c=e.target.closest('.fchip');if(c)move(c)}));
+ [pool,build].forEach(l=>l.addEventListener('keydown',e=>{const c=e.target.closest('.fchip');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();move(c)}}));
+ // preload two so it's not empty
+ move($('.fchip[data-i="0"]',pool));move($('.fchip[data-i="1"]',pool));
+})();
+$('#chkB').innerHTML=FEATURES.map((f,i)=>`<div class="chk-item${i<3?' on':''}" data-i="${i}" role="checkbox" tabindex="0"><span class="box">${i<3?'✓':''}</span><span class="t">${f[0]}<small>${f[2]}</small></span><span class="h">${f[1]} h</span></div>`).join('');
+function chkCalc(){const on=$$('#chkB .chk-item.on');$('#hrsB').textContent=on.reduce((s,c)=>s+FEATURES[c.dataset.i][1],0);$('#cntB').textContent=on.length+' feature'+(on.length===1?'':'s')+' selected'}
+$$('#chkB .chk-item').forEach(c=>{const t=()=>{c.classList.toggle('on');$('.box',c).textContent=c.classList.contains('on')?'✓':'';chkCalc()};c.addEventListener('click',t);c.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();t()}})});
+chkCalc();
+
+/* ======================= 07 FOUNDERS ======================= */
+const fNote=f=>f.note?`<span class="note block">${f.note}</span>`:'';
+$('#fcA').innerHTML=FOUNDERS.map(f=>`<div class="fcard"><div class="avatar"><div>${f.i}</div></div><h3>${f.n}</h3><div class="role">${f.r}</div><p>${f.b}</p>${fNote(f)}</div>`).join('')+'<span class="note block" style="grid-column:1/-1">replace initials with headshots</span>';
+$('#spotList').innerHTML=FOUNDERS.map((f,i)=>`<button data-i="${i}" class="${i?'':'on'}"><span><h3>${f.n}</h3><small>${f.r}</small></span><span class="dim">→</span></button>`).join('');
+function spot(i){const f=FOUNDERS[i];$$('#spotList button').forEach((b,j)=>b.classList.toggle('on',j==i));
+ $('#spotView').innerHTML=`<div style="display:flex;gap:18px;align-items:center;animation:fadeIn .35s"><div class="avatar" style="width:84px;height:84px"><div style="font-size:28px">${f.i}</div></div><div><div class="role" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--iris-glow);font-weight:600">${f.r}</div><div style="font-size:22px;margin-top:2px">${f.n}</div></div></div><div class="big" style="animation:fadeIn .45s">"${f.q}"</div><p class="muted" style="animation:fadeIn .55s">${f.b}</p><div style="display:flex;gap:8px;flex-wrap:wrap">${f.t.map(t=>`<span class="tag">${t}</span>`).join('')}</div>${fNote(f)}`}
+$$('#spotList button').forEach(b=>b.addEventListener('click',()=>spot(+b.dataset.i)));spot(0);
+$('#fcC').innerHTML=FOUNDERS.map(f=>`<div class="flip" tabindex="0"><div class="flip-in"><div class="flip-f"><div class="avatar"><div>${f.i}</div></div><h3 style="font-family:var(--serif);font-weight:400;font-size:28px;margin-top:12px">${f.n}</h3><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--iris-glow);font-weight:600">${f.r}</div><span class="hint">hover or tap ↻</span></div><div class="flip-b"><div style="font-family:var(--serif);font-size:24px;line-height:1.15;color:#fff">${f.q}</div><p>${f.b}</p><div style="display:flex;gap:6px;flex-wrap:wrap">${f.t.map(t=>`<span class="tag" style="border-color:rgba(186,167,255,.3);color:#d8d4f5">${t}</span>`).join('')}</div></div></div>${fNote(f)}</div>`).join('');
+$$('#fcC .flip').forEach(c=>{c.addEventListener('click',()=>c.classList.toggle('on'));c.addEventListener('keydown',e=>{if(e.key==='Enter')c.classList.toggle('on')})});
+
+/* ======================= 09 FAQ ======================= */
+const fq=q=>q[2]?` <span class="note">${q[2]}</span>`:'';
+$('#faqA').innerHTML=FAQ.map((q,i)=>`<div class="acc-item${i?'':' open'}"><button><h3 style="font-size:24px">${q[0]}</h3><span class="ic">+</span></button><div class="panel"><div style="padding-left:0">${q[1]}${fq(q)}</div></div></div>`).join('');
+accBind($('#faqA'));
+$('#faqB').innerHTML=FAQ.map(q=>`<div><h3>${q[0]}</h3><p>${q[1]}${fq(q)}</p></div>`).join('');
+function chat(n){$('#faqC').innerHTML=FAQ.slice(0,n).map(q=>`<div class="bub q">${q[0]}</div><div class="bub a"><small>Caprae Tech</small>${q[1]}${fq(q)}</div>`).join('')+(n<FAQ.length?`<button class="btn btn-ghost chat-more" id="chatMore">Show ${FAQ.length-n} more questions</button>`:'');const m=$('#chatMore');if(m)m.addEventListener('click',()=>chat(FAQ.length))}
+chat(4);
+
+/* ======================= 10 BOOK ======================= */
+const FORM=`<div class="two"><div class="field"><label>First name</label><input name="first" autocomplete="given-name" placeholder="Jane"><div class="msg">Required</div></div><div class="field"><label>Last name</label><input name="last" autocomplete="family-name" placeholder="Doe"><div class="msg">Required</div></div></div>
+<div class="field"><label>Work email</label><input name="email" type="email" autocomplete="email" placeholder="jane@company.com"><div class="msg">Enter a valid email</div></div>
+<div class="field"><label>What's the call about?</label><textarea name="reason" placeholder="e.g. We run a staffing firm and want a client portal instead of emailing timesheets."></textarea><div class="msg">Tell us a line or two</div></div>
+<button class="btn btn-white btn-book" type="submit" style="width:100%;margin-top:4px">Book a call <span class="arr" aria-hidden="true">→</span></button>
+<div class="dim" style="font-size:12px;text-align:center">Four fields. We'll email you to set the time.</div>`;
+function days(){const out=[];const d=new Date();while(out.length<5){d.setDate(d.getDate()+1);if(d.getDay()%6)out.push(new Date(d))}return out}
+function calHTML(first,email){return `<div class="done-ico" aria-hidden="true">✓</div><div style="font-family:var(--serif);font-size:32px">Thanks, ${esc(first)}.</div><p class="muted" style="margin-top:8px">We'll email you at ${esc(email)} to set up your 30-minute call.</p>`}
+$$('[data-form]').forEach(f=>{
+  f.innerHTML=FORM;
+  const done=f.nextElementSibling;
+  f.addEventListener('submit',e=>{e.preventDefault();let ok=true;
+    const val={};$$('input,textarea',f).forEach(inp=>{const v=inp.value.trim();val[inp.name]=v;const bad=!v||(inp.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));inp.parentElement.classList.toggle('err',bad);if(bad)ok=false});
+    if(!ok)return;
+    f.style.display='none';done.innerHTML=calHTML(val.first,val.email);done.classList.add('show');
+    $$('.cal-slots button',done).forEach(b=>b.addEventListener('click',()=>{$$('.cal-slots button',done).forEach(x=>x.classList.remove('on'));b.classList.add('on');toast('Mock booked: '+b.textContent)}));
+    if(f.hasAttribute('data-stepper')){const s=$$('#stepbar .s');s[1].classList.add('on');}
+  });
+  $$('input,textarea',f).forEach(inp=>inp.addEventListener('input',()=>inp.parentElement.classList.remove('err')));
+});
+})();
+</script>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
