@@ -1,0 +1,71 @@
+/* Final draft 4: draft 2's content in capraecapital.com's look (D-082), read from that site
+   2026-10-02: #0A0A0A ground, #1A1A1A panels with a gold top rule, Cormorant Garamond
+   headings with open letter spacing, Inter body in #B0B0B0, square gold buttons, a white
+   outline secondary. Gold is the only accent; the rest is black, graphite and grey. */
+:root {
+  --void: #0a0a0a; --surface: #141414; --panel: #1a1a1a; --panel-2: #1e1e1e;
+  --hair: #2a2a2a; --hair-2: #1e1e1e;
+  --bone: #ffffff; --ash: #b0b0b0; --iron: #808080; --charcoal: #5a5a5a;
+  --iris: #f9d360; --iris-2: #e0b43c; --iris-glow: #f9d360;
+  --grad: linear-gradient(135deg, #f9d360 0%, #e0b43c 100%);
+  --serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --r: 2px; --r-lg: 2px;
+}
+body { background: var(--void); color: var(--ash); }
+
+/* headings: Cormorant, open tracking, white; the italic accents in gold */
+body h1.display { font-family: var(--serif); font-weight: 400; letter-spacing: 0.02em; line-height: 1.08; color: #fff; }
+body h2.title, body .statement-line { font-family: var(--serif); font-weight: 400; letter-spacing: 0.015em; line-height: 1.1; color: #fff; }
+body h3 { color: #fff; }
+body :is(h1.display, h2.title, .statement-line) .it { font-style: italic; }
+body h2.title .it.muted { color: var(--ash); }
+body .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+body .eyebrow { letter-spacing: 0.2em; color: var(--iris); }
+body .eyebrow::before { background: var(--iris); border-radius: 0; }
+body .pill, body .tag { border-radius: 2px; }
+body .tag.founder { color: var(--iris); border-color: rgba(249, 211, 96, 0.4); }
+
+/* the nav brand set like CAPRAE CAPITAL */
+body .site-nav { background: rgba(10, 10, 10, 0.9); }
+body .site-nav .brand { font-family: var(--serif); font-weight: 500; font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; }
+
+/* panels: flat graphite with the gold top rule, square corners */
+body :is(.card, .day, .flip-f, .flip-b, .cmp, .stack div, .mock-dash) {
+  border-radius: 2px;
+}
+body .card { background: var(--panel); border: 1px solid var(--hair); border-top: 3px solid var(--iris); }
+body .card:hover { border-color: #3a3a3a; border-top-color: var(--iris); }
+body .flip-f { background: var(--panel); border-top: 3px solid var(--iris); }
+body .flip-b { background: #141414; color: var(--ash); border-top: 3px solid var(--iris); }
+body .avatar { background: var(--grad); }
+body .mock-bars i { background: linear-gradient(#f9d360, #6b5a24); }
+body .svc-ico { border-radius: 2px; color: var(--iris); }
+
+/* How it works: the check-in day in gold, readable on dark text */
+body .day { background: #111; }
+body .day.hl { border-color: rgba(249, 211, 96, 0.6); box-shadow: 0 0 0 1px rgba(249, 211, 96, 0.2), 0 20px 60px -24px rgba(249, 211, 96, 0.35); }
+body .ev.you { background: var(--iris); color: #0a0a0a; font-weight: 600; }
+
+/* buttons: square gold primary, white outline secondary */
+body .btn { border-radius: 2px; }
+body .btn-white {
+  background: var(--iris); color: #0a0a0a; border: 1px solid var(--iris);
+  box-shadow: 0 10px 28px -14px rgba(249, 211, 96, 0.7);
+}
+body .btn-white:hover { filter: none; background: #ffe08a; box-shadow: 0 14px 34px -14px rgba(249, 211, 96, 0.9); }
+body .btn-white .arr { border-radius: 2px; background: #0a0a0a; color: var(--iris); }
+body .btn-ghost { border-color: #fff; color: #fff; }
+body .btn-ghost:hover { border-color: var(--iris); color: var(--iris); }
+body .hero .btn-ghost { border-color: #fff; color: #fff; }
+body .done-ico { border-radius: 2px; color: #0a0a0a; }
+
+/* the statement panel and the crew call signs in the gold */
+body .statement .wrap { border-radius: 2px; background: rgba(20, 20, 20, 0.7); border-top: 3px solid var(--iris); }
+body .crew .sign, body .rotor.typing::after { color: var(--iris); }
+body .rotor.typing::after { background: var(--iris); }
+body .src-btn { border-radius: 2px; }
+body .src-btn:hover { border-color: var(--iris); background: rgba(249, 211, 96, 0.1); }
+
+/* section rhythm, as draft 2 */
+body .sec-pad { padding-top: clamp(64px, 8vw, 104px); padding-bottom: clamp(64px, 8vw, 104px); }
+body .sec-head { gap: 28px; margin-bottom: 36px; }

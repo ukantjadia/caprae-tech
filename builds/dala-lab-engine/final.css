@@ -10,29 +10,31 @@
 }
 @keyframes caret { 50% { opacity: 0; } }
 
-/* ---- the statement band after the hero ---- */
-.statement { position: relative; padding: clamp(56px, 9vw, 110px) 0; text-align: center; }
-.statement-line { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 6.4vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: var(--bone); text-wrap: balance; }
-.statement::before, .statement::after {
-  content: ""; position: absolute; left: 50%; width: min(560px, 70vw); height: 1px; transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(186, 167, 255, 0.45), transparent);
+/* ---- the statement band after the hero: one wide panel (D-081, was draft 3's) ---- */
+.statement { position: relative; padding: clamp(40px, 6vw, 80px) 0; text-align: center; }
+.statement .wrap {
+  max-width: 1080px; padding: clamp(36px, 5vw, 64px) 24px; border-radius: 28px;
+  background: rgba(10, 11, 14, 0.5); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
-.statement::before { top: 0; } .statement::after { bottom: 0; }
+.statement-line { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5.6vw, 76px); line-height: 1.04; letter-spacing: -0.02em; color: var(--bone); text-wrap: balance; }
 
-/* ---- the primary button: Book a call ---- */
+/* ---- the primary button: Book a call (D-081). A filled iris pill with a lit top edge; the
+   hero's arrow sits in a white chip. The page's dark text halo is turned off on it. ---- */
 .btn-white {
-  position: relative; isolation: isolate; color: #0a0a0c; font-weight: 600;
-  background: linear-gradient(180deg, #fff 0%, #e9e6ff 100%);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 8px 28px -6px rgba(146, 129, 247, 0.55), 0 0 0 4px rgba(146, 129, 247, 0.12);
-  transition: transform 0.18s, box-shadow 0.25s;
+  position: relative; color: #fff; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(135deg, #a293ff 0%, #7d62f2 55%, #9a54dc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 10px 28px -10px rgba(146, 129, 247, 0.85);
+  transition: transform 0.18s, box-shadow 0.25s, filter 0.25s;
 }
-.btn-white:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px #fff inset, 0 14px 36px -8px rgba(146, 129, 247, 0.8), 0 0 0 6px rgba(146, 129, 247, 0.18); }
+.btn-white:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 16px 38px -10px rgba(146, 129, 247, 1); }
 .btn-white:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 3px; }
-.btn-book { padding: 17px 24px; font-size: 16px; }
-/* dark text on a light button: the page's dark text halo (engine.css) would smudge it */
 section[data-section] .btn-white, section[data-section] .btn-white * { text-shadow: none; }
-.btn-book .arr { display: inline-block; transition: transform 0.2s; }
-.btn-book:hover .arr { transform: translateX(4px); }
+.btn-white .arr { display: inline-grid; place-items: center; width: 26px; height: 26px; margin: -4px -10px -4px 2px; border-radius: 50%; background: #fff; color: #5b3fd6; font-size: 14px; transition: transform 0.2s; }
+.btn-white:hover .arr { transform: translateX(3px); }
+.hero .btn-white { padding: 15px 18px 15px 26px; font-size: 16px; }
+.btn-book { padding: 17px 24px; font-size: 16px; }
+.btn-book .arr { width: auto; height: auto; margin: 0; background: none; color: inherit; font-size: inherit; }
 .done-ico {
   width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 24px; color: #fff; background: var(--grad); box-shadow: 0 10px 30px -8px rgba(146, 129, 247, 0.7);
@@ -83,18 +85,21 @@ section[data-section] .btn-white, section[data-section] .btn-white * { text-shad
 .src-btn:hover { border-color: var(--iris); background: rgba(146, 129, 247, 0.12); }
 .src-btn:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 2px; }
 
-/* ---- build team: crew cards with a photo slot and a call sign ---- */
-.crew { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px; }
-@media (max-width: 560px) { .crew { grid-template-columns: 1fr; } }
-.crew-card { display: flex; gap: 14px; align-items: center; padding: 18px; }
-.crew-card .avatar {
-  flex: none; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-size: 24px; color: #fff; background: radial-gradient(circle at 30% 25%, #2a2440, #0b0b10 70%);
-  box-shadow: 0 0 0 1px var(--hair), 0 0 0 4px rgba(146, 129, 247, 0.1);
-}
-.crew-card .sign { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iris-glow); }
-.crew-card h3 { margin-top: 4px; font-size: 18px; }
-.crew-card .dim { font-size: 13px; margin-top: 2px; }
+/* ---- build team: crew flip cards, Founders C's layout (D-081) ---- */
+.crew .flip { height: 340px; }
+.crew .flip-f .avatar { width: 104px; height: 104px; }
+.crew .flip-f h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; margin-top: 4px; }
+.crew .role { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); font-weight: 600; }
+.crew .sign { margin-top: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--iris-glow); }
+.crew .flip-b .owns { font-family: var(--serif); font-size: 24px; line-height: 1.2; color: #fff; }
+
+/* ---- FAQ C (D-081): questions blue, answers green, the thread spread to the page width so
+   the two sides sit apart; bubbles keep their width ---- */
+#faq .chat { max-width: none; gap: 10px; }
+#faq .bub { max-width: min(560px, 92%); padding: 16px 20px; }
+#faq .bub.q { background: linear-gradient(160deg, rgba(112, 184, 255, 0.28), rgba(112, 184, 255, 0.1)); border-color: rgba(112, 184, 255, 0.6); color: #eaf4ff; }
+#faq .bub.a { margin-bottom: 10px; background: linear-gradient(160deg, rgba(58, 211, 137, 0.16), rgba(58, 211, 137, 0.05)); border-color: rgba(58, 211, 137, 0.42); color: #dcf7ea; }
+#faq .bub.a small { color: #6fe3a8; }
 
 @media (prefers-reduced-motion: reduce) {
   .fx *, .rotor.typing::after { animation: none !important; }

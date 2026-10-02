@@ -15,7 +15,7 @@ const patcher = html => {
 
 // proof links: the public site of the company each build runs in (searched 2026-10-02).
 // Simba has no site we could find, so it gets no button.
-const SOURCES = {
+export const SOURCES = {
   'Caprae CRM': 'capraecapitalpartners.com',
   'Recruitment pipeline': 'capraecapitalpartners.com',
   'Lead QA': 'capraecapitalpartners.com',
@@ -57,18 +57,26 @@ export function finalText(src) {
   // what we build: each box carries the matching proof result and a small moving picture of it
   patch('<span class="note block">mock numbers, illustration only</span></div>', '</div>', 'mvp note')
   patch('<span class="tag">Owners · Ops leads</span></div>',
-    `${result('crm', '1 click', 'Caprae CRM: a client sees the whole account, instead of a weekly call')}<span class="tag">Owners · Ops leads</span></div>`, 'dashboards result')
+    `${result(...SERVICE_RESULTS.Dashboards)}<span class="tag">Owners · Ops leads</span></div>`, 'dashboards result')
   patch('help you evaluate and acquire businesses.</p></div></div>',
-    `help you evaluate and acquire businesses.</p></div>${result('live', 'Live', 'Bankers Edge advisory platform, in production')}</div>`, 'deal result')
+    `help you evaluate and acquire businesses.</p></div>${result(...SERVICE_RESULTS['Deal & financial tools'])}</div>`, 'deal result')
   patch('added only where they pay back.</p></div></div>',
-    `added only where they pay back.</p></div>${result('qa', '30 → 10 hrs/wk', 'Lead QA: AI scores every lead, a human spot-checks')}</div>`, 'ai result')
+    `added only where they pay back.</p></div>${result(...SERVICE_RESULTS['AI assistants'])}</div>`, 'ai result')
   patch('instead of ten spreadsheets.</p></div></div>',
-    `instead of ten spreadsheets.</p></div>${result('pipe', '~20 hrs/wk', 'Recruitment pipeline: returned to the recruitment team')}</div>`, 'internal result')
+    `instead of ten spreadsheets.</p></div>${result(...SERVICE_RESULTS['Internal team tools'])}</div>`, 'internal result')
   return get()
 }
 
+// What we build: the proof result each service box carries (D-080), shared with draft 5
+export const SERVICE_RESULTS = {
+  Dashboards: ['crm', '1 click', 'Caprae CRM: a client sees the whole account, instead of a weekly call'],
+  'Deal & financial tools': ['live', 'Live', 'Bankers Edge advisory platform, in production'],
+  'AI assistants': ['qa', '30 → 10 hrs/wk', 'Lead QA: AI scores every lead, a human spot-checks'],
+  'Internal team tools': ['pipe', '~20 hrs/wk', 'Recruitment pipeline: returned to the recruitment team'],
+}
+
 // a result strip: an animated picture (CSS, final.css .fx-*) plus the number and its source
-function result(kind, num, text) {
+export function result(kind, num, text) {
   const pic = {
     crm: '<div class="fx fx-crm"><i></i><i></i><i></i><b class="cur"></b></div>',
     live: '<div class="fx fx-live"><span class="dot"></span>LIVE</div>',
@@ -78,13 +86,20 @@ function result(kind, num, text) {
   return `<div class="svc-res">${pic}<div class="svc-num"><b>${num}</b><span>${text}</span></div></div>`
 }
 
-// call signs (user's choice 2026-10-02: suggested, change any time); photos go in the avatar
-const TEAM = [
-  ['Siddhant Pahuja', 'SP', 'Overwatch', 'Head of AI & Automation'],
-  ['Ukant', 'U', 'Pointman', 'Lead engineer'],
-  ['Hiten', 'H', 'Recon', 'Engineer'],
-  ['Dejan', 'D', 'Sapper', 'Engineer'],
+// call signs (user's choice 2026-10-02: suggested, change any time); photos go in the avatar.
+// The back of each card is that person's line from the Lab's Team B.
+export const TEAM = [
+  ['Siddhant Pahuja', 'SP', 'Overwatch', 'Head of AI & Automation', 'Owns architecture, feature definition and how every AI step is tested against a human before it ships.'],
+  ['Ukant', 'U', 'Pointman', 'Lead engineer', 'Runs day-to-day execution and the core builds.'],
+  ['Hiten', 'H', 'Recon', 'Engineer', 'Front-end and product builds.'],
+  ['Dejan', 'D', 'Sapper', 'Engineer', 'Platform features and integrations.'],
 ]
+
+// a crew flip card (D-081), laid out like Founders C. Front: photo slot, call sign, name,
+// role. Back: what the person owns.
+export const crewCard = ([name, ini, sign, role, owns]) =>
+  `<div class="flip" tabindex="0"><div class="flip-in"><div class="flip-f"><div class="avatar" aria-hidden="true"><div>${ini}</div></div><div class="sign">“${sign}”</div><h3>${name}</h3><div class="role">${role}</div><span class="hint">hover or tap ↻</span></div>` +
+  `<div class="flip-b"><div class="sign">“${sign}”</div><div class="owns">${owns}</div><div class="role">${name} · ${role}</div></div></div></div>`
 
 export function finalRewrite(rw) {
   return rw
@@ -92,12 +107,10 @@ export function finalRewrite(rw) {
     .on('section#hero', {
       element: e => e.after(`<div class="statement"><div class="wrap"><p class="statement-line">Dev shops build what you ask.<br><span class="grad-text it">Founders build what sells.</span></p></div></div>`, { html: true }),
     })
-    // build team C: a card per person with a photo slot and a call sign, in place of the rows
-    .on('section#team div.variant[data-v="c"] div.rows', {
-      element: e => {
-        e.setAttribute('class', 'crew')
-        e.setInnerContent(TEAM.map(([name, ini, sign, role]) =>
-          `<div class="card crew-card"><div class="avatar" aria-hidden="true">${ini}</div><div><div class="sign">“${sign}”</div><h3>${name}</h3><div class="dim">${role}</div></div></div>`).join(''), { html: true })
-      },
+    // the hero's Book a call: the arrow sits in its own chip (final.css .arr)
+    .on('section#hero a.btn-white', { element: e => e.setInnerContent('Book a call <span class="arr" aria-hidden="true">→</span>', { html: true }) })
+    // build team C: the heading and four crew flip cards; the tool grid goes (D-081)
+    .on('section#team div.variant[data-v="c"] div.sec-pad', {
+      element: e => e.setInnerContent(`<div class="wrap"><div class="sec-head"><div><span class="eyebrow">The build team</span><h2 class="title" style="margin-top:14px">Small team.<br><span class="it muted">Senior judgment.</span></h2></div></div><div class="fcards crew">${TEAM.map(crewCard).join('')}</div></div>`, { html: true }),
     })
 }

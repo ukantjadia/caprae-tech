@@ -1,0 +1,23 @@
+{
+  "name": "dala-final-draft-4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "port": "bun ../dala-lab-engine/port-lab.js cbaabacccb \"Final draft 4\" final",
+    "bake": "bun ../dala-lab-engine/bake.js",
+    "dev": "vite --port 5207",
+    "build": "vite build",
+    "preview": "vite preview --port 5207"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.1"
+  }
+}

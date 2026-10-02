@@ -1247,3 +1247,24 @@ Draft 2 keeps the Lab look (serif, iris, opaque panels). Draft 3 is glass: Inter
 Alternatives: Draft 2 on Dala and Draft 3 on R (offered; the user chose both on Dala). Animated counters for the results (ruled out by D-052).
 Why: User, 2026-10-02, answers: both drafts on the particle site, suggested call signs and photo slots, the statement as a band after the hero, results matched to each box.
 Reversible: yes
+
+## D-081. Drafts 2 and 3: team as founders-style flip cards, FAQ blue and green, one primary button
+Date: 2026-10-02
+Decision: Build team C keeps its heading and shows the four crew as flip cards laid out like Founders C (front: photo slot, call sign, name, role; back: what each owns, from the Lab's Team B); the tool grid goes. FAQ C: questions blue, answers green, the thread spread to the page width so the two sides sit apart, bubbles kept at their width (max 560 px). Primary buttons are one filled iris pill with a lit top edge; the hero's arrow sits in a white chip. The glass statement panel (was draft 3 only) is shared, so draft 2 has it too. Draft 3: `--grad` stays the Lab's iris (the How it works check-in box was white-on-lilac because draft 3 had replaced it), the silver fill becomes `--grad-silver` for headline accents only, and What we build uses draft 2's solid panels.
+Alternatives: Only the four cards without the heading; switch to the Team B pick (both offered; the user chose heading + cards).
+Why: User feedback 2026-10-02 on drafts 2 and 3.
+Reversible: yes
+
+## D-082. Final draft 4: draft 2's content in capraecapital.com's look
+Date: 2026-10-02
+Decision: Read from https://capraecapital.com/ in the browser: #0A0A0A ground, #1A1A1A panels with a 3 px #F9D360 top rule, Cormorant Garamond headings with open letter spacing, Inter body in #B0B0B0, square gold primary button, white outline secondary. builds/dala-final-draft-4 is draft 2 (same port, same content) with those tokens in src/style.css (rules prefixed with `body` so they beat the Lab's in-body styles) and a gold, grey, graphite and white particle palette. How it works says "The gold box" here, since the box is gold.
+Alternatives: Draft 1's content (offered; the user chose draft 2's).
+Why: User, 2026-10-02: a draft with the capraecapital.com theme, black and grey allowed, nothing outside its palette.
+Reversible: yes
+
+## D-083. Final draft 5: draft 2's content in new layouts
+Date: 2026-10-02
+Decision: A page written from scratch (scripts/build-page.js writes index.html; no Lab markup, no Lab script). The text comes from the Lab's own lists and the picked variants, and the results, sources and crew from dala-lab-engine/final.js. Draft 2's theme. Each section reads like a document: a left-aligned typing hero with the particle C on the right; the statement split down the middle; Why as a redline (dev-shop answer struck, ours set in serif); What we build as a numbered index with each result on the right; Proof as a filterable ledger with source buttons; How it works as one week line with Thursday raised above it; Pricing as a menu with dotted leaders and a running receipt; Founders as a 2x2 grid of profiles; the team as a crew manifest; FAQ as a question list (blue) beside the open answer (green); Book as three numbered promises beside the form. Founders uses Founders A's heading, because the picked heading says "Flip for the track record" and there is no flip here.
+Alternatives: Draft 1's text with the fixes, or draft 1 exactly (offered; the user chose draft 2's content).
+Why: User, 2026-10-02: a completely different look for every section, in draft 2's theme.
+Reversible: yes
