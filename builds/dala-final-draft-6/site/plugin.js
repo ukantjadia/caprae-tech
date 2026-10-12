@@ -1,0 +1,98 @@
+// Fills each page's markers with the shared parts, in dev and in the build:
+//   <!--@head-->    title, description and social tags from routes.js
+//   <!--@nav-->     the navbar          <!--@crumbs-->  the breadcrumb trail
+//   <!--@book-->    the closing band    <!--@footer-->  the footer
+// and {{SITE}} with SITE_URL. In the build it also writes sitemap.xml and robots.txt.
+// Then it prefixes root-relative <a href="/..."> links with the deploy base, so the same
+// pages work at / locally and at /caprae-tech/final-draft-6/ on GitHub Pages.
+import { readdirSync, statSync } from 'node:fs'
+import { join, relative, sep } from 'node:path'
+import { ROUTES, SITE_URL } from './routes.js'
+import { head, nav, crumbs, bookBand, footer } from './chrome.js'
+import { pageShapes } from './shapes.js'
+
+const SKIP = new Set(['node_modules', 'dist', 'src', 'public', 'site'])
+
+// every index.html under the project, as { route: '/work/lead-qa/', file }
+export function findPages(root) {
+  const out = []
+  const walk = dir => {
+    for (const name of readdirSync(dir)) {
+      if (SKIP.has(name) || name.startsWith('.')) continue
+      const full = join(dir, name)
+      if (statSync(full).isDirectory()) walk(full)
+      else if (name === 'index.html') {
+        const rel = relative(root, dir).split(sep).join('/')
+        out.push({ route: rel ? `/${rel}/` : '/', file: full })
+      }
+    }
+  }
+  walk(root)
+  return out
+}
+
+// inner pages (D-096): which shape set the page loads, the box its hero shape is fitted into,
+// and where the particles change: the first content section scatters them into a cloud, unless
+// site/shapes.js lists stops for the page's sections; the Book a call band forms the C
+function particleStops(html, route) {
+  const { set, stops } = pageShapes(route)
+  html = html.replace(/<body([^>]*)>/, `<body$1 data-shapes="${set}">`)
+  html = html.replace('<section class="pg-hero">', '<section class="pg-hero" data-stop="0"><div class="hero-mark" aria-hidden="true"></div>')
+  const list = stops || ['cloud']
+  let i = 0
+  html = html.replace(/<section class="pg-sec([^"]*)"/g, (m, rest) => {
+    const s = list[i++]
+    if (!s) return m
+    const [shape, side] = s.split('@')
+    return `<section class="pg-sec${rest}" data-stop="${shape}"${side ? ` data-side="${side}"` : ''}`
+  })
+  return html
+}
+
+export function sitePages({ root, base }) {
+  const pages = findPages(root)
+  // a page file with no route (or a route with no file) is a broken link waiting to happen
+  const files = new Set(pages.map(p => p.route))
+  const missing = Object.keys(ROUTES).filter(r => !files.has(r))
+  const orphan = [...files].filter(r => !ROUTES[r])
+  if (missing.length || orphan.length) throw new Error(`routes.js and the page files disagree. No file: ${missing.join(', ') || '-'}. No route: ${orphan.join(', ') || '-'}`)
+
+  return {
+    name: 'caprae-site-pages',
+    config: () => ({ build: { rollupOptions: { input: Object.fromEntries(pages.map(p => [p.route === '/' ? 'home' : p.route.slice(1, -1), p.file])) } } }),
+    // the sitemap and robots.txt, from routes.js, so they always match the pages
+    generateBundle() {
+      const urls = Object.keys(ROUTES).map(r => `  <url><loc>${SITE_URL}${r}</loc></url>`).join(`
+`)
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+` })
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+` })
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        const rel = relative(root, ctx.filename).split(sep).join('/')
+        const route = rel === 'index.html' ? '/' : `/${rel.replace(/index\.html$/, '')}`
+        if (!ROUTES[route]) throw new Error(`no route for ${rel}`)
+        const fill = (marker, value) => { html = html.split(`<!--@${marker}-->`).join(value) }
+        fill('head', head(route))
+        fill('nav', nav(route))
+        fill('crumbs', crumbs(route))
+        fill('book', bookBand())
+        fill('footer', footer())
+        html = html.split('{{SITE}}').join(SITE_URL) // page-level structured data uses this token
+        if (route !== '/') html = particleStops(html, route)
+        if (!/<body[^>]*\bid=/.test(html)) html = html.replace(/<body([^>]*)>/, '<body$1 id="top">')
+        if (base !== '/') html = html.replace(/(<a\b[^>]*?\bhref=")\/(?!\/)/g, `$1${base}`)
+        return html
+      },
+    },
+  }
+}

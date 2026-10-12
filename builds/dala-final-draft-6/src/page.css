@@ -1,0 +1,227 @@
+/* Inner pages: the parts the home page doesn't have. Everything else (cards, buttons, tables,
+   accordions, type) comes from home-styles.css, so the pages read as one site. */
+
+/* ---- page hero: eyebrow, serif title, lead, Book a call. Short, so the CTA sits above the fold ---- */
+.pg-hero { position: relative; overflow: hidden; overflow: clip; padding: 36px 0 clamp(64px, 8vw, 96px); border-bottom: 1px solid var(--hair-2); }
+.pg-hero::before { content: ""; position: absolute; top: -30vw; right: -16vw; width: 72vw; height: 72vw; max-width: 980px; max-height: 980px; background: radial-gradient(closest-side, rgba(146, 129, 247, 0.17), transparent); pointer-events: none; }
+.pg-hero::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: min(1180px, 92vw); height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(146, 129, 247, 0.55), transparent); }
+.pg-hero .wrap { position: relative; }
+.pg-title { margin-top: 18px; max-width: 17ch; font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 6.6vw, 88px); line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
+.pg-hero .lead { margin-top: 22px; }
+.pg-hero .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.pg-hero .btn-white { padding: 15px 18px 15px 26px; font-size: 16px; }
+.pg-hero .btn-ghost { border-color: transparent; color: var(--ash); }
+.pg-hero .btn-ghost:hover { color: var(--bone); border-color: var(--hair); }
+
+/* ---- breadcrumbs ---- */
+.cx-crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--iron); }
+.cx-crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--charcoal); }
+.cx-crumbs a { color: var(--ash); transition: color 0.15s; }
+.cx-crumbs a:hover { color: var(--bone); }
+.cx-crumbs [aria-current] { color: var(--bone); }
+
+/* ---- content still to come: visible, in brackets, never mistaken for finished copy ---- */
+.todo { display: inline-block; padding: 10px 14px; border: 1px dashed rgba(186, 167, 255, 0.4); border-radius: 10px; background: rgba(146, 129, 247, 0.06); font-family: var(--mono); font-size: 13px; line-height: 1.5; color: #cfc8fb; }
+.todo.block { display: block; }
+
+/* ---- closing Book a call band (site/chrome.js) ---- */
+.cx-band { padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 8vw, 96px); }
+.cx-band-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+.cx-band .btn-white { padding: 15px 18px 15px 26px; font-size: 16px; }
+.cx-band .lead { margin-left: auto; margin-right: auto; }
+
+/* ---- page hero with a side panel (service pages: the result that proves it) ---- */
+.pg-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 56px; align-items: end; margin-top: 28px; }
+.pg-grid .eyebrow { margin-top: 0 !important; }
+.pg-aside { padding: 24px; }
+.pg-aside .svc-res { margin-top: 0; padding-top: 0; border-top: 0; }
+.pg-aside .mock-dash { margin-top: 0; }
+.pg-aside-cap { margin-top: 14px; font-size: 12px; color: var(--iron); }
+.pg-fine { margin-top: 22px; font-size: 13px; color: var(--iron); }
+.pg-fine b { color: var(--ash); font-weight: 500; }
+@media (max-width: 900px) { .pg-grid { grid-template-columns: 1fr; gap: 36px; } .pg-aside { max-width: 480px; } }
+
+/* ---- sections on inner pages: a hairline between them ---- */
+.pg-sec + .pg-sec { border-top: 1px solid var(--hair-2); }
+.pg-sec .sec-head .lead { max-width: 520px; }
+.prose { max-width: 680px; display: grid; gap: 18px; font-size: 17px; color: var(--ash); }
+.prose strong { color: var(--bone); font-weight: 500; }
+.split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 26px; } }
+
+/* a card that is one big link: the anchor's ::after covers the card */
+.card-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card:has(.card-link) { position: relative; cursor: pointer; }
+.card:has(.card-link:focus-visible) { outline: 2px solid var(--iris-glow); outline-offset: 3px; }
+.card-link:focus-visible { outline: none; }
+.go { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--bone); }
+.go .arr { color: var(--iris-glow); transition: transform 0.2s; }
+.card:hover .go .arr, a.go:hover .arr { transform: translateX(3px); }
+
+/* ---- examples by industry ---- */
+.ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ex-grid .card { display: flex; flex-direction: column; gap: 10px; min-height: 220px; }
+.ex-grid h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.05; }
+.ex-grid p { color: var(--ash); font-size: 15px; }
+.ex-grid .go { margin-top: auto; padding-top: 10px; }
+@media (max-width: 900px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .ex-grid { grid-template-columns: 1fr; } }
+
+/* ---- proof cards: the home page's Work cards with a link to the case ---- */
+.work-grid .wcard .go { margin-top: 0; }
+
+/* ---- sample scope (Pricing C's sheet) beside the pricing promise ---- */
+.sheet .sh-note td { color: var(--iron); font-size: 13px; text-align: left !important; font-family: var(--sans) !important; }
+.scope-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+/* ---- FAQ: native <details>, so answers open without JS ---- */
+.qa { border-top: 1px solid var(--hair); }
+.qa details { border-bottom: 1px solid var(--hair); }
+.qa summary { list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 24px 0; cursor: pointer; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 28px); line-height: 1.15; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::after { content: "+"; flex: none; font-family: var(--sans); font-size: 22px; color: var(--iron); transition: transform 0.25s; }
+.qa details[open] summary::after { transform: rotate(45deg); }
+.qa summary:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 4px; border-radius: 6px; }
+.qa .ans { padding: 0 0 26px; max-width: 70ch; color: var(--ash); }
+.qa .ans p + p { margin-top: 10px; }
+
+/* ---- related pages ---- */
+.rel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.rel-grid .card { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+.rel-grid h3 { font-size: 18px; }
+.rel-grid p { font-size: 14px; color: var(--ash); }
+.rel-grid .go { margin-top: auto; padding-top: 6px; }
+@media (max-width: 900px) { .rel-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .rel-grid { grid-template-columns: 1fr; } }
+
+/* ---- hub: the bento cards link to their pages ---- */
+.bento .card .go { position: relative; z-index: 1; }
+.else-card { background: var(--grad) !important; border-color: transparent !important; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+.else-card h3 { font-family: var(--serif); font-weight: 400; font-size: 34px; color: #fff; }
+.else-card p { color: #eee; }
+/* on the iris card the iris button would vanish: white here */
+.else-card .btn-white { background: #fff; color: #000; box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.6); }
+.else-card .btn-white .arr { background: var(--iris); color: #fff; }
+/* phones: the sample scope keeps feature and hours; "what it does" is the column that goes */
+.sheet td:last-child, .sheet th:last-child { white-space: nowrap; }
+.sheet .sh-note td { white-space: normal; }
+@media (max-width: 560px) { .sheet tbody td:nth-child(2), .sheet thead th:nth-child(2), .sheet tfoot tr:not(.sh-note) td:nth-child(2) { display: none; } .sheet td, .sheet th { padding: 12px 16px; } }
+
+/* ---- industry hero panel: the three builds, numbered ---- */
+.ind-mini { list-style: none; display: grid; gap: 14px; margin-top: 16px; }
+.ind-mini li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+.ind-mini .n { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--hair); display: grid; place-items: center; font-family: var(--mono); font-size: 12px; color: var(--iris-glow); }
+.ind-mini b { display: block; font-weight: 500; color: var(--bone); }
+.ind-mini span:not(.n) { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.45; color: var(--ash); }
+
+/* ---- founder mini cards (industry pages) ---- */
+.fmini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fmini { display: grid; grid-template-columns: 84px 1fr; gap: 22px; align-items: start; }
+.fmini .avatar { width: 84px; height: 84px; }
+.fmini .avatar div { font-size: 28px; }
+.fmini .role { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iris-glow); font-weight: 600; }
+.fmini h3 { margin-top: 4px; font-family: var(--serif); font-weight: 400; font-size: 28px; }
+.fmini p { margin-top: 8px; color: var(--ash); font-size: 15px; }
+.fmini .go { margin-top: 14px; }
+@media (max-width: 760px) { .fmini-grid { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .fmini { grid-template-columns: 1fr; gap: 14px; } }
+
+/* ---- org chart nodes that link to a profile ---- */
+a.org-node { display: block; transition: border-color 0.2s, transform 0.2s; }
+a.org-node:hover { border-color: rgba(146, 129, 247, 0.5); transform: translateY(-2px); }
+a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 3px; }
+
+/* ---- Book a call page: the form sits in the hero, beside what to expect ---- */
+.pg-hero .book-b { align-items: start; }
+.pg-hero .book-b .expect { margin-top: 28px; }
+.form-done:focus { outline: none; }
+.fcards .fcard .go { margin-top: auto; padding-top: 12px; }
+.fcards .card.fcard { padding: 28px 22px; }
+
+/* ---- case pages ---- */
+.pg-aside .grp { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--iron); }
+.pg-aside .svc-res, .case-num { margin-top: 18px; }
+.case-num b { display: block; font-family: var(--serif); font-weight: 400; font-size: 40px; line-height: 1; color: #fff; }
+.case-num span { display: block; margin-top: 6px; font-size: 14px; color: var(--ash); }
+.pbr-grid { display: grid; grid-template-columns: 1fr 1fr 0.9fr; gap: 16px; }
+.pbr-grid .card { display: flex; flex-direction: column; gap: 14px; min-height: 220px; }
+.pbr-grid .n { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--iris-glow); }
+.pbr-grid p { font-size: 17px; color: var(--bone); }
+.pbr-res { background: radial-gradient(90% 80% at 80% 10%, rgba(146, 129, 247, 0.2), transparent 60%), linear-gradient(#131316, #050506) !important; }
+.pbr-res b { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; color: #fff; }
+.pbr-res p { color: var(--ash) !important; font-size: 15px !important; }
+@media (max-width: 860px) { .pbr-grid { grid-template-columns: 1fr; } .pbr-grid .card { min-height: 0; } }
+.rel-links { display: grid; gap: 4px; align-content: start; }
+.rel-links .go { margin-top: 0; padding: 16px 0; border-bottom: 1px solid var(--hair-2); font-size: 18px; justify-content: space-between; }
+.chips[hidden] { display: none; }
+
+/* ---- profile pages (founders, build team) ---- */
+.person { display: flex; gap: 18px; align-items: center; }
+.person .avatar { width: 84px; height: 84px; }
+.person .avatar div { font-size: 28px; }
+.person .role { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iris-glow); font-weight: 600; }
+.person .sign { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--iris-glow); }
+.person-n { font-family: var(--serif); font-size: 28px; line-height: 1.1; margin: 2px 0; }
+.person-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 18px; }
+.pull { margin-top: 16px; font-family: var(--serif); font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.01em; color: var(--bone); text-wrap: balance; }
+.fmini-grid.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 980px) { .fmini-grid.three { grid-template-columns: 1fr; } }
+.fbios { display: grid; gap: 0; border-top: 1px solid var(--hair); }
+.fbio { display: grid; grid-template-columns: 96px 1fr; gap: 28px; padding: 32px 0; border-bottom: 1px solid var(--hair); }
+.fbio .avatar { width: 96px; height: 96px; }
+.fbio .avatar div { font-size: 32px; }
+.fbio .role { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iris-glow); font-weight: 600; }
+.fbio h3 { font-family: var(--serif); font-weight: 400; font-size: 32px; margin-top: 4px; }
+.fbio p { margin-top: 10px; max-width: 760px; color: var(--ash); }
+@media (max-width: 600px) { .fbio { grid-template-columns: 1fr; gap: 14px; } }
+.flip-b .go { color: #fff; }
+.org-node.is-cur { border-color: var(--iris); box-shadow: 0 0 0 1px rgba(146, 129, 247, 0.35), 0 14px 40px -16px rgba(146, 129, 247, 0.6); }
+
+/* ---- legal pages: contents on the left, numbered sections on the right ---- */
+.legal { display: grid; grid-template-columns: 240px 1fr; gap: 64px; align-items: start; }
+.legal-toc { position: sticky; top: 96px; }
+.legal-toc ol { list-style: none; display: grid; gap: 8px; margin-top: 16px; font-size: 14px; }
+.legal-toc a { color: var(--ash); }
+.legal-toc a:hover { color: var(--bone); }
+.legal-body { display: grid; gap: 44px; max-width: 720px; }
+.legal-body section { scroll-margin-top: 90px; }
+.legal-body h2 { display: flex; gap: 16px; align-items: baseline; font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.15; }
+.legal-body h2 span { font-family: var(--mono); font-size: 12px; color: var(--iris-glow); }
+.legal-body p { margin-top: 12px; color: var(--ash); }
+.legal-body .todo { margin-top: 12px; }
+@media (max-width: 860px) { .legal { grid-template-columns: 1fr; gap: 36px; } .legal-toc { position: static; } }
+
+/* ---- FAQ page (2026-10-12): topics on the left, grouped questions on the right ---- */
+.faq-toc a { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.faq-toc a span { font-family: var(--mono); font-size: 12px; color: var(--iron); }
+.faq-toc a.on { color: var(--bone); }
+.faq-toc a.on span { color: var(--iris-glow); }
+.faq-ask { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hair-2); font-size: 14px; color: var(--ash); }
+.faq-ask .go { margin-top: 6px; }
+.faq-body { display: grid; gap: 56px; }
+.faq-group { scroll-margin-top: 90px; }
+.faq-group h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.1; margin-bottom: 14px; }
+.faq-layout .qa summary { font-family: var(--sans); font-size: 18px; font-weight: 500; line-height: 1.35; padding: 22px 0; }
+.faq-layout .qa .ans { font-size: 16px; line-height: 1.65; }
+@media (max-width: 860px) {
+  .faq-toc ol { display: flex; flex-wrap: wrap; gap: 8px; }
+  .faq-toc a { padding: 8px 14px; border: 1px solid var(--hair); border-radius: 999px; gap: 8px; }
+  .faq-ask { display: none; }
+  .faq-layout { gap: 28px; }
+}
+
+/* ---- particles on inner pages (D-096) ---- */
+/* the box the hero's shape is fitted into: the right side of the hero, beside the text */
+.pg-hero .hero-mark { position: absolute; top: 28px; bottom: 28px; right: max(2vw, calc(50vw - 600px)); width: min(40vw, 500px); }
+@media (max-width: 760px) { .pg-hero .hero-mark { top: 8px; bottom: auto; height: min(42vh, 300px); width: 64vw; right: -10vw; } }
+/* the hero's side panel turns to frosted glass, so the shape behind it shows through */
+[data-shapes] .pg-aside { background: rgba(8, 8, 12, 0.74) !important; backdrop-filter: blur(20px) saturate(1.2); -webkit-backdrop-filter: blur(20px) saturate(1.2); }
+/* the Book a call band lets the C behind it show; the text mask keeps its words clear */
+[data-shapes] .cx-band .big-cta { background: radial-gradient(70% 90% at 50% 120%, rgba(146, 129, 247, 0.22), transparent 60%), rgba(6, 6, 9, 0.3); }
+/* the footer closes over the field */
+[data-shapes] .cx-foot { background-color: #000; }
+/* readability over the field: the home page's text halo (engine.css), for inner pages */
+[data-shapes] :is(main, .cx-band) :is(h1, h2, h3, h4, p, li, span, small, b, td, th, summary, a, label) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.9), 0 0 22px rgba(0, 0, 0, 0.75);
+}
+[data-shapes] :is(main, .cx-band) :is(.grad-text, .grad-text *, .btn-white, .btn-white *, .todo, .tag) { text-shadow: none; }

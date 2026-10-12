@@ -45,6 +45,8 @@ const dalaBuilds = [
   // draft 2's content in capraecapital.com's look (D-082), and in new layouts (D-083)
   ['../builds/dala-final-draft-4', 'final-draft-4'],
   ['../builds/dala-final-draft-5', 'final-draft-5'],
+  // the full multi-page site from the AI SEO Work Report, home = draft 2 (D-084, D-098)
+  ['../builds/dala-final-draft-6', 'final-draft-6'],
 ];
 
 rmSync(output, { recursive: true, force: true });
