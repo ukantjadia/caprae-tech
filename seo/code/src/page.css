@@ -225,3 +225,16 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.9), 0 0 22px rgba(0, 0, 0, 0.75);
 }
 [data-shapes] :is(main, .cx-band) :is(.grad-text, .grad-text *, .btn-white, .btn-white *, .todo, .tag) { text-shadow: none; }
+
+/* founder profile: press coverage */
+.press-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.press-list .press { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 20px 22px; transition: border-color 0.2s; }
+.press-src { grid-column: 1; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--iris-glow); }
+.press-t { grid-column: 1; font-family: var(--serif); font-size: 22px; line-height: 1.2; color: var(--bone); }
+.press-go { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--iron); }
+@media (max-width: 760px) { .press-list { grid-template-columns: 1fr; } }
+
+/* founder and team profiles: a short list of facts in the person's own words */
+.prose .facts { list-style: none; display: grid; gap: 10px; margin: 2px 0; }
+.prose .facts li { position: relative; padding-left: 20px; }
+.prose .facts li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--iris); }

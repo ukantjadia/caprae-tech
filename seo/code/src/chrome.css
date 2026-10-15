@@ -111,3 +111,16 @@
 @media (prefers-reduced-motion: reduce) {
   .cx-sub, .cx-chev, .cx-top, .cx-skip { transition: none !important; }
 }
+
+/* founder photos inside the round avatar (Kevin, Hereford, Zackary: from capraecapital.com) */
+.avatar.has-photo div { overflow: hidden; padding: 0; }
+.avatar.has-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; filter: saturate(0.92); }
+
+/* team chart: a small photo above each engineer's name */
+.org-node { display: inline-flex; flex-direction: column; align-items: center; }
+.org-ph { display: block; width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; padding: 2px; background: var(--grad); }
+.org-ph img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+/* a founder callout card with his photo */
+.callout-person { display: flex; gap: 20px; align-items: center; }
+.callout-person .avatar { width: 84px; height: 84px; flex: none; }
+@media (max-width: 560px) { .callout-person { flex-direction: column; align-items: flex-start; } }

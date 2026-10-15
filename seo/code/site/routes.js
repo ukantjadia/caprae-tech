@@ -126,10 +126,10 @@ export const ROUTES = {
     title: 'Zackary Beckham, Founder | Caprae Tech',
     description: 'Chief of Business Development at ITSco and co-founder of Destroy Drive, with 12+ years in operations and program management. Arizona State.',
   },
-  '/founders/mike-savano/': {
-    label: 'Mike Savano', parent: '/founders/',
-    title: 'Mike Savano, ITSco | Caprae Tech',
-    description: 'Mike Savano leads ITSco, a healthcare tech and engineering company delivering data analysis and analytics projects.',
+  '/founders/mike-savino/': {
+    label: 'Mike Savino', parent: '/founders/',
+    title: 'Mike Savino, ITSco | Caprae Tech',
+    description: 'Mike Savino leads ITSco, a healthcare tech and engineering company delivering data analysis and analytics projects.',
   },
 
   // ---- Build team
@@ -144,19 +144,19 @@ export const ROUTES = {
     description: 'Siddhant Pahuja owns architecture, feature definition and how every AI step is tested against a human before it ships.',
   },
   '/build-team/ukant/': {
-    label: 'Ukant', parent: '/build-team/',
-    title: 'Ukant, Lead Engineer | Caprae Tech',
-    description: 'Ukant is the lead engineer at Caprae Tech, running day-to-day execution and the core builds for founder-led products.',
+    label: 'Ukant Jadia', parent: '/build-team/',
+    title: 'Ukant Jadia, Lead Engineer | Caprae Tech',
+    description: 'Ukant Jadia is the lead engineer at Caprae Tech, running day-to-day execution and the core builds for founder-led products.',
   },
   '/build-team/hiten/': {
-    label: 'Hiten', parent: '/build-team/',
-    title: 'Hiten, Engineer | Caprae Tech',
-    description: 'Hiten is an engineer at Caprae Tech, working on front-end and product builds for founder-led products.',
+    label: 'Hiten Mehta', parent: '/build-team/',
+    title: 'Hiten Mehta, Engineer | Caprae Tech',
+    description: 'Hiten Mehta is an engineer at Caprae Tech, working on front-end and product builds for founder-led products.',
   },
   '/build-team/dejan/': {
-    label: 'Dejan', parent: '/build-team/',
-    title: 'Dejan, Engineer | Caprae Tech',
-    description: 'Dejan is an engineer at Caprae Tech, building platform features and integrations for founder-led products.',
+    label: 'Dejan Azul Ultamar', parent: '/build-team/',
+    title: 'Dejan Azul Ultamar, Engineer | Caprae Tech',
+    description: 'Dejan Azul Ultamar is an engineer at Caprae Tech, building platform features and integrations for founder-led products.',
   },
 
   // ---- Work
@@ -193,7 +193,7 @@ export const ROUTES = {
   '/work/itsco/': {
     label: 'ITSco', parent: '/work/',
     title: 'ITSco: Healthcare Tech & Engineering | Caprae Tech',
-    description: 'Integrated Technical Services: tech development, data analysis and analytics for healthcare organizations. Led by Zackary Beckham and Mike Savano.',
+    description: 'Integrated Technical Services: tech development, data analysis and analytics for healthcare organizations. Led by Zackary Beckham and Mike Savino.',
   },
   '/work/destroy-drive/': {
     label: 'Destroy Drive', parent: '/work/',
