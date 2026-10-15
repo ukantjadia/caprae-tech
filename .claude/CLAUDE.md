@@ -30,7 +30,7 @@ Buyers are 25 to 70. Owners, bankers, board members, M&A professionals. A
 meaningful share are 50+, on work laptops, on integrated graphics.
 
 Everything ambitious has to survive that. Accessibility here is conversion work,
-not compliance. Read `project-info/03-audience.md` before making a visual
+not compliance. Read `old-design-work/project-info/03-audience.md` before making a visual
 decision.
 
 ## Two files you must keep current
@@ -82,16 +82,16 @@ including the parts that did not work.
 
 | File | Why |
 |---|---|
-| `project-info/02-objective.md` | What the site is for |
-| `project-info/03-audience.md` | Who it is for |
-| `project-info/04-proof.md` | What can be claimed, and what cannot |
-| `project-info/design/01-direction.md` | The design thesis and the unresolved conflict |
-| `project-info/design/02-motion-and-3d.md` | Motion spec and performance budget |
-| `project-info/design/03-skills.md` | Which skill to fire, in what order |
+| `old-design-work/project-info/02-objective.md` | What the site is for |
+| `old-design-work/project-info/03-audience.md` | Who it is for |
+| `old-design-work/project-info/04-proof.md` | What can be claimed, and what cannot |
+| `old-design-work/project-info/design/01-direction.md` | The design thesis and the unresolved conflict |
+| `old-design-work/project-info/design/02-motion-and-3d.md` | Motion spec and performance budget |
+| `old-design-work/project-info/design/03-skills.md` | Which skill to fire, in what order |
 
 ## Rules specific to this project
 
-**Never publish an unverified claim.** `project-info/` tags every fact
+**Never publish an unverified claim.** `old-design-work/project-info/` tags every fact
 [VERIFIED], [STATED], or [OPEN]. Only [VERIFIED] goes on the page. If the copy
 needs a number that does not exist, ask. Do not round, estimate, or borrow a
 figure from the parent firm without saying it is the parent firm's.
@@ -100,7 +100,7 @@ figure from the parent firm without saying it is the parent firm's.
 around this constraint, not the other way round.
 
 **The reference sets the bar, not a budget.** The target is Dala-level 3D
-(https://dala.craftedbygc.com/, teardown in `research/dala/`). Do not cut or
+(https://dala.craftedbygc.com/, teardown in `old-design-work/research/dala/`). Do not cut or
 simplify an effect to hit a number. Measure LCP, fps, and JS size, and report
 them, but they inform tuning, they do not veto the effect (D-052).
 
@@ -121,7 +121,7 @@ Global rules that apply regardless: `bun`, never `npm` or `pnpm`. `bunx`, never
 
 Fire them. Do not reimplement what a skill already knows.
 
-The full mapping is in `project-info/design/03-skills.md`. The short version:
+The full mapping is in `old-design-work/project-info/design/03-skills.md`. The short version:
 `design-consultation` first, `impeccable` as the spine, `gpt-taste` for scroll
 motion, `plan-design-review` before building, `design-review` plus
 `web-design-guidelines` plus `browse` after.

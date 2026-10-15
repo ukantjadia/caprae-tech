@@ -10,15 +10,20 @@ dist/
 # Cygwin/MSYS crash dumps
 *.stackdump
 
-# bun workspace
-designs/node_modules/
+# bun lockfiles: only the archived designs workspace and the live site keep theirs
 bun.lock
-!designs/bun.lock
+!old-design-work/designs/bun.lock
+!seo/code/bun.lock
 
-# Generated GitHub Pages artifact
-designs/.pages/
+# Generated GitHub Pages artifact (archived gallery build)
+old-design-work/designs/.pages/
 **/.impeccable/
 .gstack/
 
 # Private Resend study copy: never commit or publish (Resend brand, their markup in ref/)
 study/
+
+# Third-party saved pages and screenshots: never commit (moved into the archive 2026-10-15)
+old-design-work/neuform.ai/
+old-design-work/styles-refreo/sample-design-saved-html/
+old-design-work/designs/direction-r-resend-structure/code/shots/

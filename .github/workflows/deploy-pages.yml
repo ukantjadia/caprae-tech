@@ -1,4 +1,4 @@
-name: Deploy complete design gallery to GitHub Pages
+name: Deploy the Caprae Tech site to GitHub Pages
 
 on:
   push:
@@ -23,15 +23,18 @@ jobs:
         with:
           bun-version: latest
       - uses: actions/configure-pages@v5
-      - name: Install gallery dependencies
-        working-directory: designs
+      # the site is seo/code (final draft 6), served at the root of the Pages address (D-099)
+      - name: Install site dependencies
+        working-directory: seo/code
         run: bun install --frozen-lockfile
-      - name: Build every design direction
-        working-directory: designs
-        run: bun run build:pages
+      - name: Build the site
+        working-directory: seo/code
+        run: bun run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: designs/.pages
+          path: seo/code/dist
 
   deploy:
     environment:

@@ -4,7 +4,7 @@
 //   <!--@book-->    the closing band    <!--@footer-->  the footer
 // and {{SITE}} with SITE_URL. In the build it also writes sitemap.xml and robots.txt.
 // Then it prefixes root-relative <a href="/..."> links with the deploy base, so the same
-// pages work at / locally and at /caprae-tech/final-draft-6/ on GitHub Pages.
+// pages work at / locally and at /caprae-tech/ on GitHub Pages.
 import { readdirSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { ROUTES, SITE_URL } from './routes.js'

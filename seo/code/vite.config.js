@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { sitePages } from './site/plugin.js'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
-const base = process.env.BASE_PATH || '/' // set by designs/scripts/build-pages.mjs for GitHub Pages
+const base = process.env.BASE_PATH || '/' // set by .github/workflows/deploy-pages.yml for GitHub Pages
 
 export default {
   base,

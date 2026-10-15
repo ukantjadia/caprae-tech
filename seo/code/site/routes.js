@@ -5,7 +5,7 @@
 
 // Where the site lives, for canonical URLs, the sitemap and structured data. The brand and domain
 // are still open (site plan note 2), so this is the GitHub Pages address until SITE_URL is set.
-export const SITE_URL = (process.env.SITE_URL || 'https://ukantjadia.github.io/caprae-tech/final-draft-6').replace(/[/]$/, '')
+export const SITE_URL = (process.env.SITE_URL || 'https://ukantjadia.github.io/caprae-tech').replace(/[/]$/, '')
 
 export const ROUTES = {
   '/': {

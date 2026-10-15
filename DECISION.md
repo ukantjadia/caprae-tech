@@ -1268,3 +1268,10 @@ Decision: A page written from scratch (scripts/build-page.js writes index.html; 
 Alternatives: Draft 1's text with the fixes, or draft 1 exactly (offered; the user chose draft 2's content).
 Why: User, 2026-10-02: a completely different look for every section, in draft 2's theme.
 Reversible: yes
+
+## D-099. The repo is now the site: draft 6 in seo/code, everything else archived
+Date: 2026-10-15
+Decision: Final draft 6 (the 38-page site) moves to `seo/code` and becomes the only thing GitHub Pages builds: the workflow installs and builds `seo/code` with BASE_PATH `/<repo>/` and publishes `seo/code/dist` at https://ukantjadia.github.io/caprae-tech/. Its SITE_URL default (canonical URLs, sitemap, structured data) changes from `.../caprae-tech/final-draft-6` to `.../caprae-tech`. builds, designs, design-isperiation-prompts, neuform.ai, plans, project-info, research, study and styles-refreo move to `old-design-work/` with history kept (git mv); Caprae_Tech_Section_Lab.html, AGENTS.md, PRODUCT.md, skill-map-guide, DECISION.md and LOG.md stay at the top. .gitignore follows the moves, and the three never-commit folders are now ignored by path. .claude/CLAUDE.md points at the archived project-info and research paths. seo/code commits its bun.lock so the deploy uses `--frozen-lockfile`. Numbered D-099 because draft 6's code cites decisions up to D-098 that are not in this file yet.
+Alternatives: Commit locally without pushing, leaving the gallery live; keep the gallery deploying from the archive alongside the site (both offered). Archive name old-design-dashboard (offered). Moving the Section Lab file into the archive (offered; the user kept it at the top).
+Why: User, 2026-10-15: the website is decided; clear everything else out so the repo holds the site. Answers: old-design-work, keep the Section Lab at the top, draft 6 becomes the site. The gallery and the /final-draft-N/ and /r-lab/ addresses stop working on the next deploy.
+Reversible: yes
