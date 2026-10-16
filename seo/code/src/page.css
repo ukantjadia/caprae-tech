@@ -238,3 +238,16 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 .prose .facts { list-style: none; display: grid; gap: 10px; margin: 2px 0; }
 .prose .facts li { position: relative; padding-left: 20px; }
 .prose .facts li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--iris); }
+
+/* a five-step timeline (Caprae Cold Mail) */
+.tl.tl5 { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 820px) { .tl.tl5 { grid-template-columns: 1fr; } }
+
+/* case pages: features list and stack tags */
+.feat-list { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--hair); }
+.feat-list li { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--hair); }
+.feat-list b { font-weight: 500; color: var(--bone); }
+.feat-list span { color: var(--ash); font-size: 15px; }
+@media (max-width: 640px) { .feat-list li { grid-template-columns: 1fr; gap: 4px; } }
+.stack-tags { display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
+.stack-tags .tag { font-size: 12px; padding: 7px 12px; }

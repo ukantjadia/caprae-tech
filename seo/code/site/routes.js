@@ -163,12 +163,12 @@ export const ROUTES = {
   '/work/caprae-crm/': {
     label: 'Caprae CRM', parent: '/work/',
     title: 'Caprae CRM: Client & Account Platform | Caprae Tech',
-    description: 'A client and account-manager platform that pushes every new engagement to the client with a next action. One click to see the whole account.',
+    description: 'A client and account-manager platform: leads, cold-call results and engagements in one portal, with weekly reports and messaging. One click to see the whole account.',
   },
   '/work/recruitment-pipeline/': {
     label: 'Recruitment pipeline', parent: '/work/',
     title: 'Recruitment Pipeline Automation | Caprae Tech',
-    description: 'Auto-acknowledgement, handbook, tracked submission, AI review and one-click interview booking. ~20 hours a week returned to the recruitment team.',
+    description: 'Applications trigger the role\'s handbook, submissions are tracked, recruiters grade in an admin app and interviews and onboarding follow automatically. ~20 hours a week returned.',
   },
   '/work/lead-qa/': {
     label: 'Lead QA', parent: '/work/',
@@ -178,17 +178,22 @@ export const ROUTES = {
   '/work/call-intelligence/': {
     label: 'Call intelligence', parent: '/work/',
     title: 'Call Intelligence: AI Call Scoring | Caprae Tech',
-    description: 'Call recordings become transcripts scored on tone, objection handling and script, then one score per caller, plus the best time to call.',
+    description: 'Cold-call recordings become transcripts, scored on opener, tone and pitch, then rolled up per caller into a status, coaching priority and best times to call. Live in beta.',
+  },
+  '/work/caprae-cold-mail/': {
+    label: 'Caprae Cold Mail', parent: '/work/',
+    title: 'Caprae Cold Mail: Done-for-You Direct Mail | Caprae Tech',
+    description: 'Personalized postcards and letters to the business owners you choose: designed, printed, stamped, mailed and tracked, then followed up with a call.',
   },
   '/work/bankers-edge/': {
     label: 'Bankers Edge', parent: '/work/',
-    title: 'Bankers Edge: Advisory Platform Build | Caprae Tech',
-    description: 'An advisory platform with transaction and service pages, designed and built for an advisory firm. Live in production.',
+    title: 'Bankers Edge: Advisory Firm Website | Caprae Tech',
+    description: 'The website for Bankers Edge Advisory, a firm that raises capital for dealmakers: designed and built to show its services, closed deals and partners at a glance. Live.',
   },
   '/work/simba/': {
     label: 'Simba', parent: '/work/',
     title: 'Simba: Landing Page & SEO Build | Caprae Tech',
-    description: 'A client build covering the landing page, domain and SEO, run by a founder-led team.',
+    description: 'The website for Simba Studio, a storytelling studio for founders: built on its own domain and set up for search from launch. Live at simbastud.io.',
   },
   '/work/itsco/': {
     label: 'ITSco', parent: '/work/',
