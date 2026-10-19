@@ -2,6 +2,7 @@
 // "Book a call" band and the footer. plugin.js puts them where a page has the matching marker.
 // Links are written root-relative ("/pricing/"); plugin.js adds the deploy base afterwards.
 import { ROUTES, NAV, FOOTER, SITE_URL } from './routes.js'
+import { KEYWORDS } from './keywords.js'
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
@@ -36,7 +37,7 @@ export function head(path) {
 <style>body{background:#000;color:#f0f0f0}</style>
 <title>${esc(r.title)}</title>
 <meta name="description" content="${esc(r.description)}">
-<link rel="canonical" href="${url}">
+${KEYWORDS[path] ? `<meta name="keywords" content="${esc(KEYWORDS[path].join(', '))}">\n` : ''}<link rel="canonical" href="${url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="${esc(r.title)}">
 <meta property="og:description" content="${esc(r.description)}">
