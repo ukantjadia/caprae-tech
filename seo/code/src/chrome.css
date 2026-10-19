@@ -78,14 +78,14 @@
 @media (max-width: 359px) { .cx-m-group ul { grid-template-columns: 1fr; } }
 
 /* ---- footer ---- */
-.cx-foot { position: relative; margin-top: 40px; padding: 72px 0 32px; border-top: 1px solid var(--hair); background: radial-gradient(60% 120px at 50% 0%, rgba(146, 129, 247, 0.08), transparent 100%); font-size: 14px; color: var(--ash); }
+.cx-foot { position: relative; margin-top: 40px; padding: 48px 0 40px; border-top: 1px solid var(--hair); background: radial-gradient(60% 120px at 50% 0%, rgba(146, 129, 247, 0.08), transparent 100%); font-size: 14px; color: var(--ash); }
 .cx-f-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.5fr; gap: 40px; }
 .cx-f-brand .cx-brand { font-size: 20px; }
 .cx-f-parent { margin-top: 6px; font-size: 13px; color: var(--iron); }
 .cx-f-parent a { color: var(--ash); border-bottom: 1px solid var(--hair); }
 .cx-f-parent a:hover { color: var(--bone); border-color: var(--iron); }
-.cx-f-brand p { margin-top: 18px; max-width: 280px; font-family: var(--serif); font-size: 22px; line-height: 1.2; color: var(--bone); }
-.cx-f-mail { display: inline-block; margin-top: 18px; color: var(--iris-glow); border-bottom: 1px solid rgba(186, 167, 255, 0.3); }
+.cx-f-brand p { margin-top: 14px; max-width: 280px; font-family: var(--serif); font-size: 22px; line-height: 1.2; color: var(--bone); }
+.cx-f-mail { display: inline-block; margin-top: 14px; color: var(--iris-glow); border-bottom: 1px solid rgba(186, 167, 255, 0.3); }
 .cx-f-mail:hover { border-color: var(--iris-glow); }
 .cx-f-col h2 { margin-bottom: 16px; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--iron); }
 .cx-f-col ul { list-style: none; display: grid; gap: 10px; }
@@ -103,7 +103,7 @@
   .cx-f-col:last-child ul { columns: 3; }
 }
 @media (max-width: 560px) {
-  .cx-foot { padding-top: 56px; }
+  .cx-foot { padding-top: 40px; }
   .cx-f-grid { gap: 32px; }
   .cx-f-col:last-child ul { columns: 2; }
 }
@@ -124,3 +124,26 @@
 .callout-person { display: flex; gap: 20px; align-items: center; }
 .callout-person .avatar { width: 84px; height: 84px; flex: none; }
 @media (max-width: 560px) { .callout-person { flex-direction: column; align-items: flex-start; } }
+
+/* home page: cards that link to their pages (src/home-links.js). The stretched link covers the card;
+   a project's own site link stays on top of it. */
+.card.is-link { position: relative; cursor: pointer; }
+.card.is-link:hover { border-color: rgba(146, 129, 247, 0.55); }
+.home-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.home-link:focus-visible { outline: none; }
+.card.is-link:has(.home-link:focus-visible) { outline: 2px solid var(--iris-glow); outline-offset: 3px; }
+.card.is-link .src-btn { position: relative; z-index: 2; }
+.flip.is-link { cursor: pointer; }
+.home-more { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--bone); }
+.home-more .arr { color: var(--iris-glow); transition: transform 0.2s; }
+.home-more:hover .arr { transform: translateX(3px); }
+.sec-head .home-more { align-self: flex-end; margin-top: 0; }
+
+/* footer: copyright under the email; back-to-top is a small arrow on the footer's top edge, right side */
+.cx-f-copy { margin-top: 10px; font-size: 13px; color: var(--iron); }
+.cx-foot > .wrap { position: relative; }
+.cx-f-top { position: absolute; right: 24px; top: -68px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--hair); background: #0b0b0e; color: var(--bone); font-size: 16px; transition: border-color .2s, transform .2s; }
+.cx-f-top:hover { border-color: var(--iris); transform: translateY(-2px); }
+.cx-f-top::after { content: attr(data-tip); position: absolute; right: 0; bottom: calc(100% + 8px); padding: 5px 9px; border-radius: 6px; background: #fff; color: #000; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transform: translateY(4px); transition: opacity .15s, transform .15s; }
+.cx-f-top:hover::after, .cx-f-top:focus-visible::after { opacity: 1; transform: none; }
+@media (max-width: 640px) { .cx-f-top { right: 16px; top: -60px; } }

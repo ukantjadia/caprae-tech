@@ -251,3 +251,6 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 @media (max-width: 640px) { .feat-list li { grid-template-columns: 1fr; gap: 4px; } }
 .stack-tags { display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
 .stack-tags .tag { font-size: 12px; padding: 7px 12px; }
+
+/* founder and build-team profile panels: more opaque glass, so the photo and name read clearly over the particles */
+[data-shapes] .pg-aside:has(.person) { background: rgba(8, 8, 12, 0.9) !important; }

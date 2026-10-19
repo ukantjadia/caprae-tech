@@ -39,8 +39,9 @@ export function createTextMask({ selector, floor = 0.15, pad = 14 }) {
   return {
     uniforms: { tMask: texture, uMaskOn: 1, uMaskFloor: floor },
     // repaint only when the page has scrolled or the boxes changed
-    update() {
-      const y = scrollY
+    // shift: how far the canvas has moved up (the footer pushing it); text boxes move with it
+    update(shift = 0) {
+      const y = scrollY - shift
       if (!dirty && y === lastY) return
       dirty = false; lastY = y
       const s = W / innerWidth, top = y - pad, bottom = y + innerHeight + pad

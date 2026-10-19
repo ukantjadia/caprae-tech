@@ -111,15 +111,16 @@ export function footer() {
     ? `<li><a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)} <span aria-hidden="true">↗</span></a></li>`
     : `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('')}</ul></div>`).join('')
   return `<footer class="cx-foot"><div class="wrap">
+  <a class="cx-f-top" href="#top" aria-label="Back to top" data-tip="Back to top"><span aria-hidden="true">↑</span></a>
   <div class="cx-f-grid">
     <div class="cx-f-brand">
       <a class="cx-brand" href="/">Caprae <span>Tech</span></a>
       <div class="cx-f-parent">Part of <a href="https://capraecapital.com/" target="_blank" rel="noopener">Caprae Capital</a></div>
       <p>${FOOTER.tagline}.</p>
       <a class="cx-f-mail" href="mailto:${FOOTER.email}">${FOOTER.email}</a>
+      <div class="cx-f-copy">© ${year} Caprae Tech</div>
     </div>
     ${cols}
   </div>
-  <div class="cx-f-base"><span>© ${year} Caprae Tech. Part of Caprae Capital Partners.</span><a class="cx-f-top" href="#top">Back to top ↑</a></div>
 </div></footer>`
 }

@@ -18,6 +18,7 @@ import { startStage } from './engine/stage.js'
 import { applyA11yFixes } from './engine/a11y.js'
 import { startFinalPage } from './engine/final-page.js'
 import { startMenu } from './menu.js'
+import './home-links.js'
 
 applyA11yFixes()
 startFinalPage()

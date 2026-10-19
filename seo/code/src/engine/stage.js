@@ -11,6 +11,7 @@ import { createTextMask } from './mask.js'
 export async function startStage(cfg) {
   const canvas = document.createElement('canvas')
   canvas.className = 'particle-field'
+  let lastShift = 0
   canvas.setAttribute('aria-hidden', 'true')
   document.body.prepend(canvas)
 
@@ -199,7 +200,12 @@ export async function startStage(cfg) {
     mu.uQuiet.value = cfg.STOPS ? cloud : Math.min(1, pastHero * (0.6 + 0.4 * cloud)) // how much the text column clears, 0..1
     mu.uFocus.value = camera.position.distanceTo(group.position)
 
-    mask?.update()
+    // the field ends at the footer: once the footer's top edge is on screen, the fixed canvas
+    // moves up with it, so the shape scrolls away with the content above and nothing is behind the footer
+    const foot = document.querySelector('.cx-foot')
+    const shift = foot ? Math.max(0, Math.min(innerHeight, innerHeight - foot.getBoundingClientRect().top)) : 0
+    if (shift !== lastShift) { canvas.style.transform = shift ? `translateY(${-shift}px)` : ''; lastShift = shift }
+    mask?.update(shift)
     field.update(t, dt)
     dust.update(t)
     post.render(t)
