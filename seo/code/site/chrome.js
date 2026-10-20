@@ -62,6 +62,7 @@ export function head(path) {
 <noscript><style>.cx-load{display:none}</style></noscript>
 <title>${esc(r.title)}</title>
 <meta name="description" content="${esc(r.description)}">
+<meta name="google-site-verification" content="kLoVvXODkrbfIAJ9XyneB5IzvsvaBeZa6aY_nMUwi-4">
 ${KEYWORDS[path] ? `<meta name="keywords" content="${esc(KEYWORDS[path].join(', '))}">\n` : ''}<link rel="canonical" href="${url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
