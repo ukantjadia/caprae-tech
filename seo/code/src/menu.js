@@ -26,8 +26,24 @@ export function startMenu() {
   }
   document.addEventListener('click', e => { for (const li of items) if (!li.contains(e.target)) close(li) })
 
+  // phone drawer: lock the page behind it, close on Escape, on a tap outside, or on a link
   const mobile = bar.querySelector('.cx-mobile')
-  mobile?.addEventListener('keydown', e => { if (e.key === 'Escape' && mobile.open) { mobile.open = false; mobile.querySelector('summary').focus() } })
-  // links to a section on the same page (#book) leave the menu open otherwise
-  mobile?.addEventListener('click', e => { if (e.target.closest('a')) mobile.open = false })
+  if (mobile) {
+    const summary = mobile.querySelector(':scope > summary')
+    mobile.addEventListener('toggle', () => {
+      summary.setAttribute('aria-expanded', String(mobile.open))
+      summary.setAttribute('aria-label', mobile.open ? 'Close menu' : 'Menu')
+    })
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobile.open) { mobile.open = false; summary.focus() } })
+    // the page behind stays still: scroll gestures on the dimmed area are dropped, and the drawer
+    // keeps its own scrolling (overscroll-behavior: contain). Locking <html> would unstick the navbar.
+    const scrim = mobile.querySelector('.cx-m-scrim')
+    scrim?.addEventListener('click', () => { mobile.open = false })
+    for (const ev of ['wheel', 'touchmove']) scrim?.addEventListener(ev, e => e.preventDefault(), { passive: false })
+    const panel = mobile.querySelector('.cx-m-panel')
+    panel?.addEventListener('wheel', e => { const atTop = panel.scrollTop <= 0 && e.deltaY < 0, atEnd = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 1 && e.deltaY > 0; if (atTop || atEnd) e.preventDefault() }, { passive: false })
+    mobile.addEventListener('click', e => { if (e.target.closest('a')) mobile.open = false })
+  }
+  // footer: on phones the link columns start collapsed (they're open on desktop and without JS)
+  if (matchMedia('(max-width: 760px)').matches) for (const d of document.querySelectorAll('.cx-f-col[open]')) d.open = false
 }

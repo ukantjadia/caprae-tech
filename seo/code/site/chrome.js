@@ -71,10 +71,13 @@ export function nav(path) {
     return `<li class="cx-has-sub">${trigger}<div class="cx-sub${rich ? ' cx-sub-rich' : ''}" id="${id}"><ul>${links}</ul>${overview}</div></li>`
   }).join('')
 
-  // phones: one disclosure with every link, grouped. A <details>, so it works without JS.
+  // phones: a hamburger that opens a drawer from the right. Every group is its own collapsible
+  // <details>, so the drawer stays short. Works without JS (details); menu.js adds the scroll lock,
+  // tap-outside and Escape.
+  const cur = h => isCurrent(h, path) ? ' aria-current="page"' : ''
   const mobile = NAV.map(item => item.items
-    ? `<div class="cx-m-group"><div class="cx-m-head">${item.href ? `<a href="${item.href}"${isCurrent(item.href, path) ? ' aria-current="page"' : ''}>${item.label}</a>` : item.label}</div><ul>${item.items.map(i => `<li><a href="${i.href}"${isCurrent(i.href, path) ? ' aria-current="page"' : ''}>${esc(i.label)}</a></li>`).join('')}</ul></div>`
-    : `<div class="cx-m-group"><div class="cx-m-head"><a href="${item.href}"${isCurrent(item.href, path) ? ' aria-current="page"' : ''}>${item.label}</a></div></div>`).join('')
+    ? `<details class="cx-m-group"${isWithin(item, path) ? ' open' : ''}><summary>${item.label}<svg class="cx-chev" width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul>${item.href ? `<li><a href="${item.href}"${cur(item.href)}>All of ${item.label.toLowerCase()}</a></li>` : ''}${item.items.map(i => `<li><a href="${i.href}"${cur(i.href)}>${esc(i.label)}</a></li>`).join('')}</ul></details>`
+    : `<a class="cx-m-link" href="${item.href}"${cur(item.href)}>${item.label}</a>`).join('')
 
   // the home page is final-draft-2 unchanged, so it has no <main>; its first section is #hero
   return `<a class="cx-skip" href="${path === '/' ? '#hero' : '#main'}">Skip to content</a>
@@ -82,7 +85,7 @@ export function nav(path) {
   <a class="cx-brand" href="/" aria-label="Caprae Tech, home">Caprae <span>Tech</span></a>
   <nav class="cx-main" aria-label="Main"><ul class="cx-menu">${top}</ul></nav>
   <a class="btn btn-white cx-cta" href="/book-a-call/">Book a call ${arrow}</a>
-  <details class="cx-mobile"><summary>Menu</summary><div class="cx-m-panel">${mobile}<a class="btn btn-white cx-m-cta" href="/book-a-call/">Book a call ${arrow}</a></div></details>
+  <details class="cx-mobile"><summary aria-label="Menu"><span class="cx-burger" aria-hidden="true"><i></i><i></i><i></i></span></summary><div class="cx-m-scrim" aria-hidden="true"></div><nav class="cx-m-panel" aria-label="Mobile">${mobile}<a class="btn btn-white cx-m-cta" href="/book-a-call/">Book a call ${arrow}</a></nav></details>
 </div></header>`
 }
 
@@ -107,9 +110,9 @@ export function bookBand() {
 
 export function footer() {
   const year = new Date().getFullYear()
-  const cols = FOOTER.columns.map(c => `<div class="cx-f-col"><h2>${c.title}</h2><ul>${c.links.map(l => l.external
+  const cols = FOOTER.columns.map(c => `<details class="cx-f-col" open><summary><h2>${c.title}</h2><svg class="cx-chev" width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul>${c.links.map(l => l.external
     ? `<li><a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)} <span aria-hidden="true">↗</span></a></li>`
-    : `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('')}</ul></div>`).join('')
+    : `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('')}</ul></details>`).join('')
   return `<footer class="cx-foot"><div class="wrap">
   <a class="cx-f-top" href="#top" aria-label="Back to top" data-tip="Back to top"><span aria-hidden="true">↑</span></a>
   <div class="cx-f-grid">

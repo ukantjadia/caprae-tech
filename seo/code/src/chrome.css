@@ -56,26 +56,13 @@
   .cx-main { display: none; }
   .cx-nav .cx-cta { margin-left: auto; }
   .cx-mobile { display: block; }
-  .cx-mobile > summary { list-style: none; display: inline-flex; align-items: center; padding: 8px 14px; border: 1px solid var(--hair); border-radius: 999px; font-size: 14px; cursor: pointer; user-select: none; }
-  .cx-mobile > summary::-webkit-details-marker { display: none; }
-  .cx-mobile[open] > summary { border-color: var(--iron); }
-  .cx-m-panel { position: absolute; top: 64px; left: 0; right: 0; max-height: calc(100vh - 64px); max-height: calc(100dvh - 64px); overflow-y: auto; padding: 8px 24px 28px; background: #000; border-bottom: 1px solid var(--hair-2); }
-  .cx-m-group { padding: 14px 0; border-bottom: 1px solid var(--hair-2); }
-  .cx-m-head { font-size: 17px; color: var(--bone); }
-  .cx-m-head a { display: block; }
-  .cx-m-group ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; margin-top: 8px; }
-  .cx-m-group li a { display: block; padding: 7px 0; font-size: 15px; color: var(--ash); }
-  .cx-m-panel a[aria-current="page"] { color: var(--iris-glow); }
-  .cx-m-cta { width: 100%; margin-top: 22px; }
 }
 @media (max-width: 420px) {
   /* narrow phones: the bar keeps brand, Book a call and Menu on one line */
   .cx-nav > .wrap { gap: 10px; }
   .cx-nav .cx-cta { padding: 8px 14px; font-size: 13px; }
   .cx-nav .cx-cta .arr { display: none; }
-  .cx-m-panel { padding-left: 16px; padding-right: 16px; }
 }
-@media (max-width: 359px) { .cx-m-group ul { grid-template-columns: 1fr; } }
 
 /* ---- footer ---- */
 .cx-foot { position: relative; margin-top: 40px; padding: 48px 0 40px; border-top: 1px solid var(--hair); background: radial-gradient(60% 120px at 50% 0%, rgba(146, 129, 247, 0.08), transparent 100%); font-size: 14px; color: var(--ash); }
@@ -147,3 +134,202 @@
 .cx-f-top::after { content: attr(data-tip); position: absolute; right: 0; bottom: calc(100% + 8px); padding: 5px 9px; border-radius: 6px; background: #fff; color: #000; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transform: translateY(4px); transition: opacity .15s, transform .15s; }
 .cx-f-top:hover::after, .cx-f-top:focus-visible::after { opacity: 1; transform: none; }
 @media (max-width: 640px) { .cx-f-top { right: 16px; top: -60px; } }
+
+/* ===================== mobile and tablet (desktop at 1240 px and up is untouched) ===================== */
+@media (max-width: 1239px) {
+  /* home hero: the marquee's very wide track made the hero's wrap grow past the screen and pushed
+     the headline off to the right; let the wrap shrink to the screen and the marquee clip inside it */
+  .hero > .wrap { min-width: 0; width: 100%; }
+  .hero .marquee { max-width: 100%; }
+}
+
+@media (max-width: 1023px) {
+  /* phones and tablets (touch) — readable labels: 11 px tags, roles and group names go to 12 px on phones */
+  .tag, .grp, .role, .org-label, .fcard .role, .person .role, .eyebrow, .wcard .grp, .pg-aside .grp { font-size: 12px !important; }
+  small, .org-node small { font-size: 12px; }
+  /* thumb-sized tap targets (44 px tall) for text links and pill buttons, without moving the layout */
+  a.go:not(.card-link), .home-more, .cx-f-col a, .cx-crumbs a { position: relative; }
+  a.go:not(.card-link)::before, .home-more::before, .cx-f-col a::before, .cx-crumbs a::before { content: ""; position: absolute; left: -6px; right: -6px; top: 50%; height: 44px; transform: translateY(-50%); }
+  .cx-nav .cx-cta { min-height: 44px; }
+  .src-btn { min-height: 44px; }
+  .qa summary { min-height: 44px; }
+}
+
+@media (max-width: 560px) {
+  /* a price table whose every column matters keeps all three on phones */
+  .sheet.keep-cols tbody td:nth-child(2), .sheet.keep-cols thead th:nth-child(2) { display: table-cell !important; }
+  .sheet.keep-cols td, .sheet.keep-cols th { padding: 12px 10px; }
+}
+@media (max-width: 760px) {
+  /* drag-to-compare: on a phone the two sides stack (dev shop, then founder-led) instead of sharing one
+     narrow box where both columns were cut off; the drag handle isn't needed */
+  .ba { height: auto !important; cursor: default; touch-action: auto; display: grid; gap: 12px; border: 0; background: none; overflow: visible; }
+  .ba .ba-pane { position: static !important; clip-path: none !important; padding: 24px; border: 1px solid var(--hair); border-radius: var(--r-lg); gap: 16px; }
+  .ba .ba-after { align-items: flex-start; text-align: left; }
+  .ba .ba-after ul { justify-items: start; }
+  .ba .ba-after li { flex-direction: row-reverse; justify-content: flex-end; }
+  .ba .ba-handle { display: none; }
+  /* hero buttons: when the second one wraps under the first, it lines up with the text */
+  .cta-row .btn-ghost { padding-left: 0; padding-right: 0; }
+}
+@media (max-width: 760px) {
+  /* labels inside stacked cards stay their own size instead of stretching across the card */
+  .ex-grid .card > .tag, .rel-grid .card > .tag { align-self: flex-start; }
+}
+@media (max-width: 1023px) {
+  .flip-f > div[style*="font-size:11px"], .bub small { font-size: 12px !important; }
+}
+@media (max-width: 1023px) {
+  /* large tablets show the desktop menu: give its dropdown arrows a 44 px touch area */
+  .cx-toggle { position: relative; }
+  .cx-toggle::before { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: 44px; transform: translate(-50%, -50%); }
+}
+
+/* ---- phone and tablet menu: hamburger + right-hand drawer (site/chrome.js, src/menu.js) ---- */
+@media (max-width: 960px) {
+  .cx-mobile > summary { list-style: none; position: relative; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--hair); border-radius: 12px; cursor: pointer; }
+  .cx-mobile > summary::-webkit-details-marker { display: none; }
+  .cx-burger { position: relative; width: 18px; height: 12px; }
+  .cx-burger i { position: absolute; left: 0; right: 0; height: 1.5px; border-radius: 2px; background: var(--bone); transition: transform .25s, opacity .2s, top .25s; }
+  .cx-burger i:nth-child(1) { top: 0; } .cx-burger i:nth-child(2) { top: 5.25px; } .cx-burger i:nth-child(3) { top: 10.5px; }
+  .cx-mobile[open] .cx-burger i:nth-child(1) { top: 5.25px; transform: rotate(45deg); }
+  .cx-mobile[open] .cx-burger i:nth-child(2) { opacity: 0; }
+  .cx-mobile[open] .cx-burger i:nth-child(3) { top: 5.25px; transform: rotate(-45deg); }
+  /* the navbar's blur would trap a fixed drawer inside the bar: drop it while the menu is open */
+  .cx-nav:has(.cx-mobile[open]) { backdrop-filter: none; -webkit-backdrop-filter: none; background: #000; }
+  .cx-m-scrim { position: fixed; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.6); touch-action: none; animation: cx-fade .25s ease; }
+  .cx-m-panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 2; width: min(86vw, 360px); overflow-y: auto; overscroll-behavior: contain; padding: 76px 20px 28px; background: #0a0a0d; border-left: 1px solid var(--hair); box-shadow: -24px 0 60px -20px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; animation: cx-slide .3s cubic-bezier(.2, .7, .2, 1); }
+  .cx-m-link, .cx-m-group > summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 2px; border-bottom: 1px solid var(--hair-2); font-size: 16px; color: var(--bone); cursor: pointer; list-style: none; }
+  .cx-m-group > summary::-webkit-details-marker { display: none; }
+  .cx-m-group > summary .cx-chev { color: var(--iron); transition: transform .2s; }
+  .cx-m-group[open] > summary .cx-chev { transform: rotate(180deg); }
+  .cx-m-group ul { list-style: none; padding: 4px 0 10px 12px; border-bottom: 1px solid var(--hair-2); }
+  .cx-m-group li a { display: flex; align-items: center; min-height: 40px; font-size: 15px; color: var(--ash); }
+  .cx-m-panel a[aria-current="page"] { color: var(--iris-glow); }
+  .cx-m-cta { width: 100%; margin-top: 24px; flex: none; }
+}
+@keyframes cx-slide { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes cx-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .cx-m-panel, .cx-m-scrim { animation: none; } }
+
+/* footer columns are <details>: on desktop they look and behave as plain columns (always open,
+   the heading isn't a control); on phones they collapse into rows (menu.js closes them) */
+.cx-f-col > summary { list-style: none; display: block; }
+.cx-f-col > summary::-webkit-details-marker { display: none; }
+.cx-f-col > summary .cx-chev { display: none; }
+@media (min-width: 761px) { .cx-f-col > summary { pointer-events: none; } }
+@media (max-width: 760px) {
+  .cx-foot { padding: 36px 0 28px; }
+  .cx-f-grid { display: block; }
+  .cx-f-brand { margin-bottom: 20px; }
+  .cx-f-brand p { font-size: 19px; margin-top: 10px; }
+  .cx-f-col { border-top: 1px solid var(--hair-2); }
+  .cx-f-col:last-child { border-bottom: 1px solid var(--hair-2); }
+  .cx-f-col > summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; cursor: pointer; }
+  .cx-f-col > summary h2 { margin: 0; }
+  .cx-f-col > summary .cx-chev { display: block; color: var(--iron); transition: transform .2s; }
+  .cx-f-col[open] > summary .cx-chev { transform: rotate(180deg); }
+  .cx-f-col ul { padding-bottom: 14px; }
+  .cx-f-col:last-child ul { columns: 2; }
+}
+
+/* flip cards (founders and build team): the photo leads; name and role sit smaller below it */
+.flip .flip-f { gap: 6px; justify-content: flex-start; padding-top: 30px; }
+.flip .flip-f .avatar { width: 210px; height: 210px; margin-bottom: 14px; padding: 4px; }
+.crew .flip .flip-f { padding-top: 24px; }
+.crew .flip .flip-f .avatar { width: 168px; height: 168px; margin-bottom: 10px; }
+.flip .flip-f h3 { font-size: 23px !important; margin-top: 2px !important; line-height: 1.1; }
+.flip .flip-f .sign { margin-top: 0; font-size: 11px; }
+.flip .flip-f .role, .flip .flip-f > div[style*="font-size:11px"] { font-size: 10.5px !important; }
+.flip .flip-f .hint { bottom: 14px; }
+@media (max-width: 1023px) {
+  .flip .flip-f .role, .flip .flip-f > div[style*="font-size:11px"], .flip .flip-f .sign { font-size: 12px !important; }
+}
+
+/* ===================== phone sizing (≤600 px): every element scaled for a phone, not a desktop squeezed ===================== */
+@media (max-width: 600px) {
+  /* type scale */
+  h1.display { font-size: 40px !important; line-height: 1.02; }
+  .pg-title { font-size: 34px !important; line-height: 1.04; max-width: none; }
+  h2.title { font-size: 29px !important; line-height: 1.08; }
+  .statement-line { font-size: 30px !important; }
+  .num-big { font-size: 34px !important; }
+  .lead { font-size: 15.5px; }
+  .pull { font-size: 26px !important; }
+  .lesson h3, .acc-item button h3, .tl h3, .wcard h3, .ex-grid h3, .fbio h3, .fmini h3 { font-size: 22px !important; }
+  .bento .card h3, .car-track .card h3 { font-size: 24px !important; }
+  .faq-group h2, .legal-body h2 { font-size: 24px !important; }
+  .qa summary { font-size: 17px; padding: 16px 0; }
+  .faq-layout .qa summary { font-size: 16px; }
+
+  /* spacing */
+  .sec-pad, .pg-sec.sec-pad { padding-top: 52px !important; padding-bottom: 52px !important; }
+  .pg-hero { padding-bottom: 44px; }
+  .sec-head { margin-bottom: 24px; gap: 16px; }
+  .card { padding: 20px; border-radius: 18px; }
+  .pg-aside { padding: 18px; }
+
+  /* cards fit their content instead of fixed desktop heights */
+  .wcard, .ex-grid .card, .car-track .card, .pbr-grid .card, .out-grid .card, .bento .card, .steps3 .card { min-height: 0 !important; }
+  .bento { grid-auto-rows: auto; gap: 12px; }
+  .work-grid, .ex-grid, .rel-grid, .out-grid, .pbr-grid { gap: 12px; }
+
+  /* buttons: still a 44 px target, less bulk */
+  .btn { padding: 12px 18px; font-size: 15px; }
+  .pg-hero .btn-white, .hero .btn-white, .cx-band .btn-white { padding: 12px 14px 12px 20px; font-size: 15px; }
+  .btn-white .arr { width: 22px; height: 22px; font-size: 12px; }
+
+  /* people flip cards: two per row, compact; the back keeps only the one-line quote */
+  .fcards { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .fcards .flip, .fcards.crew .flip { height: 240px !important; }
+  .flip .flip-f, .crew .flip .flip-f { padding: 16px 10px 12px; gap: 4px; justify-content: center; }
+  .flip .flip-f .avatar, .crew .flip .flip-f .avatar { width: 96px; height: 96px; margin-bottom: 8px; padding: 3px; }
+  .flip .flip-f h3 { font-size: 17px !important; }
+  .flip .flip-f .role, .flip .flip-f > div[style*="font-size"], .flip .flip-f .sign { font-size: 12px !important; letter-spacing: 0.06em; }
+  .flip .flip-f .hint { bottom: 10px; font-size: 12px; }
+  .flip .flip-b { padding: 16px 14px; justify-content: center; gap: 10px; }
+  .flip .flip-b > div:first-child, .crew .flip-b .owns { font-size: 17px !important; line-height: 1.25; }
+  .flip .flip-b > p, .flip .flip-b > div[style*="flex-wrap"], .crew .flip-b .role { display: none !important; }
+  .flip .flip-b .go { font-size: 13px; }
+  .crew .flip-b .sign { font-size: 12px; }
+
+  /* profile and bio blocks */
+  .fbio { grid-template-columns: 64px 1fr; gap: 14px; padding: 22px 0; }
+  .fbio .avatar { width: 64px; height: 64px; }
+  .fbio p { font-size: 14.5px; }
+  .person .avatar { width: 72px; height: 72px; }
+  .person-n { font-size: 24px; }
+  .fmini { grid-template-columns: 64px 1fr; gap: 14px; }
+  .fmini .avatar { width: 64px; height: 64px; }
+  .avatar div { font-size: 24px; }
+
+  /* home bento mock and result strips */
+  .mock-dash { padding: 10px; gap: 6px; }
+  .mock-dash .k b { font-size: 18px; }
+  .mock-bars { height: 56px; }
+  .svc-num b { font-size: 22px !important; }
+
+  /* timelines, week, lessons */
+  .tl .st { padding-left: 58px; }
+  .tl .dot { width: 38px; height: 38px; font-size: 12px; }
+  .tl::before { left: 19px !important; }
+  .lesson { padding: 20px 0; }
+  .day { padding: 14px; gap: 8px; }
+
+  /* tables */
+  .cmp th, .cmp td { padding: 14px 16px; font-size: 14px; }
+  .sheet td, .sheet th { font-size: 13.5px; }
+}
+@media (max-width: 600px) {
+  /* long runs of like cards swipe sideways, next card peeking, instead of a very long stack */
+  #work .variant.on .work-grid, .week, .rel-grid {
+    display: grid !important; grid-auto-flow: column; grid-template-columns: none !important; grid-auto-columns: 80%;
+    overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-right: -16px; padding-right: 16px; padding-bottom: 6px;
+    scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  #work .variant.on .work-grid::-webkit-scrollbar, .week::-webkit-scrollbar, .rel-grid::-webkit-scrollbar { display: none; }
+  #work .variant.on .work-grid > *, .week > *, .rel-grid > * { scroll-snap-align: start; }
+  #work .variant.on .work-grid > .hide { display: none; }
+  .week { grid-auto-columns: 62%; }
+  .week .day { min-height: 0; }
+}

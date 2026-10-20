@@ -37,7 +37,7 @@ export function findPages(root) {
 function particleStops(html, route) {
   const { set, stops } = pageShapes(route)
   html = html.replace(/<body([^>]*)>/, `<body$1 data-shapes="${set}">`)
-  html = html.replace('<section class="pg-hero">', '<section class="pg-hero" data-stop="0"><div class="hero-mark" aria-hidden="true"></div>')
+  html = html.replace(/<section class="pg-hero([^"]*)">/, (m, rest) => `<section class="pg-hero${rest}" data-stop="0"><div class="hero-mark" aria-hidden="true"></div>`)
   const list = stops || ['cloud']
   let i = 0
   html = html.replace(/<section class="pg-sec([^"]*)"/g, (m, rest) => {

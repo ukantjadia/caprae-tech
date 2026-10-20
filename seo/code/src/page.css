@@ -254,3 +254,45 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 
 /* founder and build-team profile panels: more opaque glass, so the photo and name read clearly over the particles */
 [data-shapes] .pg-aside:has(.person) { background: rgba(8, 8, 12, 0.9) !important; }
+
+/* ---- Privacy and Terms: Caprae Capital's legal layout (assets/legal.css there), one to one,
+   in this site's theme: gold → iris, Cormorant → Instrument Serif, its greys → ours. Scoped to
+   .legal-hero / .legal-sec so the FAQ page (which reuses .legal-toc) is not affected. ---- */
+.legal-hero { padding-bottom: 0 !important; border-bottom: 0; }
+.legal-hero .legal-head { border-bottom: 1px solid var(--hair); padding-bottom: 24px; margin: 28px 0 0; }
+.legal-hero .legal-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--iris-glow); margin: 0 0 10px; }
+.legal-hero .legal-head h1 { font-family: var(--serif); font-size: 44px; font-weight: 400; color: #fff; letter-spacing: 0.5px; margin: 0 0 8px; line-height: 1.15; }
+.legal-hero .legal-sub { font-family: var(--sans); font-size: 14px; color: var(--ash); margin: 0; }
+.legal-hero .legal-sub a { color: var(--ash) !important; border-bottom: 1px solid var(--hair); }
+.legal-sec { padding: 40px 0 72px; }
+.legal-sec .legal-layout { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; }
+.legal-sec .legal-toc { position: sticky; top: 88px; background: rgba(15, 17, 21, 0.92); border: 1px solid var(--hair); border-radius: 14px; padding: 20px; max-height: calc(100vh - 120px); overflow-y: auto; }
+.legal-sec .legal-toc nav { position: static; display: block; background: none; border: 0; padding: 0; margin: 0; inset: auto; }
+.legal-sec .legal-toc-title { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--iris-glow); margin-bottom: 14px; }
+.legal-sec .legal-toc a { display: block; font-family: var(--sans); font-size: 12.5px; line-height: 1.45; color: var(--ash); text-decoration: none; padding: 5px 0; transition: color .2s ease; }
+.legal-sec .legal-toc a:hover { color: var(--iris-glow); }
+.legal-sec .legal-doc { min-width: 0; max-width: 760px; font-family: var(--sans); font-size: 14.5px; line-height: 1.75; color: var(--ash); }
+.legal-sec .legal-doc h1 { font-family: var(--serif); font-size: 32px; font-weight: 400; color: #fff; letter-spacing: 0.5px; margin: 0 0 14px; }
+.legal-sec .legal-doc h2 { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--iris-glow); letter-spacing: 0.5px; margin: 44px 0 14px; padding-top: 20px; border-top: 1px solid var(--hair); }
+.legal-sec .legal-doc h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; letter-spacing: 0.3px; margin: 26px 0 10px; }
+.legal-sec .legal-doc [id] { scroll-margin-top: 90px; }
+.legal-sec .legal-doc p, .legal-sec .legal-doc div { margin: 0 0 12px; }
+.legal-sec .legal-doc ul, .legal-sec .legal-doc ol { margin: 0 0 14px; padding-left: 22px; }
+.legal-sec .legal-doc li { margin: 6px 0; }
+.legal-sec .legal-doc strong, .legal-sec .legal-doc b { color: var(--bone); font-weight: 600; }
+.legal-sec .legal-doc a { color: var(--iris-glow); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.legal-sec .legal-doc a:hover { color: #fff; }
+.legal-sec .legal-doc .legal-updated { font-size: 13px; color: var(--iron); }
+.legal-sec .legal-doc table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; display: block; overflow-x: auto; }
+.legal-sec .legal-doc th, .legal-sec .legal-doc td { border: 1px solid var(--hair); padding: 9px 11px; text-align: left; vertical-align: top; }
+.legal-sec .legal-doc th { background: var(--panel); color: #fff; font-weight: 600; }
+.legal-sec .legal-foot { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hair); display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; font-family: var(--sans); font-size: 13px; color: var(--iron); }
+.legal-sec .legal-foot a { color: var(--ash); text-decoration: none; }
+.legal-sec .legal-foot a:hover { color: var(--iris-glow); }
+@media (max-width: 900px) {
+  .legal-sec .legal-layout { grid-template-columns: 1fr; gap: 0; }
+  .legal-sec .legal-toc { display: none; }
+  .legal-hero .legal-head h1 { font-size: 34px; }
+}
+/* readability: the long legal text sits on a panel above the particle field */
+[data-shapes] .legal-sec .legal-doc { background: rgba(0, 0, 0, 0.82); border-radius: 14px; padding: 4px 0; box-shadow: 0 0 0 24px rgba(0, 0, 0, 0.82); }
