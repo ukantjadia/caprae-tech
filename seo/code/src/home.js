@@ -23,4 +23,6 @@ import './home-links.js'
 applyA11yFixes()
 startFinalPage()
 startMenu()
-startStage({ ...shapes, EXTENTS })
+// the particle stage after the first paint: building it is a ~2s main-thread task, and before this
+// nothing (not the loader, not the hero) could paint until it had finished (D-118)
+requestAnimationFrame(() => setTimeout(() => startStage({ ...shapes, EXTENTS })))

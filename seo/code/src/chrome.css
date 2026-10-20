@@ -8,8 +8,10 @@
 /* ---- navbar ---- */
 .cx-nav { position: sticky; top: 0; z-index: 50; background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair-2); }
 .cx-nav > .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
-.cx-brand { font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: var(--bone); white-space: nowrap; }
-.cx-brand span { color: var(--ash); font-weight: 400; }
+.cx-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: var(--bone); white-space: nowrap; }
+.cx-brand-t > span { color: var(--ash); font-weight: 400; }
+/* the mark (D-118): currentColor, so it takes the wordmark's colour */
+.cx-mark { flex: none; display: block; width: auto; height: 26px; }
 .cx-main { margin-left: auto; }
 .cx-menu { list-style: none; display: flex; align-items: center; gap: 4px; }
 .cx-menu > li { position: relative; display: flex; align-items: center; }
@@ -68,6 +70,7 @@
 .cx-foot { position: relative; margin-top: 40px; padding: 48px 0 40px; border-top: 1px solid var(--hair); background: radial-gradient(60% 120px at 50% 0%, rgba(146, 129, 247, 0.08), transparent 100%); font-size: 14px; color: var(--ash); }
 .cx-f-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.5fr; gap: 40px; }
 .cx-f-brand .cx-brand { font-size: 20px; }
+.cx-f-brand .cx-mark { height: 30px; }
 .cx-f-parent { margin-top: 6px; font-size: 13px; color: var(--iron); }
 .cx-f-parent a { color: var(--ash); border-bottom: 1px solid var(--hair); }
 .cx-f-parent a:hover { color: var(--bone); border-color: var(--iron); }

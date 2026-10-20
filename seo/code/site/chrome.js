@@ -9,6 +9,21 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 const chevron = '<svg class="cx-chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 const arrow = '<span class="arr" aria-hidden="true">→</span>'
 
+// The Caprae Tech mark (D-118): a C and T drawn in one isometric hexagon. Traced to straight
+// edges from the supplied PNG. Filled with currentColor, so it is light on dark and dark on light.
+const MARK_D = 'M118.17 0L0 68.23L0 202.02L118.17 270.24L235.88 202.29L235.88 128.53L118.4 196.36L106.62 189.56L106.62 129.14L162.57 96.83L172.62 102.64L172.62 143.1L235.88 106.58L235.88 67.95ZM77.11 47.49L98.74 59.98L41.38 93.1L41.38 175.68L118.25 220.07L212.75 165.5L212.75 191.81L118.14 246.44L21.12 190.43L21.12 79.81ZM212.75 78.42L212.75 96.22L194.59 106.71L194.59 91.32L162.78 72.95L83.62 118.65L83.62 176.28L63.38 164.59L63.38 104.38L140.3 59.97L97.89 35.49L118.15 23.79Z'
+export const mark = cls => `<svg class="${cls}" viewBox="0 0 235.88 270.24" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="${MARK_D}"/></svg>`
+
+// The loading screen: black with the mark, over the page until it has loaded. Its CSS is in head()
+// so it is there on the first paint; without JS it never shows.
+// The first page of a visit shows it for 1.5s: a CSS animation fades it out, so it lifts on time
+// even while the home page's particle engine is busy on the main thread, and never sits on the
+// hero and its CTA for longer. Later pages lift it as soon as the HTML is parsed.
+const loader = () => `<div class="cx-load" id="cx-load" aria-hidden="true">${mark('cx-load-mark')}<i class="cx-load-bar"></i></div>
+<script>(()=>{const l=document.getElementById('cx-load');let seen=false;try{seen=!!sessionStorage.getItem('cx-seen');sessionStorage.setItem('cx-seen','1')}catch(e){}
+l.addEventListener('animationend',e=>{if(e.target===l)l.remove()});if(!seen)return
+const done=()=>l.classList.add('done');if(document.readyState==='loading')addEventListener('DOMContentLoaded',done,{once:true});else done()})()</script>`
+
 // is `href` the current page, or a section the current page sits inside?
 const isCurrent = (href, path) => href === path
 const isWithin = (item, path) => (item.href && item.href !== '/' && path.startsWith(item.href)) || (item.items || []).some(i => path.startsWith(i.href))
@@ -34,11 +49,22 @@ export function head(path) {
   // On body, not html: a background on html stops body's propagating to the canvas, and body
   // then paints over the particle field (z-index -1), hiding it on every page.
   return `<meta name="color-scheme" content="dark">
-<style>body{background:#000;color:#f0f0f0}</style>
+<style>body{background:#000;color:#f0f0f0}
+.cx-load{position:fixed;inset:0;z-index:1000;display:grid;place-content:center;justify-items:center;gap:26px;background:#000;color:#f0f0f0;animation:cx-load-out .45s ease 1.05s forwards}
+.cx-load.done{animation:cx-load-out .35s ease forwards}
+@keyframes cx-load-out{to{opacity:0;visibility:hidden;pointer-events:none}}
+.cx-load-mark{width:64px;height:auto;animation:cx-load-in .7s cubic-bezier(.2,.7,.2,1) both}
+.cx-load-bar{display:block;width:72px;height:2px;border-radius:2px;background:rgba(240,240,240,.12);overflow:hidden;position:relative}
+.cx-load-bar::after{content:"";position:absolute;inset:0;width:40%;border-radius:2px;background:linear-gradient(90deg,#a293ff,#9a54dc);animation:cx-load-run 1s ease-in-out infinite}
+@keyframes cx-load-in{from{opacity:0;transform:scale(.92)}}
+@keyframes cx-load-run{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+@media (prefers-reduced-motion:reduce){.cx-load-mark,.cx-load-bar::after{animation:none}.cx-load,.cx-load.done{animation-duration:.01s}}</style>
+<noscript><style>.cx-load{display:none}</style></noscript>
 <title>${esc(r.title)}</title>
 <meta name="description" content="${esc(r.description)}">
 ${KEYWORDS[path] ? `<meta name="keywords" content="${esc(KEYWORDS[path].join(', '))}">\n` : ''}<link rel="canonical" href="${url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="${esc(r.title)}">
 <meta property="og:description" content="${esc(r.description)}">
 <meta property="og:type" content="website">
@@ -80,9 +106,10 @@ export function nav(path) {
     : `<a class="cx-m-link" href="${item.href}"${cur(item.href)}>${item.label}</a>`).join('')
 
   // the home page is final-draft-2 unchanged, so it has no <main>; its first section is #hero
-  return `<a class="cx-skip" href="${path === '/' ? '#hero' : '#main'}">Skip to content</a>
+  return `${loader()}
+<a class="cx-skip" href="${path === '/' ? '#hero' : '#main'}">Skip to content</a>
 <header class="cx-nav"><div class="wrap">
-  <a class="cx-brand" href="/" aria-label="Caprae Tech, home">Caprae <span>Tech</span></a>
+  <a class="cx-brand" href="/" aria-label="Caprae Tech, home">${mark('cx-mark')}<span class="cx-brand-t">Caprae <span>Tech</span></span></a>
   <nav class="cx-main" aria-label="Main"><ul class="cx-menu">${top}</ul></nav>
   <a class="btn btn-white cx-cta" href="/book-a-call/">Book a call ${arrow}</a>
   <details class="cx-mobile"><summary aria-label="Menu"><span class="cx-burger" aria-hidden="true"><i></i><i></i><i></i></span></summary><div class="cx-m-scrim" aria-hidden="true"></div><nav class="cx-m-panel" aria-label="Mobile">${mobile}<a class="btn btn-white cx-m-cta" href="/book-a-call/">Book a call ${arrow}</a></nav></details>
@@ -117,7 +144,7 @@ export function footer() {
   <a class="cx-f-top" href="#top" aria-label="Back to top" data-tip="Back to top"><span aria-hidden="true">↑</span></a>
   <div class="cx-f-grid">
     <div class="cx-f-brand">
-      <a class="cx-brand" href="/">Caprae <span>Tech</span></a>
+      <a class="cx-brand" href="/">${mark('cx-mark')}<span class="cx-brand-t">Caprae <span>Tech</span></span></a>
       <div class="cx-f-parent">Part of <a href="https://capraecapital.com/" target="_blank" rel="noopener">Caprae Capital</a></div>
       <p>${FOOTER.tagline}.</p>
       <a class="cx-f-mail" href="mailto:${FOOTER.email}">${FOOTER.email}</a>
