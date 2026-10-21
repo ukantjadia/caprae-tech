@@ -271,6 +271,8 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 .legal-sec .legal-toc-title { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--iris-glow); margin-bottom: 14px; }
 .legal-sec .legal-toc a { display: block; font-family: var(--sans); font-size: 12.5px; line-height: 1.45; color: var(--ash); text-decoration: none; padding: 5px 0; transition: color .2s ease; }
 .legal-sec .legal-toc a:hover { color: var(--iris-glow); }
+/* the section being read (src/legal-toc.js) */
+.legal-sec .legal-toc a.is-current { color: #fff; box-shadow: inset 2px 0 0 var(--iris-glow); padding-left: 12px; margin-left: -12px; }
 .legal-sec .legal-doc { min-width: 0; max-width: 760px; font-family: var(--sans); font-size: 14.5px; line-height: 1.75; color: var(--ash); }
 .legal-sec .legal-doc h1 { font-family: var(--serif); font-size: 32px; font-weight: 400; color: #fff; letter-spacing: 0.5px; margin: 0 0 14px; }
 .legal-sec .legal-doc h2 { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--iris-glow); letter-spacing: 0.5px; margin: 44px 0 14px; padding-top: 20px; border-top: 1px solid var(--hair); }

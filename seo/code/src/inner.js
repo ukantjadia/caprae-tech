@@ -11,6 +11,10 @@ startWidgets()
 const io = new IntersectionObserver(es => { for (const e of es) e.target.classList.toggle('in', e.isIntersecting) }, { threshold: 0.25 })
 for (const el of document.querySelectorAll('[data-io]')) io.observe(el)
 
+// Privacy and Terms: highlight the section being read in the contents list
+const legalToc = document.querySelector('.legal-sec .legal-toc')
+if (legalToc) import('./legal-toc.js').then(m => m.startLegalToc(legalToc))
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 const stage = () => import('./inner-stage.js')
 if (document.readyState === 'complete') stage()

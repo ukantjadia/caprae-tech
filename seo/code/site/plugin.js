@@ -5,11 +5,35 @@
 // and {{SITE}} with SITE_URL. In the build it also writes sitemap.xml and robots.txt.
 // Then it prefixes root-relative <a href="/..."> links with the deploy base, so the same
 // pages work at / locally and at /caprae-tech/ on GitHub Pages.
-import { readdirSync, statSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { ROUTES, SITE_URL } from './routes.js'
 import { head, nav, crumbs, bookBand, footer } from './chrome.js'
 import { pageShapes } from './shapes.js'
+import { sitemapXml } from './sitemap.js'
+
+// llms.txt (llmstxt.org) for AI assistants: the written summary in llms-head.md, then every page
+// from routes.js with its title and description, so the list always matches the site. The full
+// fact sheet is public/ai-information.md.
+function llmsTxt() {
+  const headText = readFileSync(fileURLToPath(new URL('./llms-head.md', import.meta.url)), 'utf8').trimEnd()
+  const pages = Object.entries(ROUTES).map(([r, v]) => `- [${v.title.replace(/ \| Caprae Tech$/, '')}](${SITE_URL}${r}): ${v.description}`)
+  return `${headText}
+
+## All Pages
+
+- [AI Information](${SITE_URL}/ai-information.md): Official, verified brand facts for AI assistants
+${pages.join('\n')}
+
+## Optional
+
+- [Caprae Capital](https://capraecapital.com/): The parent company
+- [Caprae Capital AI Information](https://capraecapital.com/ai-information.md): Verified facts about the parent company
+- [Kevin Hong on LinkedIn](https://www.linkedin.com/in/kevinhshong/): Founder
+- [Cold Call Killers](https://coldcallkillers.io/): Where Call Intelligence™ is live in beta
+`
+}
 
 const SKIP = new Set(['node_modules', 'dist', 'src', 'public', 'site'])
 
@@ -62,18 +86,13 @@ export function sitePages({ root, base }) {
     config: () => ({ build: { rollupOptions: { input: Object.fromEntries(pages.map(p => [p.route === '/' ? 'home' : p.route.slice(1, -1), p.file])) } } }),
     // the sitemap and robots.txt, from routes.js, so they always match the pages
     generateBundle() {
-      const urls = Object.keys(ROUTES).map(r => `  <url><loc>${SITE_URL}${r}</loc></url>`).join(`
-`)
-      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>
-` })
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemapXml(Object.keys(ROUTES), pages, SITE_URL) })
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: `User-agent: *
 Allow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml
 ` })
+      this.emitFile({ type: 'asset', fileName: 'llms.txt', source: llmsTxt() })
     },
     transformIndexHtml: {
       order: 'pre',

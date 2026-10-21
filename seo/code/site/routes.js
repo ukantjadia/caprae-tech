@@ -213,7 +213,7 @@ export const ROUTES = {
     title: 'Privacy Policy | Caprae Tech',
     description: 'How Caprae Tech handles the information you share with us, including the name and email you enter when you book a call.',
   },
-  '/terms/': {
+  '/terms-and-conditions/': {
     label: 'Terms & Conditions', parent: '/',
     title: 'Terms & Conditions | Caprae Tech',
     description: 'The terms that apply when you use the Caprae Tech website.',
@@ -268,7 +268,9 @@ export const FOOTER = {
       { href: '/book-a-call/', label: 'Book a call' },
       { href: 'https://capraecapital.com/', label: 'Caprae Capital', external: true },
       { href: '/privacy/', label: 'Privacy Policy' },
-      { href: '/terms/', label: 'Terms & Conditions' },
+      { href: '/terms-and-conditions/', label: 'Terms & Conditions' },
+      // plain Markdown for AI assistants (public/ai-information.md), as on capraecapital.com
+      { href: '/ai-information.md', label: 'AI Information' },
     ] },
   ],
 }

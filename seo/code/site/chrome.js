@@ -71,7 +71,15 @@ ${KEYWORDS[path] ? `<meta name="keywords" content="${esc(KEYWORDS[path].join(', 
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Caprae Tech">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="${SITE_URL}/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Caprae Tech: built by founders, not a dev shop.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(r.title)}">
+<meta name="twitter:description" content="${esc(r.description)}">
+<meta name="twitter:image" content="${SITE_URL}/og-image.png">
 <meta name="theme-color" content="#000000">
 ${ld(data)}`
 }

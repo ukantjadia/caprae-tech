@@ -336,3 +336,9 @@
   .week { grid-auto-columns: 62%; }
   .week .day { min-height: 0; }
 }
+
+/* links written into body text (internal and external), every page. Underlined so they don't
+   rely on colour alone; external ones open in a new tab and carry a small arrow. */
+a.inline-link { color: var(--bone); text-decoration: underline; text-decoration-color: rgba(186, 167, 255, 0.55); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .2s ease, text-decoration-color .2s ease; }
+a.inline-link:hover, a.inline-link:focus-visible { color: var(--iris-glow); text-decoration-color: var(--iris-glow); }
+a.inline-link[target="_blank"]::after { content: "\2197"; font-size: 0.8em; margin-left: 2px; text-decoration: none; display: inline-block; }
