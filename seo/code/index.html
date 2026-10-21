@@ -933,21 +933,28 @@ function chat(n){$('#faqC').innerHTML=FAQ.slice(0,n).map(q=>`<div class="bub q">
 chat(4);
 
 /* ======================= 10 BOOK ======================= */
-const FORM=`<div class="two"><div class="field"><label>First name</label><input name="first" autocomplete="given-name" placeholder="Jane"><div class="msg">Required</div></div><div class="field"><label>Last name</label><input name="last" autocomplete="family-name" placeholder="Doe"><div class="msg">Required</div></div></div>
-<div class="field"><label>Work email</label><input name="email" type="email" autocomplete="email" placeholder="jane@company.com"><div class="msg">Enter a valid email</div></div>
-<div class="field"><label>What's the call about?</label><textarea name="reason" placeholder="e.g. We run a staffing firm and want a client portal instead of emailing timesheets."></textarea><div class="msg">Tell us a line or two</div></div>
+const FORM=`<div class="field"><label>Full name *</label><input name="full_name" autocomplete="name" placeholder="Your name"><div class="msg">Required</div></div>
+<div class="field"><label>LinkedIn URL</label><input name="linkedin" type="url" autocomplete="url" placeholder="https://www.linkedin.com/in/your-profile" data-optional><div class="msg">Start the link with https://</div></div>
+<div class="field"><label>Email *</label><input name="email" type="email" autocomplete="email" placeholder="you@example.com"><div class="msg">Enter a valid email</div></div>
+<div class="field"><label>How can we help? *</label><textarea name="message" placeholder="e.g. We run a staffing firm and want a client portal instead of emailing timesheets."></textarea><div class="msg">Tell us a line or two</div></div>
+<div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Company website</label><input name="company_website" tabindex="-1" autocomplete="off"></div>
 <button class="btn btn-white btn-book" type="submit" style="width:100%;margin-top:4px">Book a call <span class="arr" aria-hidden="true">→</span></button>
-<div class="dim" style="font-size:12px;text-align:center">Four fields. We'll email you to set the time.</div>`;
-function days(){const out=[];const d=new Date();while(out.length<5){d.setDate(d.getDate()+1);if(d.getDay()%6)out.push(new Date(d))}return out}
+<div class="dim" style="font-size:12px;text-align:center">Four fields. We'll email you to set the time.</div>
+<div class="form-err" role="alert" style="font-size:13px;color:#ff9592;text-align:center"></div>`;
 function calHTML(first,email){return `<div class="done-ico" aria-hidden="true">✓</div><div style="font-family:var(--serif);font-size:32px">Thanks, ${esc(first)}.</div><p class="muted" style="margin-top:8px">We'll email you at ${esc(email)} to set up your 30-minute call.</p>`}
+/* the form posts to /api/contact (seo/code/server: CSV + Site-Inbound-Leads sheet + email to partners@);
+   company_website is a hidden honeypot that only bots fill */
+function validField(inp){const v=inp.value.trim();if(!v)return inp.hasAttribute('data-optional');if(inp.type==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);if(inp.type==='url')return /^https?:\/\/\S+$/i.test(v);return true}
 $$('[data-form]').forEach(f=>{
   f.innerHTML=FORM;
-  const done=f.nextElementSibling;
-  f.addEventListener('submit',e=>{e.preventDefault();let ok=true;
-    const val={};$$('input,textarea',f).forEach(inp=>{const v=inp.value.trim();val[inp.name]=v;const bad=!v||(inp.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));inp.parentElement.classList.toggle('err',bad);if(bad)ok=false});
+  const done=f.nextElementSibling,btn=$('button[type=submit]',f),err=$('.form-err',f);
+  f.addEventListener('submit',async e=>{e.preventDefault();if(btn.disabled)return;let ok=true;
+    const val={};$$('input,textarea',f).forEach(inp=>{val[inp.name]=inp.value.trim();if(!inp.closest('.field'))return;const bad=!validField(inp);inp.parentElement.classList.toggle('err',bad);if(bad)ok=false});
     if(!ok)return;
-    f.style.display='none';done.innerHTML=calHTML(val.first,val.email);done.classList.add('show');
-    $$('.cal-slots button',done).forEach(b=>b.addEventListener('click',()=>{$$('.cal-slots button',done).forEach(x=>x.classList.remove('on'));b.classList.add('on');toast('Mock booked: '+b.textContent)}));
+    const label=btn.innerHTML;btn.disabled=true;btn.textContent='Sending…';err.textContent='';
+    try{const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});const out=await res.json().catch(()=>({}));if(!res.ok||!out.ok)throw new Error(out.error||'We could not send that. Please try again, or email partners@capraecapital.com.')}
+    catch(x){btn.disabled=false;btn.innerHTML=label;err.textContent=x.message==='Failed to fetch'?'We could not reach the server. Please try again, or email partners@capraecapital.com.':x.message;return}
+    f.style.display='none';done.innerHTML=calHTML(val.full_name.split(' ')[0],val.email);done.classList.add('show');
     if(f.hasAttribute('data-stepper')){const s=$$('#stepbar .s');s[1].classList.add('on');}
   });
   $$('input,textarea',f).forEach(inp=>inp.addEventListener('input',()=>inp.parentElement.classList.remove('err')));

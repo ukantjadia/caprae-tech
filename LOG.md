@@ -685,3 +685,13 @@ still unmeasured, and the hero video is still 11.1MB.
 **Asked:** Add the google-site-verification meta tag to the Caprae Tech site.
 **Did:** `seo/code/site/chrome.js` head(): added `<meta name="google-site-verification" content="kLoVvXODkrbfIAJ9XyneB5IzvsvaBeZa6aY_nMUwi-4">` after the description, so every page carries it. Built and deployed to https://capraetech.io with ~/deploy-capraetech.sh; checked the tag is served on / and /pricing/.
 **Open:** Verify the property in Google Search Console, then submit https://capraetech.io/sitemap.xml.
+
+## 2026-10-21 - Contact form backend: CSV, Site-Inbound-Leads sheet, email to partners@
+**Asked:** Make the Caprae Tech contact form work like Simba's (CSV first, then a new tab in the same Site-Inbound-Leads sheet), email each submission to partners@, everything in the project folder without touching others' commits. Change the form to Full name *, LinkedIn URL, Email *, How can we help? *.
+**Did:** New `seo/code/server/` (contact-api.js, sheets.js copied from Simba, contact-tab.js, contact-email-resend.js, README.md, data/ for the CSV), kept out of git with `.git/info/exclude`. `capraetech-contact.service` on 127.0.0.1:8012; nginx `location = /api/contact` on capraetech.io. Config in /home/ubuntu/secret/capraetech-contact.env. Created tab "Caprae Tech" with header. Forms: `book-a-call/index.html`, `src/widgets.js` (bookForm posts to /api/contact, shows server errors), `index.html` inline FORM and handler (also removed the unused `days()` helper). Deployed. Tested: validation, honeypot, wrong method/type on the API; one live test reached the CSV and the sheet (test row then deleted); headless Chromium on /, /book-a-call/ desktop and 390px: field errors, LinkedIn check, server-error message and thank-you all work, no JS errors.
+**Open:** Email does not send: Gmail rejects the recruiting@capraecapital.com app password (535 BadCredentials), the same password MailPost uses, so MailPost email is likely failing too. Needs a new app password in the env file; then resend any missed emails with contact-email-resend.js. Form changes are not committed.
+
+## 2026-10-21 - Contact form email fixed
+**Asked:** Use the new Gmail app password; it was made for partners@. Send a test mail saying "Test mail from Hiten".
+**Did:** The password failed for recruiting@ (535), worked for partners@. capraetech-contact.env now sends as partners@capraecapital.com (SMTP_USER, EMAIL_FROM) to partners@; old env backed up. Restarted capraetech-contact. Sent "Test mail from Hiten" to partners@ (Gmail 250 OK). No form submissions had arrived in the meantime, so nothing to resend.
+**Open:** MailPost still uses the rejected recruiting@ password. Form changes are not committed.

@@ -49,27 +49,57 @@ export function compareSlider(ba) {
   ba.addEventListener('keydown', e => { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); set(kp + (e.key === 'ArrowRight' ? 5 : -5)) })
 }
 
-// Book a call: required fields, a valid email, then the thank-you (no calendar, D-080)
+// Book a call: required fields, a valid email, then POST to /api/contact (seo/code/server,
+// CSV + Site-Inbound-Leads sheet + email to partners@) and the thank-you (no calendar, D-080).
+// The hidden company_website box is a honeypot: people never see it, bots fill it.
+const validField = inp => {
+  const v = inp.value.trim()
+  if (!v) return inp.hasAttribute('data-optional')
+  if (inp.type === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+  if (inp.type === 'url') return /^https?:\/\/\S+$/i.test(v)
+  return true
+}
+
+async function sendContact(val) {
+  const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(val) })
+  const out = await res.json().catch(() => ({}))
+  if (!res.ok || !out.ok) throw new Error(out.error || 'We could not send that. Please try again, or email partners@capraecapital.com.')
+}
+
 export function bookForm(f) {
   const done = f.nextElementSibling
-  f.addEventListener('submit', e => {
+  const btn = $('button[type=submit]', f), err = $('.form-err', f)
+  f.addEventListener('submit', async e => {
     e.preventDefault()
+    if (btn.disabled) return
     let ok = true
     const val = {}
     for (const inp of $$('input,textarea', f)) {
-      const v = inp.value.trim(); val[inp.name] = v
-      const bad = !v || (inp.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-      inp.closest('.field').classList.toggle('err', bad)
+      val[inp.name] = inp.value.trim()
+      const field = inp.closest('.field')
+      if (!field) continue // the honeypot
+      const bad = !validField(inp)
+      field.classList.toggle('err', bad)
       inp.setAttribute('aria-invalid', String(bad))
       if (bad && ok) { ok = false; inp.focus() }
     }
     if (!ok) return
+    const label = btn.innerHTML
+    btn.disabled = true; btn.textContent = 'Sending…'
+    if (err) err.textContent = ''
+    try {
+      await sendContact(val)
+    } catch (x) {
+      btn.disabled = false; btn.innerHTML = label
+      if (err) err.textContent = x.message === 'Failed to fetch' ? 'We could not reach the server. Please try again, or email partners@capraecapital.com.' : x.message
+      return
+    }
     f.style.display = 'none'
-    done.innerHTML = `<div class="done-ico" aria-hidden="true">✓</div><div style="font-family:var(--serif);font-size:32px">Thanks, ${esc(val.first)}.</div><p class="muted" style="margin-top:8px">We'll email you at ${esc(val.email)} to set up your 30-minute call.</p>`
+    done.innerHTML = `<div class="done-ico" aria-hidden="true">✓</div><div style="font-family:var(--serif);font-size:32px">Thanks, ${esc(val.full_name.split(' ')[0])}.</div><p class="muted" style="margin-top:8px">We'll email you at ${esc(val.email)} to set up your 30-minute call.</p>`
     done.classList.add('show')
     done.tabIndex = -1; done.focus()
   })
-  for (const inp of $$('input,textarea', f)) inp.addEventListener('input', () => { inp.closest('.field').classList.remove('err'); inp.removeAttribute('aria-invalid') })
+  for (const inp of $$('input,textarea', f)) inp.addEventListener('input', () => { inp.closest('.field')?.classList.remove('err'); inp.removeAttribute('aria-invalid') })
 }
 
 // Work A: filter chips show one group of cards. Without JS every card shows.
