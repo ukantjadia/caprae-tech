@@ -39,10 +39,29 @@ export function frameTetra({ radius = 0.77, inner = 0.82, window = 0.586, sink =
   return geo
 }
 
+// D-100: the light quality level draws each particle as a plain tetrahedron, 4 triangles instead
+// of the frame's 48. At half resolution a particle is 2 to 4 px, so the frame's window is under a
+// pixel and the two look the same; under software WebGL it is most of a frame's cost.
+function plainTetra(radius = 0.77) {
+  const q = Math.sqrt
+  const O = [[0, 1, 0], [-q(8 / 9), -1 / 3, 0], [q(2 / 9), -1 / 3, q(2 / 3)], [q(2 / 9), -1 / 3, -q(2 / 3)]].map(a => new THREE.Vector3(...a).multiplyScalar(radius))
+  const tris = []
+  for (let k = 0; k < 4; k++) {
+    const [a, b, c] = [0, 1, 2, 3].filter(i => i !== k)
+    const n = new THREE.Vector3().subVectors(O[b], O[a]).cross(new THREE.Vector3().subVectors(O[c], O[a]))
+    tris.push(...(n.dot(O[a].clone().add(O[b]).add(O[c])) > 0 ? [a, b, c] : [a, c, b])) // outward
+  }
+  const geo = new THREE.BufferGeometry()
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(O.flatMap(v => v.toArray()), 3))
+  geo.setIndex(tris)
+  return geo
+}
+const FRAME = frameTetra(), PLAIN = plainTetra()
+const useShape = (geo, lite) => { const b = lite ? PLAIN : FRAME; geo.setAttribute('position', b.getAttribute('position')); geo.setIndex(b.getIndex()) }
+
 function instanced(count) {
-  const base = frameTetra(), geo = new THREE.InstancedBufferGeometry()
-  geo.setAttribute('position', base.getAttribute('position'))
-  geo.setIndex(base.getIndex())
+  const geo = new THREE.InstancedBufferGeometry()
+  useShape(geo, false)
   geo.instanceCount = count
   return geo
 }
@@ -258,6 +277,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
 
   return {
     mesh, uniforms: u, material,
+    setLite(on) { useShape(geo, on) }, // D-100: plain tetrahedra at the light quality level
     // dev: current particle positions and visibility, read back from the GPU
     readPositions() {
       const p = new Float32Array(N * 4), v = new Float32Array(N * 4)

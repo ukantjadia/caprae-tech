@@ -24,9 +24,30 @@ export async function startStage(cfg) {
     return
   }
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-  let dpr = 1
+  // D-100: the particles show for every visitor; only how much each frame costs changes.
+  // Quality: 2 = full (bloom, DPR 1), 1 = DPR 0.75, 0 = light (DPR 0.5, no bloom, and the field
+  // settles: it redraws only while something changes). A browser that draws WebGL in software
+  // starts at 0: a context that refuses a "major performance caveat" fails only there
+  // (SwiftShader, llvmpipe, WARP), and full quality would cost it 0.4 to 1 s per frame.
+  // A second signal is the renderer's own name, where the browser shares it: Chrome started with
+  // --enable-unsafe-swiftshader accepts the caveat test, but still calls itself SwiftShader.
+  const softwareGL = (() => {
+    try {
+      const gl = document.createElement('canvas').getContext('webgl2', { failIfMajorPerformanceCaveat: true })
+      gl?.getExtension('WEBGL_lose_context')?.loseContext()
+      if (!gl) return true
+      const own = renderer.getContext(), info = own.getExtension('WEBGL_debug_renderer_info')
+      const name = info ? own.getParameter(info.UNMASKED_RENDERER_WEBGL) : own.getParameter(own.RENDERER)
+      return /swiftshader|llvmpipe|softpipe|software|basic render|warp/i.test(String(name))
+    } catch { return false }
+  })()
+  const DPR = [0.5, 0.75, 1]
+  let level = softwareGL ? 0 : 2
+  if (import.meta.env.DEV) { const q = new URLSearchParams(location.search).get('quality'); if (q in DPR) level = +q } // dev only: preview a level
+  let dpr = DPR[level]
   renderer.setPixelRatio(dpr)
   renderer.setClearColor(0x000000, 1)
+  canvas.dataset.quality = level
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(cfg.CAMERA.fov, 1, 0.1, 60)
@@ -37,6 +58,8 @@ export async function startStage(cfg) {
   group.add(field.mesh)
   scene.add(group, dust.mesh)
   const post = createPost(renderer, scene, camera)
+  post.bloom.enabled = level > 0
+  field.setLite(level === 0)
   // D-079: drafts that set TEXT_MASK dim the particles under the page text
   const mask = cfg.TEXT_MASK && createTextMask(cfg.TEXT_MASK)
   if (mask) for (const m of [field.material, dust.material]) for (const k in mask.uniforms) m.uniforms[k].value = mask.uniforms[k]
@@ -151,11 +174,37 @@ export async function startStage(cfg) {
   const progress = cfg.STOPS ? stopProgress : sectionProgress
   const cur = timeline(progress())
   let t = 0, prev = performance.now(), show = reduced ? 1 : 0
-  let slow = 0, frames = 0
+
+  // D-100: quality steps. Frame intervals are measured only between frames that were actually
+  // drawn back to back; if they average under 24 fps (30 Hz screens stay put) over 20 frames or
+  // one second of frames, whichever comes first, the field drops one level. It never steps back
+  // up, so it can't oscillate. Timing starts once the shaders are compiled (below).
+  const setLevel = l => { level = l; dpr = DPR[l]; post.bloom.enabled = l > 0; field.setLite(l === 0); canvas.dataset.quality = l; resize() }
+  let startedAt = Infinity
+  let lastDrawn = 0, acc = 0, cnt = 0
+  // The settle window (light level and reduced motion): the field runs while something changes
+  // (the intro, a scroll, a resize, the footer moving), draws its final state, then holds it.
+  let awakeUntil = Infinity // set when the loop starts: the intro, particles gather in over 2.4 s
+  let settled = false, lastDraw = 0
+  const wake = () => { awakeUntil = performance.now() + 2500; settled = false }
+  addEventListener('scroll', wake, { passive: true })
+  addEventListener('resize', wake)
+  document.addEventListener('visibilitychange', () => { lastDrawn = 0 })
 
   const frame = (fixedDt) => {
     const now = performance.now()
-    const dt = fixedDt ?? Math.min((now - prev) / 1000, 0.1)
+    // the field ends at the footer: once the footer's top edge is on screen, the fixed canvas
+    // moves up with it, so the shape scrolls away with the content above and nothing is behind the footer
+    const foot = document.querySelector('.cx-foot')
+    const shift = foot ? Math.max(0, Math.min(innerHeight, innerHeight - foot.getBoundingClientRect().top)) : 0
+    if (shift !== lastShift) { canvas.style.transform = shift ? `translateY(${-shift}px)` : ''; lastShift = shift; wake() }
+    // nothing visible would change: the canvas is fully off screen, or the field has settled
+    const settles = level === 0 || reduced
+    if (fixedDt === undefined && (shift >= innerHeight || (settles && settled))) { prev = now; lastDrawn = 0; return }
+    const closing = settles && now > awakeUntil // the window's last frame: draw the final state, then hold
+    // the light level draws few frames a second: it follows real time (up to 0.5 s a frame), so
+    // the intro, the easing and the physics (below) finish on time instead of in slow motion
+    const dt = fixedDt ?? Math.min((now - prev) / 1000, level === 0 ? 0.5 : 0.1)
     prev = now
     t += reduced ? 0 : dt
     const k = 1 - Math.exp(-dt * 6)
@@ -200,25 +249,37 @@ export async function startStage(cfg) {
     mu.uQuiet.value = cfg.STOPS ? cloud : Math.min(1, pastHero * (0.6 + 0.4 * cloud)) // how much the text column clears, 0..1
     mu.uFocus.value = camera.position.distanceTo(group.position)
 
-    // the field ends at the footer: once the footer's top edge is on screen, the fixed canvas
-    // moves up with it, so the shape scrolls away with the content above and nothing is behind the footer
-    const foot = document.querySelector('.cx-foot')
-    const shift = foot ? Math.max(0, Math.min(innerHeight, innerHeight - foot.getBoundingClientRect().top)) : 0
-    if (shift !== lastShift) { canvas.style.transform = shift ? `translateY(${-shift}px)` : ''; lastShift = shift }
-    mask?.update(shift)
-    field.update(t, dt)
+    // light level: physics in steps of at most 1/30 s, so a long frame doesn't overshoot the
+    // springs; the other levels keep one step a frame, as before
+    const steps = level === 0 ? Math.min(15, Math.max(1, Math.ceil(dt * 30))) : 1
+    for (let i = 0; i < steps; i++) field.update(t, dt / steps)
     dust.update(t)
-    post.render(t)
+    if (closing) settled = true
 
-    // adaptive resolution: if frames run slow for ~1.5 s, render fewer pixels
-    frames++
-    if (dt > 1 / 50) slow++
-    if (frames >= 90) {
-      if (slow > 45 && dpr > 0.6) { dpr = Math.max(0.6, dpr - 0.15); resize() }
-      frames = 0; slow = 0
+    // Draw every frame, except at the light level: there the physics keeps running every frame
+    // (it costs ~0 ms), but presenting a drawn frame costs a software-WebGL browser ~230 ms of
+    // main thread (measured 2026-10-22, testing-results/analysis/check-cost-split.js). So it
+    // draws the intro's formed shape once, at the end of the intro (a 1 fps gather-in would only
+    // look like jumping dots), then once a second while a scroll moves the shape, and once more
+    // as each window closes.
+    const inIntro = now < startedAt + 3500
+    if (level > 0 || closing || fixedDt !== undefined || (!inIntro && now - lastDraw >= 1000)) {
+      mask?.update(shift)
+      post.render(t)
+      lastDraw = now
+      if (lastDrawn && now - startedAt > 1500) {
+        acc += now - lastDrawn; cnt++
+        if (cnt >= 20 || acc > 1000) {
+          if (level > 0 && acc / cnt > 1000 / 24) setLevel(level - 1)
+          acc = 0; cnt = 0
+        }
+      }
+      lastDrawn = now
     }
   }
-  renderer.compile(scene, camera)
+  // compile shaders without blocking the page where the browser can do it in parallel
+  await renderer.compileAsync(scene, camera)
+  startedAt = performance.now(); awakeUntil = startedAt + 3500; prev = lastDraw = startedAt
   renderer.setAnimationLoop(() => frame())
 
   if (import.meta.env.DEV) window.__stage = { renderer, field, dust, post, scene, camera, sectionProgress, step: n => { for (let i = 0; i < n; i++) frame(1 / 60) } }

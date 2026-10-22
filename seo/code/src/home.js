@@ -14,7 +14,6 @@ import './style.css'
 import './chrome.css'
 import * as shapes from './config.js'
 import EXTENTS from './extents.json'
-import { startStage } from './engine/stage.js'
 import { applyA11yFixes } from './engine/a11y.js'
 import { startFinalPage } from './engine/final-page.js'
 import { startMenu } from './menu.js'
@@ -24,5 +23,6 @@ applyA11yFixes()
 startFinalPage()
 startMenu()
 // the particle stage after the first paint: building it is a ~2s main-thread task, and before this
-// nothing (not the loader, not the hero) could paint until it had finished (D-118)
-requestAnimationFrame(() => setTimeout(() => startStage({ ...shapes, EXTENTS })))
+// nothing (not the loader, not the hero) could paint until it had finished (D-118). The engine is
+// fetched only then too, so the menu and links don't wait for its 168 KB download (D-100)
+requestAnimationFrame(() => setTimeout(() => import('./engine/stage.js').then(m => m.startStage({ ...shapes, EXTENTS }))))
