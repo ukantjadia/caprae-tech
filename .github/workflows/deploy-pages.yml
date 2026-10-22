@@ -34,6 +34,29 @@ jobs:
         run: bun run build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+
+      # Preview of the perf/keep-3d-fixes branch at /perf/, next to main, so the two can be
+      # compared on the same host (PageSpeed, GTmetrix). capraetech.io is not affected. Canonical
+      # links point at capraetech.io, so the copy is not indexed as a second site.
+      # Remove these four steps when the branch is merged or dropped.
+      - name: Check out the perf branch
+        uses: actions/checkout@v4
+        with:
+          ref: perf/keep-3d-fixes
+          path: perf-src
+          fetch-depth: 0
+      - name: Install the perf branch's dependencies
+        working-directory: perf-src/seo/code
+        run: bun install --frozen-lockfile
+      - name: Build the perf branch
+        working-directory: perf-src/seo/code
+        run: bun run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/perf/
+          SITE_URL: https://capraetech.io
+      - name: Put the perf build at /perf/
+        run: cp -r perf-src/seo/code/dist seo/code/dist/perf
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: seo/code/dist
