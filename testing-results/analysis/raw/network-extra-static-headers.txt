@@ -1,0 +1,3 @@
+team/kevin-hong.webp: HTTP/2 200  content-type: image/webp cache-control: max-age=14400, must-revalidate cf-cache-status: REVALIDATED cf-ray: a4e803d3d8b28247-SIN
+team/kevin-hong.webp: HTTP/2 200  content-type: image/webp cache-control: max-age=14400, must-revalidate cf-cache-status: REVALIDATED cf-ray: a4e803de4c543fd5-SIN
+robots.txt: HTTP/2 200  content-type: text/plain cache-control: max-age=14400, must-revalidate cf-cache-status: REVALIDATED cf-ray: a4e803e51c5f02ce-HKG

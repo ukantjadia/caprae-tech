@@ -1,0 +1,1551 @@
+Re-Test
+Compare
+Page
+Settings
+Monitor
+Set Up
+Alerts
+Tags
+Share
+Get more On-Demand tests
+Test more pages with more On-Demand tests on a
+GTmetrix PRO
+plan!
+Upgrade Plan
+Latest Performance Report for:
+https://capraetech.io/
+Report generated:
+Wed, Oct 21, 2026 6:15 AM -0700
+Test Server Location:
+Seattle, WA, USA
+Using:
+Chrome 154.0.0.0, Lighthouse 12.6.1
+Tags:
+GTmetrix Grade
+Performance
+85%
+Structure
+98%
+Web Vitals
+Largest Contentful Paint
+LCP
+1.9s
+Total Blocking Time
+TBT
+40ms
+Cumulative Layout Shift
+CLS
+0.04
+Summary
+Performance
+Structure
+CrUX
+Waterfall
+Video
+History
+Alerts
+Summary
+Speed Visualization
+0.2s
+0.5s
+0.7s
+1s
+1.2s
+1.5s
+1.7s
+2s
+TTFB: 610ms
+Redirect: 0ms
+Connect: 64ms
+Backend: 546ms
+First Contentful Paint: 1.4s
+Time to Interactive: 1.5s
+Onload Time: 1.6s
+Largest Contentful Paint: 1.9s
+Fully Loaded Time: 2.0s
+Top Issues
+These audits are identified as the top issues impacting
+your
+performance
+.
+All
+FCP
+LCP
+TBT
+CLS
+Impact
+Audit
+Med-Low
+Avoid an excessive DOM size
+TBT
+1,957 elements
+A large DOM will increase memory usage, cause longer style calculations, and produce costly layout reflows.
+Learn how to improve this
+Statistic
+Element
+Value
+Total DOM Elements
+1957
+Maximum DOM Depth
+Problem
+<span>
+12
+Maximum Child Elements
+body#top
+<body id="top">
+22
+Med-Low
+Serve static assets with an efficient cache policy
+Potential savings of 4.38KB
+A long cache lifetime can speed up repeat visits to your page.
+Learn how to improve this
+URL
+Cache TTL
+Transfer Size
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+24 hours
+10.2KB
+https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+1 day
+967B
+Low
+Avoid chaining critical requests
+FCP
+LCP
+9 chains found
+The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.
+Learn how to improve this
+Maximum critical path latency:
+1.3s
+Initial Navigation
+https://capraetech.io/
+30.3KB
+,
+609ms
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+,
+73ms
+https://capraetech.io/assets/home-DAKUGxCq.js
+2.16KB
+,
+50ms
+https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+967B
+,
+38ms
+https://capraetech.io/assets/home-DlD48uTK.css
+23.5KB
+,
+36ms
+https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2
+24.4KB
+,
+49ms
+https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2
+23.6KB
+,
+44ms
+https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2
+24.2KB
+,
+42ms
+https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2
+21.0KB
+,
+42ms
+https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2
+22.1KB
+,
+32ms
+https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2
+21.1KB
+,
+19ms
+Low
+Avoid long main-thread tasks
+TBT
+4 long tasks found
+Lists the longest tasks on the main thread, useful for identifying worst contributors to input delay.
+Learn how to improve this
+URL
+Start Time
+Duration
+https://capraetech.io/
+776ms
+496ms
+https://capraetech.io/
+1.4s
+138ms
+https://capraetech.io/
+670ms
+69ms
+https://capraetech.io/
+1.3s
+55ms
+Low
+Reduce initial server response time
+FCP
+LCP
+Root document took 546ms
+Keep the server response time for the main document short because all other requests depend on it.
+Learn how to improve this
+URL
+Time Spent
+https://capraetech.io/
+546ms
+Low
+Avoid enormous network payloads
+LCP
+Total size was 374KB
+Large network payloads cost users real money and are highly correlated with long load times.
+Learn how to improve this
+URL
+Transfer Size
+https://capraetech.io/assets/stage-B32UjMJF.js
+168KB
+https://capraetech.io/
+30.3KB
+https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2
+24.4KB
+https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2
+24.2KB
+https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2
+23.6KB
+https://capraetech.io/assets/home-DlD48uTK.css
+23.5KB
+https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2
+22.1KB
+https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2
+21.1KB
+https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2
+21.0KB
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+Low
+Reduce unused CSS
+FCP
+LCP
+Potential savings of 18.7KB
+Reduce unused rules from stylesheets and defer CSS not used for above-the-fold content to decrease bytes consumed by network activity.
+Learn how to improve this
+URL
+Transfer Size
+Potential Savings
+https://capraetech.io/assets/home-DlD48uTK.css
+23.2KB
+18.7KB
+Low
+Reduce unused JavaScript
+LCP
+Potential savings of 110KB
+Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity.
+Learn how to improve this
+URL
+Transfer Size
+Potential Savings
+https://capraetech.io/assets/stage-B32UjMJF.js
+168KB
+110KB
+No impactful audits found - Great job!
+No other impactful audits found
+Improving these audits seen here can help as a starting point for overall performance gains.
+See all Structure audits.
+Page Details
+Pages with smaller total sizes and fewer requests tend to load faster.
+2.0s
+Fully Loaded Time
+Total Page Size - 374KB
+JS
+183KB
+Font
+136KB
+HTML
+30.3KB
+CSS
+23.5KB
+Other
+948B
+Total Page Requests - 15
+Font
+40%
+JS
+33.3%
+Other
+13.3%
+HTML
+6.7%
+CSS
+6.7%
+Look into reducing JavaScript, reducing web-fonts, and image optimization to ensure a lightweight and streamlined website.
+More from GTmetrix
+Additional tips and suggestions based on your page analysis.
+Consider monitoring this page
+Learn why performance monitoring is important.
+Read the guide
+Need optimization guides and advice?
+Check out the GTmetrix blog for tips and how-tos!
+Read the guide
+Need help with optimization?
+Find a developer with our partner Fiverr to optimize your performance
+Discover more insights with GTmetrix PRO
+Analyze more pages, test on mobile devices, check performance in Additional Test Locations, monitor hourly and much more
+Get PRO
+insights
+now
+Read our blog for more performance tips and advice.
+Performance
+Performance Metrics
+The following metrics are generated using Lighthouse Performance data.
+Metric details
+First Contentful Paint
+How quickly content like text or images are painted onto your page.
+A good user experience is 0.9s or less.
+Learn more.
+Longer than recommended
+1.4s
+Time to Interactive
+How long it takes for your page to become fully interactive.
+A good user experience is 2.5s or less.
+Learn more.
+Good - Nothing to do here
+1.5s
+Speed Index
+How quickly the contents of your page are visibly populated.
+A good user experience is 1.3s or less.
+Learn more.
+OK, but consider improvement
+1.7s
+Total Blocking Time
+How much time is blocked by scripts during your page loading process.
+A good user experience is 150ms or less.
+Learn more.
+Good - Nothing to do here
+40ms
+Largest Contentful Paint
+How long it takes for the largest element of content (i.e., a hero image) to be painted on your page.
+A good user experience is 1.2s or less.
+Learn more.
+Longer than recommended
+1.9s
+Cumulative Layout Shift
+How much your page's layout shifts as it loads.
+A good user experience is a score of 0.1 or less.
+Learn more.
+Good - Nothing to do here
+0.04
+Browser Timings
+These timings are milestones reported by the browser.
+Redirect Duration
+0ms
+Connection Duration
+64ms
+Backend Duration
+546ms
+Time to First Byte (TTFB)
+610ms
+DOM Interactive Time
+1.4s
+DOM Content Loaded Time
+1.4s
+First Paint
+1.4s
+Onload Time
+1.6s
+Fully Loaded Time
+2.0s
+Structure
+Show Audits Relevant to
+All
+FCP
+LCP
+TBT
+CLS
+Impact
+Audit
+Med-Low
+Avoid an excessive DOM size
+TBT
+1,957 elements
+A large DOM will increase memory usage, cause longer style calculations, and produce costly layout reflows.
+Learn how to improve this
+Statistic
+Element
+Value
+Total DOM Elements
+1957
+Maximum DOM Depth
+Problem
+<span>
+12
+Maximum Child Elements
+body#top
+<body id="top">
+22
+Med-Low
+Serve static assets with an efficient cache policy
+Potential savings of 4.38KB
+A long cache lifetime can speed up repeat visits to your page.
+Learn how to improve this
+URL
+Cache TTL
+Transfer Size
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+24 hours
+10.2KB
+https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+1 day
+967B
+Low
+Avoid chaining critical requests
+FCP
+LCP
+9 chains found
+The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load.
+Learn how to improve this
+Maximum critical path latency:
+1.3s
+Initial Navigation
+https://capraetech.io/
+30.3KB
+,
+609ms
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+,
+73ms
+https://capraetech.io/assets/home-DAKUGxCq.js
+2.16KB
+,
+50ms
+https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+967B
+,
+38ms
+https://capraetech.io/assets/home-DlD48uTK.css
+23.5KB
+,
+36ms
+https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2
+24.4KB
+,
+49ms
+https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2
+23.6KB
+,
+44ms
+https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2
+24.2KB
+,
+42ms
+https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2
+21.0KB
+,
+42ms
+https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2
+22.1KB
+,
+32ms
+https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2
+21.1KB
+,
+19ms
+Low
+Avoid long main-thread tasks
+TBT
+4 long tasks found
+Lists the longest tasks on the main thread, useful for identifying worst contributors to input delay.
+Learn how to improve this
+URL
+Start Time
+Duration
+https://capraetech.io/
+776ms
+496ms
+https://capraetech.io/
+1.4s
+138ms
+https://capraetech.io/
+670ms
+69ms
+https://capraetech.io/
+1.3s
+55ms
+Low
+Reduce initial server response time
+FCP
+LCP
+Root document took 546ms
+Keep the server response time for the main document short because all other requests depend on it.
+Learn how to improve this
+URL
+Time Spent
+https://capraetech.io/
+546ms
+Low
+Avoid enormous network payloads
+LCP
+Total size was 374KB
+Large network payloads cost users real money and are highly correlated with long load times.
+Learn how to improve this
+URL
+Transfer Size
+https://capraetech.io/assets/stage-B32UjMJF.js
+168KB
+https://capraetech.io/
+30.3KB
+https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2
+24.4KB
+https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2
+24.2KB
+https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2
+23.6KB
+https://capraetech.io/assets/home-DlD48uTK.css
+23.5KB
+https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2
+22.1KB
+https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2
+21.1KB
+https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2
+21.0KB
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+Low
+Reduce unused CSS
+FCP
+LCP
+Potential savings of 18.7KB
+Reduce unused rules from stylesheets and defer CSS not used for above-the-fold content to decrease bytes consumed by network activity.
+Learn how to improve this
+URL
+Transfer Size
+Potential Savings
+https://capraetech.io/assets/home-DlD48uTK.css
+23.2KB
+18.7KB
+Low
+Reduce unused JavaScript
+LCP
+Potential savings of 110KB
+Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity.
+Learn how to improve this
+URL
+Transfer Size
+Potential Savings
+https://capraetech.io/assets/stage-B32UjMJF.js
+168KB
+110KB
+N/A
+Reduce JavaScript execution time
+TBT
+68ms spent executing JavaScript
+Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps with this.
+Learn how to improve this
+URL
+Total CPU Time
+Script Evaluation
+Script Parse
+https://capraetech.io/
+1.0s
+39ms
+3ms
+Unattributable
+119ms
+1ms
+0ms
+https://capraetech.io/assets/home-DAKUGxCq.js
+87ms
+24ms
+0ms
+N/A
+Largest Contentful Paint element
+LCP
+1,870 ms
+This is the largest contentful element painted within the viewport.
+Element
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+Phase
+% of LCP
+Timing
+TTFB
+33%
+610ms
+Load Delay
+0%
+0ms
+Load Time
+0%
+0ms
+Render Delay
+67%
+1.3s
+N/A
+Avoid large layout shifts
+CLS
+15 layout shifts found
+These are the largest layout shifts observed on the page. Each table item represents a single layout shift, and shows the element that shifted the most. Below each item are possible root causes that led to the layout shift. Some of these layout shifts may not be included in the CLS metric value due to windowing.
+Learn how to improve this
+Element
+Layout shift score
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+Software for se
+run by people who've
+built companies.
+<h1 class="display" style="margin-top:20px">
+< 0.01
+N/A
+Avoid serving legacy JavaScript to modern browsers
+TBT
+Potential savings of 10.2KB
+Polyfills and transforms enable legacy browsers to use new JavaScript features. However, many aren't necessary for modern browsers. Consider modifying your JavaScript build process to not transpile Baseline features, unless you know you must support legacy browsers.
+Learn how to improve this
+URL
+Potential Savings
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+Line:0 Column:1118
+Array.prototype.at
+Line:0 Column:888
+Array.prototype.findLast
+Line:0 Column:1359
+Array.prototype.includes
+N/A
+Minimize main-thread work
+TBT
+Main-thread busy for 1.3s
+Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this.
+Learn how to improve this
+Category
+Time Spent
+Style & Layout
+738ms
+Other
+296ms
+Rendering
+114ms
+Script Evaluation
+83ms
+Parse HTML & CSS
+18ms
+Script Parsing & Compilation
+4ms
+Garbage Collection
+4ms
+N/A
+Eliminate render-blocking resources
+FCP
+LCP
+Potential savings of 19ms
+Resources are blocking the first paint of your page. Consider delivering critical JS/CSS inline and deferring all non-critical JS/styles.
+Learn how to improve this
+Resources that
+may
+be contributing to render-blocking include:
+URL
+Transfer Size
+Download Time
+https://capraetech.io/assets/home-DlD48uTK.css
+23.5KB
+300ms
+N/A
+Reduce the impact of third-party code
+TBT
+Total size was 10.4KB
+Third-party code can significantly impact load performance. Limit the number of redundant third-party providers and try to load third-party code after your page has primarily finished loading.
+Learn how to improve this
+Third-Party
+Transfer Size
+Main-Thread Blocking Time
+Cloudflare
+10.2KB
+0ms
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+10.2KB
+0ms
+Google Analytics Opt-out Add-on (by Google)
+181B
+0ms
+chrome-extension://fllaojicojecljbmefodhfapmkghcbnh/gaoptout_signal.js
+181B
+0ms
+N/A
+User Timing marks and measures
+No user timings and/or marks found.
+Learn more
+Show
+No Impact Audits
+None
+Avoid CSS @import
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Allow back/forward cache restoration
+Nothing to do here, good job!
+Learn how to improve this
+None
+Remove duplicate modules in JavaScript bundles
+TBT
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use video formats for animated content
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Ensure text remains visible during webfont load
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Enable Keep-Alive
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Don't lazy load Largest Contentful Paint image
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Serve images in next-gen formats
+Nothing to do here, good job!
+Learn how to improve this
+None
+Avoid document.write()
+Nothing to do here, good job!
+Learn how to improve this
+None
+Avoid non-composited animations
+CLS
+Nothing to do here, good job!
+Learn how to improve this
+None
+Defer offscreen images
+Nothing to do here, good job!
+Learn how to improve this
+None
+Preload Largest Contentful Paint image
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Avoid multiple page redirects
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Combine images using CSS sprites
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Lazy load third-party resources with facades
+TBT
+Nothing to do here, good job!
+Learn how to improve this
+None
+Minify CSS
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Minify JavaScript
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use explicit width and height on image elements
+CLS
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use a Content Delivery Network (CDN)
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use HTTP/2 for all resources
+Nothing to do here, good job!
+Learn how to improve this
+None
+Efficiently encode images
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use passive listeners to improve scrolling performance
+Nothing to do here, good job!
+Learn how to improve this
+None
+Preconnect to required origins
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Properly size images
+Nothing to do here, good job!
+Learn how to improve this
+None
+Enable text compression
+FCP
+LCP
+Nothing to do here, good job!
+Learn how to improve this
+None
+Use a <meta name="viewport"> tag with width or initial-scale
+TBT
+Nothing to do here, good job!
+Learn how to improve this
+What do these audits mean?
+These audits are best practices established by Google to help build
+websites for optimal front-end performance.
+Each audit is assessed based on your adherence to them and ordered by
+the most likely impact to your page's performance.
+Note that Structure audits do not directly affect your Performance
+score, however addressing them can serve as good starting point to
+improve page load times overall. Additionally, some of the audits are
+correlated and thus, fixing one audit may affect others.
+Learn about all the audits
+Need optimization help?
+We've written various guides and articles to help you improve your
+page performance:
+How to Guides
+Optimization Explained
+Need Assistance?
+We can recommend partners to further assist you with optimizing your
+site.
+Contact us
+and we'll point you in the right direction.
+Need expert help?
+Find a developer with our partner Fiverr to optimize your performance
+CrUX
+CrUX Metrics (Latest 28 Day Collection Period)
+The following metrics are generated using Google's CrUX API database. Metrics are based on the 75th percentile.
+Waterfall
+Waterfall Chart
+Fullscreen
+Download HAR
+A request-by-request visualization of the page load.
+Learn how to read a waterfall chart
+.
+Video
+Page Load Video
+See your page load with videos
+Record a video of this page loading and pinpoint exactly where bottlenecks and stoppages occur.
+Slow playback up to 4x to visualize loading behaviour
+Jump to major milestones like First Paint and Onload
+Download and embed videos
+Enable Video and Re-test
+History
+This page does not yet have any historical data
+Export Report Data
+Historical graphs require more than one test to be generated.
+Once you re-test this page, the history graphs will be displayed and will give you access to the older, archived reports.
+Report data generated on Basic plans will be deleted after 1 week.
+Re-Test
+You can also monitor this page
+to better track and visualize page performance over time.
+Schedule a test to run daily, weekly or monthly to ensure optimal performance.
+Visualize performance with graphs of Page metrics (TTFB, FCP, CLS, etc.), Page size & Request counts and Page scores.
+Annotate areas of interest on your graph and give your data context.
+Enable Monitoring
+A higher resolution (at least 840px wide) is required to display the Report History graphs
+Tip: rotating your device into landscape mode may give you the necessary resolution to view the graphs.
+Alerts
+Alerts Log
+A complete log of Alerts triggered by this page.
+Loading Alerts Log...
+No Alerts triggered for this page yet
+You are not currently monitoring this page.
+Monitor this page
+first and
+set up Alerts
+to get notified of any performance issues
+You are monitoring this page but have not set up Alerts.
+Create an Alert
+to get notified of any performance issues.
+All clear! Your page is performing up to expectations.
+Alerts
+Alert Details
+No Alerts set
+GTmetrix will notify you for this page during monitoring when:
+Create Performance Alert
+Manage Alert Notifications Settings
+Compare with another URL
+Analyze the following URL and compare it to the current report.
+GTmetrix default (Default Preset)
+Using:
+Chrome
+in
+Seattle, WA, USA
+Connection:
+Off
+User Agent:
+Screen Resolution:
+Resolution:
+Off
+User Agent:
+Off
+Video:
+Off
+Adblock:
+Off
+Onload:
+n/a
+Cookies:
+Off
+DNS:
+Off
+Filters:
+Off
+HTTP Auth:
+Off
+Location
+Frankfurt, Germany
+London, UK
+Paris, France
+Seattle, WA, USA
+Cheyenne, WY, USA
+Chicago, IL, USA
+Danville, VA, USA
+Mexico City, Mexico
+Quebec City, Canada
+San Antonio, TX, USA
+San Francisco, CA, USA
+Santiago, Chile
+São Paulo, Brazil
+Amsterdam, Netherlands
+Madrid, Spain
+Stockholm, Sweden
+Warsaw, Poland
+Dubai, UAE
+Auckland, New Zealand
+Busan, South Korea
+Chennai, India
+Hong Kong, China
+Kuala Lumpur, Malaysia
+Pune, India
+Singapore
+Sydney, Australia
+Tokyo, Japan
+Johannesburg, South Africa
+Device/Browser
+Chrome
+Firefox
+Apple iPhone 15/16
+Google Pixel 8/9/9 Pro
+Samsung Galaxy S23/S24/S25
+Apple iPhone XR
+Apple iPhone 4/4S
+Apple iPhone 5/5C/5S/SE (1st Gen)
+Apple iPhone 6/6S/7/8 Plus
+Apple iPhone 6/6S/7/8/SE (2nd/3rd Gen)
+Apple iPhone 12 mini/13 mini
+Apple iPhone 13 Pro Max/14
+Apple iPhone 13/13 Pro/14/16e
+Apple iPhone 15+/iPhone 16+
+Apple iPhone 15/16
+Apple iPhone 16 Pro
+Apple iPhone 16 Pro Max
+Google Nexus 4
+Google Nexus 5
+Google Nexus 5X/Pixel/Pixel 2
+Google Nexus 6/6P/Pixel XL/Pixel 2 XL
+Google Pixel 3
+Google Pixel 3 XL/3a XL
+Google Pixel 3a/4/4 XL
+Google Pixel 4a/5/5a
+Google Pixel 6
+Google Pixel 6 Pro
+Google Pixel 8/9/9 Pro
+Nokia Lumia 520
+OnePlus Nord CE4 Lite
+OnePlus Nord/Nord 2/9/10T/10R
+OnePlus OnePlus 9 Pro/10 Pro
+OnePlus 12/13
+Samsung Galaxy A36/A56
+Samsung Galaxy Note 3
+Samsung Galaxy Note 4/5
+Samsung Galaxy Note 8/9
+Samsung Galaxy Note 10/10+
+Samsung Galaxy Note 20/20 Ultra
+Samsung Galaxy S4/S5
+Samsung Galaxy S6/S7
+Samsung Galaxy S8/S8+/S9/S9+
+Samsung Galaxy S10/S10+
+Samsung Galaxy S21/S21+/S21 Ultra
+Samsung Galaxy S23/S24/S25
+Samsung S24 Ultra/S25 Ultra
+Samsung S25+/S25 Edge
+Apple iPad Air 4/5
+Apple iPad Air 6/Pro
+Apple iPad Mini 6/7
+Apple iPad Pro (2024)
+Apple iPad 6/7
+Apple iPad 9/10
+Google Nexus 7
+Google Pixel Tablet
+Samsung Galaxy Tab A 10.1
+Samsung Galaxy Tab S3
+Samsung Galaxy Tab S9 Ultra/S10 Ultra
+Samsung Galaxy Tab S9+/S10+
+Samsung Galaxy Tab S9/S10
+Samsung Galaxy Tab 4
+Connection Speed
+Unthrottled Connection
+Broadband Fast (20/5 Mbps, 25ms)
+Broadband (5/1 Mbps, 30ms)
+Broadband Slow (1.5 Mbps/384 Kbps, 50ms)
+LTE (15/10 Mbps, 100ms)
+4G (9/5 Mbps, 125ms)
+4G Slow (5/1 Mbps, 150ms)
+3G (1.6 Mbps/768 Kbps, 200ms)
+3G Slow (750/500 Kbps, 250ms)
+Add Custom Connection
+Options
+Basic features and functions for this page.
+Create Video
+Adblock Plus
+Stop test onload
+Advanced Options
+Additional options and features to analyze your page.
+HTTP Authentication
+Username
+Password
+Cookies
+Only Allow URL
+Block URL
+Screen Resolution
+1920x1200
+1920x1080
+1680x1050
+1600x900
+1400x876
+1440x900
+1480x924
+1366x768 (Default)
+1366x1024
+1280x1024
+1280x800
+1280x720
+1024x768
+1024x600
+1080x810
+1180x820
+1112x834
+960x600
+480x800
+414x736 (iPhone 6/7/8 Plus)
+414x896 (iPhone XR/XS Max/11 Pro/11 Pro Max/12 Pro Max)
+412x847 (Pixel 3 XL/3a XL)
+412x846 (Note 8/9)
+412x869 (Note 10/10+/Pixel 3a/4/4 XL)
+412x893 (Galaxy A56)
+412x915 (Note 20 Ultra/Pixel 9)
+412x920 (OnePlus 9 Pro/10 Pro)
+411x905 (OnePlus 12/13)
+392x873 (OnePlus Nord CE4 Lite)
+412x824 (Pixel 3)
+412x732 (Nexus 5X/6P)
+384x640 (Nexus 4)
+360x740 (Galaxy S8/S8+/S9/S9+)
+360x760 (Galaxy S10/S10+)
+360x800 (Galaxy S21/Google Pixel 6)
+360x780 (Galaxy S22/Google Pixel 6 Pro)
+384x832 (Galaxy S25 Edge)
+384x824 (Galaxy S25 Ultra)
+360x640
+375x667 (iPhone 6/6s/7/8/SE 2nd Gen)
+375x812 (iPhone 12/12 mini/12 Pro)
+390x844 (iPhone 13/13 Pro/13 Pro Max)
+393x852 (iPhone 16)
+430x932 (iPhone 16+)
+402x874 (iPhone 16 Pro)
+440x956 (iPhone 16 Pro Max)
+320x568 (iPhone 5)
+320x533 (Lumia 520)
+320x480 (iPhone 4/4S)
+Device Pixel Ratio
+User Agent Override
+Default:
+Add Preset
+Device
+Location
+UA Preview:
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 GTmetrix
+DNS Override
+[–] Remove Entry
+Host
+IP Address
+No Custom DNS set yet
+Add a Custom DNS
+Advanced Options
+Compare
+Page Settings
+Unlock more mobile devices, additional test locations and more with GTmetrix PRO
+Learn more
+Upgrade to PRO
+Note:
+Changing the page settings like Location, Throttling, or Adblock will affect your page performance, making your report history confusing.
+Where and how do you want to analyze this page?
+Test URL in
+Frankfurt, Germany
+London, UK
+Paris, France
+Seattle, WA, USA
+Cheyenne, WY, USA
+Chicago, IL, USA
+Danville, VA, USA
+Mexico City, Mexico
+Quebec City, Canada
+San Antonio, TX, USA
+San Francisco, CA, USA
+Santiago, Chile
+São Paulo, Brazil
+Amsterdam, Netherlands
+Madrid, Spain
+Stockholm, Sweden
+Warsaw, Poland
+Dubai, UAE
+Auckland, New Zealand
+Busan, South Korea
+Chennai, India
+Hong Kong, China
+Kuala Lumpur, Malaysia
+Pune, India
+Singapore
+Sydney, Australia
+Tokyo, Japan
+Johannesburg, South Africa
+using
+Chrome
+Firefox
+Apple iPhone 15/16
+Google Pixel 8/9/9 Pro
+Samsung Galaxy S23/S24/S25
+Apple iPhone XR
+Apple iPhone 4/4S
+Apple iPhone 5/5C/5S/SE (1st Gen)
+Apple iPhone 6/6S/7/8 Plus
+Apple iPhone 6/6S/7/8/SE (2nd/3rd Gen)
+Apple iPhone 12 mini/13 mini
+Apple iPhone 13 Pro Max/14
+Apple iPhone 13/13 Pro/14/16e
+Apple iPhone 15+/iPhone 16+
+Apple iPhone 15/16
+Apple iPhone 16 Pro
+Apple iPhone 16 Pro Max
+Google Nexus 4
+Google Nexus 5
+Google Nexus 5X/Pixel/Pixel 2
+Google Nexus 6/6P/Pixel XL/Pixel 2 XL
+Google Pixel 3
+Google Pixel 3 XL/3a XL
+Google Pixel 3a/4/4 XL
+Google Pixel 4a/5/5a
+Google Pixel 6
+Google Pixel 6 Pro
+Google Pixel 8/9/9 Pro
+Nokia Lumia 520
+OnePlus Nord CE4 Lite
+OnePlus Nord/Nord 2/9/10T/10R
+OnePlus OnePlus 9 Pro/10 Pro
+OnePlus 12/13
+Samsung Galaxy A36/A56
+Samsung Galaxy Note 3
+Samsung Galaxy Note 4/5
+Samsung Galaxy Note 8/9
+Samsung Galaxy Note 10/10+
+Samsung Galaxy Note 20/20 Ultra
+Samsung Galaxy S4/S5
+Samsung Galaxy S6/S7
+Samsung Galaxy S8/S8+/S9/S9+
+Samsung Galaxy S10/S10+
+Samsung Galaxy S21/S21+/S21 Ultra
+Samsung Galaxy S23/S24/S25
+Samsung S24 Ultra/S25 Ultra
+Samsung S25+/S25 Edge
+Apple iPad Air 4/5
+Apple iPad Air 6/Pro
+Apple iPad Mini 6/7
+Apple iPad Pro (2024)
+Apple iPad 6/7
+Apple iPad 9/10
+Google Nexus 7
+Google Pixel Tablet
+Samsung Galaxy Tab A 10.1
+Samsung Galaxy Tab S3
+Samsung Galaxy Tab S9 Ultra/S10 Ultra
+Samsung Galaxy Tab S9+/S10+
+Samsung Galaxy Tab S9/S10
+Samsung Galaxy Tab 4
+with
+Unthrottled Connection
+Broadband Fast (20/5 Mbps, 25ms)
+Broadband (5/1 Mbps, 30ms)
+Broadband Slow (1.5 Mbps/384 Kbps, 50ms)
+LTE (15/10 Mbps, 100ms)
+4G (9/5 Mbps, 125ms)
+4G Slow (5/1 Mbps, 150ms)
+3G (1.6 Mbps/768 Kbps, 200ms)
+3G Slow (750/500 Kbps, 250ms)
+Add Custom Connection
+Monitoring will be disabled
+Global monitoring is not available on this plan.
+Monitoring with the selected browser option is not available on this plan.
+The selected browser does not support monitoring.
+Options
+Basic features and functions for this page.
+Private
+Create Video
+Adblock Plus
+Stop test onload
+This page has monitoring enabled. Videos will only be created for manual re-tests.
+Advanced Options
+Additional options and features to analyze your page.
+HTTP Authentication
+Username
+Password
+Cookies
+Only Allow URL
+Block URL
+Screen Resolution
+1920x1200
+1920x1080
+1680x1050
+1600x900
+1400x876
+1440x900
+1480x924
+1366x768 (Default)
+1366x1024
+1280x1024
+1280x800
+1280x720
+1024x768
+1024x600
+1080x810
+1180x820
+1112x834
+960x600
+480x800
+414x896 (iPhone XR/11 Pro/11 Pro Max/12 Pro Max)
+414x736 (iPhone 6/7/8 Plus)
+412x847 (Pixel 3 XL/3a XL)
+412x846 (Note 8/9)
+412x869 (Note 10/10+/Pixel 3a/4/4 XL)
+412x893 (Pixel 4a/5/5a)
+412x915 (Note 20 Ultra/Pixel 9)
+412x920 (OnePlus 9 Pro/10 Pro)
+411x905 (OnePlus 12/13)
+392x873 (OnePlus Nord CE4 Lite)
+412x824 (Pixel 3)
+412x732 (Nexus 5X/6P)
+384x640 (Nexus 4)
+360x740 (Galaxy S8/S8+/S9/S9+)
+360x760 (Galaxy S10/S10+)
+360x800 (Galaxy S21/S21+/S21 Ultra)
+360x780 (Galaxy S22/S22+/S22 Ultra)
+384x832 (Galaxy S25 Edge)
+384x824 (Galaxy S24 Ultra/S25 Ultra)
+360x640
+375x812 (iPhone 12/12 mini/12 Pro/13 mini)
+390x844 (iPhone 13/12 Pro/13 Pro Max)
+375x667 (iPhone 6/6s/7/8/SE 2nd Gen)
+393x852 (iPhone 16)
+430x932 (iPhone 16+)
+402x874 (iPhone 16 Pro)
+440x956 (iPhone 16 Pro Max)
+320x568 (iPhone 5)
+320x533 (Lumia 520)
+320x480 (iPhone 4/4S)
+Device Pixel Ratio
+User Agent Override
+Default:
+Add Preset
+Device
+Location
+Preview:
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 GTmetrix
+DNS Override
+[–] Remove Entry
+Host
+IP Address
+No Custom DNS set yet
+Add a Custom DNS
+Save Settings
+Manage Custom Connections
+Add your own connection profiles to better reflect your users' experience.
+Learn more
+.
+Custom Connections
+Enter new connection details below...
+Download Speed
+Kbps
+Mbps
+Upload Speed
+Kbps
+Mbps
+Latency
+ms
+Cancel
+Delete
+Create Custom Connection
+Create a Custom Connection Speed
+Monitor this Page
+Schedule GTmetrix to analyze this page on a routine basis.
+A Weekly Digest/summary of all monitored pages will also be e-mailed, which can be disabled from the
+Account
+page.
+Monitoring is not available:
+Monitoring not available for the selected browser.
+Change the selected browser.
+Global monitoring is not available on this plan.
+Upgrade your plan
+to monitor from our global test locations, or
+change the test location
+to Seattle, WA, USA.
+Monitoring with the selected browser option is not available on this plan.
+Change the browser option
+, or
+upgrade your plan
+.
+Upgrade to a GTmetrix PRO plan for more slots or unmonitor URLs to free them up.
+Learn more
+Upgrade to PRO
+Monitoring frequency
+Not monitored
+Hourly (Select PRO plans only)
+Daily
+Weekly
+Monthly
+Monitored Slots Used
+0
+of 1
+Get more monitored slots and Hourly frequency
+Learn more
+Upgrade your plan
+Latest Monitored Reports
+The latest 10 reports generated from monitoring will appear here (No On-Demand/API tests). See History tab for more data.
+Date
+Time
+Score Summary
+Actions
+Loading Reports...
+No Monitored Reports — Monitor your page to start tracking performance.
+Save Settings
+Set Up Alerts
+Get notified when your monitored test results trigger your defined thresholds.
+You'll also be notified if your page cannot generate a report (i.e., your
+site is down, GTmetrix report generation error, etc.).
+GTmetrix cannot send you alerts because:
+Monitoring isn't enabled.
+Turn on monitoring.
+Enable Alerts
+Create Video
+Creation of videos with alerts is only available for GTmetrix PRO users.
+Go PRO and get more!
+Conditions
+Set the conditions that will trigger GTmetrix to send you a notification e-mail.
+E-mail Me When
+No conditions set yet
+Add a Condition
+Save Settings
+GTmetrix Grade
+Performance Score
+Structure Score
+First Contentful Paint
+Largest Contentful Paint
+Total Blocking Time
+Cumulative Layout Shift
+Time to Interactive
+Speed Index
+Redirect Duration
+Connection Duration
+Backend Duration
+Time to First Byte
+Onload Time
+Fully Loaded Time
+Total Page Size
+Total Page Requests
+HTML size
+First Paint
+DOM Interactive Time
+DOM Content Loaded Time
+DOM Content Loaded Duration
+Onload Duration
+RUM Speed Index
+is less than
+is greater than
+is equal to
+A
+B
+C
+D
+E
+F
+%
+[–] Remove Condition
+Page Tags
+Add/modify tags to this page.
+Tags
+Select tags...
+No tags yet
+Create a New Tag
+Tags Selected
+Page has no tags
+Save Changes
+Create a New Tag
+Tag will be automatically added to this page when saved.
+Tag Name
+Description
+Color
+Aa
+Delete Tag
+Cancel
+Save Tag
+Export History
+Get report history for this page in CSV format based on selected settings.
+Select Format
+Download CSV file
+Link to CSV file (requires API key)
+Select time range
+Last 5 Reports
+Last 10 Reports
+Last 25 Reports
+Last 50 Reports
+Last 100 Reports (PRO Only)
+Last 250 Reports (PRO Only)
+Last 500 Reports (PRO Only)
+All available reports (PRO Only)
+Select columns
+All
+Date
+Report slug
+Scores
+GTmetrix Grade
+Performance Score (%)
+Structure Score (%)
+Performance Metrics
+First Contentful Paint (ms)
+Largest Contentful Paint (ms)
+Total Blocking Time (ms)
+Cumulative Layout Shift
+Time to Interactive (ms)
+Speed Index (ms)
+Page Timings
+Time to First Byte (ms)
+Redirect duration (ms)
+Connect duration (ms)
+Backend duration (ms)
+Onload (ms)
+Fully Loaded (ms)
+Page Details
+Total Size (bytes)
+Total Requests
+Legacy & Other Metrics
+YSlow Grade (%) - Legacy Reports Only
+PageSpeed Grade (%) - Legacy Reports Only
+HTML Size (bytes)
+First Paint (ms)
+DOM Interactive (ms)
+DOM Content Loaded (ms)
+DOM Content Loaded duration (ms)
+Onload duration (ms)
+Use Legacy Columns
+CSV Link
+https://gtmetrix.com
+Copy Link
+Download CSV
+Share this Report
+Share on X
+Share on Facebook
+Copy Report Link
+Download PDF
+Select which version of the PDF report to download:
+Report Type
+Regular Report
+Full Report (PRO only)
+Download PDF
+Unlock Full PDF Reports with GTmetrix PRO
+Upgrade to PRO

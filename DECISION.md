@@ -1275,3 +1275,10 @@ Decision: Final draft 6 (the 38-page site) moves to `seo/code` and becomes the o
 Alternatives: Commit locally without pushing, leaving the gallery live; keep the gallery deploying from the archive alongside the site (both offered). Archive name old-design-dashboard (offered). Moving the Section Lab file into the archive (offered; the user kept it at the top).
 Why: User, 2026-10-15: the website is decided; clear everything else out so the repo holds the site. Answers: old-design-work, keep the Section Lab at the top, draft 6 becomes the site. The gallery and the /final-draft-N/ and /r-lab/ addresses stop working on the next deploy.
 Reversible: yes
+
+## D-100. Keep the particle 3D for every visitor; make it lighter where it is slow, never remove it
+Date: 2026-10-22
+Decision: The particle 3D (including the hero's particle C) stays on every page for every visitor. Fix C1 from the investigation plan (refuse software WebGL with `failIfMajorPerformanceCaveat`, which removes the 3D for those browsers) is NOT done. Instead: (1) browsers that can only render WebGL in software, and browsers whose frames run slow, get a lighter version of the same particle field (fewer pixels, no bloom, a capped frame rate) instead of a freeze; (2) browsers with no WebGL at all get a still image of the particle field, so they still see the particles; (3) the loop skips work only when nothing on screen would change (canvas pushed off-screen by the footer; reduced motion with the particles settled). Work happens on branch `perf/keep-3d-fixes`, hosted separately for review before it goes to capraetech.io.
+Alternatives: Refuse software WebGL and show the page without 3D (C1, recommended 2026-10-22 in testing-results/plan/investigation; rejected). Leave the engine as it is (25 to 40 s of blocking under software WebGL, page hangs).
+Why: User, 2026-10-22: "I don't want to remove the 3D... My CEO likes the 3D... we will keep the particles as it is... I need the 3D visitors, the 3D particles." Consistent with D-052 (the reference sets the bar; measure, don't cut). Cloudflare and server changes (S1 to S7) are left to the user.
+Reversible: yes

@@ -1,0 +1,11 @@
+file                                            raw    gzip9     br11      br5   zstd19  br11 vs gzip9
+favicon.svg                                     658      412      360      371      407       -52 (-13%)
+home-B8CsL-aD.css                             58786    21788    20428    21443    21525     -1360 (-6%)
+home-Wvpm71il.js                               4427     1850     1626     1729     1850      -224 (-12%)
+index.html                                   112929    29952    24689    27616    27056     -5263 (-18%)
+menu-Cs6NEOHi.js                               2294      987      835      882      988      -152 (-15%)
+shapes.bin                                   320000    85754    63869    68895    71315    -21885 (-26%)
+stage-B32UjMJF.js                            564882   141229   116731   131915   123667    -24498 (-17%)
+stage-B32UjMJF.js served 171787 L1=171787 L2=164207 L4=148916 L6=141791 L9=141229
+home-B8CsL-aD.css served 23883 L1=23883 L2=23337 L4=22423 L6=21894 L9=21788
+favicon.svg served 419 L1=419 L2=418 L4=412 L6=412 L9=412

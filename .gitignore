@@ -27,3 +27,8 @@ study/
 old-design-work/neuform.ai/
 old-design-work/styles-refreo/sample-design-saved-html/
 old-design-work/designs/direction-r-resend-structure/code/shots/
+
+# Saved GTmetrix and PageSpeed report pages: third-party markup and scripts, never commit.
+# Their extracts and our verification live in testing-results/analysis/.
+testing-results/gtmetrix/
+testing-results/pagespeed/
