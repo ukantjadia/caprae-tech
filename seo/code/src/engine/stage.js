@@ -17,10 +17,23 @@ export async function startStage(cfg) {
 
   let renderer
   try {
+    // no WebGL2 at all: skip three, which would log three console errors while failing (D-100)
+    const probe = document.createElement('canvas').getContext('webgl2')
+    if (!probe) throw new Error('no WebGL2')
+    probe.getExtension('WEBGL_lose_context')?.loseContext()
     // Dala renders at DPR 1 with no antialias: that is its look and its speed (D-065)
     renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' })
   } catch {
     canvas.remove() // no WebGL: the Lab page on black is complete without it
+    // D-100: ...and still shows the particles: a still of the formed hero shape in its box,
+    // captured from the live engine (scripts/make-posters.js). `screen` blending drops its black.
+    const box = cfg.POSTER && cfg.HERO_ANCHOR && document.querySelector(cfg.HERO_ANCHOR)
+    if (box) {
+      const img = new Image()
+      Object.assign(img, { src: cfg.POSTER, alt: '', decoding: 'async', className: 'particle-still' })
+      img.setAttribute('aria-hidden', 'true')
+      box.append(img)
+    }
     return
   }
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches

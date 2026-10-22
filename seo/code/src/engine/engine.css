@@ -45,3 +45,9 @@ section[data-section] :is(h1, h2, h3, h4, p, li, span, small, b, td, th, summary
 }
 /* gradient text has a transparent fill, so a shadow would show through it and dull the gradient */
 section[data-section] :is(.tc, .grad-text, .grad-text *) { text-shadow: none; }
+
+/* D-100: browsers without WebGL get a still of the formed hero shape (stage.js). The image is the
+   box plus 15% on each side (room for the glow), so it is placed 15% outside the box. */
+.hero-mark .particle-still { position: absolute; left: -15%; top: -15%; width: 130%; height: 130%; max-width: none; object-fit: contain; mix-blend-mode: screen; pointer-events: none;
+  /* soften the edges of the 15% margin, so dust cut at the image edge fades instead of ending on a line */
+  -webkit-mask-image: radial-gradient(closest-side, #000 78%, transparent); mask-image: radial-gradient(closest-side, #000 78%, transparent); }

@@ -12,6 +12,7 @@ if (set && SETS[set]) {
     SHAPES: SETS[set],
     EXTENTS: EXTENTS[set],
     SHAPES_URL: `${import.meta.env.BASE_URL}shapes/${set}.bin`,
+    POSTER: `${import.meta.env.BASE_URL}posters/${set}.webp`, // no WebGL: a still of the hero shape (D-100)
     STOPS: true,
     SECTION_SELECTOR: '[data-stop]',
     HERO_ANCHOR: '.pg-hero .hero-mark',

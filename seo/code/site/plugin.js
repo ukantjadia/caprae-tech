@@ -115,3 +115,20 @@ Sitemap: ${SITE_URL}/sitemap.xml
     },
   }
 }
+
+// D-100: preload the heading font (Instrument Serif, regular and italic) on every page, so the
+// h1 (the LCP element) doesn't wait for the CSS to be parsed before its font starts downloading.
+// Build only: the font file names carry hashes that exist once the bundle is written.
+export function preloadFonts({ base }) {
+  return {
+    name: 'caprae-font-preload',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        if (!ctx.bundle) return html
+        const fonts = Object.keys(ctx.bundle).filter(f => /instrument-serif-latin-400-(normal|italic)-[\w-]+\.woff2$/.test(f)).sort()
+        return { html, tags: fonts.map(f => ({ tag: 'link', attrs: { rel: 'preload', as: 'font', type: 'font/woff2', crossorigin: '', href: base + f }, injectTo: 'head-prepend' })) }
+      },
+    },
+  }
+}
