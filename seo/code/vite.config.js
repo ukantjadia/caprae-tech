@@ -10,4 +10,6 @@ const base = process.env.BASE_PATH || '/' // set by .github/workflows/deploy-pag
 export default {
   base,
   plugins: [sitePages({ root, base })],
+  // source maps for the live JS: easier debugging; the repo is public, so nothing new is exposed (D-100)
+  build: { sourcemap: true },
 }
