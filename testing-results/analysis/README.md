@@ -96,4 +96,5 @@ problems, 1 test artifact, 7 minor.
 | `04-gpu-vs-software-experiment.md` | The GPU vs software vs no-WebGL experiment |
 | `05-all-issues-by-report.md` | Every issue and weak number from both reports, with the reason and the fix ID (33 PageSpeed, 28 GTmetrix, 9 found only while verifying) |
 | `06-what-changes-on-screen.md`, `ui-preview/` | What each fix changes on screen, with before/after screenshots from the live site |
-| `raw/` | 28 Lighthouse JSON runs, curl measurements, DOM counts (11 MB) |
+| `07-branch-results.md` | Before and after on branch perf/keep-3d-fixes (D-100, D-101), with the scripts that measured it (`measure.sh`, `ab-base.sh`, `cdp-check.js`, `check-*.js`) |
+| `raw/` | 65 Lighthouse JSON runs (28 from the verification; `fix-*`, `ab-*`, `ab2-*`, `ab-c4-*` from the branch, see 07), curl measurements, DOM counts (31 MB) |
