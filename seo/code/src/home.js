@@ -19,6 +19,7 @@ import { applyA11yFixes } from './engine/a11y.js'
 import { startFinalPage } from './engine/final-page.js'
 import { startMenu } from './menu.js'
 import './home-links.js'
+import { loadChat } from './chat-loader.js'
 
 applyA11yFixes()
 startFinalPage()
@@ -26,3 +27,5 @@ startMenu()
 // the particle stage after the first paint: building it is a ~2s main-thread task, and before this
 // nothing (not the loader, not the hero) could paint until it had finished (D-118)
 requestAnimationFrame(() => setTimeout(() => startStage({ ...shapes, EXTENTS })))
+// the site assistant's chat icon, once the page has loaded
+loadChat()

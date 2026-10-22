@@ -27,3 +27,8 @@ study/
 old-design-work/neuform.ai/
 old-design-work/styles-refreo/sample-design-saved-html/
 old-design-work/designs/direction-r-resend-structure/code/shots/
+
+# Site assistant (seo/code/chatbot): secrets in .env (ignored above), plus runtime files
+seo/code/chatbot/usage/
+**/__pycache__/
+**/.pytest_cache/
