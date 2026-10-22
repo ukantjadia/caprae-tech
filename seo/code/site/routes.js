@@ -50,17 +50,21 @@ export const ROUTES = {
   '/who-we-serve/': {
     label: 'Who we serve', parent: '/',
     title: 'Software for Owners Without a Tech Team | Caprae Tech',
-    description: "Software for staffing firms, clinics, acquirers and service businesses, built by people who've run companies, for owners who don't want a tech team.",
+    description: "Software for cleaning companies, clinics, acquirers and service businesses, built by people who've run companies, for owners who don't want a tech team.",
   },
-  '/who-we-serve/staffing-firms/': {
-    label: 'Staffing firms', parent: '/who-we-serve/',
-    title: 'Software for Staffing Firms & Recruiters | Caprae Tech',
-    description: 'Client portals, candidate pipelines and recruiter dashboards for staffing firms. Founder-led builds, with features and hours agreed upfront.',
+  // from Facility_Services_Copy_Review.html (meta draft 2); replaces Staffing firms (2026-10-22)
+  '/who-we-serve/facility-cleaning/': {
+    label: 'Facility cleaning', parent: '/who-we-serve/',
+    title: 'Software for Commercial Cleaning Companies | Caprae Tech',
+    description: 'Cleaning is the job. We build the software around it: photo-verified checklists, crew scheduling, training and client dashboards, priced in hours.',
+    band: { h: 'Show us the night', it: 'your schedule fell apart.', lead: 'Thirty minutes with a founder who runs a cleaning company.' },
   },
   '/who-we-serve/clinics-healthcare/': {
     label: 'Clinics & healthcare', parent: '/who-we-serve/',
-    title: 'Software for Clinics & Healthcare Operators | Caprae Tech',
-    description: 'Intake and scheduling, operations dashboards and billing trackers for clinics and healthcare operators. Founder-led builds, priced in hours.',
+    // from Clinics_Healthcare_Copy_Review.html (meta draft 1)
+    title: 'Healthcare Software Development for Clinics | Caprae Tech',
+    description: 'Software for the work around the chart: intake, scheduling, prior auth, denials and reporting, built around your EHR. Founder-led, priced in hours.',
+    band: { h: 'Tell us which part of the day', it: 'costs your staff the most.', lead: 'Thirty minutes with a founder. No tech words needed.' },
   },
   '/who-we-serve/acquirers-search-funds/': {
     label: 'Acquirers & search funds', parent: '/who-we-serve/',
@@ -233,7 +237,7 @@ export const NAV = [
     { href: '/what-we-build/internal-tools/', label: 'Internal tools', blurb: 'Instead of ten spreadsheets' },
   ] },
   { href: '/who-we-serve/', label: 'Who we serve', items: [
-    { href: '/who-we-serve/staffing-firms/', label: 'Staffing firms', blurb: 'Placements, candidates and client reporting' },
+    { href: '/who-we-serve/facility-cleaning/', label: 'Facility cleaning', blurb: 'Site checklists, photo proof and crew cover' },
     { href: '/who-we-serve/clinics-healthcare/', label: 'Clinics & healthcare', blurb: 'Less admin between the patient and the care' },
     { href: '/who-we-serve/acquirers-search-funds/', label: 'Acquirers & search funds', blurb: 'The tooling Caprae uses to buy companies' },
     { href: '/who-we-serve/service-businesses/', label: 'Service businesses', blurb: 'Win the job, run the job, get paid' },

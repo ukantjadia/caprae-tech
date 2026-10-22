@@ -15,6 +15,10 @@ for (const el of document.querySelectorAll('[data-io]')) io.observe(el)
 const legalToc = document.querySelector('.legal-sec .legal-toc')
 if (legalToc) import('./legal-toc.js').then(m => m.startLegalToc(legalToc))
 
+// Facility cleaning: the quote calculator demo
+const quoteCalc = document.querySelector('[data-calc]')
+if (quoteCalc) import('./quote-calc.js').then(m => m.startQuoteCalc(quoteCalc))
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 const stage = () => import('./inner-stage.js')
 if (document.readyState === 'complete') stage()

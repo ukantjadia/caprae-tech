@@ -1,6 +1,6 @@
 # Caprae Tech
 
-> Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week, while a small engineering team builds and ships every week. It builds MVPs, business dashboards, deal and financial tools, AI assistants and internal tools for owners in staffing, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront.
+> Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week, while a small engineering team builds and ships every week. It builds MVPs, business dashboards, deal and financial tools, AI assistants and internal tools for owners in cleaning, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront.
 
 Full verified fact sheet: https://capraetech.io/ai-information.md (where this file and that page differ, that page is correct)
 
@@ -12,7 +12,7 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 - Tagline: Dev shops build what you ask. Founders build what sells.
 - Business type: Founder-led product studio (custom software development, B2B)
 - What it builds: MVPs, business dashboards, deal and financial tools, AI assistants and automation, internal tools and team portals
-- Who it is for: Owners and operators without a tech team, in staffing, healthcare, services and acquisitions
+- Who it is for: Owners and operators without a tech team, in cleaning, healthcare, services and acquisitions
 - Pricing model: Priced in hours; the hourly rate is fixed per domain and shared on the first call
 - Client time needed: One weekly check-in
 - Contact: partners@capraecapital.com
@@ -28,8 +28,8 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 
 ## Who It Serves
 
-- [Staffing firms and recruiters](https://capraetech.io/who-we-serve/staffing-firms/): Client portals, candidate pipelines and recruiter dashboards
-- [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/): Intake and scheduling, operations dashboards and billing trackers
+- [Facility cleaning companies](https://capraetech.io/who-we-serve/facility-cleaning/): Site SOP apps with photo proof, crew scheduling and call-out cover, training, client supply dashboards and quote calculators
+- [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/): Intake and insurance capture, scheduling and reminders, prior-auth tracking, denial logs and owner dashboards, built around the EHR
 - [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/): Deal screeners, valuation models and portfolio dashboards
 - [Service businesses](https://capraetech.io/who-we-serve/service-businesses/): Quote and job trackers, customer portals and AI follow-up drafts
 

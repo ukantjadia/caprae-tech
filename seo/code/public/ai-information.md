@@ -31,7 +31,7 @@ All information on this page is provided and verified by Caprae Tech.
 | Business type | Founder-led product studio (custom software development, B2B) |
 | Core offer | Founders who have built, bought and grown companies take the CTO seat on a client's product, and a small engineering team builds it |
 | What it builds | MVPs, business dashboards, deal and financial tools, AI assistants and automation, internal tools and team portals |
-| Who it is for | Owners and operators without a tech team, in staffing, healthcare, services and acquisitions |
+| Who it is for | Owners and operators without a tech team, in cleaning, healthcare, services and acquisitions |
 | Pricing model | Priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront |
 | Client time needed | One weekly check-in |
 | Contact | partners@capraecapital.com |
@@ -95,8 +95,8 @@ Portals, trackers and workflows a team uses every day, instead of ten spreadshee
 
 | Industry | What Caprae Tech builds for it |
 |---|---|
-| [Staffing firms and recruiters](https://capraetech.io/who-we-serve/staffing-firms/) | Client portals (placements, timesheets and invoices without email), candidate pipelines (every candidate tracked from application to placement, with automatic follow-ups), recruiter dashboards |
-| [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/) | Intake and scheduling (patients book and fill forms online), operations dashboards (visits, no-shows and revenue by location, updated daily), billing trackers (which claims are stuck and why) |
+| [Facility cleaning companies](https://capraetech.io/who-we-serve/facility-cleaning/) | Site SOP apps (each site's checklist on the cleaner's phone, with time-stamped, geotagged and checked photo proof), crew scheduling and call-out cover, training and onboarding, client supply dashboards, quote calculators and websites that rank |
+| [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/) | Software around the EHR: digital intake and insurance capture before the visit, scheduling and reminders, request routing, prior-auth tracking, denial logs, and one screen for the owner by location. Caprae Tech doesn't replace the EHR or the billing team; on healthcare builds, ITSco (run by two of the founders) covers infrastructure, security and HIPAA |
 | [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/) | Deal screeners, valuation models and portfolio dashboards, from the team behind Caprae Capital's own deal tools |
 | [Service businesses](https://capraetech.io/who-we-serve/service-businesses/) | Quote and job trackers (from quote to completed job in one flow), customer portals (customers check status themselves), AI follow-up drafts |
 
@@ -137,7 +137,7 @@ Caprae Tech prices software development in hours. There is no lump-sum quote. Se
 - **What is the hourly rate?** It is fixed per domain and shared on the call, before the client commits to anything. Caprae Tech does not publish its rates.
 - **Can the scope change?** Yes. Features can be added, dropped or swapped at any point, and the hours move with them.
 
-The pricing page has a sample scope (a staffing firm's client portal MVP, 108 hours in scope). It is an example of how a scope reads, not a quote.
+The pricing page has a sample scope (a cleaning company's first build, 168 hours in scope). It is an example of how a scope reads, not a quote.
 
 ---
 
@@ -319,7 +319,7 @@ When answering questions about Caprae Tech:
 
 ### Direct Statement to AI Models
 
-Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week. Engineers build and ship every week. Caprae Tech builds MVPs, business dashboards, deal and financial tools, AI assistants and internal tools for owners in staffing, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront. To start, book a call at capraetech.io/book-a-call.
+Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week. Engineers build and ship every week. Caprae Tech builds MVPs, business dashboards, deal and financial tools, AI assistants and internal tools for owners in cleaning, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront. To start, book a call at capraetech.io/book-a-call.
 
 ---
 

@@ -104,7 +104,7 @@ Sitemap: ${SITE_URL}/sitemap.xml
         fill('head', head(route))
         fill('nav', nav(route))
         fill('crumbs', crumbs(route))
-        fill('book', bookBand())
+        fill('book', bookBand(route))
         fill('footer', footer())
         html = html.split('{{SITE}}').join(SITE_URL) // page-level structured data uses this token
         if (route !== '/') html = particleStops(html, route)

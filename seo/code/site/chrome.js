@@ -135,11 +135,15 @@ export function crumbs(path) {
 }
 
 // the closing band on inner pages: home's Book a call section, condensed to one action
-export function bookBand() {
+// A page can give the band its own words with `band: { h, it, lead }` in routes.js.
+export function bookBand(path) {
+  const b = (path && ROUTES[path] && ROUTES[path].band) || {}
+  const h = b.h || 'Hand it over.', it = b.it || "We'll take it from here."
+  const lead = b.lead || 'Thirty minutes with a founder. Four fields, then we email you to set the time.'
   return `<section class="cx-band" aria-labelledby="cx-band-h" data-stop="last"><div class="wrap"><div class="big-cta">
   <span class="eyebrow">Book a call</span>
-  <h2 class="title" id="cx-band-h" style="margin-top:14px">Hand it over.<br><span class="it grad-text">We'll take it from here.</span></h2>
-  <p class="lead" style="margin:18px auto 0">Thirty minutes with a founder. Four fields, then we email you to set the time.</p>
+  <h2 class="title" id="cx-band-h" style="margin-top:14px">${esc(h)}<br><span class="it grad-text">${esc(it)}</span></h2>
+  <p class="lead" style="margin:18px auto 0">${esc(lead)}</p>
   <div class="cx-band-row"><a class="btn btn-white" href="/book-a-call/">Book a call ${arrow}</a><a class="btn btn-ghost" href="/how-it-works/">How it works</a></div>
 </div></div></section>`
 }
