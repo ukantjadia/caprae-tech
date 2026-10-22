@@ -21,7 +21,7 @@
 /* the current section gets an iris dot under its label */
 .cx-top[aria-current="page"]::after, .cx-top.is-within::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--iris); }
 .cx-has-sub > a.cx-top { padding-right: 4px; }
-.cx-toggle:not(.cx-top) { display: inline-grid; place-items: center; width: 24px; height: 28px; margin-left: -2px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--iron); cursor: pointer; }
+.cx-toggle:not(.cx-top) { position: relative; display: inline-grid; place-items: center; width: 24px; height: 28px; margin-left: -2px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--iron); cursor: pointer; }
 .cx-toggle:not(.cx-top):hover { color: var(--bone); }
 .cx-chev { transition: transform 0.2s; }
 .cx-has-sub:hover .cx-chev, .cx-has-sub.open .cx-chev { transform: rotate(180deg); }

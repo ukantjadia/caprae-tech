@@ -277,6 +277,7 @@ export async function createField(renderer, cfg, onProgress = () => {}) {
 
   return {
     mesh, uniforms: u, material,
+    compute: [velVar.material, posVar.material], // the physics shaders, for stage.js to compile ahead (D-101)
     setLite(on) { useShape(geo, on) }, // D-100: plain tetrahedra at the light quality level
     // dev: current particle positions and visibility, read back from the GPU
     readPositions() {

@@ -8,6 +8,12 @@ import { createField, createDust } from './field.js'
 import { createPost } from './post.js'
 import { createTextMask } from './mask.js'
 
+// stands in for the passes' full-screen triangle when compiling: three builds a different program
+// for a geometry with other attributes, so this has theirs (position and uv, no normal)
+const QUAD = new THREE.BufferGeometry()
+  .setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(9), 3))
+  .setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(6), 2))
+
 export async function startStage(cfg) {
   const canvas = document.createElement('canvas')
   canvas.className = 'particle-field'
@@ -15,14 +21,19 @@ export async function startStage(cfg) {
   canvas.setAttribute('aria-hidden', 'true')
   document.body.prepend(canvas)
 
-  let renderer
+  // One WebGL context, made here and handed to three (each extra context costs a GPU browser
+  // 25 to 300 ms of main thread, D-101). Asked first to refuse a "major performance caveat",
+  // which only a browser drawing WebGL in software does (SwiftShader, llvmpipe, WARP); that
+  // browser is asked again without it. No WebGL2 at all skips three, which would log three
+  // console errors while failing (D-100).
+  let renderer, gl, softwareGL = false
   try {
-    // no WebGL2 at all: skip three, which would log three console errors while failing (D-100)
-    const probe = document.createElement('canvas').getContext('webgl2')
-    if (!probe) throw new Error('no WebGL2')
-    probe.getExtension('WEBGL_lose_context')?.loseContext()
-    // Dala renders at DPR 1 with no antialias: that is its look and its speed (D-065)
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' })
+    // three's own context attributes; Dala renders at DPR 1 with no antialias: that is its look and its speed (D-065)
+    const attrs = { alpha: true, depth: true, stencil: false, antialias: false, premultipliedAlpha: true, preserveDrawingBuffer: false, powerPreference: 'high-performance' }
+    gl = canvas.getContext('webgl2', { ...attrs, failIfMajorPerformanceCaveat: true })
+    if (!gl) { softwareGL = true; gl = canvas.getContext('webgl2', attrs) }
+    if (!gl) throw new Error('no WebGL2')
+    renderer = new THREE.WebGLRenderer({ canvas, context: gl })
   } catch {
     canvas.remove() // no WebGL: the Lab page on black is complete without it
     // D-100: ...and still shows the particles: a still of the formed hero shape in its box,
@@ -40,20 +51,14 @@ export async function startStage(cfg) {
   // D-100: the particles show for every visitor; only how much each frame costs changes.
   // Quality: 2 = full (bloom, DPR 1), 1 = DPR 0.75, 0 = light (DPR 0.5, no bloom, and the field
   // settles: it redraws only while something changes). A browser that draws WebGL in software
-  // starts at 0: a context that refuses a "major performance caveat" fails only there
-  // (SwiftShader, llvmpipe, WARP), and full quality would cost it 0.4 to 1 s per frame.
+  // starts at 0 (the caveat test above): full quality would cost it 0.4 to 1 s per frame.
   // A second signal is the renderer's own name, where the browser shares it: Chrome started with
   // --enable-unsafe-swiftshader accepts the caveat test, but still calls itself SwiftShader.
-  const softwareGL = (() => {
-    try {
-      const gl = document.createElement('canvas').getContext('webgl2', { failIfMajorPerformanceCaveat: true })
-      gl?.getExtension('WEBGL_lose_context')?.loseContext()
-      if (!gl) return true
-      const own = renderer.getContext(), info = own.getExtension('WEBGL_debug_renderer_info')
-      const name = info ? own.getParameter(info.UNMASKED_RENDERER_WEBGL) : own.getParameter(own.RENDERER)
-      return /swiftshader|llvmpipe|softpipe|software|basic render|warp/i.test(String(name))
-    } catch { return false }
-  })()
+  if (!softwareGL) try {
+    const info = gl.getExtension('WEBGL_debug_renderer_info')
+    const name = info ? gl.getParameter(info.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)
+    softwareGL = /swiftshader|llvmpipe|softpipe|software|basic render|warp/i.test(String(name))
+  } catch {}
   const DPR = [0.5, 0.75, 1]
   let level = softwareGL ? 0 : 2
   if (import.meta.env.DEV) { const q = new URLSearchParams(location.search).get('quality'); if (q in DPR) level = +q } // dev only: preview a level
@@ -290,8 +295,19 @@ export async function startStage(cfg) {
       lastDrawn = now
     }
   }
-  // compile shaders without blocking the page where the browser can do it in parallel
-  await renderer.compileAsync(scene, camera)
+  // Compile every shader the first frame draws with before it, without blocking the page where
+  // the browser compiles in parallel. three builds one program for drawing into a render target
+  // and another for the canvas, so each compiles where it draws: the scene, bloom and physics
+  // into a render target, the finish pass onto the canvas. Compiling the scene for the canvas
+  // only built two programs nothing drew with, and the first frame still waited ~0.7 s (D-101).
+  const quads = ms => ms.reduce((g, m) => g.add(new THREE.Mesh(QUAD, m)), new THREE.Group())
+  const b = post.bloom, offscreen = [...field.compute]
+  if (b.enabled) offscreen.push(b.materialHighPassFilter, ...b.separableBlurMaterials, b.compositeMaterial, b.blendMaterial)
+  renderer.setRenderTarget(post.composer.readBuffer)
+  const ready = [renderer.compileAsync(scene, camera), renderer.compileAsync(quads(offscreen), camera)]
+  renderer.setRenderTarget(null)
+  ready.push(renderer.compileAsync(quads([post.finish.material]), camera))
+  await Promise.all(ready)
   startedAt = performance.now(); awakeUntil = startedAt + 3500; prev = lastDraw = startedAt
   renderer.setAnimationLoop(() => frame())
 
