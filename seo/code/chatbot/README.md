@@ -44,7 +44,7 @@ Same as Caprae Capital (see their CHATBOT_COSTS.md): about $0.0025 per answered 
 so **$1 a day is about 400 messages**; the 2,000-a-day limit caps the worst case at about $5 a day.
 After each AI call the bot starts `cost-alert/cost-alert.js` in the background; once the day's spend (UTC) passes
 `DAILY_COST_LIMIT_USD` it emails `ALERT_TO` once that day. It never switches the bot off.
-`node cost-alert/cost-alert.js --dry-run` prints the email instead of sending it.
+`ALERT_CC` (comma-separated) copies others on it. `node cost-alert/cost-alert.js --dry-run` prints the email instead of sending it.
 
 ## Run locally
 

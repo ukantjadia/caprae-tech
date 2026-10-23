@@ -16,7 +16,7 @@
  * Settings come from the environment or ../.env (the chatbot's .env):
  *   DAILY_COST_LIMIT_USD=1
  *   SMTP_HOST=  SMTP_PORT=587  SMTP_SECURE=false  SMTP_USER=  SMTP_PASS=
- *   ALERT_FROM=  ALERT_TO=          (ALERT_TO may be a comma-separated list)
+ *   ALERT_FROM=  ALERT_TO=  ALERT_CC=   (ALERT_TO and ALERT_CC may be comma-separated lists)
  *   USAGE_DIR=../usage
  */
 'use strict';
@@ -52,6 +52,7 @@ function config(env = process.env) {
     },
     from: env.ALERT_FROM || env.SMTP_USER,
     to: env.ALERT_TO,
+    cc: env.ALERT_CC || undefined,
   };
 }
 
@@ -101,6 +102,7 @@ function buildEmail(s, cfg) {
   return {
     from: cfg.from,
     to: cfg.to,
+    cc: cfg.cc,
     subject: `Caprae Tech chatbot: AI spend passed $${cfg.limit.toFixed(2)} today ($${s.total.toFixed(2)})`,
     text: [
       `The site chatbot's AI spend for ${s.day} (UTC) is $${s.total.toFixed(4)}, above the daily limit of $${cfg.limit.toFixed(2)}.`,
@@ -128,7 +130,7 @@ async function check({ cfg = config(), now = new Date(), dryRun = false, transpo
 
   const mail = buildEmail(s, cfg);
   if (dryRun) {
-    console.log(`--- DRY RUN: email that would be sent ---\nTo: ${mail.to}\nSubject: ${mail.subject}\n\n${mail.text}\n---`);
+    console.log(`--- DRY RUN: email that would be sent ---\nTo: ${mail.to}${mail.cc ? `\nCc: ${mail.cc}` : ''}\nSubject: ${mail.subject}\n\n${mail.text}\n---`);
     result.reason = 'dry run';
     return result;
   }
