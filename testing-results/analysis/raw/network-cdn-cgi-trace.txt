@@ -1,0 +1,16 @@
+fl=583f47
+h=capraetech.io
+ip=157.48.206.167
+ts=1792666007.000
+visit_scheme=https
+uag=curl/7.88.1
+colo=HKG
+sliver=050-tier1
+http=http/2
+loc=IN
+tls=TLSv1.3
+sni=plaintext
+warp=off
+gateway=off
+rbi=off
+kex=X25519

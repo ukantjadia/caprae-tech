@@ -52,7 +52,7 @@ export function head(path) {
 <style>body{background:#000;color:#f0f0f0}
 .cx-load{position:fixed;inset:0;z-index:1000;display:grid;place-content:center;justify-items:center;gap:26px;background:#000;color:#f0f0f0;animation:cx-load-out .45s ease 1.05s forwards}
 .cx-load.done{animation:cx-load-out .35s ease forwards}
-@keyframes cx-load-out{to{opacity:0;visibility:hidden;pointer-events:none}}
+@keyframes cx-load-out{to{opacity:0}}
 .cx-load-mark{width:64px;height:auto;animation:cx-load-in .7s cubic-bezier(.2,.7,.2,1) both}
 .cx-load-bar{display:block;width:72px;height:2px;border-radius:2px;background:rgba(240,240,240,.12);overflow:hidden;position:relative}
 .cx-load-bar::after{content:"";position:absolute;inset:0;width:40%;border-radius:2px;background:linear-gradient(90deg,#a293ff,#9a54dc);animation:cx-load-run 1s ease-in-out infinite}
@@ -114,13 +114,13 @@ export function nav(path) {
     ? `<details class="cx-m-group"${isWithin(item, path) ? ' open' : ''}><summary>${item.label}<svg class="cx-chev" width="12" height="12" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><ul>${item.href ? `<li><a href="${item.href}"${cur(item.href)}>All of ${item.label.toLowerCase()}</a></li>` : ''}${item.items.map(i => `<li><a href="${i.href}"${cur(i.href)}>${esc(i.label)}</a></li>`).join('')}</ul></details>`
     : `<a class="cx-m-link" href="${item.href}"${cur(item.href)}>${item.label}</a>`).join('')
 
-  // the home page is final-draft-2 unchanged, so it has no <main>; its first section is #hero
+  // every page, home included, wraps its content in <main id="main"> (D-100)
   return `${loader()}
-<a class="cx-skip" href="${path === '/' ? '#hero' : '#main'}">Skip to content</a>
+<a class="cx-skip" href="#main">Skip to content</a>
 <header class="cx-nav"><div class="wrap">
   <a class="cx-brand" href="/" aria-label="Caprae Tech, home">${mark('cx-mark')}<span class="cx-brand-t">Caprae <span>Tech</span></span></a>
   <nav class="cx-main" aria-label="Main"><ul class="cx-menu">${top}</ul></nav>
-  <a class="btn btn-white cx-cta" href="/book-a-call/">Book a call ${arrow}</a>
+  <a class="btn btn-white cx-cta" href="${path === '/' ? '#book' : '/book-a-call/'}">Book a call ${arrow}</a>
   <details class="cx-mobile"><summary aria-label="Menu"><span class="cx-burger" aria-hidden="true"><i></i><i></i><i></i></span></summary><div class="cx-m-scrim" aria-hidden="true"></div><nav class="cx-m-panel" aria-label="Mobile">${mobile}<a class="btn btn-white cx-m-cta" href="/book-a-call/">Book a call ${arrow}</a></nav></details>
 </div></header>`
 }

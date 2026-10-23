@@ -1,0 +1,20 @@
+url	status	http	content-type	enc(br,gzip)	bytes_wire	bytes_decoded	enc(chrome:zstd)	bytes_wire_zstd	cache-control	etag	last-modified	cf1	cf2	age2
+https://capraetech.io/	200	2	text/html	br	29917	112929	zstd	31552	no-cache, must-revalidate		Wed, 21 Oct 2026 21:52:10 GMT	DYNAMIC	DYNAMIC	
+https://capraetech.io/pricing/	200	2	text/html	br	6708	25587	zstd	7228	no-cache, must-revalidate		Wed, 21 Oct 2026 21:52:10 GMT	DYNAMIC	DYNAMIC	
+https://capraetech.io/assets/home-Wvpm71il.js	200	2	application/javascript	gzip	1937	4427	gzip	1937	public, max-age=31536000, immutable	W/"6ad9340a-114b"	Wed, 21 Oct 2026 21:52:10 GMT	HIT	MISS	
+https://capraetech.io/assets/stage-B32UjMJF.js	200	2	application/javascript	gzip	171787	564882	gzip	171787	public, max-age=31536000, immutable	W/"6ad9340a-89e92"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	2
+https://capraetech.io/assets/menu-Cs6NEOHi.js	200	2	application/javascript	gzip	1031	2294	gzip	1031	public, max-age=31536000, immutable	W/"6ad9340a-8f6"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	0
+https://capraetech.io/assets/home-B8CsL-aD.css	200	2	text/css	gzip	23883	58786	gzip	23883	public, max-age=31536000, immutable	W/"6ad9340a-e5a2"	Wed, 21 Oct 2026 21:52:10 GMT	HIT	HIT	205
+https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2	200	2	font/woff2		23664	23664		23664	public, max-age=31536000, immutable	"6ad9340a-5c70"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	3
+https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2	200	2	font/woff2		24272	24272		24272	public, max-age=31536000, immutable	"6ad9340a-5ed0"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	2
+https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2	200	2	font/woff2		24452	24452		24452	public, max-age=31536000, immutable	"6ad9340a-5f84"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	3
+https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2	200	2	font/woff2		21032	21032		21032	public, max-age=31536000, immutable	"6ad9340a-5228"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	1
+https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2	200	2	font/woff2		22128	22128		22128	public, max-age=31536000, immutable	"6ad9340a-5670"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	1
+https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2	200	2	font/woff2		21168	21168		21168	public, max-age=31536000, immutable	"6ad9340a-52b0"	Wed, 21 Oct 2026 21:52:10 GMT	MISS	HIT	3
+https://capraetech.io/shapes.bin	200	2	application/octet-stream		320000	320000		320000	max-age=14400, must-revalidate	"6ad93409-4e200"	Wed, 21 Oct 2026 21:52:09 GMT	REVALIDATED	REVALIDATED	
+https://capraetech.io/favicon.svg	200	2	image/svg+xml	gzip	419	658	gzip	419	max-age=14400, must-revalidate	"6ad93409-292"	Wed, 21 Oct 2026 21:52:09 GMT	REVALIDATED	REVALIDATED	
+https://capraetech.io/og-image.png	200	2	image/png		158203	158203		158203	max-age=14400, must-revalidate	"6ad93409-269fb"	Wed, 21 Oct 2026 21:52:09 GMT	MISS	REVALIDATED	
+https://capraetech.io/apple-touch-icon.png	200	2	image/png		4794	4794		4794	max-age=14400, must-revalidate	"6ad93409-12ba"	Wed, 21 Oct 2026 21:52:09 GMT	MISS	REVALIDATED	
+https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js	200	2	application/javascript	br	611	1239	zstd	661	public					
+https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092	200	2	text/javascript;charset=UTF-8	gzip	10264	31853	gzip	10264	public, max-age=86400	W/"2026.10.1"	Thu, 15 Oct 2026 18:26:54 GMT			
+https://capraetech.io/cdn-cgi/challenge-platform/scripts/jsd/main.js	302	2			0	0		0	max-age=300, stale-if-error=10800, stale-while-revalidate=10800, public					

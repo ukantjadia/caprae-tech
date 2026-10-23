@@ -1,0 +1,17 @@
+timeline scale: 19.77 ms per % (100% = 1977 ms)
+ # status type          size  uncomp start_ms block   dns  conn   ssl  wait  recv  total conn_id initiator url
+ 1 200    Document    30.3KB   107KB        0     3    28     7    26   546     1  611ms   157 other https://capraetech.io/
+ 2 200    Script      2.16KB  4.32KB      619    14     0     0     0    42     1   57ms   157 https://capraetech.io/ https://capraetech.io/assets/home-DAKUGxCq.js
+ 3 200    Script       168KB   552KB      619    13     0     0     0    57    23   95ms   157 https://capraetech.io/ https://capraetech.io/assets/stage-B32UjMJF.js
+ 4 200    Script      1.28KB  2.24KB      619    13     0     0     0    79     1   93ms   157 https://capraetech.io/ https://capraetech.io/assets/menu-Cs6NEOHi.js
+ 5 200    Stylesheet  23.5KB  56.9KB      620     9     0     0     0    30     1   44ms   157 https://capraetech.io/ https://capraetech.io/assets/home-DlD48uTK.css
+ 6 200    Script        967B  1.21KB      620    13     0     0     0    32     1   46ms   157 https://capraetech.io/ https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+ 7 200    Script      10.2KB  31.1KB      620     8    11    11    27    23     0   82ms   208 https://capraetech.io/ https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092
+ 8 200    Font        23.6KB  23.1KB      717    24     0     0     0    43     1   68ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2
+ 9 200    Font        24.4KB  23.9KB      784   487     0     0     0    47     2  537ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2
+10 200    Font        21.0KB  20.5KB      784   489     0     0     0    39     2  531ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2
+11 200    Font        24.2KB  23.7KB      784   489     0     0     0    40     2  532ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2
+12 200    Font        22.1KB  21.6KB      784   495     0     0     0    23     5  523ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2
+13 200    Font        21.1KB  20.7KB      786   494     0     0     0    14     0  513ms   169 https://capraetech.io/assets/home-DlD48u https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2
+14 204    XHR              0       0     1630     2     0     0     0    29     3   33ms   169 https://static.cloudflareinsights.com/be https://capraetech.io/cdn-cgi/rum?
+15 200    Other         948B    658B     1632     6     0     0     0   338     1  345ms   169 other https://capraetech.io/favicon.svg

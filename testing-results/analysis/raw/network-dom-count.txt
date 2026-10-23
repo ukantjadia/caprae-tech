@@ -1,0 +1,46 @@
+all elements (incl html/head/body): 985
+head elements: 36
+body descendants: 947
+div.variant: 30  on: 10  hidden(off): 20
+elements inside hidden variants (incl. the variant div): 372
+elements inside shown variants (incl. the variant div): 313
+nested variants: 0
+<template> elements: 0, elements inside templates: 0
+<svg> elements: 12, elements inside svgs: 12
+script: 7, style: 8
+max depth (html=0): 12 at <img class=>
+most direct children: 34 on <head id=None>
+
+variant breakdown (parent section id / data attrs, on?, element count):
+  off   29  section=hero  attrs={'data-v': 'a'}  class=variant
+  off   16  section=hero  attrs={'data-v': 'b'}  class=variant
+  ON    19  section=hero  attrs={'data-v': 'c'}  class=variant on
+  off   11  section=why  attrs={'data-v': 'a'}  class=variant
+  ON    17  section=why  attrs={'data-v': 'b'}  class=variant on
+  off   22  section=why  attrs={'data-v': 'c'}  class=variant
+  ON    88  section=services  attrs={'data-v': 'a'}  class=variant on
+  off   10  section=services  attrs={'data-v': 'b'}  class=variant
+  off   14  section=services  attrs={'data-v': 'c'}  class=variant
+  ON    11  section=work  attrs={'data-v': 'a'}  class=variant on
+  off   16  section=work  attrs={'data-v': 'b'}  class=variant
+  off   25  section=work  attrs={'data-v': 'c'}  class=variant
+  off   11  section=how  attrs={'data-v': 'a'}  class=variant
+  ON    35  section=how  attrs={'data-v': 'b'}  class=variant on
+  off   11  section=how  attrs={'data-v': 'c'}  class=variant
+  ON    32  section=pricing  attrs={'data-v': 'a'}  class=variant on
+  off   20  section=pricing  attrs={'data-v': 'b'}  class=variant
+  off   58  section=pricing  attrs={'data-v': 'c'}  class=variant
+  off   11  section=founders  attrs={'data-v': 'a'}  class=variant
+  off   10  section=founders  attrs={'data-v': 'b'}  class=variant
+  ON    10  section=founders  attrs={'data-v': 'c'}  class=variant on
+  off   36  section=team  attrs={'data-v': 'a'}  class=variant
+  off   30  section=team  attrs={'data-v': 'b'}  class=variant
+  ON    66  section=team  attrs={'data-v': 'c'}  class=variant on
+  off    7  section=faq  attrs={'data-v': 'a'}  class=variant
+  off    8  section=faq  attrs={'data-v': 'b'}  class=variant
+  ON     8  section=faq  attrs={'data-v': 'c'}  class=variant on
+  off    9  section=book  attrs={'data-v': 'a'}  class=variant
+  ON    27  section=book  attrs={'data-v': 'b'}  class=variant on
+  off   18  section=book  attrs={'data-v': 'c'}  class=variant
+
+top tag counts: [('div', 375), ('span', 113), ('a', 86), ('li', 61), ('p', 32), ('h2', 30), ('b', 27), ('small', 24), ('i', 23), ('br', 22), ('meta', 21), ('td', 18)]

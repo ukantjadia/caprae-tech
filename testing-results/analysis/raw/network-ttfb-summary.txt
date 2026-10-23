@@ -1,0 +1,8 @@
+set                                 n   dns   tcp   tls   ttfb  total server_med server_min server_max origin_est_med colos
+edge-baseline                      10    12   136   166    477    478        144        106        781              0 ['HKG', 'SIN']
+home                               12    25   143   174   1695   1758       1363        374       1564           1220 ['HKG', 'SIN']
+home-nocache                       10     8   134   185   1055   1093        707        600       1400            564 ['HKG', 'SIN']
+inner-pricing                      10     9   116   126    747    752        415        369       1287            272 ['HKG', 'SIN']
+
+edge baseline (median server_ms of /cdn-cgi/trace) = 144 ms; origin_est = server_ms - baseline
+GTmetrix (Seattle): connect 64 ms, backend 546 ms, TTFB 610 ms

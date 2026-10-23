@@ -1,0 +1,24 @@
+### post-JS DOM, headless Chrome, WebGL disabled (closest to GTmetrix)
+all elements (incl html/head/body): 2017
+head elements: 36
+body descendants: 1979
+div.variant: 30  on: 10  hidden(off): 20
+elements inside hidden variants (incl. the variant div): 1074
+elements inside shown variants (incl. the variant div): 648
+nested variants: 0
+<template> elements: 0, elements inside templates: 0
+<svg> elements: 11, elements inside svgs: 11
+script: 6, style: 8
+max depth (html=0): 12 at <span class=>
+most direct children: 34 on <head id=None>
+
+variant breakdown (parent section id / data attrs, on?, element count):
+
+### post-JS DOM, headless Chrome, SwiftShader WebGL
+all elements (incl html/head/body): 2018
+head elements: 36
+body descendants: 1980
+div.variant: 30  on: 10  hidden(off): 20
+elements inside hidden variants (incl. the variant div): 1074
+home_browser.html body direct children: 25 | widest in body: ul None None 12
+dom-nowebgl.html body direct children: 24 | widest in body: div marquee ['marquee-track'] 18

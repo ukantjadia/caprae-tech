@@ -1,0 +1,401 @@
+===== https://capraetech.io/  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:49:29 GMT
+content-type: text/html
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server-timing: cfCacheStatus;desc="DYNAMIC"
+server-timing: cfEdge;dur=17,cfOrigin;dur=1196
+cache-control: no-cache, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ZAG3mYDlzf27ciX7012H0sumpcZtEU5AzwFczspHhQDa3zuRl97SSOgAPARn0DJ89iraF8eOz3RlhzF3BSUgrla4a3vtudjSSbcrPzyoHOs7sLWVdzPQ2pbHaIRmeD6r"}]}
+cf-cache-status: DYNAMIC
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+content-encoding: br
+cf-ray: a4e7ef7e69e6ef7b-HKG
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: DYNAMIC  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: zstd  wire=31552
+
+===== https://capraetech.io/pricing/  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:50:14 GMT
+content-type: text/html
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server-timing: cfCacheStatus;desc="DYNAMIC"
+server-timing: cfEdge;dur=29,cfOrigin;dur=997
+cache-control: no-cache, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=v5XI1eCgJHMOeoxVtzRsYVT1t4eqUOOWAeUNWxvhdIcc5A%2BLqprw20qojpD98pUpu%2BztO3x0PYQOOmTiucYQmmTHWNeS18nMlHws18fDVn69dCMjGElHxHqfP%2BGx9qtZ"}]}
+cf-cache-status: DYNAMIC
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+content-encoding: br
+cf-ray: a4e7f09c399d8f82-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: DYNAMIC  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: zstd  wire=7228
+
+===== https://capraetech.io/assets/home-Wvpm71il.js  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:50:24 GMT
+content-type: application/javascript
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: W/"6ad9340a-114b"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+content-encoding: gzip
+age: 90
+cf-cache-status: HIT
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=DPgvX%2FUr97Bciszw9oNGAFQE7TFJ7tP4vwUuKRdc3z7vNi8nmpSKt44BlBKPex4MrvCNVp94PLXgNopWtAw9iuPaOzeNdFhsrFGb10XABZKxpXe68yXfpjLfFxgTrL03"}]}
+cf-ray: a4e7f0e0ae6e3e29-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: MISS  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=1937
+
+===== https://capraetech.io/assets/stage-B32UjMJF.js  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:50:34 GMT
+content-type: application/javascript
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: W/"6ad9340a-89e92"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+content-encoding: gzip
+cf-cache-status: MISS
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2BzrQpvQKcqAi9GvJ6KxOawQgWVbJ9Z0YamZX%2B%2F04nGOjAaK2KTzEfXVOv4bAu9YfYb6l9I3zZAlYcEhBRlVmPYRXhRMgZYwlBFfAHB4O1bv%2FHGw8W2DNHP%2BAQoSgr6Kj"}]}
+cf-ray: a4e7f1134dea3e2f-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 2
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=171787
+
+===== https://capraetech.io/assets/menu-Cs6NEOHi.js  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:51:29 GMT
+content-type: application/javascript
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: W/"6ad9340a-8f6"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+content-encoding: gzip
+cf-cache-status: MISS
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=orPgkKZDfgnXSDDZdIFsXNm6YIN%2BBh3sDsyNA5rwNciGSC3G%2Ff23UmimNEtK7j8lyC%2Fs3XqxHRFRdZqBuT%2BzquEEywXqnOgRDBwP%2Ff%2B5tNkaEcsWh0cNHfyKDmZtZqjv"}]}
+cf-ray: a4e7f27588b2e1af-MRS
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 0
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=1031
+
+===== https://capraetech.io/assets/home-B8CsL-aD.css  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:51:42 GMT
+content-type: text/css
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: W/"6ad9340a-e5a2"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+content-encoding: gzip
+age: 200
+cf-cache-status: HIT
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=lsPmumuQyt%2FYKXMhC4ssDwoTAQZ7obCt7Jk6hRuIqsf%2FVPrHievkDjJIv34lBTWKF7Hn%2FcEEd0VdpMFcs4Kn2Od6f7cJuAwAtMvphaf3wmxcRtxnGLair3l4Cd4Fx6iV"}]}
+cf-ray: a4e7f2c63f7f81f5-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 205
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=23883
+
+===== https://capraetech.io/assets/inter-latin-400-normal-C38fXH4l.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:51:51 GMT
+content-type: font/woff2
+content-length: 23664
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-5c70"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=JfVsVVxt4kvjCwOopCN4BW5jrQ2roBbN70WeaA7cUfMSr5VCX68hHeQkQEHK2DgWLi%2BfyVTIduBXNYYofryGH97DmdyMbR8SriBCJIZH%2BUpthjojnwc4mfYTrPQtq%2FYr"}]}
+cf-ray: a4e7f2f44a21fd6b-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 3
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=23664
+
+===== https://capraetech.io/assets/inter-latin-500-normal-Cerq10X2.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:01 GMT
+content-type: font/woff2
+content-length: 24272
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-5ed0"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Z%2FjPHFl2%2FrAdRvetoaN%2Bi2D68afV36CEWTnvex4%2BZU5WsDHHR44ybkkG2ApJoEq6j734BAGq2mJ6FF7IMnzI0Q6pDDmNGed1eaElsHiyf9qPmhmJs5VZffFu3fYd%2Fnos"}]}
+cf-ray: a4e7f3371c4908bc-HKG
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 2
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=24272
+
+===== https://capraetech.io/assets/inter-latin-600-normal-LgqL8muc.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:13 GMT
+content-type: font/woff2
+content-length: 24452
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-5f84"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=XTotlvuhhbSF0zZLo%2FjZhrjO6xMhsoIBcoET7oQPunlyMMs0OZo6HR00gQLi318zH7A8AKWUxDU3pj6HNqhH1C1IjWINSiGw5mKWpSUu8fXampGuN%2BAJEwpaPtGxBEIH"}]}
+cf-ray: a4e7f380cef855e4-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 3
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=24452
+
+===== https://capraetech.io/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:21 GMT
+content-type: font/woff2
+content-length: 21032
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-5228"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=b%2B%2F%2ByPekuVMOstCzQRDMibllN0WKK0EHStjGapO0x%2B3L7t6gFu95G%2FdvCr4tWpH4aAlQw3FwuEQ5mUkY46v8ReXgv2zXQcxZtilvCiHLI37YSKUyMf%2FjDdir7OsSctC6"}]}
+cf-ray: a4e7f3b41e9781b4-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 1
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=21032
+
+===== https://capraetech.io/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:27 GMT
+content-type: font/woff2
+content-length: 22128
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-5670"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=pfvw%2BdJPdzolN5YcZdwHmBp9Ap264zXFxIL43aHVyilSmXxpZHsHf2a8%2FNOFniXU0ZalGDHGrFlFQKQ678z%2BmVw9DwyCwHcM22dCGY6Y9cNmiuxjMG1JX5WTHIqTVFSt"}]}
+cf-ray: a4e7f3d6a8ecd083-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 1
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=22128
+
+===== https://capraetech.io/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:34 GMT
+content-type: font/woff2
+content-length: 21168
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:10 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad9340a-52b0"
+cache-control: public, max-age=31536000, immutable
+x-content-type-options: nosniff
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=9arhUrpXOWzOBvJxGe1mvUeOz84Al5UNoBs5j1KMj4XEl0623kLjqKIR%2BJ%2F9AIRj6LSA7iglYX9OGA39WzNHOi6HPMqayLncIbVR5HkpA2SIHP5wemUvzZ2Z9L4v%2F7Ct"}]}
+cf-ray: a4e7f40118065e07-HKG
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: HIT  age: 3
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=21168
+
+===== https://capraetech.io/shapes.bin  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:41 GMT
+content-type: application/octet-stream
+content-length: 320000
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:09 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad93409-4e200"
+cache-control: max-age=14400, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+accept-ranges: bytes
+cf-cache-status: REVALIDATED
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=tA5T7nghO8yMlbSPIa%2FjdurR%2FaOIc38t9ExgMH0sslUjGXWHvc%2FWOdnqAIfWu5UTKCV22xIxCFD8Vb1Q%2BPBJEJnQFS59%2BZs8sH1H5gmiD7qTHHM6aRiSPdunBv2SGl3R"}]}
+cf-ray: a4e7f42f1931ce25-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: REVALIDATED  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=320000
+
+===== https://capraetech.io/favicon.svg  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:49 GMT
+content-type: image/svg+xml
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:09 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad93409-292"
+cache-control: max-age=14400, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+content-encoding: gzip
+cf-cache-status: REVALIDATED
+vary: accept-encoding
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=WqfsE9FABssXlREwDVk6UJP0kbYsFrcQe%2B4AKjUQPsJBM3ww%2BFSY6H30VHjsAp%2FuEcKG1Opm5cicnXtaCmPqMGl85OgsDZ8t5I7knVVJDUk6cdLvKJIFMiSvAdpcAanO"}]}
+cf-ray: a4e7f46519df9fa9-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: REVALIDATED  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=419
+
+===== https://capraetech.io/og-image.png  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:52:55 GMT
+content-type: image/png
+content-length: 158203
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:09 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad93409-269fb"
+cache-control: max-age=14400, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=9tnYUfZYpqkwiW99BMe9Ovn7UZGAcGxsH9n%2BorpqU0Mdl0xjjFt165mhJISf5ZJ1t42CY5kAwSQw3EViEhYiitDY8E2WYWBz59TDYMP1%2BJyJbTdxvpbDJ%2Fnm%2BZ8CoQcF"}]}
+cf-ray: a4e7f48ada8e6bed-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: REVALIDATED  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=158203
+
+===== https://capraetech.io/apple-touch-icon.png  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:53:04 GMT
+content-type: image/png
+content-length: 4794
+server: cloudflare
+last-modified: Wed, 21 Oct 2026 21:52:09 GMT
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+etag: "6ad93409-12ba"
+cache-control: max-age=14400, must-revalidate
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+accept-ranges: bytes
+cf-cache-status: MISS
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=xpcgo15dagVlsbtR%2F7HNAILjUJ69esCISHKJtvpQ6R6eooCTxxrH2pleN532To8mJH23OnKg8LGBiY63f9pIs2GWk493pPXHVCvXZqxZVNqI%2BzV%2FxqXKQFgATnTScAUd"}]}
+cf-ray: a4e7f4bed959fd1d-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status: REVALIDATED  age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=4794
+
+===== https://capraetech.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:53:10 GMT
+content-type: application/javascript
+expires: Sat, 24 Oct 2026 10:53:10 GMT
+cache-control: public
+vary: accept-encoding
+x-frame-options: DENY
+x-content-type-options: nosniff
+speculation-rules: "/cdn-cgi/speculation"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MfdOEfq2Rwu842Mc9CN1wPi3Rs29lrJ6X5rSbFoi1l87QJQryfYt7JOBT3eAM0rMI8dY0gJHiH9crf%2FN7aNhsZI984sIhsNmQ4rZd5EkoPEbW1l9YTWV3woDQKqa9cpH"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+content-encoding: br
+server: cloudflare
+cf-ray: a4e7f4eafe8ece7d-SIN
+
+----- request 4 (repeat) cf-cache-status:   age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: zstd  wire=661
+
+===== https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 200 
+date: Thu, 22 Oct 2026 10:53:14 GMT
+content-type: text/javascript;charset=UTF-8
+access-control-allow-origin: *
+cache-control: public, max-age=86400
+etag: W/"2026.10.1"
+last-modified: Thu, 15 Oct 2026 18:26:54 GMT
+cross-origin-resource-policy: cross-origin
+content-encoding: gzip
+server: cloudflare
+cf-ray: a4e7f508390cfc4c-DEL
+
+----- request 4 (repeat) cf-cache-status:   age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding: gzip  wire=10264
+
+===== https://capraetech.io/cdn-cgi/challenge-platform/scripts/jsd/main.js  (request 1, Accept-Encoding: br, gzip)
+HTTP/2 302 
+date: Thu, 22 Oct 2026 10:53:17 GMT
+content-length: 0
+location: /cdn-cgi/challenge-platform/h/b/scripts/jsd/d2d3316b729e/main.js?
+cache-control: max-age=300, stale-if-error=10800, stale-while-revalidate=10800, public
+access-control-allow-origin: *
+server: cloudflare
+cf-ray: a4e7f51b4ceace01-SIN
+alt-svc: h3=":443"; ma=86400
+
+----- request 4 (repeat) cf-cache-status:   age: 
+----- Chrome-style Accept-Encoding (zstd) -> content-encoding:   wire=0
+
