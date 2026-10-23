@@ -48,11 +48,11 @@
     <div class="hours-close"><p></p><a class="btn btn-white" href="/book-a-call/">Tell us which one costs you most <span class="arr" aria-hidden="true">→</span></a></div>
   </div></section>
 
-  <section class="pg-sec sec-pad" id="quote-demo"><div class="wrap">
-    <div class="split">
-      <div><span class="eyebrow">Live demo</span><h2 class="title" style="margin-top:14px">We built a cleaning quote calculator.<br><span class="it muted">Try it, then we'll build yours on your real numbers.</span></h2>
-        <p class="lead" style="margin-top:18px">Buyers want a ballpark before they book a walkthrough. This is the kind of calculator we put on a cleaning company's website, trained on that company's own past quotes, so every estimate sounds like you and every use becomes a lead.</p>
-        <div class="card" style="margin-top:22px"><div class="eyebrow">The version we build for you</div>
+  <section class="pg-sec sec-pad demo-sec" id="quote-demo"><div class="wrap">
+    <span class="eyebrow">Live demo</span><h2 class="title demo-title">We built a cleaning quote calculator.<br><span class="it muted">Try it, then we'll build yours on your real numbers.</span></h2>
+    <div class="split demo-split">
+      <div class="demo-copy"><p class="lead">Buyers want a ballpark before they book a walkthrough. This is the kind of calculator we put on a cleaning company's website, trained on that company's own past quotes, so every estimate sounds like you and every use becomes a lead.</p>
+        <div class="card demo-version"><div class="eyebrow">The version we build for you</div>
           <ul class="build-list">
             <li>Runs on your past quotes, not industry averages</li>
             <li>Shows a range, never a final price. You set that after the walkthrough.</li>
@@ -66,11 +66,14 @@
           <div><label for="cSqft">Square footage</label><input id="cSqft" type="number" min="0" max="1000000" step="500" value="20000" inputmode="numeric"></div>
           <div><label for="cVisits">Visits per week</label><select id="cVisits"><option>1</option><option>2</option><option selected>3</option><option>5</option><option>7</option></select></div>
         </div>
-        <div class="adds" role="group" aria-label="Add-ons">
-          <label><input type="checkbox" id="aFloor"> Floor care</label>
-          <label><input type="checkbox" id="aWin"> Windows</label>
-          <label><input type="checkbox" id="aSupply"> Restroom supplies</label>
-          <label><input type="checkbox" id="aPorter"> Day porter</label>
+        <div class="adds-grp">
+          <div class="k adds-k" id="addsLabel">Add-ons</div>
+          <div class="adds" role="group" aria-labelledby="addsLabel">
+            <label><input type="checkbox" id="aFloor"> Floor care</label>
+            <label><input type="checkbox" id="aWin"> Windows</label>
+            <label><input type="checkbox" id="aSupply"> Restroom supplies</label>
+            <label><input type="checkbox" id="aPorter"> Day porter</label>
+          </div>
         </div>
         <div class="out"><div><div class="k">Estimated monthly range</div><div class="big" id="cOut" aria-live="polite">-</div></div><a class="btn btn-ghost" href="/book-a-call/">Book a walkthrough <span class="arr" aria-hidden="true">→</span></a></div>
         <p class="demo-note">A ballpark, not a quote. The final price is set after a walkthrough. Placeholder rates for the demo only, not real pricing. The real version runs on the owner's past quotes.</p>

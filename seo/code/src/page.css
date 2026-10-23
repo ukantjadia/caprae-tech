@@ -439,3 +439,23 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 .ind-dnd .zone { min-height: 0; }
 .ind-dnd .chiplist { min-height: 0; flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
 .ind-dnd .fchip { width: 100%; justify-content: space-between; }
+
+/* Facility cleaning, Live demo (2026-10-23): heading full width on top; the calculator keeps its
+   compact form and runs the height of the text beside it (from the paragraph to "Build mine"),
+   with the spare height shared between its parts. Layout only. */
+.demo-sec .demo-title { margin-top: 14px; max-width: 26ch; font-size: clamp(36px, 4.4vw, 60px); }
+.demo-split { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 4.5vw, 64px); margin-top: clamp(28px, 3vw, 44px); align-items: stretch; }
+.demo-copy .lead { margin-top: 0; max-width: 52ch; }
+.demo-version { margin-top: 24px; }
+.demo-sec .calc { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
+.demo-sec .calc > * { margin-top: 0; }
+.demo-sec .calc label { font-size: 13px; color: var(--ash); }
+.demo-sec .calc .adds-k { font-size: 13px; color: var(--ash); margin-bottom: 8px; }
+.demo-sec .calc .adds { margin-top: 0; }
+.demo-sec .calc .demo-note { line-height: 1.55; }
+@media (max-width: 860px) { .demo-split { grid-template-columns: 1fr; } .demo-sec .calc { justify-content: flex-start; } }
+@media (max-width: 520px) { .demo-sec .calc .out .big { font-size: 29px; } }
+
+/* Card tag pills hug their text at every width (the phone-only rule in chrome.css did this only
+   under 760px, so on desktop the pill stretched across the card) (2026-10-23) */
+.card > .tag { align-self: flex-start; justify-self: start; width: fit-content; max-width: 100%; }

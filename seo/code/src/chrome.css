@@ -342,3 +342,6 @@
 a.inline-link { color: var(--bone); text-decoration: underline; text-decoration-color: rgba(186, 167, 255, 0.55); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .2s ease, text-decoration-color .2s ease; }
 a.inline-link:hover, a.inline-link:focus-visible { color: var(--iris-glow); text-decoration-color: var(--iris-glow); }
 a.inline-link[target="_blank"]::after { content: "\2060\2197"; font-size: 0.8em; margin-left: 1px; }   /* word joiner: the arrow never wraps alone */
+
+/* the status pill beside a card's label stays on one line on phones ("Founder co.") */
+.top > .tag { white-space: nowrap; flex: none; }
