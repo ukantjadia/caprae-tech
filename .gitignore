@@ -32,3 +32,8 @@ old-design-work/designs/direction-r-resend-structure/code/shots/
 # Their extracts and our verification live in testing-results/analysis/.
 testing-results/gtmetrix/
 testing-results/pagespeed/
+
+# Site assistant (seo/code/chatbot): secrets in .env (ignored above), plus runtime files
+seo/code/chatbot/usage/
+**/__pycache__/
+**/.pytest_cache/

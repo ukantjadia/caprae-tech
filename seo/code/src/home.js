@@ -17,6 +17,7 @@ import { applyA11yFixes } from './engine/a11y.js'
 import { startFinalPage } from './engine/final-page.js'
 import { startMenu } from './menu.js'
 import './home-links.js'
+import { loadChat } from './chat-loader.js'
 
 applyA11yFixes()
 startFinalPage()
@@ -25,3 +26,5 @@ startMenu()
 // nothing (not the loader, not the hero) could paint until it had finished (D-118). The engine is
 // fetched only then too, so the menu and links don't wait for its 168 KB download (D-100)
 requestAnimationFrame(() => setTimeout(() => import('./engine/stage.js').then(m => m.startStage({ ...shapes, EXTENTS, POSTER: `${import.meta.env.BASE_URL}posters/home.webp` }))))
+// the site assistant's chat icon, once the page has loaded
+loadChat()

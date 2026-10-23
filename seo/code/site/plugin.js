@@ -35,7 +35,7 @@ ${pages.join('\n')}
 `
 }
 
-const SKIP = new Set(['node_modules', 'dist', 'src', 'public', 'site'])
+const SKIP = new Set(['node_modules', 'dist', 'src', 'public', 'site', 'chatbot', 'deploy', 'server'])
 
 // every index.html under the project, as { route: '/work/lead-qa/', file }
 export function findPages(root) {

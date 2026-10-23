@@ -3,6 +3,7 @@
 import './inner.css'
 import { startMenu } from './menu.js'
 import { startWidgets } from './widgets.js'
+import { loadChat } from './chat-loader.js'
 
 startMenu()
 startWidgets()
@@ -24,3 +25,6 @@ if (quoteCalc) import('./quote-calc.js').then(m => m.startQuoteCalc(quoteCalc))
 // const stage = () => import('./inner-stage.js')
 // if (document.readyState === 'complete') stage()
 // else addEventListener('load', stage, { once: true })
+
+// the site assistant's chat icon, once the page has loaded
+loadChat()

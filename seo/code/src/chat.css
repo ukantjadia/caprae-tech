@@ -1,0 +1,83 @@
+/* Caprae Tech site assistant (src/chat.js). The site's tokens: black, bone text, iris purple
+   gradient, Instrument Serif heading, Inter body. Layout and behaviour follow the Caprae Capital widget. */
+.ct-chat { --ct-bg:#07070a; --ct-card:#111217; --ct-line:#262a2e; --ct-text:#f0f0f0; --ct-muted:#a1a4a5;
+  --ct-iris:#9281f7; --ct-glow:#baa7ff; --ct-grad:linear-gradient(135deg,#9281f7 0%,#9a54dc 100%);
+  font-family:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ct-text); }
+.ct-chat *, .ct-chat *::before, .ct-chat *::after { box-sizing:border-box; }
+
+/* the launcher: just a round chat icon */
+.ct-launch { position:fixed; right:24px; bottom:24px; z-index:998; display:grid; place-items:center;
+  width:56px; height:56px; padding:0; border:0; border-radius:50%; background:var(--ct-grad); color:#fff; cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.12) inset, 0 0 26px rgba(146,129,247,.35);
+  transition:transform .2s ease, box-shadow .2s ease; animation:ct-pop .35s ease both; }
+.ct-launch:hover { transform:translateY(-2px); box-shadow:0 14px 34px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.2) inset, 0 0 34px rgba(146,129,247,.5); }
+.ct-launch svg { width:24px; height:24px; }
+.ct-launch[hidden] { display:none; }
+.ct-launch:focus-visible, .ct-chat button:focus-visible, .ct-chat textarea:focus-visible, .ct-chat a:focus-visible
+  { outline:2px solid var(--ct-glow); outline-offset:3px; }
+@keyframes ct-pop { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:none; } }
+
+/* the panel */
+.ct-panel { position:fixed; right:24px; bottom:24px; z-index:998; width:392px; max-width:calc(100vw - 32px);
+  height:600px; max-height:calc(100vh - 110px); display:flex; flex-direction:column; overflow:hidden;
+  background:var(--ct-bg); border:1px solid var(--ct-line); border-radius:20px;
+  box-shadow:0 24px 70px rgba(0,0,0,.7), 0 0 0 1px rgba(146,129,247,.08); animation:ct-in .22s ease; }
+.ct-panel::before { content:""; position:absolute; inset:0 0 auto; height:2px; background:var(--ct-grad); }
+.ct-panel[hidden] { display:none; }
+@keyframes ct-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+
+.ct-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:20px 20px 14px;
+  border-bottom:1px solid var(--ct-line); }
+.ct-title { margin:0; font:400 26px/1.1 "Instrument Serif",ui-serif,Georgia,serif; color:#fff; letter-spacing:.2px; }
+.ct-sub { margin:5px 0 0; font-size:12px; line-height:1.4; color:var(--ct-muted); }
+.ct-close { flex:none; width:34px; height:34px; border:1px solid var(--ct-line); border-radius:50%; background:transparent;
+  color:var(--ct-text); font-size:20px; line-height:1; cursor:pointer; transition:border-color .2s, color .2s; }
+.ct-close:hover { border-color:var(--ct-glow); color:var(--ct-glow); }
+
+.ct-log { flex:1; overflow-y:auto; overscroll-behavior:contain; padding:18px 20px; display:flex; flex-direction:column; gap:12px;
+  scrollbar-width:thin; scrollbar-color:#33363b transparent; }
+.ct-msg { max-width:88%; padding:11px 14px; border-radius:16px; font-size:13.5px; line-height:1.55; white-space:pre-wrap; word-wrap:break-word; }
+.ct-bot { align-self:flex-start; background:var(--ct-card); border:1px solid var(--ct-line); border-bottom-left-radius:6px; }
+.ct-user { align-self:flex-end; background:linear-gradient(135deg,rgba(146,129,247,.28),rgba(154,84,220,.24));
+  border:1px solid rgba(186,167,255,.35); color:#fff; border-bottom-right-radius:6px; }
+.ct-actions { display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:8px; white-space:normal; }
+.ct-more { padding:0; border:0; background:none; color:var(--ct-glow); font-family:inherit; font-size:12px; font-weight:500; line-height:1.4;
+  text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.ct-msg a { color:var(--ct-glow); text-decoration:underline; text-underline-offset:3px; }
+.ct-msg a.ct-page { font-size:12px; font-weight:500; }
+.ct-more:hover, .ct-msg a:hover { color:#fff; }
+
+.ct-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.ct-chip { padding:4px 10px; border:1px solid var(--ct-line); border-radius:999px; background:transparent; color:var(--ct-muted);
+  font-family:inherit; font-size:11.5px; font-weight:500; line-height:1.4; cursor:pointer; text-align:left; transition:border-color .2s, color .2s; }
+.ct-chip:hover { border-color:var(--ct-glow); color:#fff; }
+
+.ct-typing { display:inline-flex; gap:5px; align-items:center; height:20px; }
+.ct-typing span { width:6px; height:6px; border-radius:50%; background:var(--ct-glow); opacity:.35; animation:ct-dot 1.2s infinite; }
+.ct-typing span:nth-child(2) { animation-delay:.2s; } .ct-typing span:nth-child(3) { animation-delay:.4s; }
+@keyframes ct-dot { 0%,80%,100% { opacity:.25; } 40% { opacity:1; } }
+
+.ct-form { display:flex; gap:8px; align-items:flex-end; padding:12px 14px 14px; border-top:1px solid var(--ct-line); }
+.ct-input { flex:1; height:42px; min-height:42px; max-height:120px; resize:none; overflow-y:hidden; padding:10px 14px;
+  background:var(--ct-card); border:1px solid var(--ct-line); border-radius:21px; color:#fff; font-family:inherit; font-size:13.5px; line-height:1.5; }
+.ct-input::placeholder { color:#7a7e86; }
+.ct-input:focus, .ct-chat .ct-input:focus-visible { border-color:var(--ct-iris); outline:none; box-shadow:0 0 0 3px rgba(146,129,247,.22); }
+.ct-send { flex:none; display:grid; place-items:center; width:42px; height:42px; padding:0; border:0; border-radius:50%;
+  background:var(--ct-grad); color:#fff; cursor:pointer; transition:transform .15s ease, opacity .2s; }
+.ct-send svg { width:18px; height:18px; }
+.ct-send:hover { transform:translateX(1px); }
+.ct-send:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+.ct-turnstile { padding:0 16px 8px; }
+.ct-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+@media (max-width:520px) {
+  .ct-launch { right:16px; bottom:16px; width:52px; height:52px; }
+  .ct-panel { inset:0; right:0; bottom:0; width:100%; max-width:none; height:100%; height:100dvh; max-height:none; z-index:1002;
+    border:0; border-radius:0; }
+  .ct-msg { max-width:92%; }
+  html.ct-open, html.ct-open body { overflow:hidden; }       /* the page behind doesn't scroll on phones */
+}
+@media (prefers-reduced-motion:reduce) {
+  .ct-panel, .ct-typing span, .ct-launch { animation:none; }
+  .ct-launch, .ct-send { transition:none; }
+}
