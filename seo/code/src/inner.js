@@ -20,6 +20,7 @@ const quoteCalc = document.querySelector('[data-calc]')
 if (quoteCalc) import('./quote-calc.js').then(m => m.startQuoteCalc(quoteCalc))
 
 // the particle field: after the page has painted, so the content never waits for WebGL
-const stage = () => import('./inner-stage.js')
-if (document.readyState === 'complete') stage()
-else addEventListener('load', stage, { once: true })
+// Off for now: the particle shape runs on the home page only (2026-10-23).
+// const stage = () => import('./inner-stage.js')
+// if (document.readyState === 'complete') stage()
+// else addEventListener('load', stage, { once: true })

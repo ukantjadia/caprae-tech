@@ -408,3 +408,34 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 .calc .out .big { font-family: var(--serif); font-size: 38px; line-height: 1.05; color: #fff; }
 .calc .demo-note { margin-top: 12px; font-size: 12.5px; color: var(--iron); }
 @media (max-width: 700px) { .calc .fields { grid-template-columns: 1fr; } .calc .out .big { font-size: 30px; } }
+
+/* Who-we-serve industry heroes (2026-10-23): the headline runs full width on top; below it the
+   paragraph and buttons take ~60% and the "What we build" box the rest, both top-aligned, so
+   every industry page lines up the same way. */
+.ind-hero > .wrap > .eyebrow { margin-top: 28px; }
+.ind-hero .pg-title { max-width: none; font-size: clamp(40px, 5.2vw, 74px); line-height: 1.02; }
+.ind-hero .pg-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: clamp(32px, 4.5vw, 64px); align-items: start; margin-top: clamp(28px, 3vw, 40px); }
+.ind-hero .pg-grid .lead { margin-top: 0; max-width: 62ch; }
+.ind-hero .pg-grid .cta-row { margin-top: 28px; }
+.ind-hero .pg-aside { padding: 22px 24px; }
+.ind-hero .ind-mini { gap: 16px; }
+@media (max-width: 900px) { .ind-hero .pg-grid { grid-template-columns: 1fr; gap: 32px; } .ind-hero .pg-aside { max-width: none; } }
+/* calculator result: never runs out of its box; messages read as a prompt, not a price */
+.calc .out > div { min-width: 0; }
+.calc .out .big { overflow-wrap: anywhere; }
+.calc .out .big.msg { font-family: inherit; font-size: 17px; line-height: 1.4; color: var(--ash); }
+.calc input[aria-invalid="true"] { border-color: #e0a95a; }
+
+/* Industry pages: the sample scope as the Pricing feature builder (2026-10-23). Chips carry
+   the "what it does" line under the name, so nothing from the old table is lost. */
+.ind-dnd { margin-top: 8px; }
+.ind-dnd .fchip { align-items: flex-start; text-align: left; max-width: 100%; }
+.ind-dnd .fchip .nm { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ind-dnd .fchip .nm small { font-size: 12px; line-height: 1.4; color: var(--iron); }
+.ind-dnd .fchip .h { margin-top: 2px; flex: none; }
+.dnd-note { margin-top: 16px; font-size: 13px; color: var(--iron); }
+.ind-dnd + .dnd-note + .scope-cta { margin-top: 22px; }
+.ind-dnd { align-items: start; }
+.ind-dnd .zone { min-height: 0; }
+.ind-dnd .chiplist { min-height: 0; flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
+.ind-dnd .fchip { width: 100%; justify-content: space-between; }
