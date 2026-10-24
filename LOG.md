@@ -705,3 +705,8 @@ still unmeasured, and the hero video is still 11.1MB.
 **Asked:** Commit the chatbot changes and make them live. Hitting the message limit should also send an email, and the emails should say clearly what happened. (The owner will update the privacy policy.)
 **Did:** `cost-alert/cost-alert.js`: `--message-limit <n>` mode and `messageLimit()`, its own once-a-day marker `.message-limit-sent-<day>`; shared `deliver()`; both subjects now start "Caprae Tech chatbot STOPPED:". `usage.py`: `start_message_limit_alert()`, `messages_today()`. `app.py`: calls the alert when the message limit refuses a message; the daily counter is UTC and reloaded from the usage file after a restart. README and .env.example updated. Tests: 178 Python and 10 Node pass. Dry run of the message-limit email and an SMTP login check (no email sent) passed. Restarted caprae-tech-chatbot; a live message was answered and logged, then the test CSV was deleted. Committed on main.
 **Open:** Not pushed to GitHub. No real alert email has been sent yet (SMTP login verified only). Privacy policy update is with the owner.
+
+## 2026-10-24 - Push the chatbot changes to GitHub
+**Asked:** The changes are live, so push them to GitHub, and add to LOG.md and DECISION.md. Leave the privacy policy; the owner will update it.
+**Did:** Checked origin/main had no new commits, added D-102 and this entry, committed, pushed main to https://github.com/ukantjadia/caprae-tech. The push also starts the GitHub Pages workflow.
+**Open:** The privacy policy still does not mention the chat CSV (full messages, raw IPs); owner is updating it. No real alert email sent yet.

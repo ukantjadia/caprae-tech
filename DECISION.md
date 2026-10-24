@@ -1289,3 +1289,10 @@ Decision: When DAILY_REQUEST_LIMIT stops the assistant, it runs `cost-alert.js -
 Alternatives: no email (the old behaviour: nobody knew the bot had stopped); a separate counter file (an extra file to keep in step, when the usage file already holds the count).
 Why: Owner asked for an email whenever either limit stops the bot.
 Reversible: yes
+
+## D-102. Push the chatbot limit and CSV changes to GitHub main
+Date: 2026-10-24
+Decision: Push 8518e4a (and this log commit) to origin/main. The live chatbot already runs them from this checkout. The privacy policy is left as it is; the owner will update it.
+Alternatives: keep the commits on the server only (GitHub would fall behind what is live); push to a branch (the repo works off main).
+Why: Owner asked for GitHub to match what is live.
+Reversible: yes
