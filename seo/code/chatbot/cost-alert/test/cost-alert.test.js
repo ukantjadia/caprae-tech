@@ -8,7 +8,7 @@ const os = require('os');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { SMTPServer } = require('smtp-server');
-const { check, summarize, costOf, utcDay } = require('../cost-alert');
+const { check, messageLimit, summarize, costOf, utcDay } = require('../cost-alert');
 
 const PRICES = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'prices.json'), 'utf8'));
 // One real visitor message on Gemini 3.5 Flash-Lite (measured): classify 365 in / 14 out, answer 6492 in / 153 out.
@@ -91,8 +91,8 @@ test('over the limit: exactly one email per day, sent over SMTP', async () => {
   assert.strictEqual(second.reason, 'already emailed today');
   assert.strictEqual(received.length, 1);
   assert.deepStrictEqual(received[0].to, ['alerts@capraecapital.com']);
-  assert.match(received[0].data, /Subject: Caprae Tech chatbot: AI spend passed \$1\.00 today \(\$1\.04\)/);
-  assert.match(received[0].data, /still running/);
+  assert.match(received[0].data, /Subject: Caprae Tech chatbot STOPPED: AI spend passed \$1\.00 \(\$1\.04\)/);
+  assert.match(received[0].data, /stopped answering for the rest of today/);
 });
 
 test('over the limit without SMTP settings: reports it, does not crash', async () => {
@@ -114,5 +114,26 @@ test('command line --dry-run prints the email', () => {
   const out = execFileSync(process.execPath, [path.join(__dirname, '..', 'cost-alert.js'), '--dry-run'],
     { env: { ...process.env, USAGE_DIR: dir, ALERT_TO: 'alerts@capraecapital.com', ALERT_FROM: 'bot@capraecapital.com' }, encoding: 'utf8' });
   assert.match(out, /DRY RUN/);
-  assert.match(out, /AI spend passed \$1\.00 today/);
+  assert.match(out, /STOPPED: AI spend passed \$1\.00/);
+});
+
+test('message limit: exactly one email per day, says the bot stopped', async () => {
+  const { server, received, port } = await smtp();
+  const dir = tempUsage(messages(10));
+  const first = await messageLimit({ cfg: cfgFor(dir, port), limit: 2000 });
+  const second = await messageLimit({ cfg: cfgFor(dir, port), limit: 2000 });
+  server.close();
+  assert.strictEqual(first.emailed, true);
+  assert.strictEqual(second.reason, 'message limit: already emailed today');
+  assert.strictEqual(received.length, 1);
+  assert.match(received[0].data, /Subject: Caprae Tech chatbot STOPPED: 2,000-message daily limit reached/);
+  assert.match(received[0].data.replace(/=\r\n/g, ''), /stopped answering for the rest of today/);   // undo quoted-printable line wraps
+  assert.ok(!fs.existsSync(path.join(dir, `.cost-alert-sent-${utcDay()}`)));   // the $ alert can still go out
+});
+
+test('command line --message-limit --dry-run prints the email', () => {
+  const dir = tempUsage(messages(3));
+  const out = execFileSync(process.execPath, [path.join(__dirname, '..', 'cost-alert.js'), '--message-limit', '2000', '--dry-run'],
+    { env: { ...process.env, USAGE_DIR: dir, ALERT_TO: 'alerts@capraecapital.com', ALERT_FROM: 'bot@capraecapital.com' }, encoding: 'utf8' });
+  assert.match(out, /2,000-message daily limit reached/);
 });

@@ -204,3 +204,73 @@ def test_refused_message_discards_the_answer(client):
     d = post(client, "What's the weather?").json()
     assert d["kind"] == "refusal" and "$0.89" not in d["reply"] and d["sources"] == []
     assert chatapp.sessions[d["session_id"]]["history"] == []
+
+
+def test_cost_limit_stops_the_bot(client, monkeypatch):
+    monkeypatch.setattr(chatapp, "COST_LIMIT", 1.0)
+    monkeypatch.setattr(chatapp.usage, "spent_today", lambda: 1.01)
+    d = post(client, "What is an MVP?").json()
+    assert d["kind"] == "limit" and d["reply"] == chatapp.guard.REPLY_ERROR
+    assert client.fake.calls == []                              # no AI call once the day's $ limit is passed
+    monkeypatch.setattr(chatapp.usage, "spent_today", lambda: 0.99)
+    assert post(client, "What is an MVP?").json()["kind"] == "answer"
+
+
+def read_csv(path):
+    import csv
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def test_chat_csv_one_row_per_message(client, tmp_path, monkeypatch):
+    csv_path = tmp_path / "chats.csv"
+    monkeypatch.setattr(chatapp.chatlog, "CHAT_CSV", csv_path)
+    page = {**ORIGIN, "Referer": "https://capraetech.io/pricing/?x=1"}
+    d1 = post(client, "What is an MVP?", headers=page).json()
+    post(client, "How much is it?", sid=d1["session_id"], headers=page)
+    client.fake.category = "OFF_TOPIC"
+    post(client, "What's the weather?", sid=d1["session_id"], headers=page)
+    rows = read_csv(csv_path)
+    assert [r["user_id"] for r in rows] == [d1["session_id"]] * 3      # same chat -> same user id
+    assert [r["message_no"] for r in rows] == ["1", "2", "3"]
+    assert rows[0]["visitor_message"] == "What is an MVP?" and "$0.89" in rows[0]["bot_reply"]
+    assert rows[0]["outcome"] == "answer" and rows[0]["reason"] == ""
+    assert rows[0]["page"] == "/pricing/" and rows[0]["open_page_link"] == "https://capraetech.io/pricing/"
+    assert rows[0]["ip"] == "testclient"
+    assert (rows[2]["outcome"], rows[2]["reason"]) == ("refusal", "class=OFF_TOPIC")
+    assert csv_path.stat().st_mode & 0o777 == 0o600
+
+
+def test_chat_csv_records_limits_and_skips_rejects(client, tmp_path, monkeypatch):
+    csv_path = tmp_path / "chats.csv"
+    monkeypatch.setattr(chatapp.chatlog, "CHAT_CSV", csv_path)
+    post(client, "hi", headers={"Origin": "https://evil.example"})     # rejected, no reply shown: no row
+    monkeypatch.setattr(chatapp.usage, "spent_today", lambda: 5.0)
+    post(client, "What is an MVP?")
+    rows = read_csv(csv_path)
+    assert len(rows) == 1 and rows[0]["outcome"] == "limit" and rows[0]["reason"].startswith("daily cost")
+
+
+def test_chat_csv_formula_guard_and_never_breaks_chat(client, tmp_path, monkeypatch):
+    monkeypatch.setattr(chatapp.chatlog, "CHAT_CSV", tmp_path / "chats.csv")
+    post(client, "=HYPERLINK(\"http://x\") what is an MVP?")
+    assert read_csv(tmp_path / "chats.csv")[0]["visitor_message"].startswith("'=")
+    monkeypatch.setattr(chatapp.chatlog, "CHAT_CSV", tmp_path / "chats.csv" / "not-a-dir" / "x.csv")
+    assert post(client, "What is an MVP?").json()["kind"] == "answer"   # a write failure is not the visitor's problem
+
+
+def test_message_limit_sends_the_alert(client, monkeypatch):
+    sent = []
+    monkeypatch.setattr(chatapp, "DAILY_LIMIT", 1)
+    monkeypatch.setattr(chatapp.usage, "start_message_limit_alert", sent.append)
+    post(client, "What is an MVP?")
+    assert sent == []                                           # under the limit: no email
+    assert post(client, "What is an MVP?").json()["kind"] == "limit"
+    assert sent == [1]
+
+
+def test_message_count_survives_a_restart(client, monkeypatch):
+    monkeypatch.setattr(chatapp, "DAILY_LIMIT", 5)
+    monkeypatch.setattr(chatapp.usage, "messages_today", lambda: 5)   # 5 already in today's usage file
+    chatapp.daily.update(day=None, count=0)                           # a fresh process
+    assert post(client, "What is an MVP?").json()["kind"] == "limit"

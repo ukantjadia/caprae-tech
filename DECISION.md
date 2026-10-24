@@ -1275,3 +1275,17 @@ Decision: Final draft 6 (the 38-page site) moves to `seo/code` and becomes the o
 Alternatives: Commit locally without pushing, leaving the gallery live; keep the gallery deploying from the archive alongside the site (both offered). Archive name old-design-dashboard (offered). Moving the Section Lab file into the archive (offered; the user kept it at the top).
 Why: User, 2026-10-15: the website is decided; clear everything else out so the repo holds the site. Answers: old-design-work, keep the Section Lab at the top, draft 6 becomes the site. The gallery and the /final-draft-N/ and /r-lab/ addresses stop working on the next deploy.
 Reversible: yes
+
+## D-100. The chatbot stops at the daily $ limit, and every chat goes to a CSV
+Date: 2026-10-24
+Decision: Past DAILY_COST_LIMIT_USD (estimated from token counts and cost-alert/prices.json, UTC day) the site assistant replies "unavailable" until midnight UTC, the same as the 2,000-message limit. The alert email now says the bot has stopped. Every reply is also written to seo/code/chatbot/chat-logs/chats.csv: one row per visitor message, user_id = the chat's session id, raw IP, full message and reply. chatbot.log is unchanged.
+Alternatives: alert only (the old behaviour; spend could keep going all day); a hard cap in Google Cloud billing only (not set up, and it would also stop the Caprae Capital bot, which shares the key); the CSV with hashed IPs like chatbot.log (rejected: the owner asked for the IP).
+Why: Owner asked for both limits to stop the bot, and for a log they can read in a spreadsheet.
+Reversible: yes
+
+## D-101. The message-limit stop sends an email too, and the message count survives a restart
+Date: 2026-10-24
+Decision: When DAILY_REQUEST_LIMIT stops the assistant, it runs `cost-alert.js --message-limit <n>`, which emails ALERT_TO/ALERT_CC once that UTC day ("STOPPED: 2,000-message daily limit reached"). The $ email subject now also starts "STOPPED:". The daily message count is reloaded from today's usage file (one "classify" line per message) when the process starts.
+Alternatives: no email (the old behaviour: nobody knew the bot had stopped); a separate counter file (an extra file to keep in step, when the usage file already holds the count).
+Why: Owner asked for an email whenever either limit stops the bot.
+Reversible: yes

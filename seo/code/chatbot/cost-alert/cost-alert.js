@@ -4,14 +4,17 @@
  *
  * Reads today's token usage (chatbot/usage/YYYY-MM-DD.jsonl, written by the chatbot for every AI call),
  * prices it with prices.json, and emails an alert over SMTP once the day's spend passes the limit
- * (DAILY_COST_LIMIT_USD, default $1). It only sends one email per day. It NEVER stops the chatbot.
+ * (DAILY_COST_LIMIT_USD, default $1). It only sends one email per day. The chatbot itself (app.py) stops
+ * answering at the same limit, priced from the same prices.json, until midnight UTC.
  *
  * The chatbot starts this script in the background after each AI call (chatbot/usage.py), so it runs
  * only when there is a request: no cron, nothing running in between. Once today's email is sent, the
  * chatbot stops starting it until the next day.
  *
- *   node cost-alert.js            check once (what the chatbot runs)
- *   node cost-alert.js --dry-run  print the email instead of sending it
+ *   node cost-alert.js                       check once (what the chatbot runs)
+ *   node cost-alert.js --dry-run             print the email instead of sending it
+ *   node cost-alert.js --message-limit 2000  email (once a day) that the daily MESSAGE limit stopped the
+ *                                            bot; the chatbot runs this when it first refuses a message
  *
  * Settings come from the environment or ../.env (the chatbot's .env):
  *   DAILY_COST_LIMIT_USD=1
@@ -96,6 +99,10 @@ function alertFile(day, cfg) {
   return path.join(cfg.stateDir, `.cost-alert-sent-${day}`);
 }
 
+function messageLimitFile(day, cfg) {
+  return path.join(cfg.stateDir, `.message-limit-sent-${day}`);
+}
+
 function buildEmail(s, cfg) {
   const lines = Object.entries(s.byProvider)
     .map(([name, b]) => `  ${name}: $${b.cost.toFixed(4)} (${b.calls} AI calls)`);
@@ -103,7 +110,7 @@ function buildEmail(s, cfg) {
     from: cfg.from,
     to: cfg.to,
     cc: cfg.cc,
-    subject: `Caprae Tech chatbot: AI spend passed $${cfg.limit.toFixed(2)} today ($${s.total.toFixed(2)})`,
+    subject: `Caprae Tech chatbot STOPPED: AI spend passed $${cfg.limit.toFixed(2)} ($${s.total.toFixed(2)})`,
     text: [
       `The site chatbot's AI spend for ${s.day} (UTC) is $${s.total.toFixed(4)}, above the daily limit of $${cfg.limit.toFixed(2)}.`,
       '',
@@ -111,24 +118,41 @@ function buildEmail(s, cfg) {
       ...lines,
       s.unknownModels.size ? `\nPriced at the default rate (not in prices.json): ${[...s.unknownModels].join(', ')}` : '',
       '',
-      'The chatbot is still running. This is an alert only; nothing has been switched off.',
-      'If the traffic looks unusual, check the chatbot logs, or lower PER_IP_PER_DAY / DAILY_REQUEST_LIMIT in chatbot/.env.',
+      'The chatbot has stopped answering for the rest of today. Visitors see "the assistant is unavailable" and',
+      'are pointed to partners@capraecapital.com. It starts again by itself at midnight UTC.',
+      'To turn it back on sooner, raise DAILY_COST_LIMIT_USD in chatbot/.env and restart caprae-tech-chatbot.',
+      'If the traffic looks unusual, check chatbot/chat-logs/chats.csv, or lower PER_IP_PER_DAY / DAILY_REQUEST_LIMIT.',
       '',
       'One alert is sent per day.',
     ].filter((l) => l !== null).join('\n'),
   };
 }
 
-/** Check today's spend; send one email per day once it passes the limit. Returns what happened. */
-async function check({ cfg = config(), now = new Date(), dryRun = false, transport } = {}) {
-  const day = utcDay(now);
-  const s = summarize(day, cfg);
-  const result = { day, total: s.total, calls: s.calls, limit: cfg.limit, emailed: false, reason: '' };
+function buildMessageLimitEmail(s, cfg, messageLimit) {
+  const n = Number(messageLimit).toLocaleString('en-US');
+  return {
+    from: cfg.from,
+    to: cfg.to,
+    cc: cfg.cc,
+    subject: `Caprae Tech chatbot STOPPED: ${n}-message daily limit reached`,
+    text: [
+      `The site chatbot has answered its ${n} messages for ${s.day} (UTC), the daily limit (DAILY_REQUEST_LIMIT).`,
+      '',
+      'The chatbot has stopped answering for the rest of today. Visitors see "the assistant is unavailable" and',
+      'are pointed to partners@capraecapital.com. It starts again by itself at midnight UTC.',
+      'To turn it back on sooner, raise DAILY_REQUEST_LIMIT in chatbot/.env and restart caprae-tech-chatbot.',
+      '',
+      `AI spend so far today: $${s.total.toFixed(4)} from ${s.calls} AI calls (the $ limit is $${cfg.limit.toFixed(2)}).`,
+      'That many messages in one day is unusual for this site: check chatbot/chat-logs/chats.csv for one IP',
+      'sending most of them.',
+      '',
+      'One alert is sent per day.',
+    ].join('\n'),
+  };
+}
 
-  if (s.total <= cfg.limit) { result.reason = 'under limit'; return result; }
-  if (fs.existsSync(alertFile(day, cfg))) { result.reason = 'already emailed today'; return result; }
-
-  const mail = buildEmail(s, cfg);
+/** Send `mail` unless it is a dry run or SMTP is not set up; then write `marker` so it goes once a day. */
+async function deliver(mail, marker, cfg, result, dryRun, transport) {
   if (dryRun) {
     console.log(`--- DRY RUN: email that would be sent ---\nTo: ${mail.to}${mail.cc ? `\nCc: ${mail.cc}` : ''}\nSubject: ${mail.subject}\n\n${mail.text}\n---`);
     result.reason = 'dry run';
@@ -141,10 +165,31 @@ async function check({ cfg = config(), now = new Date(), dryRun = false, transpo
   const t = transport || require('nodemailer').createTransport(cfg.smtp);
   await t.sendMail(mail);
   fs.mkdirSync(cfg.stateDir, { recursive: true });
-  fs.writeFileSync(alertFile(day, cfg), new Date().toISOString());
+  fs.writeFileSync(marker, new Date().toISOString());
   result.emailed = true;
   result.reason = 'over limit: email sent';
   return result;
+}
+
+/** Check today's spend; send one email per day once it passes the limit. Returns what happened. */
+async function check({ cfg = config(), now = new Date(), dryRun = false, transport } = {}) {
+  const day = utcDay(now);
+  const s = summarize(day, cfg);
+  const result = { day, total: s.total, calls: s.calls, limit: cfg.limit, emailed: false, reason: '' };
+
+  if (s.total <= cfg.limit) { result.reason = 'under limit'; return result; }
+  if (fs.existsSync(alertFile(day, cfg))) { result.reason = 'already emailed today'; return result; }
+
+  return deliver(buildEmail(s, cfg), alertFile(day, cfg), cfg, result, dryRun, transport);
+}
+
+/** The daily message limit stopped the bot: send one email per day saying so. */
+async function messageLimit({ cfg = config(), now = new Date(), dryRun = false, transport, limit } = {}) {
+  const day = utcDay(now);
+  const s = summarize(day, cfg);
+  const result = { day, total: s.total, calls: s.calls, limit: cfg.limit, emailed: false, reason: '' };
+  if (fs.existsSync(messageLimitFile(day, cfg))) { result.reason = 'message limit: already emailed today'; return result; }
+  return deliver(buildMessageLimitEmail(s, cfg, limit), messageLimitFile(day, cfg), cfg, result, dryRun, transport);
 }
 
 function report(r) {
@@ -157,8 +202,10 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
   const cfg = config();
+  const i = args.indexOf('--message-limit');
   try {
-    report(await check({ cfg, dryRun }));
+    if (i >= 0) report(await messageLimit({ cfg, dryRun, limit: Number(args[i + 1]) || 0 }));
+    else report(await check({ cfg, dryRun }));
   } catch (e) {
     console.error(`[${new Date().toISOString()}] check failed: ${e.message}`);
   }
@@ -166,4 +213,4 @@ async function main() {
 
 if (require.main === module) main();
 
-module.exports = { check, summarize, costOf, config, loadEnv, utcDay, buildEmail };
+module.exports = { check, messageLimit, summarize, costOf, config, loadEnv, utcDay, buildEmail, buildMessageLimitEmail };

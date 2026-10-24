@@ -37,3 +37,5 @@ testing-results/pagespeed/
 seo/code/chatbot/usage/
 **/__pycache__/
 **/.pytest_cache/
+# Chat CSV: full visitor messages and raw IPs (personal data, never commit)
+seo/code/chatbot/chat-logs/

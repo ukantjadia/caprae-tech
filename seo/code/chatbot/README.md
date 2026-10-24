@@ -21,12 +21,15 @@ chat icon (src/chat.js, loaded after the page) → nginx /api/chat → app.py (1
 | `llm.py` | Gemini first, DeepSeek as the backup. If Gemini fails, the same request goes to DeepSeek, and Gemini is skipped for 5 minutes. Safety blocks are never retried. |
 | `pages.py` | The only pages and links the bot may show (the site's 39 pages). |
 | `usage.py` | Writes every AI call's token counts to `usage/YYYY-MM-DD.jsonl` (no visitor text). |
-| `cost-alert/` | Node.js script: emails once a day when AI spend passes $1. It never stops the bot. |
+| `chatlog.py` | Writes every message and its reply to `chat-logs/chats.csv` (one row each; see below). |
+| `cost-alert/` | Node.js script: the "STOPPED" emails, once a day each, when AI spend passes $1 or the 2,000-message limit is hit. |
 | `../src/chat.js`, `../src/chat.css` | The widget: a round chat icon bottom right; plain-text replies; "Know more"; one "Open … page" link; the chat is kept across pages; full screen on phones. |
 
 **Security layers, in order** (any one can stop a message):
 1. Only our domains can call the API (Origin check: `ALLOWED_ORIGINS`).
-2. Limits: 600 characters a message; 8 a minute and 60 a day per IP; 12 messages per chat; 2,000 a day site-wide.
+2. Limits: 600 characters a message; 8 a minute and 60 a day per IP; 12 messages per chat; 2,000 a day site-wide;
+   $1 of AI spend a day site-wide. Past either daily limit the bot replies "unavailable" until midnight UTC, and
+   an email goes to ALERT_TO (cc ALERT_CC) saying which limit stopped it. Both counts survive a restart.
 3. Optional Cloudflare Turnstile on the first message (off, as on Caprae Capital).
 4. Pattern filter: injection, "write code", role-play and abuse are refused before any AI call.
 5. An AI classifier: only on-topic questions and greetings pass; off-topic, advice, injection and abuse get fixed replies.
@@ -38,12 +41,17 @@ chat icon (src/chat.js, loaded after the page) → nginx /api/chat → app.py (1
 
 If both Gemini and DeepSeek are down, visitors get "temporarily unavailable", never an unchecked answer.
 
-## Costs and the $1 alert
+## Costs, the $1 stop and the alert
 
 Same as Caprae Capital (see their CHATBOT_COSTS.md): about $0.0025 per answered message on Gemini 3.5 Flash-Lite,
-so **$1 a day is about 400 messages**; the 2,000-a-day limit caps the worst case at about $5 a day.
+so **$1 a day is about 400 messages**. Measured here on 2026-10-23: about $0.0018 a message (about 550 for $1).
 After each AI call the bot starts `cost-alert/cost-alert.js` in the background; once the day's spend (UTC) passes
-`DAILY_COST_LIMIT_USD` it emails `ALERT_TO` once that day. It never switches the bot off.
+`DAILY_COST_LIMIT_USD` it emails `ALERT_TO` once that day. At the same point `app.py` stops answering
+(`usage.spent_today()`, same `prices.json`, survives a restart) until midnight UTC. These are estimates from
+token counts, not Google's bill; a Google Cloud budget is the real ceiling.
+When the 2,000-message limit (`DAILY_REQUEST_LIMIT`) stops the bot, it runs `cost-alert.js --message-limit 2000`,
+which sends its own "STOPPED: 2,000-message daily limit reached" email, once that day.
+Preview either email without sending: `node cost-alert/cost-alert.js --dry-run` or `... --message-limit 2000 --dry-run`.
 `ALERT_CC` (comma-separated) copies others on it. `node cost-alert/cost-alert.js --dry-run` prints the email instead of sending it.
 
 ## Run locally
@@ -75,6 +83,10 @@ curl https://capraetech.io/api/chat/health      # {"ok":true,...,"key_set":true,
 
 **After deploying:**
 - Logs: `chatbot.log` (hashed IPs; emails and phone numbers masked). Review flagged chats weekly.
+- Chat CSV: `chat-logs/chats.csv` (dir 0700, file 0600, ignored by git). One row per visitor message:
+  time_utc, user_id (the chat's session id: the same for every message in one chat), message_no, ip (raw),
+  page, visitor_message, bot_reply, outcome (answer/refusal/limit/error), reason, open_page_link.
+  Unlike chatbot.log it holds the full text and the raw IP, so it is personal data: keep it on the server.
 - **Keep `knowledge.md` in sync with the site**: when page content changes, update it, then
   `sudo systemctl restart caprae-tech-chatbot`.
 - `.env` holds the keys. It is in `.gitignore`; never commit it (the repo is public).

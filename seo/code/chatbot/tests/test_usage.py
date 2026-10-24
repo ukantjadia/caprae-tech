@@ -67,3 +67,31 @@ def test_node_missing_never_breaks_a_chat(tmp_path, monkeypatch):
     monkeypatch.setenv("NODE_BIN", "definitely-not-node-xyz")
     usage.record("gemini", "m", "answer", 1, 0, 1)            # must not raise
     assert (tmp_path / f"{today()}.jsonl").exists()
+
+
+def test_spent_today_matches_prices_and_survives_restart(started, tmp_path, monkeypatch):
+    monkeypatch.setattr(usage, "_spend", {"key": None, "usd": 0.0})
+    usage.record("gemini", "gemini-3.5-flash-lite", "answer", 1_000_000, 0, 1_000_000)   # $0.30 + $2.50
+    assert abs(usage.spent_today() - 2.80) < 1e-9
+    monkeypatch.setattr(usage, "_spend", {"key": None, "usd": 0.0})                     # a restart
+    assert abs(usage.spent_today() - 2.80) < 1e-9                                       # re-read from today's file
+    usage.record("gemini", "gemini-3.5-flash-lite", "classify", 1_000_000, 1_000_000, 0)  # all cached: $0.03
+    assert abs(usage.spent_today() - 2.83) < 1e-9
+
+
+def test_message_limit_alert_once(started, tmp_path):
+    usage._limit_mail = None
+    usage.start_message_limit_alert(2000)
+    usage.start_message_limit_alert(2000)                     # first one still sending
+    assert len(started) == 1 and started[0][0][2:] == ["--message-limit", "2000"]
+    usage._limit_mail = FakeProc(False)
+    (tmp_path / f".message-limit-sent-{today()}").write_text("sent")
+    usage.start_message_limit_alert(2000)                     # today's email has gone
+    assert len(started) == 1
+
+
+def test_messages_today_counts_classify_lines(started):
+    usage.record("gemini", "m", "classify", 1, 0, 1)
+    usage.record("gemini", "m", "answer", 1, 0, 1)
+    usage.record("deepseek", "m", "classify", 1, 0, 1)
+    assert usage.messages_today() == 2
