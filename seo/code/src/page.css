@@ -459,3 +459,19 @@ a.org-node:focus-visible { outline: 2px solid var(--iris-glow); outline-offset: 
 /* Card tag pills hug their text at every width (the phone-only rule in chrome.css did this only
    under 760px, so on desktop the pill stretched across the card) (2026-10-23) */
 .card > .tag { align-self: flex-start; justify-self: start; width: fit-content; max-width: 100%; }
+
+/* Work · Companies our founders run (ITSco, Destroy Drive), 2026-10-28: the hero's
+   "At a glance" facts and a two-column results grid for four case studies */
+.glance { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.glance li { display: grid; gap: 3px; padding-top: 14px; border-top: 1px solid var(--hair-2); }
+.glance li:first-child { padding-top: 0; border-top: 0; }
+.glance b { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.1; color: #fff; }
+.glance span { font-size: 14px; line-height: 1.45; color: var(--ash); }
+.proof-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.proof-grid .card h3 a.inline-link { color: inherit; }
+.proof-grid .card p b { color: var(--bone); font-weight: 500; }
+@media (max-width: 760px) { .proof-grid.two { grid-template-columns: 1fr; } }
+/* the two founder-company heroes carry a full sentence as the headline, so it runs smaller and
+   wider and the buttons stay on the first screen */
+.pg-title.case-long { max-width: 22ch; font-size: clamp(38px, 4.6vw, 64px); line-height: 1.02; }
+.pbr-res p strong { color: #fff; font-weight: 500; }

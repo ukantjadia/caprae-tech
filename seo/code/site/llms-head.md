@@ -69,7 +69,7 @@ Every build runs inside a real business: Caprae's own, a client's, or a company 
 - Call intelligence (AI call scoring): live in beta as Call Intelligence™ from Cold Call Killers
 - Caprae Cold Mail (done-for-you direct mail): live; postcards from $0.89 each, mailed, postage and QR tracking included
 - Client builds live in production: Bankers Edge (bankersedgeadvisory.com) and Simba (simbastud.io)
-- Founder companies: ITSco (healthcare tech and engineering) and Destroy Drive (data services)
+- Companies our founders run: ITSco (managed IT, security and compliance) and Destroy Drive (data destruction services)
 
 ## Team
 

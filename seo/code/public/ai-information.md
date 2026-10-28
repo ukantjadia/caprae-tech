@@ -189,8 +189,8 @@ Nine builds, in three kinds. Every one runs inside a real business: Caprae's own
 
 | Company | What it does | Who |
 |---|---|---|
-| [ITSco](https://capraetech.io/work/itsco/) (Integrated Technical Services) | Healthcare tech and engineering: tech development, data analysis and analytics projects | Led by Zackary Beckham and Mike Savino |
-| [Destroy Drive](https://capraetech.io/work/destroy-drive/) | Data services: data centers and data cleaning | Co-founded by Kevin Hong and Zackary Beckham |
+| [ITSco](https://capraetech.io/work/itsco/) | A managed IT, cybersecurity and compliance firm in Durham, North Carolina, serving businesses across NC, SC and VA since 1996 | Mike Savino (CEO), Zackary Beckham and Kevin Hong (Partners) |
+| [Destroy Drive](https://capraetech.io/work/destroy-drive/) | Onsite data wiping, drive destruction and data center decommissioning in 100+ countries | Kevin Hong (Partner), Zackary Beckham (former Director of Service Delivery) |
 
 Sourcing automation built at Caprae Capital took lead generation from 6 leads an hour to 50–60.
 

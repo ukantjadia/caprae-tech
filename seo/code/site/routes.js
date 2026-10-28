@@ -201,13 +201,13 @@ export const ROUTES = {
   },
   '/work/itsco/': {
     label: 'ITSco', parent: '/work/',
-    title: 'ITSco: Healthcare Tech & Engineering | Caprae Tech',
-    description: 'Integrated Technical Services: tech development, data analysis and analytics for healthcare organizations. Led by Zackary Beckham and Mike Savino.',
+    title: 'ITSco: Managed IT, Security & Compliance | Caprae Tech',
+    description: "ITSco has run IT, security and compliance for businesses in NC, SC and VA since 1996. Run by our founders, it's the security side of our builds.",
   },
   '/work/destroy-drive/': {
     label: 'Destroy Drive', parent: '/work/',
-    title: 'Destroy Drive: Data Center & Data Services | Caprae Tech',
-    description: 'Data services for data centers and data cleaning, for companies that need their data handled properly. Co-founded by Kevin Hong and Zackary Beckham.',
+    title: 'Destroy Drive: Data Destruction Services | Caprae Tech',
+    description: 'Onsite data wiping, drive destruction and data center decommissioning in 100+ countries. Run by our founders, it shapes how we handle your data.',
   },
 
   // ---- Legal: not in the sheet's meta tab, so the title follows its pattern and the
