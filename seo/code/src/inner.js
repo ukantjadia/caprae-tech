@@ -20,6 +20,10 @@ if (legalToc) import('./legal-toc.js').then(m => m.startLegalToc(legalToc))
 const quoteCalc = document.querySelector('[data-calc]')
 if (quoteCalc) import('./quote-calc.js').then(m => m.startQuoteCalc(quoteCalc))
 
+// MVP page: the "What we leave out of v1" case-study carousel
+const v1Car = document.querySelector('[data-carousel]')
+if (v1Car) import('./v1-carousel.js').then(m => m.startV1Carousel(v1Car))
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 // Off for now: the particle shape runs on the home page only (2026-10-23).
 // const stage = () => import('./inner-stage.js')

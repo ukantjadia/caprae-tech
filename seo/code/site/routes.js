@@ -22,8 +22,9 @@ export const ROUTES = {
   },
   '/what-we-build/mvp-development/': {
     label: 'MVPs', parent: '/what-we-build/',
-    title: 'MVP Development for Non-Technical Founders | Caprae Tech',
-    description: 'From an idea to a working product your customers can use, with the features that sell it at the top. Founder-led and priced feature by feature.',
+    title: 'MVP Development Services for Non-Technical Founders | Caprae Tech',
+    description: 'Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks.',
+    band: { h: 'Tell us the one thing', it: 'your product has to prove.', lead: "Thirty minutes with a founder. You leave knowing what's worth building first." },
   },
   '/what-we-build/business-dashboards/': {
     label: 'Dashboards', parent: '/what-we-build/',

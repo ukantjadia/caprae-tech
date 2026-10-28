@@ -20,7 +20,7 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 
 ## What It Builds
 
-- [MVP development](https://capraetech.io/what-we-build/mvp-development/): From an idea to a working product customers can use, with the features that will sell it at the top. Best for owners testing a new product line.
+- [MVP development](https://capraetech.io/what-we-build/mvp-development/): Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/): Sales, ops and finance on one screen, pulled from the tools a business already uses. Best for owners and ops leads.
 - [Deal & financial tools](https://capraetech.io/what-we-build/deal-financial-tools/): Deal screeners, valuation models and portfolio dashboards, the same kind of tooling Caprae uses to find and buy companies. Best for acquirers and search funds.
 - [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/): Automations that take repetitive work off a team, added only where they pay back; every AI step is tested against a human before it ships. Best for teams buried in admin.

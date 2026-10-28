@@ -19,7 +19,7 @@ Page: https://capraetech.io/ and https://capraetech.io/why-founder-led/
 Page: https://capraetech.io/what-we-build/
 
 Five things, start to finish:
-- MVPs: go from an idea to a working product your customers can use, with the features that will sell it at the top.
+- MVPs: prove your idea works before you fund all of it. Proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - Dashboards: your whole business on one screen: sales, ops and finance, pulled from the tools you already use.
 - Deal & financial tools: models and screeners that help you evaluate and acquire businesses.
 - AI assistants: automations that take the repetitive work off your team, added only where they pay back.
@@ -29,10 +29,14 @@ Five things, start to finish:
 ## 3. MVP development
 Page: https://capraetech.io/what-we-build/mvp-development/
 
-- MVP development for non-technical founders: from an idea to a working product your customers can use, with the features that will sell it at the top.
-- Best for: owners testing a new product line, and non-technical founders.
-- The first version should be smaller than you think. We've shipped too much too early; now we cut to what a customer will pay for, then build out.
-- Features don't sell themselves; the order you show them in does. We decide which feature goes on top, which waits, and how each one is presented to the people you sell to.
+- MVP development for people who know the problem, not the code. A founder who has built and sold products picks the one thing your product has to prove, and builds a working version of that first, usually in 4–8 weeks. Then you decide, with real evidence, how much more to put in.
+- Who it's for: non-technical founders, operating companies with a bottleneck, and teams that want proof first.
+- What an MVP can be: working product demos, AI products, automation of a process you run today, and websites that launch it.
+- AI MVPs: many AI products work in a demo and lose money in production. We work out the cost per use, context, architecture and the business case. Siddhant Pahuja, Head of AI & Automation, designs the AI architecture.
+- How it gets built: Phase 1, the MVP (4–8 weeks for most): decide what's buildable and worth it, proof of concept, then go, change or stop. Phase 2, after the MVP proves itself: user flow and data flow signed off, one product, design and polish.
+- Version one is built around what users do every day. Rules: daily beats monthly; don't rebuild what already works; every feature has to earn its cost twice; prove the hard part before polishing the easy part; nobody should do the same work twice.
+- After launch: Caprae runs outreach for a living, so if we built your product, we can help launch it, at a discount on our outreach services.
+- A proof of concept shows it can be built: a working back end with a plain interface. An MVP is something customers can use and pay for.
 
 ## 4. Business dashboards
 Page: https://capraetech.io/what-we-build/business-dashboards/

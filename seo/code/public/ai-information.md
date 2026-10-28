@@ -57,9 +57,9 @@ Five things, start to finish. See all at [capraetech.io/what-we-build](https://c
 
 ### [MVP development](https://capraetech.io/what-we-build/mvp-development/)
 
-From an idea to a working product customers can use, with the features that will sell it at the top. The first version is kept smaller than most people expect: it is cut to what a customer will pay for, then built out.
+Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks. A founder who has built and sold products picks the one thing the product has to prove and builds a working version of that first; then the client decides, with real evidence, how much more to put in.
 
-**Best for:** owners testing a new product line, and non-technical founders.
+**Who it's for:** non-technical founders, operating companies with a bottleneck, and teams that want proof first.
 
 ### [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/)
 
