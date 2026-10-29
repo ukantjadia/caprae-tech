@@ -24,6 +24,11 @@ if (quoteCalc) import('./quote-calc.js').then(m => m.startQuoteCalc(quoteCalc))
 const v1Car = document.querySelector('[data-carousel]')
 if (v1Car) import('./v1-carousel.js').then(m => m.startV1Carousel(v1Car))
 
+// Dashboards page: the CRM screenshot gallery and the screen recordings
+const gallery = document.querySelector('[data-gallery]')
+const autoVids = document.querySelectorAll('video[data-autoplay]')
+if (gallery || autoVids.length) import('./gallery.js').then(m => { if (gallery) m.startGallery(gallery); if (autoVids.length) m.startAutoplay(autoVids) })
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 // Off for now: the particle shape runs on the home page only (2026-10-23).
 // const stage = () => import('./inner-stage.js')

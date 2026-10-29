@@ -20,7 +20,7 @@ Page: https://capraetech.io/what-we-build/
 
 Five things, start to finish:
 - MVPs: prove your idea works before you fund all of it. Proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
-- Dashboards: your whole business on one screen: sales, ops and finance, pulled from the tools you already use.
+- Dashboards: a dashboard that runs your operations, not just reports on them.
 - Deal & financial tools: models and screeners that help you evaluate and acquire businesses.
 - AI assistants: automations that take the repetitive work off your team, added only where they pay back.
 - Internal tools: portals, trackers and workflows your people use every day, instead of ten spreadsheets.
@@ -41,8 +41,10 @@ Page: https://capraetech.io/what-we-build/mvp-development/
 ## 4. Business dashboards
 Page: https://capraetech.io/what-we-build/business-dashboards/
 
-- Custom business dashboards: sales, ops and finance on one screen, pulled from the tools you already use, such as spreadsheets, your CRM and accounting.
-- Best for: owners and ops leads. A founder decides which numbers go on top, and you see it working at your weekly check-in.
+- Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Built like our own CRM, around your data and your use case, not a template.
+- Data first: a week on your data, outputs agreed first, the data map, formulas you sign off, then build only what the data can support. When the data isn't there, we say so: start recording it now, or drop the feature.
+- Priced after we've seen your data: after the data review, you get a feature list with hours for each.
+- Our own CRM automates the weekly client reports (sending took 2.5–3 hours, cleaning about 2 more), plans caller hours for new clients from real numbers, and shows call analytics by hour and region.
 - Examples: a supply dashboard for cleaning companies (what's stocked, what's running low and what was restocked last night, by site); an operations dashboard for clinics (visits, no-shows and revenue by location, updated daily); a portfolio dashboard for acquirers (one view across the companies you already own).
 
 ## 5. Deal & financial tools
@@ -172,7 +174,7 @@ Page: https://capraetech.io/faq/
 - How much of my time will this take? One weekly check-in. The founder in your CTO seat makes the day-to-day calls.
 - Who does the work? A founder takes the CTO/CEO seat on your product and sets the week's priorities. Engineers build and ship every week. You get one check-in a week: demo, decisions, next week.
 - What if something isn't worth building? We'll say so. Some of our most useful advice is what to leave out.
-- Can a dashboard pull from the tools we already use? Yes. Sales, ops and finance come from the tools you already use, such as sheets, your CRM and accounting, onto one screen.
+- Can a dashboard pull from the systems we already use? Usually. The data review tells us where your data lives and how to bring it together. If something can't connect, you know before you pay for it.
 - Can you replace our spreadsheets? Yes. We map how the work is done today. That manual version becomes the spec, so we never automate the wrong thing.
 - When do you add AI? Only when it saves real hours or makes the product easier to sell. If it won't pay back, we'll tell you.
 - Is a human still in the loop? Where it matters, yes. In Lead QA, AI scores every lead and a human spot-checks the greens and the reds before anything goes out. Every AI step is tested against a human before it ships.

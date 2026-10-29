@@ -63,9 +63,7 @@ Prove your idea works before you fund all of it. Founder-led MVP development, pr
 
 ### [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/)
 
-Sales, ops and finance on one screen, pulled from the tools a business already uses: spreadsheets, the CRM and accounting. A founder decides which numbers go on top.
-
-**Best for:** owners and ops leads.
+Custom dashboards that run operations, not just report on them: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build: about a week on the data, outputs agreed, a data map and formulas the client signs off before anything is built. Priced after the data review, as a feature list with hours.
 
 ### [Deal & financial tools](https://capraetech.io/what-we-build/deal-financial-tools/)
 
@@ -270,9 +268,9 @@ A founder takes the CTO/CEO seat on your product and sets the week's priorities.
 
 We'll say so. Some of our most useful advice is what to leave out.
 
-### Can a dashboard pull from the tools we already use?
+### Can a dashboard pull from the systems we already use?
 
-Yes. Sales, ops and finance come from the tools you already use, such as sheets, your CRM and accounting, onto one screen.
+Usually. The data review tells us where your data lives and how to bring it together. If something can't connect, you know before you pay for it.
 
 ### Can you replace our spreadsheets?
 

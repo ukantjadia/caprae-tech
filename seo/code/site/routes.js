@@ -28,8 +28,9 @@ export const ROUTES = {
   },
   '/what-we-build/business-dashboards/': {
     label: 'Dashboards', parent: '/what-we-build/',
-    title: 'Custom Business Dashboards for Owners | Caprae Tech',
-    description: 'Sales, ops and finance on one screen, pulled from the tools you already use. Built for owners and ops leads by a founder-led team, priced in hours.',
+    title: 'Custom Dashboard Development | Caprae Tech',
+    description: 'Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build.',
+    band: { h: 'Show us the report someone', it: 'rebuilds every week.', lead: "Thirty minutes with a founder. We'll tell you what your data can support." },
   },
   '/what-we-build/deal-financial-tools/': {
     label: 'Deal & financial tools', parent: '/what-we-build/',
