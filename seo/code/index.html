@@ -817,7 +817,7 @@ const FORM=`<div class="field"><label>Full name *</label><input name="full_name"
 <div class="dim" style="font-size:12px;text-align:center">Four fields. We'll email you to set the time.</div>
 <div class="form-err" role="alert" style="font-size:13px;color:#ff9592;text-align:center"></div>`;
 function calHTML(first,email){return `<div class="done-ico" aria-hidden="true">✓</div><div style="font-family:var(--serif);font-size:32px">Thanks, ${esc(first)}.</div><p class="muted" style="margin-top:8px">We'll email you at ${esc(email)} to set up your 30-minute call.</p>`}
-/* the form posts to /api/contact (seo/code/server: CSV + Site-Inbound-Leads sheet + email to partners@);
+/* the form posts to /book-a-call/, which nginx hands to the contact server (D-109; seo/code/server: CSV + Site-Inbound-Leads sheet + email to partners@);
    company_website is a hidden honeypot that only bots fill */
 function validField(inp){const v=inp.value.trim();if(!v)return inp.hasAttribute('data-optional');if(inp.type==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);if(inp.type==='url')return /^https?:\/\/\S+$/i.test(v);return true}
 $$('[data-form]').forEach(f=>{
@@ -827,7 +827,7 @@ $$('[data-form]').forEach(f=>{
     const val={};$$('input,textarea',f).forEach(inp=>{val[inp.name]=inp.value.trim();if(!inp.closest('.field'))return;const bad=!validField(inp);inp.parentElement.classList.toggle('err',bad);if(bad)ok=false});
     if(!ok)return;
     const label=btn.innerHTML;btn.disabled=true;btn.textContent='Sending…';err.textContent='';
-    try{const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});const out=await res.json().catch(()=>({}));if(!res.ok||!out.ok)throw new Error(out.error||'We could not send that. Please try again, or email partners@capraecapital.com.')}
+    try{const res=await fetch('/book-a-call/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});const out=await res.json().catch(()=>({}));if(!res.ok||!out.ok)throw new Error(out.error||'We could not send that. Please try again, or email partners@capraecapital.com.')}
     catch(x){btn.disabled=false;btn.innerHTML=label;err.textContent=x.message==='Failed to fetch'?'We could not reach the server. Please try again, or email partners@capraecapital.com.':x.message;return}
     f.style.display='none';done.innerHTML=calHTML(val.full_name.split(' ')[0],val.email);done.classList.add('show');
     if(f.hasAttribute('data-stepper')){const s=$$('#stepbar .s');s[1].classList.add('on');}

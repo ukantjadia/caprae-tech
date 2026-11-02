@@ -49,8 +49,9 @@ export function compareSlider(ba) {
   ba.addEventListener('keydown', e => { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); set(kp + (e.key === 'ArrowRight' ? 5 : -5)) })
 }
 
-// Book a call: required fields, a valid email, then POST to /api/contact (seo/code/server,
-// CSV + Site-Inbound-Leads sheet + email to partners@) and the thank-you (no calendar, D-080).
+// Book a call: required fields, a valid email, then POST to /book-a-call/ (nginx hands it to
+// the contact server, seo/code/server: CSV + Site-Inbound-Leads sheet + email to partners@, D-109)
+// and the thank-you (no calendar, D-080).
 // The hidden company_website box is a honeypot: people never see it, bots fill it.
 const validField = inp => {
   const v = inp.value.trim()
@@ -61,7 +62,7 @@ const validField = inp => {
 }
 
 async function sendContact(val) {
-  const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(val) })
+  const res = await fetch('/book-a-call/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(val) })
   const out = await res.json().catch(() => ({}))
   if (!res.ok || !out.ok) throw new Error(out.error || 'We could not send that. Please try again, or email partners@capraecapital.com.')
 }
