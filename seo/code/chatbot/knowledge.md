@@ -22,7 +22,7 @@ Five things, start to finish:
 - MVPs: prove your idea works before you fund all of it. Proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - Dashboards: a dashboard that runs your operations, not just reports on them.
 - Deal & financial tools: models and screeners that help you evaluate and acquire businesses.
-- AI assistants: automations that take the repetitive work off your team, added only where they pay back.
+- AI assistants: AI agents for business operations, built one step at a time.
 - Internal tools: portals, trackers and workflows your people use every day, instead of ten spreadsheets.
 - Something else? If it saves your team hours, we'll scope it on a call.
 
@@ -59,11 +59,13 @@ Page: https://capraetech.io/what-we-build/deal-financial-tools/
 ## 6. AI assistants and automation
 Page: https://capraetech.io/what-we-build/ai-assistants/
 
-- Automations that take repetitive work off your team, added only where they pay back.
-- We add AI when it takes real hours off someone's week, not because it looks good in the pitch.
-- We do it by hand first, then automate what works. Every AI step is tested against a human before it ships.
-- Best for: teams buried in admin.
-- Examples: AI follow-up drafts for service businesses (personal follow-ups written for your team to send in one click); call-out cover for cleaning companies (shifts by site, one-tap call-outs, and an automatic text to the backups already trained on that site).
+- AI agents and automations that take manual work off your team, built step by step and checked by a human. We split a process into small steps, automate and test each one, give each agent its own job, then join them into one workflow.
+- Every automation has a grader: code and model graders check every run, and a human grades a sample. When the two disagree, the person is right and the system gets fixed.
+- Seven of Caprae's own processes, automated this way: lead generation (6 to 50–60 leads an hour), Lead QA (30 to 10 hours a week), personalized outreach (batches of 30, human-checked), company research (one click to a one-page brief), Call Intelligence (live at coldcallkillers.io; its scores are within 0.3 of a human grader's, down from a gap of 3.1), a robo-dialer that sorts voicemails and dead lines, and recruitment AI review (~20 hours a week back).
+- Website chatbots that book calls, and agents that run a process.
+- Models: Anthropic and OpenAI, plus DeepSeek and Gemini where they give the same result for less, picked per step on cost and quality.
+- Governance: when an automation handles sensitive data, ITSco's AI governance controls are part of the build. Teams that don't know where AI fits can start with an AI readiness review from ITSco.
+- Priced after we've seen the work: a feature list with an hour estimate for each, at one fixed hourly rate.
 
 ## 7. Internal tools and team portals
 Page: https://capraetech.io/what-we-build/internal-tools/

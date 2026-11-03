@@ -77,9 +77,7 @@ Deal screeners, valuation models and trackers that help evaluate and acquire bus
 
 ### [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/)
 
-Automations that take repetitive work off a team, added only where they pay back. The work is done by hand first, then what works is automated. Every AI step is tested against a human before it ships.
-
-**Best for:** teams buried in admin.
+AI agents and automations that take manual work off a team, built one step at a time and checked by a human. A process is split into small steps, each automated and tested, then joined into one workflow. Every automation has a human grader; on Caprae's own Call Intelligence, the AI's scores are within 0.3 of a human grader's. Caprae's own Lead QA went from 30 to 10 hours a week. Models are picked per step on cost and quality (Anthropic, OpenAI, DeepSeek, Gemini). Priced after the work is documented, as a feature list with hours.
 
 ### [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/)
 

@@ -39,8 +39,9 @@ export const ROUTES = {
   },
   '/what-we-build/ai-assistants/': {
     label: 'AI assistants', parent: '/what-we-build/',
-    title: 'AI Assistants & Business Automation | Caprae Tech',
-    description: 'Automations that take repetitive work off your team, added only where they pay back. We do it by hand first, then automate what works.',
+    title: 'AI Agent Development & AI in Operations | Caprae Tech',
+    description: 'AI agents and automations that take manual work off your team, built step by step and checked by a human. Our own lead QA went from 30 to 10 hrs a week.',
+    band: { h: 'Show us the work your team does', it: 'by hand every day.', lead: "Thirty minutes with a founder. We'll tell you what AI can take off their plate, and what it can't." },
   },
   '/what-we-build/internal-tools/': {
     label: 'Internal tools', parent: '/what-we-build/',

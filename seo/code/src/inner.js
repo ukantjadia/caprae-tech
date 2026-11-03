@@ -29,6 +29,11 @@ const gallery = document.querySelector('[data-gallery]')
 const autoVids = document.querySelectorAll('video[data-autoplay]')
 if (gallery || autoVids.length) import('./gallery.js').then(m => { if (gallery) m.startGallery(gallery); if (autoVids.length) m.startAutoplay(autoVids) })
 
+// AI assistants page: the case studies (bento / carousel) and the on-scroll reveals
+const aiCases = document.querySelector('[data-cases]')
+const reveals = document.querySelectorAll('[data-reveal]')
+if (aiCases || reveals.length) import('./ai-cases.js').then(m => { if (aiCases) m.startCases(aiCases); if (reveals.length) m.startReveals(reveals) })
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 // Off for now: the particle shape runs on the home page only (2026-10-23).
 // const stage = () => import('./inner-stage.js')
