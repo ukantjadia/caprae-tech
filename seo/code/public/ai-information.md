@@ -81,9 +81,7 @@ AI agents and automations that take manual work off a team, built one step at a 
 
 ### [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/)
 
-Portals, trackers and workflows a team uses every day, instead of ten spreadsheets. The manual version is mapped first and becomes the spec, so the wrong thing never gets automated.
-
-**Best for:** any team running on spreadsheets.
+A look inside Caprae: 60 callers, 13 account managers and 6 analysts work every day inside four tools Caprae built for itself. Call Intelligence with a call QA tracker scores every connected call weekly (the AI's scores sit within 0.3 of a human grader's). A robo-dialer sorts every number on a list before anyone dials. The Caprae CRM, with an L2/L3 calling workspace, replaced the per-client lead and engagement sheets and cut account-management overhead by 50%. A recruitment portal gives the recruitment team about 20 hours a week back. Some work, like going through a long list row by row, stays in a spreadsheet on purpose.
 
 ---
 
@@ -93,7 +91,7 @@ Portals, trackers and workflows a team uses every day, instead of ten spreadshee
 |---|---|
 | [Facility cleaning companies](https://capraetech.io/who-we-serve/facility-cleaning/) | Site SOP apps (each site's checklist on the cleaner's phone, with time-stamped, geotagged and checked photo proof), crew scheduling and call-out cover, training and onboarding, client supply dashboards, quote calculators and websites that rank |
 | [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/) | Software around the EHR: digital intake and insurance capture before the visit, scheduling and reminders, request routing, prior-auth tracking, denial logs, and one screen for the owner by location. Caprae Tech doesn't replace the EHR or the billing team; on healthcare builds, ITSco (run by two of the founders) covers infrastructure, security and HIPAA |
-| [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/) | Deal screeners, valuation models and portfolio dashboards, from the team behind Caprae Capital's own deal tools |
+| [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/) | The search tools Caprae runs its own search on, one per stage in one portal: Find (owner sourcing and buy-box scoring), Reach (a search CRM with outreach numbers built in), Evaluate (a one-page company brief, with news and legal monitoring through diligence). Plus IT due diligence for M&A |
 | [Service businesses](https://capraetech.io/who-we-serve/service-businesses/) | Quote and job trackers (from quote to completed job in one flow), customer portals (customers check status themselves), AI follow-up drafts |
 
 ---

@@ -22,14 +22,14 @@ export const ROUTES = {
   },
   '/what-we-build/mvp-development/': {
     label: 'MVPs', parent: '/what-we-build/',
-    title: 'MVP Development Services for Non-Technical Founders | Caprae Tech',
-    description: 'Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks.',
+    title: 'MVP Development for Non-Technical Founders | Caprae Tech',
+    description: 'From an idea to a working product your customers can use, with the features that sell it at the top. Founder-led and priced feature by feature.',
     band: { h: 'Tell us the one thing', it: 'your product has to prove.', lead: "Thirty minutes with a founder. You leave knowing what's worth building first." },
   },
   '/what-we-build/business-dashboards/': {
     label: 'Dashboards', parent: '/what-we-build/',
-    title: 'Custom Dashboard Development | Caprae Tech',
-    description: 'Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build.',
+    title: 'Custom Business Dashboards for Owners | Caprae Tech',
+    description: 'Sales, ops and finance on one screen, pulled from the tools you already use. Built for owners and ops leads by a founder-led team, priced in hours.',
     band: { h: 'Show us the report someone', it: 'rebuilds every week.', lead: "Thirty minutes with a founder. We'll tell you what your data can support." },
   },
   '/what-we-build/deal-financial-tools/': {
@@ -39,14 +39,15 @@ export const ROUTES = {
   },
   '/what-we-build/ai-assistants/': {
     label: 'AI assistants', parent: '/what-we-build/',
-    title: 'AI Agent Development & AI in Operations | Caprae Tech',
-    description: 'AI agents and automations that take manual work off your team, built step by step and checked by a human. Our own lead QA went from 30 to 10 hrs a week.',
+    title: 'AI Assistants & Business Automation | Caprae Tech',
+    description: 'Automations that take repetitive work off your team, added only where they pay back. We do it by hand first, then automate what works.',
     band: { h: 'Show us the work your team does', it: 'by hand every day.', lead: "Thirty minutes with a founder. We'll tell you what AI can take off their plate, and what it can't." },
   },
   '/what-we-build/internal-tools/': {
     label: 'Internal tools', parent: '/what-we-build/',
     title: 'Custom Internal Tools & Team Portals | Caprae Tech',
     description: 'Portals, trackers and workflows your people use every day, instead of ten spreadsheets. Built by a founder-led team for teams running on sheets.',
+    band: { h: 'Want tools like these', it: 'for your team?', lead: "Everything on this page started as a problem our own team had. If yours has one like it, we're happy to talk it through." },
   },
 
   // ---- Who we serve
@@ -65,14 +66,15 @@ export const ROUTES = {
   '/who-we-serve/clinics-healthcare/': {
     label: 'Clinics & healthcare', parent: '/who-we-serve/',
     // from Clinics_Healthcare_Copy_Review.html (meta draft 1)
-    title: 'Healthcare Software Development for Clinics | Caprae Tech',
-    description: 'Software for the work around the chart: intake, scheduling, prior auth, denials and reporting, built around your EHR. Founder-led, priced in hours.',
+    title: 'Software for Clinics & Healthcare Operators | Caprae Tech',
+    description: 'Intake and scheduling, operations dashboards and billing trackers for clinics and healthcare operators. Founder-led builds, priced in hours.',
     band: { h: 'Tell us which part of the day', it: 'costs your staff the most.', lead: 'Thirty minutes with a founder. No tech words needed.' },
   },
   '/who-we-serve/acquirers-search-funds/': {
     label: 'Acquirers & search funds', parent: '/who-we-serve/',
     title: 'Software for Acquirers & Search Funds | Caprae Tech',
     description: "Deal screeners, valuation models and portfolio dashboards for acquirers and search funds, from the team behind Caprae Capital's own deal tools.",
+    band: { h: 'Tell us your buy box.', it: "We'll show you the tools we'd build around it.", lead: "Thirty minutes with a founder who's searched." },
   },
   '/who-we-serve/service-businesses/': {
     label: 'Service businesses', parent: '/who-we-serve/',
@@ -204,13 +206,13 @@ export const ROUTES = {
   },
   '/work/itsco/': {
     label: 'ITSco', parent: '/work/',
-    title: 'ITSco: Managed IT, Security & Compliance | Caprae Tech',
-    description: "ITSco has run IT, security and compliance for businesses in NC, SC and VA since 1996. Run by our founders, it's the security side of our builds.",
+    title: 'ITSco: Healthcare Tech & Engineering | Caprae Tech',
+    description: "Integrated Technical Services: tech development, data analysis and analytics for healthcare organizations. Led by Zackary Beckham and Mike Savino.",
   },
   '/work/destroy-drive/': {
     label: 'Destroy Drive', parent: '/work/',
-    title: 'Destroy Drive: Data Destruction Services | Caprae Tech',
-    description: 'Onsite data wiping, drive destruction and data center decommissioning in 100+ countries. Run by our founders, it shapes how we handle your data.',
+    title: 'Destroy Drive: Data Center & Data Services | Caprae Tech',
+    description: 'Data services for data centers and data cleaning, for companies that need their data handled properly. Co-founded by Kevin Hong and Zackary Beckham.',
   },
 
   // ---- Legal: not in the sheet's meta tab, so the title follows its pattern and the

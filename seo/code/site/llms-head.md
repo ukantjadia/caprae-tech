@@ -24,13 +24,13 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 - [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/): Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build.
 - [Deal & financial tools](https://capraetech.io/what-we-build/deal-financial-tools/): Deal screeners, valuation models and portfolio dashboards, the same kind of tooling Caprae uses to find and buy companies. Best for acquirers and search funds.
 - [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/): AI agents and automations that take manual work off a team, built step by step and checked by a human. Caprae's own lead QA went from 30 to 10 hrs a week.
-- [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/): Portals, trackers and workflows a team uses every day, instead of ten spreadsheets. Best for any team running on sheets.
+- [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/): The four tools Caprae's own team works in every day: call scoring, a robo-dialer, the Caprae CRM and a recruitment portal. The CRM cut account-management overhead by 50%.
 
 ## Who It Serves
 
 - [Facility cleaning companies](https://capraetech.io/who-we-serve/facility-cleaning/): Site SOP apps with photo proof, crew scheduling and call-out cover, training, client supply dashboards and quote calculators
 - [Clinics and healthcare operators](https://capraetech.io/who-we-serve/clinics-healthcare/): Intake and insurance capture, scheduling and reminders, prior-auth tracking, denial logs and owner dashboards, built around the EHR
-- [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/): Deal screeners, valuation models and portfolio dashboards
+- [Acquirers and search funds](https://capraetech.io/who-we-serve/acquirers-search-funds/): Search tools built by people who've searched: find owners, reach them in one CRM, and a one-page brief on every company
 - [Service businesses](https://capraetech.io/who-we-serve/service-businesses/): Quote and job trackers, customer portals and AI follow-up drafts
 
 ## How It Works

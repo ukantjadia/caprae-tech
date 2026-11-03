@@ -34,6 +34,11 @@ const aiCases = document.querySelector('[data-cases]')
 const reveals = document.querySelectorAll('[data-reveal]')
 if (aiCases || reveals.length) import('./ai-cases.js').then(m => { if (aiCases) m.startCases(aiCases); if (reveals.length) m.startReveals(reveals) })
 
+// What we build hub (seat table, advisor) and Internal tools (the "sound like your week?" check)
+const seatTable = document.querySelector('[data-table]'), advisor = document.querySelector('[data-advisor]')
+const sheetCheck = document.querySelector('[data-sheetcheck]')
+if (seatTable || advisor || sheetCheck) import('./choosers.js').then(m => { if (seatTable) m.startTable(seatTable); if (advisor) m.startAdvisor(advisor); if (sheetCheck) m.startSheetCheck(sheetCheck) })
+
 // the particle field: after the page has painted, so the content never waits for WebGL
 // Off for now: the particle shape runs on the home page only (2026-10-23).
 // const stage = () => import('./inner-stage.js')

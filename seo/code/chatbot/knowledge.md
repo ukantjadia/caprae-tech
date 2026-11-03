@@ -70,17 +70,19 @@ Page: https://capraetech.io/what-we-build/ai-assistants/
 ## 7. Internal tools and team portals
 Page: https://capraetech.io/what-we-build/internal-tools/
 
-- Portals, trackers and workflows your people use every day, built around how the work is done today, instead of ten spreadsheets.
-- We map the manual version first. That becomes the spec, so we never automate the wrong thing.
-- Best for: any team running on spreadsheets.
-- Examples: site SOPs and photo proof for cleaning companies (each site's SOP becomes a checklist on the cleaner's phone, with time-stamped photo proof); intake and scheduling for clinics (patients book and fill forms online; staff stop re-typing); a billing tracker for clinics (which claims are stuck and why); a quote and job tracker for service businesses (from quote to completed job in one flow).
+- A look inside Caprae: 60 callers, 13 account managers and 6 analysts work every day inside four tools we built ourselves.
+- Call Intelligence with the call QA tracker: every connected call is scored weekly and turned into KPIs per caller, so we coach callers on the exact part of the call they get wrong. The AI's scores sit within 0.3 of a human grader's.
+- Robo-dialer: sorts every number on a list (voicemail, receptionist, the owner's voicemail, switchboard or a dead line) before anyone dials, so high-pickup lists go to the best callers.
+- Caprae CRM with the L2/L3 calling workspace: replaced the separate lead and engagement sheets per client with one database; reports, emails and duplicate checks are automatic. Account-management overhead dropped by 50%.
+- Recruitment portal: acknowledges applicants, sends the handbook, tracks submissions, gives recruiters an admin portal with AI analysis, and books interviews in one click. About 20 hours a week back for the recruitment team.
+- Not every spreadsheet needs replacing: a tool is worth it when several people need the same data, clients need to see their results, or the work repeats every week; a spreadsheet stays better when one person works through a long list row by row and marks each line by hand.
 
 ## 8. Who we serve
 Page: https://capraetech.io/who-we-serve/
 
 - Facility cleaning companies (https://capraetech.io/who-we-serve/facility-cleaning/): cleaning is the job; we build the software around it. Site SOP apps (each site's checklist on the cleaner's phone, with time-stamped, geotagged and checked photo proof), crew scheduling and call-out cover, training and onboarding, client supply dashboards, quote calculators and websites that rank. The page has a quote calculator demo with placeholder rates, not real pricing.
 - Clinics and healthcare operators (https://capraetech.io/who-we-serve/clinics-healthcare/): software around the EHR: digital intake and insurance capture before the visit, scheduling and reminders, request routing, prior-auth tracking, denial logs, and one screen for the owner by location. Caprae Tech doesn't replace the EHR or the billing team; on healthcare builds, ITSco (run by two of the founders) covers infrastructure, security and HIPAA.
-- Acquirers and search funds (https://capraetech.io/who-we-serve/acquirers-search-funds/): the same kind of tooling Caprae uses to find and buy companies. Deal screeners, valuation models and portfolio dashboards, from the team behind Caprae Capital's own deal tools.
+- Acquirers and search funds (https://capraetech.io/who-we-serve/acquirers-search-funds/): search tools built by people who've searched, the same tools Caprae runs search on. Three tools, one per stage, in one portal: Find (owners who fit your buy box, scored before anyone calls), Reach (a search CRM with every owner, note and next step, and outreach numbers built in), Evaluate (a one-page brief on any company before the first call, with news and legal monitoring through diligence). Shaped by Kevin Hong, who ran his own search, and Hereford Johnson, who bought Mad Dog Facility Partners and runs it as CEO. Caprae Capital, the sister company, has helped close $110M+ in deals across 8 countries. We also do IT due diligence for M&A. Teams that want the search run for them can use Caprae Capital's Search as a Service.
 - Service businesses (https://capraetech.io/who-we-serve/service-businesses/): win the job, run the job, get paid, without the spreadsheet juggling. Quote and job trackers, customer portals (customers check status themselves) and AI follow-up drafts.
 
 ## 9. How it works
