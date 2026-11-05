@@ -62,17 +62,6 @@ function bars() {
   return merge(parts)
 }
 
-// Deal & financial tools: three stacks of coins, short to tall, and one coin on its edge
-function coins() {
-  const coin = () => new THREE.CylinderGeometry(0.5, 0.5, 0.11, 48)
-  const parts = []
-  ;[[-1.15, 4], [0, 7], [1.15, 10]].forEach(([x, n], s) => {
-    for (let i = 0; i < n; i++) parts.push(coin().translate(x + Math.sin(i * 1.7 + s) * 0.04, -1.1 + i * 0.13, Math.cos(i * 1.3) * 0.04))
-  })
-  parts.push(coin().rotateX(Math.PI / 2).rotateY(0.5).translate(-0.6, -0.55, 0.75))
-  return merge(parts)
-}
-
 // AI assistants: an icosahedron network, nodes and links, around a core
 function network() {
   const ico = new THREE.IcosahedronGeometry(1.3, 0)
@@ -167,7 +156,7 @@ function rocket() {
   return merge(parts)
 }
 
-const BUILD = { text, bars, coins, network, gear, hourglass, bubble, checklist, blocks, rocket, lathe: s => lathe(s.profile) }
+const BUILD = { text, bars, network, gear, hourglass, bubble, checklist, blocks, rocket, lathe: s => lathe(s.profile) }
 function geometryFor(s) {
   let g = BUILD[s.type](s)
   if (s.rotate) g.rotateX(s.rotate[0]).rotateY(s.rotate[1]).rotateZ(s.rotate[2])

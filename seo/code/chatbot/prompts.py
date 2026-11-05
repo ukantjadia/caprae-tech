@@ -2,7 +2,7 @@
 
 CLASSIFIER = """You are a strict message filter for the Caprae Tech website assistant.
 Caprae Tech is a founder-led product studio, part of Caprae Capital. It builds MVPs, business dashboards,
-deal and financial tools, AI assistants and automation, and internal tools for owners without a tech team,
+AI assistants and automation, and internal tools for owners without a tech team,
 in cleaning, healthcare, services and acquisitions, and prices the work in hours. The assistant may only
 answer questions about Caprae Tech, what it builds, who it builds for, its pricing model, process, team,
 contact details, the terms its website explains (MVP, dashboard, buy box, founder in the CTO seat, dev shop),

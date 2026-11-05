@@ -169,7 +169,7 @@ body.notes .note{display:inline-block}
   <div class="variant on" data-v="c"><div class="hero" style="padding-bottom:70px"><div class="hero-mark side-left" aria-hidden="true"></div><div class="hero-horizon"></div><div class="wrap hC">
     <span class="eyebrow">Founder-led software</span>
     <h1 class="display" style="margin-top:20px">Software for <span class="rotor it grad-text" id="rotor"><span>cleaning companies</span></span><br>run by people who've<br>built companies.</h1>
-    <p class="lead" style="margin:24px auto 0">MVPs, dashboards, <a class="inline-link" href="/what-we-build/deal-financial-tools/">deal models</a> and internal tools for owners who don't have a tech team, and don't want to become one.</p>
+    <p class="lead" style="margin:24px auto 0">MVPs, dashboards, AI assistants and internal tools for owners who don't have a tech team, and don't want to become one.</p>
     <div class="cta-row" style="justify-content:center"><a class="btn btn-white" href="#book">Book a call <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-ghost" href="#services">What we build</a></div>
     <div class="marquee"><div class="marquee-track" id="marquee"></div></div>
   </div></div></div>
@@ -212,8 +212,9 @@ body.notes .note{display:inline-block}
 .bento .card{display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
 .bento .card:hover{border-color:#3a3f44}
 .b-big{grid-column:span 4;grid-row:span 2}.b-mid{grid-column:span 2;grid-row:span 2}.b-sm{grid-column:span 2}.b-wide{grid-column:span 4}
-@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.b-big,.b-wide{grid-column:span 2}.b-mid,.b-sm{grid-column:span 1;grid-row:auto}}
-@media (max-width:560px){.bento{grid-template-columns:1fr}.b-big,.b-wide,.b-mid,.b-sm{grid-column:span 1;grid-row:auto}}
+.b-half{grid-column:span 3}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.b-big,.b-wide,.b-half:last-child{grid-column:span 2}.b-mid,.b-sm,.b-half{grid-column:span 1;grid-row:auto}}
+@media (max-width:560px){.bento{grid-template-columns:1fr}.b-big,.b-wide,.b-mid,.b-sm,.b-half,.b-half:last-child{grid-column:span 1;grid-row:auto}}
 .svc-ico{width:40px;height:40px;border-radius:12px;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:var(--iris-glow)}
 .mock-dash{margin-top:20px;border:1px solid var(--hair);border-radius:14px;padding:16px;background:#060607;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .mock-dash .k{border:1px solid var(--hair-2);border-radius:10px;padding:10px;font-size:11px;color:var(--iron)}
@@ -267,9 +268,8 @@ body.notes .note{display:inline-block}
         <div class="mock-dash"><div class="k">Active users<b>1,284</b></div><div class="k">Conversion<b>6.2%</b></div><div class="k">MRR<b>$18k</b></div><div class="mock-bars"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:80%"></i><i style="height:95%"></i></div></div>
         </div>
       <div class="card b-mid"><div><div class="svc-ico">▤</div><h3 style="margin-top:18px">Dashboards</h3><p class="muted" style="margin-top:8px">Your whole business on one screen: sales, ops and finance, pulled from the tools you already use.</p></div><div class="svc-res"><div class="fx fx-crm"><i></i><i></i><i></i><b class="cur"></b></div><div class="svc-num"><b>1 click</b><span>Caprae CRM: a client sees the whole account, instead of a weekly call</span></div></div><span class="tag">Owners · Ops leads</span></div>
-      <div class="card b-sm"><div class="svc-ico">$</div><div><h3 style="margin-top:14px">Deal &amp; financial tools</h3><p class="muted" style="margin-top:6px;font-size:14px">Models and screeners that help you evaluate and acquire businesses.</p></div><div class="svc-res"><div class="fx fx-live"><span class="dot"></span>LIVE</div><div class="svc-num"><b>Live</b><span>Bankers Edge: an advisory firm’s website, in production</span></div></div></div>
-      <div class="card b-sm"><div class="svc-ico">✦</div><div><h3 style="margin-top:14px">AI assistants</h3><p class="muted" style="margin-top:6px;font-size:14px">Automations that take the repetitive work off your team, added only where they pay back.</p></div><div class="svc-res"><div class="fx fx-qa"><i></i><i></i><i></i><i></i></div><div class="svc-num"><b>30 → 10 hrs/wk</b><span>Lead QA: AI scores every lead, a human spot-checks</span></div></div></div>
-      <div class="card b-sm"><div class="svc-ico">⚙</div><div><h3 style="margin-top:14px">Internal team tools</h3><p class="muted" style="margin-top:6px;font-size:14px">Portals, trackers and workflows your people use every day, instead of ten spreadsheets.</p></div><div class="svc-res"><div class="fx fx-pipe"><span></span><span></span><span></span><span></span><b></b></div><div class="svc-num"><b>~20 hrs/wk</b><span>Recruitment pipeline: returned to the recruitment team</span></div></div></div>
+      <div class="card b-half"><div class="svc-ico">✦</div><div><h3 style="margin-top:14px">AI assistants</h3><p class="muted" style="margin-top:6px;font-size:14px">Automations that take the repetitive work off your team, added only where they pay back.</p></div><div class="svc-res"><div class="fx fx-qa"><i></i><i></i><i></i><i></i></div><div class="svc-num"><b>30 → 10 hrs/wk</b><span>Lead QA: AI scores every lead, a human spot-checks</span></div></div></div>
+      <div class="card b-half"><div class="svc-ico">⚙</div><div><h3 style="margin-top:14px">Internal team tools</h3><p class="muted" style="margin-top:6px;font-size:14px">Portals, trackers and workflows your people use every day, instead of ten spreadsheets.</p></div><div class="svc-res"><div class="fx fx-pipe"><span></span><span></span><span></span><span></span><b></b></div><div class="svc-num"><b>~20 hrs/wk</b><span>Recruitment pipeline: returned to the recruitment team</span></div></div></div>
     </div>
   </div></div></div>
 
@@ -655,14 +655,13 @@ const BA_AFTER=["A founder writes the spec with you","What sells gets built firs
 const SERVICES=[
  {i:"◆",t:"MVPs",d:"From an idea to a working product your customers can use, with the features that sell it at the top.",f:"Owners testing a new product line"},
  {i:"▤",t:"Dashboards",d:"Sales, ops and finance on one screen, pulled from the tools you already use.",f:"Owners and ops leads"},
- {i:"$",t:"Deal & financial tools",d:"Screeners, models and trackers that help you evaluate and acquire businesses.",f:"Acquirers and search funds"},
  {i:"✦",t:"AI assistants",d:"Automations that take repetitive work off your team, added only where they pay back.",f:"Teams buried in admin"},
  {i:"⚙",t:"Internal tools",d:"Portals, trackers and workflows your people use every day, instead of ten spreadsheets.",f:"Any team running on sheets"}
 ];
 const INDUSTRIES={
  "Cleaning":{h:"For facility cleaning companies",p:"Cleaning is the job. We build the software around it.",b:[["Site SOPs & photo proof","Each site's SOP becomes a checklist on the cleaner's phone, with every photo checked."],["Call-out cover","An automatic text to the backups already trained on that site. The first yes takes the shift."],["Client supply dashboard","What's stocked, what's running low and what was restocked last night, by site."]]},
  "Healthcare":{h:"For clinics & healthcare operators",p:"Less admin between the patient and the care.",b:[["Intake & scheduling","Patients book and fill forms online; staff stop re-typing."],["Operations dashboard","Visits, no-shows and revenue by location, updated daily."],["Billing tracker","See which claims are stuck and why."]]},
- "Acquirers":{h:"For acquirers & search funds",p:"The same kind of tooling Caprae uses to find and buy companies.",b:[["Deal screener","Scores targets against your buy box so you look at fewer, better deals."],["Valuation model","A live model you can reuse across every target."],["Portfolio dashboard","One view across the companies you already own."]]},
+ "Acquirers":{h:"For acquirers & search funds",p:"The same kind of tooling Caprae uses to find and buy companies.",b:[["Find","Find owners who fit your buy box, scored before anyone calls."],["Reach","Every owner, note and next step in one CRM, with your outreach numbers built in."],["Evaluate","One page on the company before you call, and an eye on it all the way through diligence."]]},
  "Services":{h:"For service businesses",p:"Win the job, run the job, get paid, without the spreadsheet juggling.",b:[["Quote & job tracker","From quote to completed job in one flow."],["Customer portal","Customers check status themselves."],["AI follow-up drafts","Personal follow-ups written for your team to send in one click."]]}
 };
 const WORK=[
@@ -688,7 +687,7 @@ const HOW=[
 const FEATURES=[
  ["User login & roles",24,"Who can see what"],["Dashboard",40,"Your key numbers on one screen"],["Client portal",48,"Your customers log in and self-serve"],
  ["Import from your tools",20,"Sheets, CRM, accounting"],["Reports & exports",16,"PDF / CSV, scheduled"],["Email & SMS alerts",12,"Notify the right person"],
- ["Payments",28,"Invoices and card payments"],["AI assistant",36,"Drafts, summaries, triage"],["Deal / financial model",44,"Screen and value targets"],["Admin panel",24,"Manage users and data"]
+ ["Payments",28,"Invoices and card payments"],["AI assistant",36,"Drafts, summaries, triage"],["Admin panel",24,"Manage users and data"]
 ];
 const PHOTO={KH:['kevin-hong','45% 30%'],HJ:['hereford-johnson','72% 32%'],ZB:['zackary-beckham','50% 28%'],MS:['mike-savino','50% 30%']};
 const BASE=(document.querySelector('.cx-brand')?.getAttribute('href'))||'/';
@@ -720,7 +719,7 @@ $$('.switch button').forEach(b=>b.addEventListener('click',()=>heroSw(b.dataset.
 heroSw('shop'); let heroTouched=false; $$('.switch button').forEach(b=>b.addEventListener('click',()=>heroTouched=true)); setTimeout(()=>{if(!heroTouched)heroSw('founder')},3000); // an early click wins over the auto switch
 const ROT=["cleaning companies","clinics","acquirers","service businesses","operators"];let ri=0;
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const rot=$('#rotor'),out=rot.firstElementChild;rot.classList.add('typing');let n=ROT[0].length,dir=-1;const tick=()=>{n+=dir;if(n<0){ri=(ri+1)%ROT.length;n=0;dir=1}out.textContent=ROT[ri].slice(0,n);if(dir>0&&n===ROT[ri].length){dir=-1;return setTimeout(tick,1900)}setTimeout(tick,dir>0?85:40)};setTimeout(tick,2200)}
-const MQ=["Client portals","Deal screeners","Ops dashboards","AI follow-up drafts","Valuation models","Intake forms","Recruiting pipelines","Internal tools","MVPs"];
+const MQ=["Client portals","Deal screeners","Ops dashboards","AI follow-up drafts","Intake forms","Recruiting pipelines","Internal tools","MVPs"];
 $('#marquee').innerHTML=[...MQ,...MQ].map(x=>`<span class="pill" style="font-size:14px;padding:10px 18px">${x}</span>`).join('');
 
 /* ======================= 02 WHY ======================= */

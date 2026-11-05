@@ -17,7 +17,6 @@ export const SETS = {
   brand: [C],
   mvp: [{ type: 'lathe', profile: BULB, radius: 3.4 }, C],     // idea -> product
   dashboards: [{ type: 'bars', radius: 3.4 }, C],               // numbers on one screen
-  deal: [{ type: 'coins', radius: 3.4 }, C],                    // valuing and buying
   ai: [{ type: 'network', radius: 3.4 }, C],                    // connected automation
   tools: [{ type: 'gear', radius: 3.4 }, C],                    // the workflow machine
   pricing: [{ type: 'hourglass', radius: 3.4 }, C],             // priced in hours
@@ -32,7 +31,6 @@ export const SETS = {
 export const PAGES = {
   '/what-we-build/mvp-development/': { set: 'mvp' },
   '/what-we-build/business-dashboards/': { set: 'dashboards' },
-  '/what-we-build/deal-financial-tools/': { set: 'deal' },
   '/what-we-build/ai-assistants/': { set: 'ai' },
   '/what-we-build/internal-tools/': { set: 'tools' },
   '/pricing/': { set: 'pricing' },

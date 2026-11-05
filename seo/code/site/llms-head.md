@@ -1,6 +1,6 @@
 # Caprae Tech
 
-> Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week, while a small engineering team builds and ships every week. It builds MVPs, business dashboards, deal and financial tools, AI assistants and internal tools for owners in cleaning, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront.
+> Caprae Tech is a founder-led product studio and part of Caprae Capital. Founders who have built, bought and grown companies take the CTO seat on a client's product, decide what's worth building and what will sell, and meet the client once a week, while a small engineering team builds and ships every week. It builds MVPs, business dashboards, AI assistants and internal tools for owners in cleaning, healthcare, services and acquisitions who don't have a tech team. Work is priced in hours: features × hours × one fixed hourly rate per domain, agreed upfront.
 
 Full verified fact sheet: https://capraetech.io/ai-information.md (where this file and that page differ, that page is correct)
 
@@ -11,7 +11,7 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 - Website: https://capraetech.io/
 - Tagline: Dev shops build what you ask. Founders build what sells.
 - Business type: Founder-led product studio (custom software development, B2B)
-- What it builds: MVPs, business dashboards, deal and financial tools, AI assistants and automation, internal tools and team portals
+- What it builds: MVPs, business dashboards, AI assistants and automation, internal tools and team portals
 - Who it is for: Owners and operators without a tech team, in cleaning, healthcare, services and acquisitions
 - Pricing model: Priced in hours; the hourly rate is fixed per domain and shared on the first call
 - Client time needed: One weekly check-in
@@ -22,7 +22,6 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 
 - [MVP development](https://capraetech.io/what-we-build/mvp-development/): Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/): Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build.
-- [Deal & financial tools](https://capraetech.io/what-we-build/deal-financial-tools/): Deal screeners, valuation models and portfolio dashboards, the same kind of tooling Caprae uses to find and buy companies. Best for acquirers and search funds.
 - [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/): AI agents and automations that take manual work off a team, built step by step and checked by a human. Caprae's own lead QA went from 30 to 10 hrs a week.
 - [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/): The four tools Caprae's own team works in every day: call scoring, a robo-dialer, the Caprae CRM and a recruitment portal. The CRM cut account-management overhead by 50%.
 

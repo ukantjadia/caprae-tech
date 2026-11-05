@@ -35,13 +35,17 @@ export function startSheetCheck(root) {
   const items = [...root.querySelectorAll('.sc-item')]
   const result = root.querySelector('.sc-result'), count = result.querySelector('.sc-count b')
   const msgs = [...result.querySelectorAll('.sc-msg')], cta = result.querySelector('.sc-cta')
+  const widgets = [...result.querySelectorAll('.sc-w')]
   const update = () => {
     const n = items.filter(b => b.getAttribute('aria-pressed') === 'true').length
     count.textContent = n
     const band = n >= 3 ? '3' : n >= 1 ? '1' : '0'
     msgs.forEach(m => { m.hidden = m.dataset.n !== band })
-    cta.hidden = band !== '3'
+    const off = band !== '3'
+    cta.setAttribute('aria-disabled', off); if (off) cta.setAttribute('tabindex', '-1'); else cta.removeAttribute('tabindex')
+    items.forEach((b, i) => widgets[i]?.classList.toggle('on', b.getAttribute('aria-pressed') === 'true'))
   }
+  cta.addEventListener('click', e => { if (cta.getAttribute('aria-disabled') === 'true') e.preventDefault() })
   items.forEach(b => b.addEventListener('click', () => {
     b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true')
     update()

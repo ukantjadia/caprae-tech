@@ -19,7 +19,7 @@ from fastapi.staticfiles import StaticFiles  # noqa: E402
 import app as chatapp  # noqa: E402
 
 ANSWERS = {
-    "build": ("We build five things, start to finish:\n- MVPs\n- Business dashboards\n- Deal & financial tools\n"
+    "build": ("We build four things, start to finish:\n- MVPs\n- Business dashboards\n"
               "- AI assistants and automation\n- Internal tools and team portals\nDetails: https://capraetech.io/what-we-build/",
               ["https://capraetech.io/what-we-build/"]),
     "pricing": ("We price in hours. After the call we list the features, estimate the hours for each, and show your "

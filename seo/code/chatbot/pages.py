@@ -6,7 +6,6 @@ PAGES = {
     "/what-we-build/": "What we build",
     "/what-we-build/mvp-development/": "MVP development",
     "/what-we-build/business-dashboards/": "Business dashboards",
-    "/what-we-build/deal-financial-tools/": "Deal & financial tools",
     "/what-we-build/ai-assistants/": "AI assistants",
     "/what-we-build/internal-tools/": "Internal tools",
     "/who-we-serve/": "Who we serve",

@@ -11,14 +11,14 @@ export const ROUTES = {
   '/': {
     label: 'Home',
     title: 'Built by Founders, Not a Dev Shop | Caprae Tech',
-    description: 'A founder takes the CTO seat on your product. MVPs, dashboards, deal tools and internal software for owners without a tech team. Priced in hours.',
+    description: 'A founder takes the CTO seat on your product. MVPs, dashboards, AI assistants and internal software for owners without a tech team. Priced in hours.',
   },
 
   // ---- What we build
   '/what-we-build/': {
     label: 'What we build', parent: '/',
     title: 'What We Build: MVPs, Dashboards & AI Tools | Caprae Tech',
-    description: 'Five things we build, start to finish: MVPs, dashboards, deal and financial tools, AI assistants and internal tools for owners without a tech team.',
+    description: 'Four things we build, start to finish: MVPs, dashboards, AI assistants and internal tools for owners without a tech team.',
   },
   '/what-we-build/mvp-development/': {
     label: 'MVPs', parent: '/what-we-build/',
@@ -31,11 +31,6 @@ export const ROUTES = {
     title: 'Custom Business Dashboards for Owners | Caprae Tech',
     description: 'Sales, ops and finance on one screen, pulled from the tools you already use. Built for owners and ops leads by a founder-led team, priced in hours.',
     band: { h: 'Show us the report someone', it: 'rebuilds every week.', lead: "Thirty minutes with a founder. We'll tell you what your data can support." },
-  },
-  '/what-we-build/deal-financial-tools/': {
-    label: 'Deal & financial tools', parent: '/what-we-build/',
-    title: 'Deal Screeners & Valuation Models | Caprae Tech',
-    description: 'Screeners, models and trackers that help you evaluate and acquire businesses. The same kind of tooling Caprae uses to find and buy companies.',
   },
   '/what-we-build/ai-assistants/': {
     label: 'AI assistants', parent: '/what-we-build/',
@@ -237,7 +232,6 @@ export const NAV = [
   { href: '/what-we-build/', label: 'What we build', items: [
     { href: '/what-we-build/mvp-development/', label: 'MVPs', blurb: 'From an idea to a working product' },
     { href: '/what-we-build/business-dashboards/', label: 'Dashboards', blurb: 'Sales, ops and finance on one screen' },
-    { href: '/what-we-build/deal-financial-tools/', label: 'Deal & financial tools', blurb: 'Screeners, models and trackers' },
     { href: '/what-we-build/ai-assistants/', label: 'AI assistants', blurb: 'Added only where they pay back' },
     { href: '/what-we-build/internal-tools/', label: 'Internal tools', blurb: 'Instead of ten spreadsheets' },
   ] },

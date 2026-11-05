@@ -5,7 +5,7 @@ const url = p => base + p.replace(/^\//, '')
 const slug = s => s.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 const arr = '<span class="arr" aria-hidden="true">→</span>'
 
-const SERVICES = { 'MVPs': 'mvp-development', 'Dashboards': 'business-dashboards', 'Deal & financial tools': 'deal-financial-tools', 'AI assistants': 'ai-assistants', 'Internal team tools': 'internal-tools', 'Internal tools': 'internal-tools' }
+const SERVICES = { 'MVPs': 'mvp-development', 'Dashboards': 'business-dashboards', 'AI assistants': 'ai-assistants', 'Internal team tools': 'internal-tools', 'Internal tools': 'internal-tools' }
 const PEOPLE = { 'Siddhant Pahuja': 'build-team/siddhant-pahuja', 'Ukant Jadia': 'build-team/ukant', 'Hiten Mehta': 'build-team/hiten', 'Dejan Azul Ultamar': 'build-team/dejan' }
 const on = sec => document.querySelector(`#${sec} .variant.on`)
 

@@ -18,10 +18,9 @@ Page: https://capraetech.io/ and https://capraetech.io/why-founder-led/
 ## 2. What we build (overview)
 Page: https://capraetech.io/what-we-build/
 
-Five things, start to finish:
+Four things, start to finish:
 - MVPs: prove your idea works before you fund all of it. Proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - Dashboards: a dashboard that runs your operations, not just reports on them.
-- Deal & financial tools: models and screeners that help you evaluate and acquire businesses.
 - AI assistants: AI agents for business operations, built one step at a time.
 - Internal tools: portals, trackers and workflows your people use every day, instead of ten spreadsheets.
 - Something else? If it saves your team hours, we'll scope it on a call.
@@ -45,18 +44,9 @@ Page: https://capraetech.io/what-we-build/business-dashboards/
 - Data first: a week on your data, outputs agreed first, the data map, formulas you sign off, then build only what the data can support. When the data isn't there, we say so: start recording it now, or drop the feature.
 - Priced after we've seen your data: after the data review, you get a feature list with hours for each.
 - Our own CRM automates the weekly client reports (sending took 2.5–3 hours, cleaning about 2 more), plans caller hours for new clients from real numbers, and shows call analytics by hour and region.
-- Examples: a supply dashboard for cleaning companies (what's stocked, what's running low and what was restocked last night, by site); an operations dashboard for clinics (visits, no-shows and revenue by location, updated daily); a portfolio dashboard for acquirers (one view across the companies you already own).
+- Examples: a supply dashboard for cleaning companies (what's stocked, what's running low and what was restocked last night, by site) and an operations dashboard for clinics (visits, no-shows and revenue by location, updated daily).
 
-## 5. Deal & financial tools
-Page: https://capraetech.io/what-we-build/deal-financial-tools/
-
-- Deal screeners, valuation models and trackers that help you evaluate and acquire businesses: the same kind of tooling Caprae uses to find and buy companies.
-- A deal screener scores targets against your buy box, so you look at fewer, better deals.
-- A valuation model stays live, so you reuse it across every target.
-- A portfolio dashboard gives you one view across the companies you already own.
-- Best for: acquirers and search funds. Hereford Johnson, on the founding team, knows exactly what an acquirer needs from a tool.
-
-## 6. AI assistants and automation
+## 5. AI assistants and automation
 Page: https://capraetech.io/what-we-build/ai-assistants/
 
 - AI agents and automations that take manual work off your team, built step by step and checked by a human. We split a process into small steps, automate and test each one, give each agent its own job, then join them into one workflow.
@@ -67,7 +57,7 @@ Page: https://capraetech.io/what-we-build/ai-assistants/
 - Governance: when an automation handles sensitive data, ITSco's AI governance controls are part of the build. Teams that don't know where AI fits can start with an AI readiness review from ITSco.
 - Priced after we've seen the work: a feature list with an hour estimate for each, at one fixed hourly rate.
 
-## 7. Internal tools and team portals
+## 6. Internal tools and team portals
 Page: https://capraetech.io/what-we-build/internal-tools/
 
 - A look inside Caprae: 60 callers, 13 account managers and 6 analysts work every day inside four tools we built ourselves.
@@ -77,15 +67,15 @@ Page: https://capraetech.io/what-we-build/internal-tools/
 - Recruitment portal: acknowledges applicants, sends the handbook, tracks submissions, gives recruiters an admin portal with AI analysis, and books interviews in one click. About 20 hours a week back for the recruitment team.
 - Not every spreadsheet needs replacing: a tool is worth it when several people need the same data, clients need to see their results, or the work repeats every week; a spreadsheet stays better when one person works through a long list row by row and marks each line by hand.
 
-## 8. Who we serve
+## 7. Who we serve
 Page: https://capraetech.io/who-we-serve/
 
 - Facility cleaning companies (https://capraetech.io/who-we-serve/facility-cleaning/): cleaning is the job; we build the software around it. Site SOP apps (each site's checklist on the cleaner's phone, with time-stamped, geotagged and checked photo proof), crew scheduling and call-out cover, training and onboarding, client supply dashboards, quote calculators and websites that rank. The page has a quote calculator demo with placeholder rates, not real pricing.
 - Clinics and healthcare operators (https://capraetech.io/who-we-serve/clinics-healthcare/): software around the EHR: digital intake and insurance capture before the visit, scheduling and reminders, request routing, prior-auth tracking, denial logs, and one screen for the owner by location. Caprae Tech doesn't replace the EHR or the billing team; on healthcare builds, ITSco (run by two of the founders) covers infrastructure, security and HIPAA.
-- Acquirers and search funds (https://capraetech.io/who-we-serve/acquirers-search-funds/): search tools built by people who've searched, the same tools Caprae runs search on. Three tools, one per stage, in one portal: Find (owners who fit your buy box, scored before anyone calls), Reach (a search CRM with every owner, note and next step, and outreach numbers built in), Evaluate (a one-page brief on any company before the first call, with news and legal monitoring through diligence). Shaped by Kevin Hong, who ran his own search, and Hereford Johnson, who bought Mad Dog Facility Partners and runs it as CEO. Caprae Capital, the sister company, has helped close $110M+ in deals across 8 countries. We also do IT due diligence for M&A. Teams that want the search run for them can use Caprae Capital's Search as a Service.
+- Acquirers and search funds (https://capraetech.io/who-we-serve/acquirers-search-funds/): search tools built by people who've searched, the same tools Caprae runs search on. Three tools, one per stage, in one portal: Find (owners who fit your buy box, scored before anyone calls), Reach (a search CRM with every owner, note and next step, and outreach numbers built in), Evaluate (a one-page brief on any company before the first call, with news and legal monitoring through diligence). Shaped by Kevin Hong, who ran his own search, and Hereford Johnson, who bought Mad Dog Facility Partners and runs it as CEO. Caprae Capital, the sister company, has helped close $130M+ in deals across 8 countries. We also do IT due diligence for M&A. Teams that want the search run for them can use Caprae Capital's Search as a Service.
 - Service businesses (https://capraetech.io/who-we-serve/service-businesses/): win the job, run the job, get paid, without the spreadsheet juggling. Quote and job trackers, customer portals (customers check status themselves) and AI follow-up drafts.
 
-## 9. How it works
+## 8. How it works
 Page: https://capraetech.io/how-it-works/
 
 Four steps. You hand it over; we run it end to end.
@@ -103,7 +93,7 @@ A typical week:
 
 Who does the work: founders decide, engineers ship. One chain of accountability, from the founder in your CTO seat to the person writing the code.
 
-## 10. Pricing
+## 9. Pricing
 Page: https://capraetech.io/pricing/
 
 - Software development, priced in hours. No random quote and no lump-sum quote.
@@ -115,7 +105,7 @@ Page: https://capraetech.io/pricing/
 - What is the hourly rate? It's fixed per domain and shared on the call, before you commit to anything. The site does not publish the rate.
 - The pricing page has a feature builder and a sample scope (a cleaning company's first build: client portal 48 hours, ops dashboard 40 hours, staff logins and roles 24 hours, admin panel 24 hours, import from your tools 20 hours, SMS and email alerts 12 hours, 168 hours in scope; AI photo checking at 36 hours was left for later, with a supervisor reviewing until the rules are trusted). These are examples of how a scope reads, not a quote.
 
-## 11. How Caprae Tech compares with a typical dev shop
+## 10. How Caprae Tech compares with a typical dev shop
 Page: https://capraetech.io/why-founder-led/
 
 - Who decides what gets built: a dev shop: you, feature by feature. Caprae Tech: a founder who has shipped products, working with you.
@@ -132,7 +122,7 @@ Lessons the founders work by:
 4. Do it by hand before you automate it.
 5. A founder's time is the most expensive thing in the building. Yours included. That's why you get one weekly check-in, not daily questions.
 
-## 12. Work and results
+## 11. Work and results
 Page: https://capraetech.io/work/
 
 Nine builds, three kinds: 5 built for Caprae, 2 client builds, 2 founder companies. We measure a build by the time it hands back to the people using it.
@@ -148,17 +138,17 @@ Nine builds, three kinds: 5 built for Caprae, 2 client builds, 2 founder compani
 - Destroy Drive (https://capraetech.io/work/destroy-drive/), a company our founders run: wipes, destroys and removes IT hardware on site, in 100+ countries and 400+ cities, to NIST and NAID standards, and decommissions whole data centers. Kevin Hong is a partner, and Zackary Beckham ran its global service delivery. Published client results (Destroy Drive's work, not Caprae Tech builds) include 100,000+ hard drives wiped across three data centers for a publicly traded IT asset manager.
 - Also on the Work page: sourcing automation took lead generation from 6 leads an hour to 50–60.
 
-## 13. Founders and principals
+## 12. Founders and principals
 Page: https://capraetech.io/founders/
 
 They've built, bought and grown companies in tech, healthcare, data and acquisitions. These are the people in your CTO seat.
 
 - Kevin Hong, Founder (https://capraetech.io/founders/kevin-hong/): founder of Caprae Capital. Serial tech entrepreneur with 10+ years of experience. Scaled two startups to $31M and $7M ARR and raised $8M+ in venture capital. Author of the #1 Amazon bestseller The Outlier Approach, published in Forbes and Inc. Clinical Adjunct Faculty of Entrepreneurship at Chapman University. MBA, Chicago Booth. Co-founder of Destroy Drive. Before founding Caprae Capital he spent seven years as a business journalist. Helps most with MVPs.
 - Zackary Beckham, Founder (https://capraetech.io/founders/zackary-beckham/): a founder of Caprae Capital. Chief of Business Development at ITSco (Integrated Technical Services). 12+ years in operations and program management. Self-funded searcher who acquired a managed IT services business, which he runs. More than 10 years of technology and AI implementation experience; leads Caprae Capital's AI-Readiness assessments and oversees Tech Development. Co-founder of Destroy Drive. BS Information Technology and BS Biology, Arizona State. Helps most with clinics and healthcare.
-- Hereford Johnson, Principal Adviser (https://capraetech.io/founders/hereford-johnson/): a Principal at Caprae Capital. Founder of Third Equity Partners. Entrepreneur across traditional, self-funded and independent-sponsor acquisition models; educator and trusted voice in the search-fund community. As a buyer he closed acquisitions in 11 and 6 months. MBA, Northwestern Kellogg; previously Deloitte Consulting. Helps most with acquirers, search funds and deal tools.
+- Hereford Johnson, Principal Adviser (https://capraetech.io/founders/hereford-johnson/): a Principal at Caprae Capital. Founder of Third Equity Partners. Entrepreneur across traditional, self-funded and independent-sponsor acquisition models; educator and trusted voice in the search-fund community. As a buyer he closed acquisitions in 11 and 6 months. MBA, Northwestern Kellogg; previously Deloitte Consulting. Helps most with acquirers, search funds and facility cleaning.
 - Mike Savino (https://capraetech.io/founders/mike-savino/): leads ITSco, a healthcare tech and engineering company delivering data analysis and analytics projects. At MA Media he led the business-process automation and systems re-engineering that cut headcount by 50% and saved over $3 million a year, scaled revenue from $4 million to $20 million in 48 months (400% growth), and built a 20-person application development team within 24 months. Helps most with clinics, healthcare and dashboards.
 
-## 14. Build team
+## 13. Build team
 Page: https://capraetech.io/build-team/
 
 Founders decide. Engineers ship. A small team with senior judgment.
@@ -167,7 +157,7 @@ Founders decide. Engineers ship. A small team with senior judgment.
 - Hiten Mehta, Engineer (https://capraetech.io/build-team/hiten/): front-end and product builds; works across design and development.
 - Dejan Azul Ultamar, Engineer (https://capraetech.io/build-team/dejan/): platform features and integrations; full-stack engineer with a professional certification in Data Science from BNSP.
 
-## 15. Frequently asked questions
+## 14. Frequently asked questions
 Page: https://capraetech.io/faq/
 
 - Do I need to be technical? No. Most of the owners we work with aren't. Tell us the problem in plain words and a founder turns it into the product.
@@ -184,12 +174,12 @@ Page: https://capraetech.io/faq/
 - Is a human still in the loop? Where it matters, yes. In Lead QA, AI scores every lead and a human spot-checks the greens and the reds before anything goes out. Every AI step is tested against a human before it ships.
 - Code ownership, contracts, data security and compliance: covered on the first call and in the agreement. The site does not publish details, so don't state any.
 
-## 16. Terms the site uses
+## 15. Terms the site uses
 - MVP: the first working version of a product your customers can use, cut to what a customer will pay for, then built out.
 - Founder in your CTO seat: a founder takes the CTO/CEO seat on your product, sets the week's priorities and meets you once a week. On the site this is described as an alternative to a technical co-founder for the product.
 - Typical dev shop: the site's comparison point: you decide feature by feature, you get a lump-sum quote, and after launch it's handover and goodbye.
 
-## 17. Pages and links
+## 16. Pages and links
 - Home: https://capraetech.io/
 - What we build: https://capraetech.io/what-we-build/
 - Who we serve: https://capraetech.io/who-we-serve/
