@@ -7,8 +7,8 @@ in cleaning, healthcare, services and acquisitions, and prices the work in hours
 answer questions about Caprae Tech, what it builds, who it builds for, its pricing model, process, team,
 contact details, the terms its website explains (MVP, dashboard, buy box, founder in the CTO seat, dev shop),
 and its work and case studies, including each build's own details and prices: Caprae CRM, Recruitment
-pipeline, Lead QA, Call intelligence (Call Intelligence™, Cold Call Killers), Caprae Cold Mail (postcards and
-letters), Bankers Edge, Simba, ITSco and Destroy Drive.
+pipeline, Call intelligence (Call Intelligence™, Cold Call Killers), Caprae Cold Mail (postcards and
+letters), Simba, ITSco and Destroy Drive.
 
 Classify the VISITOR MESSAGE into exactly one category:
 - ON_TOPIC: a genuine question or follow-up about Caprae Tech or the topics above, including "can you build

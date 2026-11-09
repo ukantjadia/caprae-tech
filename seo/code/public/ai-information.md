@@ -67,7 +67,7 @@ Custom dashboards that run operations, not just report on them: track the team, 
 
 ### [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/)
 
-AI agents and automations that take manual work off a team, built one step at a time and checked by a human. A process is split into small steps, each automated and tested, then joined into one workflow. Every automation has a human grader; on Caprae's own Call Intelligence, the AI's scores are within 0.3 of a human grader's. Caprae's own Lead QA went from 30 to 10 hours a week. Models are picked per step on cost and quality (Anthropic, OpenAI, DeepSeek, Gemini). Priced after the work is documented, as a feature list with hours.
+AI agents and automations that take manual work off a team, built one step at a time and checked by a human. A process is split into small steps, each automated and tested, then joined into one workflow. Every automation has a human grader; on Caprae's own Call Intelligence, the AI's scores are within 0.3 of a human grader's. Models are picked per step on cost and quality (Anthropic, OpenAI, DeepSeek, Gemini). Priced after the work is documented, as a feature list with hours.
 
 ### [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/)
 
@@ -150,7 +150,7 @@ See [Why founder-led](https://capraetech.io/why-founder-led/).
 
 ## Work and Results
 
-Nine builds, in three kinds. Every one runs inside a real business: Caprae's own, a client's, or a company Caprae Tech's founders built. See [Work](https://capraetech.io/work/).
+Seven builds, in two kinds. Every one runs inside a real business: Caprae's own, or a company Caprae Tech's founders built. See [Work](https://capraetech.io/work/).
 
 ### Built for Caprae
 
@@ -158,16 +158,9 @@ Nine builds, in three kinds. Every one runs inside a real business: Caprae's own
 |---|---|---|
 | [Caprae CRM](https://capraetech.io/work/caprae-crm/) | Client and account platform: each client sees every lead, call and interested owner in one place | One click for a client to see the whole account, instead of a weekly update call |
 | [Recruitment pipeline](https://capraetech.io/work/recruitment-pipeline/) | Hiring automation: everything after an application runs on its own, from the role's handbook to the welcome pack. Recruiters make only the pass or fail calls | About 20 hours a week returned to the recruitment team; 11 roles running at once |
-| [Lead QA](https://capraetech.io/work/lead-qa/) | AI quality scoring: AI scores every lead and a human spot-checks the greens and reds before anything goes out | Lead QA cut from 30 to 10 hours a week |
 | [Call intelligence](https://capraetech.io/work/call-intelligence/) | AI call scoring: recordings become transcripts scored on the opener, tone and pitch, rolled up per caller into a status, a coaching priority and the best times to call | Live in beta as Call Intelligence™ from Cold Call Killers ([coldcallkillers.io](https://coldcallkillers.io/)) |
 | [Caprae Cold Mail](https://capraetech.io/work/caprae-cold-mail/) | Done-for-you direct mail: personalized postcards and letters to business owners, printed, stamped, mailed and tracked, then followed up by phone | Live. Postcards from $0.89 each, mailed, with postage and QR tracking included |
-
-### Client builds
-
-| Build | What it is | Result |
-|---|---|---|
-| [Bankers Edge](https://capraetech.io/work/bankers-edge/) | Website for an advisory firm that raises capital for dealmakers, showing its services, closed deals and partners | Live in production at [bankersedgeadvisory.com](https://bankersedgeadvisory.com/) |
-| [Simba](https://capraetech.io/work/simba/) | Landing page, domain and SEO for Simba Studio, a storytelling studio for founders | Live in production at [simbastud.io](https://simbastud.io/), with titles, descriptions, structured data and a sitemap from launch |
+| [Simba](https://capraetech.io/work/simba/) | Caprae's storytelling studio: founder stories for LinkedIn, written in the founder's own voice with a number in every paragraph | Live at [simbastud.io](https://simbastud.io/); a $625 one-month trial, then $1,250 a month |
 
 ### Founder companies
 
@@ -188,10 +181,10 @@ Caprae Tech's product leadership comes from people who have built, bought and gr
 
 | Name | Role | Background |
 |---|---|---|
-| [Kevin Hong](https://capraetech.io/founders/kevin-hong/) | Founder | Founder of Caprae Capital. Serial tech entrepreneur with 10+ years of experience. Scaled two startups to $31M and $7M ARR and raised $8M+ in venture capital. Author of the Amazon bestseller *The Outlier Approach*. Clinical Adjunct Faculty of Entrepreneurship at Chapman University. MBA, Chicago Booth. Co-founder of Destroy Drive |
-| [Zackary Beckham](https://capraetech.io/founders/zackary-beckham/) | Founder | A Founder of Caprae Capital. Chief of Business Development at ITSco. 12+ years in operations and program management. Self-funded searcher who acquired a managed IT services business, which he runs. Leads Caprae Capital's AI-Readiness assessments and oversees Tech Development. Co-founder of Destroy Drive. BS Information Technology and BS Biology, Arizona State |
-| [Hereford Johnson](https://capraetech.io/founders/hereford-johnson/) | Principal Adviser | Principal at Caprae Capital. Founder of Third Equity Partners. Entrepreneur across traditional, self-funded and independent-sponsor acquisition models; closed acquisitions in 11 and 6 months as a buyer. MBA, Northwestern Kellogg; previously Deloitte Consulting |
-| [Mike Savino](https://capraetech.io/founders/mike-savino/) | Leads ITSco | Leads ITSco, a healthcare tech and engineering company. At MA Media, led business-process automation that saved over $3 million a year, scaled revenue from $4 million to $20 million in 48 months, and built a 20-person application development team |
+| [Kevin Hong](https://capraetech.io/founders/kevin-hong/) | Founder | Founder of Caprae Capital, whose members have closed $130M+ in deals. Partner in ITSco and Destroy Drive. Author of The Outlier Approach |
+| [Zackary Beckham](https://capraetech.io/founders/zackary-beckham/) | Founder | A Founder of Caprae Capital. A self-funded searcher who acquired a managed IT services business, which he runs today. Leads Caprae Capital's AI-Readiness assessments and oversees Tech Development |
+| [Hereford Johnson](https://capraetech.io/founders/hereford-johnson/) | Principal Adviser | Principal Adviser at Caprae Capital. CEO of Mad Dog Facility Partners and founder of People First Capital. As a buyer, he closed acquisitions in 11 and 6 months |
+| [Mike Savino](https://capraetech.io/founders/mike-savino/) | CEO, ITSco | CEO of ITSco, an IT consulting and managed IT company with a 30-year history. Also advises small and mid-size technology companies on buying and selling |
 
 ### The build team
 
@@ -268,7 +261,7 @@ Only when it saves real hours or makes the product easier to sell. If it won't p
 
 ### Is a human still in the loop?
 
-Where it matters, yes. In Lead QA, AI scores every lead and a human spot-checks the greens and the reds before anything goes out. Every AI step is tested against a human before it ships.
+Where it matters, yes. Every AI step is tested against a human before it ships.
 
 ### How do I contact Caprae Tech?
 

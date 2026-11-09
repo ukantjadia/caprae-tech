@@ -55,12 +55,12 @@ def test_clean_message():
 
 def test_strip_unknown_links_keeps_ours_only():
     text = ("See https://capraetech.io/pricing/ or https://evil.example.com/x and www.phish.io, "
-            "email partners@capraecapital.com or hacker@evil.com, call +1 818-636-0839 or +1 555 123 4567.")
+            "email partners@capraecapital.com or hacker@evil.com, call +1 310-555-0142 or +1 555 123 4567.")
     out = guard.strip_unknown_links(text)
     assert "https://capraetech.io/pricing/" in out
     assert "evil" not in out and "phish" not in out
     assert "partners@capraecapital.com" in out and "hacker@" not in out
-    assert "818-636-0839" not in out and "555" not in out     # Caprae Tech publishes no phone number
+    assert "310-555-0142" not in out and "555" not in out     # Caprae Tech publishes no phone number
 
 
 def test_unknown_site_path_removed():
@@ -69,7 +69,7 @@ def test_unknown_site_path_removed():
 
 
 def test_unverified_numbers():
-    assert guard.unverified_numbers("Kevin scaled two startups to $31M and $7M ARR; MA Media grew 400%.", KNOWLEDGE) == []
+    assert guard.unverified_numbers("Caprae Capital members have closed $130M+ in deals; ITSco has a 30-year history.", KNOWLEDGE) == []
     assert guard.unverified_numbers("Postcards are $0.89 with membership.", KNOWLEDGE) == []
     assert guard.unverified_numbers("It costs $999 per month.", KNOWLEDGE) == ["$999"]
     assert guard.unverified_numbers("You save 75% on fees.", KNOWLEDGE) == ["75%"]
@@ -124,7 +124,7 @@ VISITOR_QUESTIONS = _site_faq_questions() + [
     "Can you build a deal screener for my search fund?", "Can you build a CRM for my company?",
     "What industries do you work with?", "Do you work with clinics?", "Who owns the code?",
     "Can I book a call?", "What is an MVP?", "Do you work with staffing agencies?", "How is this different from a dev shop?",
-    "Tell me about your case studies", "What results did Lead QA have?", "Thanks!", "hello",
+    "Tell me about your case studies", "What results did Call intelligence have?", "Thanks!", "hello",
     "Do you offer AI automation for small businesses?", "What happens in the weekly check-in?",
 ]
 

@@ -59,7 +59,7 @@ section[data-section] .btn-white, section[data-section] .btn-white * { text-shad
 .fx-live { display: flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ash); white-space: nowrap; }
 .fx-live .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.8s ease-out infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(58, 211, 137, 0.6); } 100% { box-shadow: 0 0 0 9px rgba(58, 211, 137, 0); } }
-/* lead QA: rows get scored green or red, one by one */
+/* AI scoring: rows get scored green or red, one by one */
 .fx-qa i { position: absolute; left: 8px; right: 8px; height: 6px; border-radius: 3px; background: var(--hair); animation: score 4s steps(1) infinite; }
 .fx-qa i:nth-child(1) { top: 8px; } .fx-qa i:nth-child(2) { top: 18px; animation-delay: 0.5s; } .fx-qa i:nth-child(3) { top: 28px; animation-delay: 1s; } .fx-qa i:nth-child(4) { top: 38px; animation-delay: 1.5s; }
 .fx-qa i:nth-child(3) { animation-name: score-red; }

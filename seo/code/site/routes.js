@@ -86,7 +86,7 @@ export const ROUTES = {
   '/work/': {
     label: 'Work', parent: '/',
     title: 'Our Work: Built for Ourselves First | Caprae Tech',
-    description: 'Tools running inside a real business today: a CRM, a recruitment pipeline saving ~20 hrs a week, and lead QA cut from 30 to 10 hours a week.',
+    description: 'Tools running inside a real business today: a CRM, a recruitment pipeline saving ~20 hrs a week, and sourcing up from 6 to 50–60 leads an hour.',
   },
   '/how-it-works/': {
     label: 'How it works', parent: '/',
@@ -118,22 +118,22 @@ export const ROUTES = {
   '/founders/kevin-hong/': {
     label: 'Kevin Hong', parent: '/founders/',
     title: 'Kevin Hong, Founder | Caprae Tech',
-    description: 'Kevin Hong scaled two startups to $31M and $7M ARR, raised $8M+ and wrote the #1 Amazon bestseller The Outlier Approach. MBA, Chicago Booth.',
+    description: "Kevin Hong founded Caprae Capital, whose members have closed $130M+ in deals. Partner in ITSco and Destroy Drive and author of The Outlier Approach.",
   },
   '/founders/hereford-johnson/': {
     label: 'Hereford Johnson', parent: '/founders/',
     title: 'Hereford Johnson, Principal Adviser | Caprae Tech',
-    description: 'Founder of Third Equity Partners and a trusted voice in the search-fund community, across self-funded and independent-sponsor deals. Kellogg MBA.',
+    description: "Hereford Johnson is a Principal Adviser at Caprae Capital and CEO of Mad Dog Facility Partners. As a buyer, he closed acquisitions in 11 and 6 months.",
   },
   '/founders/zackary-beckham/': {
     label: 'Zackary Beckham', parent: '/founders/',
     title: 'Zackary Beckham, Founder | Caprae Tech',
-    description: 'Chief of Business Development at ITSco and co-founder of Destroy Drive, with 12+ years in operations and program management. Arizona State.',
+    description: "Zackary Beckham is a Founder of Caprae Capital: a self-funded searcher who runs the managed IT business he bought, and leads the firm's AI-Readiness work.",
   },
   '/founders/mike-savino/': {
     label: 'Mike Savino', parent: '/founders/',
     title: 'Mike Savino, ITSco | Caprae Tech',
-    description: 'Mike Savino leads ITSco, a healthcare tech and engineering company delivering data analysis and analytics projects.',
+    description: "Mike Savino is CEO of ITSco, an IT consulting and managed IT company with a 30-year history, and advises technology companies on buying and selling.",
   },
 
   // ---- Build team
@@ -174,11 +174,6 @@ export const ROUTES = {
     title: 'Recruitment Pipeline Automation | Caprae Tech',
     description: 'Applications trigger the role\'s handbook, submissions are tracked, recruiters grade in an admin app and interviews and onboarding follow automatically. ~20 hours a week returned.',
   },
-  '/work/lead-qa/': {
-    label: 'Lead QA', parent: '/work/',
-    title: 'Lead QA: AI Lead Quality Scoring | Caprae Tech',
-    description: 'AI scores every lead and a human spot-checks the greens and reds before anything goes out. Lead QA cut from 30 to 10 hours a week.',
-  },
   '/work/call-intelligence/': {
     label: 'Call intelligence', parent: '/work/',
     title: 'Call Intelligence: AI Call Scoring | Caprae Tech',
@@ -189,15 +184,10 @@ export const ROUTES = {
     title: 'Caprae Cold Mail: Done-for-You Direct Mail | Caprae Tech',
     description: 'Personalized postcards and letters to the business owners you choose: designed, printed, stamped, mailed and tracked, then followed up with a call.',
   },
-  '/work/bankers-edge/': {
-    label: 'Bankers Edge', parent: '/work/',
-    title: 'Bankers Edge: Advisory Firm Website | Caprae Tech',
-    description: 'The website for Bankers Edge Advisory, a firm that raises capital for dealmakers: designed and built to show its services, closed deals and partners at a glance. Live.',
-  },
   '/work/simba/': {
     label: 'Simba', parent: '/work/',
-    title: 'Simba: Landing Page & SEO Build | Caprae Tech',
-    description: 'The website for Simba Studio, a storytelling studio for founders: built on its own domain and set up for search from launch. Live at simbastud.io.',
+    title: "Simba: Caprae's Storytelling Studio | Caprae Tech",
+    description: "Simba is Caprae's storytelling studio: founder stories for LinkedIn, in the founder's own voice and backed by data. A $625 trial, then $1,250 a month.",
   },
   '/work/itsco/': {
     label: 'ITSco', parent: '/work/',

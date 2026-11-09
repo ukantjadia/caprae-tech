@@ -22,7 +22,7 @@ Full verified fact sheet: https://capraetech.io/ai-information.md (where this fi
 
 - [MVP development](https://capraetech.io/what-we-build/mvp-development/): Prove your idea works before you fund all of it. Founder-led MVP development, proofs of concept and AI MVPs costed per use, live in 4–8 weeks.
 - [Business dashboards](https://capraetech.io/what-we-build/business-dashboards/): Custom dashboards that run your operations: track the team, run automations, send weekly reports and show clients their numbers. Data first, then build.
-- [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/): AI agents and automations that take manual work off a team, built step by step and checked by a human. Caprae's own lead QA went from 30 to 10 hrs a week.
+- [AI assistants & automation](https://capraetech.io/what-we-build/ai-assistants/): AI agents and automations that take manual work off a team, built step by step and checked by a human.
 - [Internal tools & team portals](https://capraetech.io/what-we-build/internal-tools/): The four tools Caprae's own team works in every day: call scoring, a robo-dialer, the Caprae CRM and a recruitment portal. The CRM cut account-management overhead by 50%.
 
 ## Who It Serves
@@ -59,23 +59,22 @@ Every week: the founder sets priorities on Monday, engineers build and test agai
 
 ## Results
 
-Every build runs inside a real business: Caprae's own, a client's, or a company the founders built.
+Every build runs inside a real business: Caprae's own, or a company the founders built.
 
 - Recruitment pipeline (hiring automation): about 20 hours a week returned to the recruitment team
-- Lead QA (AI quality scoring): lead QA cut from 30 to 10 hours a week
 - Sourcing automation: lead generation from 6 leads an hour to 50–60
 - Caprae CRM (client and account platform): one click for a client to see the whole account, instead of a weekly update call
 - Call intelligence (AI call scoring): live in beta as Call Intelligence™ from Cold Call Killers
 - Caprae Cold Mail (done-for-you direct mail): live; postcards from $0.89 each, mailed, postage and QR tracking included
-- Client builds live in production: Bankers Edge (bankersedgeadvisory.com) and Simba (simbastud.io)
+- Simba (Caprae's storytelling studio): live at simbastud.io; a $625 one-month trial, then $1,250 a month
 - Companies our founders run: ITSco (managed IT, security and compliance) and Destroy Drive (data destruction services)
 
 ## Team
 
-- Kevin Hong, Founder: founder of Caprae Capital; scaled two startups to $31M and $7M ARR and raised $8M+; author of The Outlier Approach; MBA, Chicago Booth
-- Zackary Beckham, Founder: a founder of Caprae Capital; Chief of Business Development at ITSco; 12+ years in operations and program management
-- Hereford Johnson, Principal Adviser: founder of Third Equity Partners; search-fund and independent-sponsor acquisitions; MBA, Northwestern Kellogg
-- Mike Savino: leads ITSco, a healthcare tech and engineering company
+- Kevin Hong, Founder: Founder of Caprae Capital, whose members have closed $130M+ in deals; Partner in ITSco and Destroy Drive; Author of The Outlier Approach
+- Zackary Beckham, Founder: A Founder of Caprae Capital; A self-funded searcher who acquired a managed IT services business, which he runs today; Leads Caprae Capital's AI-Readiness assessments and oversees Tech Development
+- Hereford Johnson, Principal Adviser: Principal Adviser at Caprae Capital; CEO of Mad Dog Facility Partners and founder of People First Capital; As a buyer, he closed acquisitions in 11 and 6 months
+- Mike Savino, CEO of ITSco: CEO of ITSco, an IT consulting and managed IT company with a 30-year history; Also advises small and mid-size technology companies on buying and selling
 - Siddhant Pahuja, Head of AI & Automation: architecture, feature definition and how every AI step is tested against a human
 - Ukant Jadia, Lead engineer: day-to-day execution and the core builds
 - Hiten Mehta, Engineer: front-end and product builds

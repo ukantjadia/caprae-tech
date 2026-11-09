@@ -13,7 +13,7 @@ const MAX = 600
 const SHORT_WORDS = 60                      // longer answers show this many words, then "Know more"
 const STORE = 'ct-chat-v1'
 const SITE = 'https://capraetech.io'
-const ALLOWED = [SITE + '/', 'https://capraecapital.com', 'https://coldcallkillers.io', 'https://bankersedgeadvisory.com',
+const ALLOWED = [SITE + '/', 'https://capraecapital.com', 'https://coldcallkillers.io',
   'https://simbastud.io', 'https://www.linkedin.com/in/kevinhshong', 'mailto:partners@capraecapital.com']
 const SUGGESTIONS = ['What do you build?', 'How does pricing work?', 'Do I need to be technical?', 'How do I get started?']
 

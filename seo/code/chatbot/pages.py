@@ -19,10 +19,8 @@ PAGES = {
     "/work/": "Work",
     "/work/caprae-crm/": "Caprae CRM",
     "/work/recruitment-pipeline/": "Recruitment pipeline",
-    "/work/lead-qa/": "Lead QA",
     "/work/call-intelligence/": "Call intelligence",
     "/work/caprae-cold-mail/": "Caprae Cold Mail",
-    "/work/bankers-edge/": "Bankers Edge",
     "/work/simba/": "Simba",
     "/work/itsco/": "ITSco",
     "/work/destroy-drive/": "Destroy Drive",
@@ -45,7 +43,6 @@ PAGES = {
 ALLOWED_EXTERNAL = (
     "https://capraecapital.com",
     "https://coldcallkillers.io",
-    "https://bankersedgeadvisory.com",
     "https://simbastud.io",
     "https://www.linkedin.com/in/kevinhshong",
 )

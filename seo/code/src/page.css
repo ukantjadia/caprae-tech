@@ -107,6 +107,7 @@
 /* phones: the sample scope keeps feature and hours; "what it does" is the column that goes */
 .sheet td:last-child, .sheet th:last-child { white-space: nowrap; }
 .sheet .sh-note td { white-space: normal; }
+.sheet.wrap-last td:last-child { white-space: normal; }
 @media (max-width: 560px) { .sheet tbody td:nth-child(2), .sheet thead th:nth-child(2), .sheet tfoot tr:not(.sh-note) td:nth-child(2) { display: none; } .sheet td, .sheet th { padding: 12px 16px; } }
 
 /* ---- industry hero panel: the three builds, numbered ---- */
