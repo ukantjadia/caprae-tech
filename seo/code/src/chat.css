@@ -72,8 +72,11 @@
 
 @media (max-width:520px) {
   .ct-launch { right:16px; bottom:16px; width:52px; height:52px; }
-  .ct-panel { inset:0; right:0; bottom:0; width:100%; max-width:none; height:100%; height:100dvh; max-height:none; z-index:1002;
-    border:0; border-radius:0; }
+  /* a floating sheet, not a takeover: about three-quarters of the screen, the page still visible above it */
+  .ct-panel { left:auto; right:12px; bottom:12px; width:min(340px, calc(100vw - 64px)); max-width:none; z-index:1002;
+    height:min(500px, 62vh); height:min(500px, 62dvh); max-height:none; border-radius:18px; }
+  .ct-head { padding:16px 16px 12px; }
+  .ct-title { font-size:23px; }
   .ct-msg { max-width:92%; }
   html.ct-open, html.ct-open body { overflow:hidden; }       /* the page behind doesn't scroll on phones */
 }
